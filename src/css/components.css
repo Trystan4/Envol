@@ -1,0 +1,134 @@
+/* Reusable pieces: buttons, cards, bars, notices, form fields. */
+.brand { display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 20px; color: var(--cabine); }
+
+.actions { margin-top: auto; padding-top: 24px; display: flex; flex-direction: column; align-items: center; gap: 6px; }
+
+.btn {
+  width: 100%;
+  min-height: 60px;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: var(--cabine);
+  color: var(--on-cabine);
+  font-size: 19px;
+  font-weight: 700;
+  padding: 0 24px;
+}
+.btn:active { transform: scale(.98); }
+.btn[disabled] { opacity: .35; }
+
+.link {
+  background: none;
+  border: 0;
+  color: var(--cabine);
+  font-weight: 600;
+  padding: 10px 12px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.foot { display: flex; justify-content: center; gap: 4px; flex-wrap: wrap; margin-top: 12px; }
+.small-link {
+  min-height: 44px;
+  background: none;
+  border: 0;
+  color: var(--ink-muted);
+  font-size: 14px;
+  font-weight: 600;
+  padding: 10px 10px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.card { background: var(--surface-raised); border-radius: var(--radius-card); box-shadow: var(--shadow-card); padding: 18px; }
+
+.top { display: flex; align-items: center; gap: 12px; }
+.close {
+  width: 44px;
+  height: 44px;
+  flex: none;
+  border-radius: 50%;
+  border: 0;
+  background: var(--surface-raised);
+  box-shadow: var(--shadow-card);
+  font-size: 18px;
+}
+
+.bar { flex: 1; height: 8px; border-radius: var(--radius-pill); background: var(--line); overflow: hidden; }
+.bar i { display: block; height: 100%; background: var(--cabine); border-radius: var(--radius-pill); transition: width .3s; }
+
+.notice {
+  margin: 14px 0 0;
+  padding: 12px 14px;
+  border-radius: var(--radius-choice);
+  background: var(--aurore-soft);
+  color: var(--aurore);
+  font-size: 15px;
+  line-height: 21px;
+  font-weight: 600;
+}
+.success { margin: 14px 0 0; font-weight: 700; color: var(--acquis); }
+.warning { margin: 14px 0 0; font-weight: 700; color: var(--aurore); }
+
+.field { display: flex; flex-direction: column; gap: 8px; margin-top: 22px; }
+.field input {
+  min-height: 52px;
+  padding: 0 16px;
+  border: 2px solid var(--line);
+  border-radius: var(--radius-choice);
+  background: var(--surface-raised);
+  font-size: 18px;
+}
+
+/* Horizontal gauge row: label, bar, value. */
+.gauge { display: flex; align-items: center; gap: 12px; }
+.gauge .name { flex: 1 1 40%; min-width: 0; font-size: 15px; line-height: 20px; }
+.gauge .g { flex: 1 1 45%; height: 10px; border-radius: var(--radius-pill); background: var(--line); overflow: hidden; }
+.gauge .g i { display: block; height: 100%; background: var(--cabine); }
+.gauge .n { width: 56px; flex: none; text-align: right; font-weight: 700; font-variant-numeric: tabular-nums; }
+.gauges { display: flex; flex-direction: column; gap: 12px; }
+.gauge.stacked { display: grid; grid-template-columns: 1fr auto; row-gap: 6px; column-gap: 12px; }
+.gauge.stacked .g { grid-column: 1 / -1; }
+
+@media (prefers-reduced-motion: reduce) {
+  .btn:active { transform: none; }
+}
+
+/* Backup reminder on the home screen. */
+.reminder { margin-top: 14px; padding: 12px 14px; display: flex; flex-direction: column; align-items: flex-start; gap: 2px; }
+.reminder p { margin: 0; font-size: 15px; line-height: 21px; color: var(--ink-muted); }
+.reminder .link { padding-left: 0; }
+
+/* On/off switch. */
+.setting { display: flex; align-items: center; gap: 14px; margin-top: 22px; }
+.setting p { font-size: 14px; line-height: 19px; margin-top: 2px; }
+.switch {
+  flex: none;
+  width: 60px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  background: none;
+  position: relative;
+}
+.switch span {
+  position: absolute;
+  inset: 7px 0;
+  border-radius: var(--radius-pill);
+  background: var(--line);
+  transition: background .2s;
+}
+.switch span::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--surface-raised);
+  box-shadow: 0 1px 3px #0003;
+  transition: transform .2s;
+}
+.switch[aria-checked="true"] span { background: var(--acquis); }
+.switch[aria-checked="true"] span::after { transform: translateX(30px); }

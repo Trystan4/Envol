@@ -1,0 +1,93 @@
+// Figures shown on the home, results and summary screens. Pure.
+
+import { MASTERED_LEVEL, DAY, CALENDAR_DAYS, BACKUP_REMINDER_DAYS } from "./config.js";
+import { isSeen, newQuota } from "./engine.js";
+import { grade20, isoDate } from "./util.js";
+
+export function overview(questions, save, now) {
+  let seen = 0, mastered = 0, due = 0;
+  for (const q of questions) {
+    const c = save.cards[q.id];
+    if (!isSeen(c)) continue;
+    seen++;
+    if (c.level >= MASTERED_LEVEL) mastered++;
+    if (c.due <= now) due++;
+  }
+  const total = questions.length;
+  return {
+    total, seen, mastered, due,
+    toDoToday: due + newQuota(questions, save, now),
+    pct: total ? Math.round(mastered / total * 100) : 0,
+  };
+}
+
+export function themeBreakdown(questions, save) {
+  const rows = new Map();
+  for (const q of questions) {
+    const r = rows.get(q.theme) || rows.set(q.theme, { theme: q.theme, total: 0, seen: 0, mastered: 0 }).get(q.theme);
+    const c = save.cards[q.id];
+    r.total++;
+    if (isSeen(c)) { r.seen++; if (c.level >= MASTERED_LEVEL) r.mastered++; }
+  }
+  return [...rows.values()].map(r => ({ ...r, pct: Math.round(r.mastered / r.total * 100) }));
+}
+
+export function testTrend(tests) {
+  const grades = tests.map(t => grade20(t.correct, t.total));
+  const lastThree = grades.slice(-3);
+  return {
+    count: grades.length,
+    best: grades.length ? Math.max(...grades) : null,
+    last: grades.length ? grades[grades.length - 1] : null,
+    average: lastThree.length ? Math.round(lastThree.reduce((a, b) => a + b, 0) / lastThree.length * 2) / 2 : null,
+    delta: grades.length > 1 ? grades[grades.length - 1] - grades[grades.length - 2] : null,
+  };
+}
+
+// Strong and weak themes of one session. byTheme: { theme: { correct, total } }.
+export function strengths(byTheme) {
+  const rows = Object.entries(byTheme)
+    .map(([theme, v]) => ({ theme, rate: v.correct / v.total }))
+    .sort((a, b) => b.rate - a.rate);
+  let strong = rows.filter(x => x.rate >= 0.8).map(x => x.theme);
+  if (!strong.length && rows.length && rows[0].rate > 0) strong = [rows[0].theme];
+  const weak = rows.filter(x => x.rate < 0.7 && !strong.includes(x.theme)).reverse().slice(0, 3).map(x => x.theme);
+  return { strong: strong.slice(0, 3), weak };
+}
+
+export const reviewCount = (save, since) => save.reviews.filter(r => r.at >= since).length;
+
+// Consecutive days with activity, ending today (or yesterday: the day is not over yet).
+export function streak(activity, now) {
+  const days = new Set(activity);
+  let d = new Date(now);
+  if (!days.has(isoDate(d))) d.setDate(d.getDate() - 1);
+  let n = 0;
+  while (days.has(isoDate(d))) { n++; d.setDate(d.getDate() - 1); }
+  return n;
+}
+
+// The last CALENDAR_DAYS days, oldest first: { day: "YYYY-MM-DD", active, today }.
+export function calendar(activity, now) {
+  const days = new Set(activity), out = [];
+  const d = new Date(now);
+  d.setDate(d.getDate() - (CALENDAR_DAYS - 1));
+  for (let i = 0; i < CALENDAR_DAYS; i++) {
+    const day = isoDate(d);
+    out.push({ day, active: days.has(day), today: i === CALENDAR_DAYS - 1 });
+    d.setDate(d.getDate() + 1);
+  }
+  return out;
+}
+
+// Questions whose answer the user doubts, to send to whoever writes the fiches.
+export const disputed = (questions, save) => questions.filter(q => save.flags[q.id] && save.flags[q.id].dispute);
+
+// True when there is progress worth keeping and no copy was made for BACKUP_REMINDER_DAYS days
+// (counted from the first answer when no copy was ever made).
+export function backupDue(save, now) {
+  const firsts = Object.values(save.cards).map(c => c.firstSeen);
+  if (!firsts.length) return false;
+  const since = save.lastExport ?? Math.min(...firsts);
+  return now - since > BACKUP_REMINDER_DAYS * DAY;
+}

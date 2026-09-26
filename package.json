@@ -1,0 +1,21 @@
+{
+  "name": "envol",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Application de révision par QCM pour iPhone, hors ligne, hébergée sur GitHub Pages.",
+  "type": "module",
+  "packageManager": "pnpm@11.22.0",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "serve": "node tools/serve.mjs",
+    "check:deck": "node tools/check-deck.mjs",
+    "test": "node --test \"tests/unit/*.test.js\"",
+    "test:e2e": "playwright test",
+    "verify": "pnpm check:deck && pnpm test && pnpm test:e2e"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.63.0"
+  }
+}

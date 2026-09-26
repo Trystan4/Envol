@@ -1,0 +1,28 @@
+# Systèmes
+.DS_Store
+Thumbs.db
+desktop.ini
+*~
+
+# Éditeurs
+.vscode/
+.idea/
+*.swp
+
+# Dépendances et journaux
+node_modules/
+*.log
+
+# Playwright (rapports, traces, captures, dossier de l'outil MCP)
+test-results/
+playwright-report/
+blob-report/
+playwright/.cache/
+.playwright-mcp/
+
+# Copies de progression exportées depuis l'app (données personnelles)
+envol-sauvegarde-*.json
+
+# Brouillons et sources des fiches avant conversion
+brouillons/
+*.bak

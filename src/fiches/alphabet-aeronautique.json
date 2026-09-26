@@ -1,0 +1,401 @@
+{
+  "questions": [
+    {
+      "id": "alphabet-001",
+      "question": "Quelle lettre correspond à « Alfa » ?",
+      "answers": [
+        {
+          "text": "A",
+          "correct": true
+        },
+        {
+          "text": "L",
+          "correct": false
+        },
+        {
+          "text": "F",
+          "correct": false
+        },
+        {
+          "text": "N",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "alphabet-002",
+      "question": "Quelle lettre correspond à « Delta » ?",
+      "answers": [
+        {
+          "text": "D",
+          "correct": true
+        },
+        {
+          "text": "V",
+          "correct": false
+        },
+        {
+          "text": "B",
+          "correct": false
+        },
+        {
+          "text": "C",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "alphabet-003",
+      "question": "Quelle lettre correspond à « Golf » ?",
+      "answers": [
+        {
+          "text": "G",
+          "correct": true
+        },
+        {
+          "text": "S",
+          "correct": false
+        },
+        {
+          "text": "D",
+          "correct": false
+        },
+        {
+          "text": "M",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "alphabet-004",
+      "question": "Quelle lettre correspond à « Juliett » ?",
+      "answers": [
+        {
+          "text": "J",
+          "correct": true
+        },
+        {
+          "text": "T",
+          "correct": false
+        },
+        {
+          "text": "B",
+          "correct": false
+        },
+        {
+          "text": "R",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "alphabet-005",
+      "question": "Quelle lettre correspond à « Mike » ?",
+      "answers": [
+        {
+          "text": "M",
+          "correct": true
+        },
+        {
+          "text": "G",
+          "correct": false
+        },
+        {
+          "text": "B",
+          "correct": false
+        },
+        {
+          "text": "C",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "alphabet-006",
+      "question": "Quelle lettre correspond à « Papa » ?",
+      "answers": [
+        {
+          "text": "P",
+          "correct": true
+        },
+        {
+          "text": "N",
+          "correct": false
+        },
+        {
+          "text": "C",
+          "correct": false
+        },
+        {
+          "text": "H",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "alphabet-007",
+      "question": "Quelle lettre correspond à « Sierra » ?",
+      "answers": [
+        {
+          "text": "S",
+          "correct": true
+        },
+        {
+          "text": "C",
+          "correct": false
+        },
+        {
+          "text": "R",
+          "correct": false
+        },
+        {
+          "text": "N",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "alphabet-008",
+      "question": "Quelle lettre correspond à « Victor » ?",
+      "answers": [
+        {
+          "text": "V",
+          "correct": true
+        },
+        {
+          "text": "B",
+          "correct": false
+        },
+        {
+          "text": "S",
+          "correct": false
+        },
+        {
+          "text": "D",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "alphabet-009",
+      "question": "Quelle lettre correspond à « Yankee » ?",
+      "answers": [
+        {
+          "text": "Y",
+          "correct": true
+        },
+        {
+          "text": "H",
+          "correct": false
+        },
+        {
+          "text": "U",
+          "correct": false
+        },
+        {
+          "text": "S",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "alphabet-010",
+      "question": "Comment épelle-t-on la lettre B ?",
+      "answers": [
+        {
+          "text": "Bravo",
+          "correct": true
+        },
+        {
+          "text": "Charlie",
+          "correct": false
+        },
+        {
+          "text": "Tango",
+          "correct": false
+        },
+        {
+          "text": "November",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "alphabet-011",
+      "question": "Comment épelle-t-on la lettre F ?",
+      "answers": [
+        {
+          "text": "Foxtrot",
+          "correct": true
+        },
+        {
+          "text": "Bravo",
+          "correct": false
+        },
+        {
+          "text": "India",
+          "correct": false
+        },
+        {
+          "text": "Sierra",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "alphabet-012",
+      "question": "Comment épelle-t-on la lettre K ?",
+      "answers": [
+        {
+          "text": "Kilo",
+          "correct": true
+        },
+        {
+          "text": "Echo",
+          "correct": false
+        },
+        {
+          "text": "Juliett",
+          "correct": false
+        },
+        {
+          "text": "Oscar",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "alphabet-013",
+      "question": "Comment épelle-t-on la lettre N ?",
+      "answers": [
+        {
+          "text": "November",
+          "correct": true
+        },
+        {
+          "text": "Echo",
+          "correct": false
+        },
+        {
+          "text": "Sierra",
+          "correct": false
+        },
+        {
+          "text": "Delta",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "alphabet-014",
+      "question": "Comment épelle-t-on la lettre Q ?",
+      "answers": [
+        {
+          "text": "Quebec",
+          "correct": true
+        },
+        {
+          "text": "Tango",
+          "correct": false
+        },
+        {
+          "text": "Juliett",
+          "correct": false
+        },
+        {
+          "text": "Sierra",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "alphabet-015",
+      "question": "Comment épelle-t-on la lettre T ?",
+      "answers": [
+        {
+          "text": "Tango",
+          "correct": true
+        },
+        {
+          "text": "Whiskey",
+          "correct": false
+        },
+        {
+          "text": "Foxtrot",
+          "correct": false
+        },
+        {
+          "text": "Delta",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "alphabet-016",
+      "question": "Comment épelle-t-on la lettre W ?",
+      "answers": [
+        {
+          "text": "Whiskey",
+          "correct": true
+        },
+        {
+          "text": "Sierra",
+          "correct": false
+        },
+        {
+          "text": "Uniform",
+          "correct": false
+        },
+        {
+          "text": "Golf",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "alphabet-017",
+      "question": "Comment épelle-t-on la lettre Z ?",
+      "answers": [
+        {
+          "text": "Zulu",
+          "correct": true
+        },
+        {
+          "text": "Lima",
+          "correct": false
+        },
+        {
+          "text": "Delta",
+          "correct": false
+        },
+        {
+          "text": "Romeo",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "alphabet-018",
+      "question": "Comment prononce-t-on le chiffre 9 à la radio ?",
+      "answers": [
+        {
+          "text": "Niner",
+          "correct": true
+        },
+        {
+          "text": "Nine",
+          "correct": false
+        },
+        {
+          "text": "Neuf",
+          "correct": false
+        },
+        {
+          "text": "November",
+          "correct": false
+        }
+      ],
+      "explanation": "On dit « niner » pour ne pas le confondre avec « nein » ou « five »."
+    }
+  ]
+}

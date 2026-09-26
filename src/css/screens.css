@@ -1,0 +1,109 @@
+/* Styles specific to one screen. */
+
+/* Home */
+.ring { display: flex; justify-content: center; margin: 28px 0 8px; }
+.ring svg { width: 190px; height: 190px; }
+
+/* Question */
+.meta { display: flex; justify-content: space-between; gap: 12px; margin: 20px 0 6px; }
+.question { font-size: 21px; line-height: 29px; font-weight: 600; margin: 0 0 6px; }
+.hint { font-size: 14px; color: var(--ink-muted); margin: 0 0 4px; }
+.choices { display: flex; flex-direction: column; gap: 10px; margin-top: 14px; }
+.choice {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 58px;
+  padding: 12px 16px;
+  text-align: left;
+  background: var(--surface-raised);
+  border: 2px solid var(--line);
+  border-radius: var(--radius-choice);
+  font-size: 17px;
+  line-height: 23px;
+}
+.choice .mark { flex: none; width: 22px; text-align: center; font-weight: 700; }
+.choice .text { flex: 1; }
+.choice .state { flex: none; font-size: 14px; font-weight: 700; white-space: nowrap; }
+.choice.selected { border-color: var(--cabine); box-shadow: inset 0 0 0 1px var(--cabine); }
+.choice.right { border-color: var(--acquis); background: var(--acquis-soft); color: var(--acquis); }
+.choice.wrong { border-color: var(--aurore); background: var(--aurore-soft); color: var(--aurore); }
+.choice.dim { opacity: .55; }
+.choice[disabled] { cursor: default; }
+.explanation {
+  margin: 14px 0 0;
+  padding: 12px 14px;
+  border-radius: var(--radius-choice);
+  background: var(--surface-raised);
+  color: var(--ink-muted);
+  font-size: 16px;
+}
+
+.verso { margin-top: 16px; }
+.verso p { margin: 6px 0 0; font-size: 19px; line-height: 27px; font-weight: 600; }
+
+.timer {
+  flex: none;
+  min-width: 56px;
+  text-align: center;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--cabine);
+}
+.timer.low { color: var(--aurore); }
+
+.close.flag { font-size: 20px; color: var(--ink-muted); }
+.close.flag.on { color: var(--soleil); }
+.flags { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
+.chip {
+  min-height: 44px;
+  padding: 0 16px;
+  border-radius: var(--radius-pill);
+  border: 2px solid var(--line);
+  background: var(--surface-raised);
+  font-size: 15px;
+  font-weight: 600;
+}
+.chip[aria-pressed="true"] { border-color: var(--soleil); color: var(--aurore); }
+
+/* Results */
+.score { font-size: 56px; line-height: 60px; font-weight: 700; letter-spacing: -.02em; color: var(--cabine); margin: 8px 0 0; }
+.block { margin-top: 18px; }
+.block h3 { font-size: 15px; margin: 0 0 4px; }
+.block p { margin: 0; }
+.strong h3 { color: var(--acquis); }
+.weak h3 { color: var(--aurore); }
+.mistakes { margin-top: 18px; display: flex; flex-direction: column; gap: 10px; }
+.mistake { font-size: 15px; line-height: 21px; }
+.mistake b { display: block; font-weight: 600; color: var(--ink); }
+.mistake span { color: var(--acquis); }
+
+/* Summary */
+.figures { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 16px; }
+.figure { text-align: center; padding: 14px 8px; }
+.figure b { display: block; font-size: 24px; line-height: 30px; color: var(--cabine); font-variant-numeric: tabular-nums; }
+.figure span { font-size: 13px; line-height: 17px; color: var(--ink-muted); font-weight: 600; }
+
+/* Install guide */
+.steps { display: flex; flex-direction: column; gap: 16px; margin: 22px 0 0; padding: 18px; list-style: none; }
+.steps li { display: flex; gap: 14px; align-items: center; font-size: 18px; line-height: 25px; }
+.num {
+  flex: none;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--cabine);
+  color: var(--on-cabine);
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+}
+.note { margin-top: 22px; color: var(--ink-muted); font-size: 15px; line-height: 21px; }
+
+/* Summary: regularity */
+.streak { margin: 0 0 12px; font-size: 20px; font-weight: 700; color: var(--cabine); }
+.calendar { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
+.calendar span { aspect-ratio: 1; border-radius: 8px; background: var(--line); }
+.calendar span.on { background: var(--acquis); }
+.calendar span.today { box-shadow: 0 0 0 2px var(--surface-raised), 0 0 0 4px var(--cabine); }

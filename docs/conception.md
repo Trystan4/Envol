@@ -1,0 +1,154 @@
+# Conception d'Envol
+
+## Objectif
+
+Une élève PNC révise sur son iPhone, en ligne ou non. L'app doit :
+
+1. choisir les questions selon les résultats passés, en révision comme en test blanc, et tirer au
+   hasard quand il n'y a pas encore de résultat ;
+2. garder les progrès sur le téléphone, avec une copie exportable et un import sans risque ;
+3. montrer où on en est : maîtrise globale, par thème, tendance des tests blancs ;
+4. rester hébergeable sur GitHub Pages : fichiers statiques, aucune dépendance de production.
+
+## Architecture
+
+Modules JavaScript natifs, CSS natif découpé, aucune étape de build : `src/` est publié tel quel.
+
+| Module | Rôle | Dépend de |
+| --- | --- | --- |
+| `config.js` | Tous les nombres réglables | — |
+| `util.js` | Aléatoire reproductible, dates, formatage, échappement HTML | `config` |
+| `deck.js` | Lecture et validation des fiches JSON | — |
+| `storage.js` | Sauvegarde, validation stricte, import/export, annulation | `config` |
+| `engine.js` | Poids des questions, tirage pondéré, composition des séances, effet d'une réponse | `config`, `util` |
+| `summary.js` | Chiffres affichés | `engine`, `util` |
+| `screens/*.js` | Un écran chacun : données → HTML | `util` |
+| `app.js` | État, actions, démarrage | tout le reste |
+
+`deck`, `storage`, `engine` et `summary` sont **purs** : ni DOM, ni `Date.now()` caché, ni
+`Math.random()` imposé. Le temps et le générateur aléatoire sont passés en paramètre, ce qui rend
+chaque règle testable avec `node --test`.
+
+## Le moteur
+
+### État d'une question
+
+```
+{ level: 0-5, due: date de révision, seen: réponses, correct: bonnes réponses,
+  firstSeen: date de découverte, lastWrong: date de la dernière erreur | null }
+```
+
+Le niveau suit une répétition espacée classique (`INTERVALS` : 0, 1, 2, 4, 7, 15 jours) :
+bonne réponse du premier coup en révision = niveau +1 ; erreur = niveau −2 et à revoir tout de suite.
+En test blanc, une bonne réponse ne fait pas monter un niveau déjà acquis (un test blanc sert à mesurer,
+pas à s'entraîner), mais une erreur compte.
+
+### Poids
+
+```
+poids = byLevel[niveau] × (1 + 3 × taux d'erreur lissé) × échéance × erreur récente
+```
+
+- **taux d'erreur lissé** = (erreurs + 1) / (réponses + 2) : une seule erreur sur une seule réponse
+  n'est pas traitée comme 100 % d'échec.
+- **échéance** : ×0,3 si la question n'est pas encore à revoir (possible, mais moins probable),
+  de ×1 à ×2 si elle est en retard (plafond à 7 jours de retard).
+- **erreur récente** : ×2 si ratée dans les dernières 24 h (y compris en test blanc).
+- plancher à 0,05 : aucune question ne devient impossible.
+- une question jamais vue vaut 1.
+
+### Tirage pondéré
+
+Chaque question reçoit une clé aléatoire `−ln(1 − u) / poids`, on garde les plus petites. C'est un
+tirage sans remise où la probabilité de sortir est proportionnelle au poids. **Quand aucune question
+n'a de résultat, tous les poids valent 1 et c'est un mélange aléatoire uniforme** (vérifié par un test
+statistique).
+
+### Séance de révision (20 questions)
+
+1. **Nouvelles questions** : un quota par jour. Sans date d'examen : 10 par jour. Avec une date :
+   assez pour que tout soit découvert 3 jours avant l'examen (au moins 3 par jour). Au plus 15 par
+   séance. Les nouvelles déjà découvertes aujourd'hui sont décomptées.
+2. **Questions connues** : tirage pondéré pour compléter à 20.
+3. Les premiers jours, s'il n'y a pas assez de questions connues, on complète avec des nouvelles.
+4. « On s'y met » (après un bilan) multiplie par 3 le poids des thèmes à renforcer.
+
+### Test blanc (20 questions)
+
+Les 20 places sont réparties entre les thèmes **en proportion de leur nombre de questions** (méthode
+du plus fort reste), pour ressembler à un examen. Dans chaque thème, tirage pondéré avec la racine
+carrée du poids : les points faibles ressortent plus souvent qu'au hasard, mais moins qu'en révision,
+pour que la note reste représentative.
+
+### Mes erreurs, drapeaux
+
+- **Mes erreurs** (`mistakePool`) : questions ratées dans les `MISTAKES_WINDOW_DAYS` derniers jours et
+  encore sous le niveau de maîtrise, plus les questions marquées « à revoir ». Tirage pondéré, 20 au plus.
+- **Drapeau** posé par l'utilisatrice : « à revoir » multiplie le poids par 3 en révision et place la
+  question dans Mes erreurs ; « réponse douteuse » la liste dans Mes résultats pour correction des fiches.
+
+### Test blanc chronométré
+
+20 minutes (`TEST_DURATION_MIN`) calculées depuis une échéance fixe, donc justes même si l'app passe en
+arrière-plan. À l'échéance, les questions restantes comptent fausses dans la note, sans toucher leur
+progression (elles n'ont pas été vues).
+
+### Cartes mémoire
+
+Type `card` : recto, verso, explication facultative. Auto-évaluation « Je savais / Pas encore », qui
+passe par les mêmes règles de niveau que les QCM.
+
+### Maîtrise
+
+Une question est maîtrisée à partir du niveau 3. Le pourcentage affiché est calculé sur toutes les
+questions du programme.
+
+## Sauvegarde
+
+- Clé `envol-v2` dans le `localStorage` de l'app installée.
+- Tout ce qui est lu (au démarrage ou à l'import) passe par `validateSave` : types, bornes, cohérence
+  (`correct ≤ seen`, `correct ≤ total`, date d'examen réelle…). Un fichier est accepté en entier ou
+  refusé en entier, et seuls les champs connus sont recopiés.
+- Avant un import, l'état courant est gardé (`envol-v2-before-import`) : « Annuler le dernier import ».
+- Une sauvegarde illisible au démarrage est mise de côté (`envol-v2-corrupt`), l'app repart et le dit.
+- Une écriture refusée par le téléphone (stockage plein) est signalée sur l'accueil.
+
+## Évolutions en attente des vraies fiches
+
+- **Choisir ses thèmes** depuis l'accueil (utile selon le nombre et la taille des thèmes réels).
+- **Images dans les questions** (schémas, panneaux) : champ image dans le JSON, fichiers dans `src/fiches/`.
+
+## Fiches
+
+JSON, un fichier par thème, un `id` stable par question (voir le README). Les ids stables évitent
+qu'une correction de faute remette la progression à zéro, ce que faisait l'ancien format texte
+(l'identifiant y était calculé à partir du texte).
+
+## Hors ligne
+
+`sw.js` met en cache, à l'installation, tous les fichiers de l'app (liste `ASSETS`) et toutes les
+fiches listées dans `index.json`. Stratégie réseau d'abord avec délai de 4 s, puis copie locale.
+Un test vérifie que `ASSETS` correspond exactement aux fichiers publiés.
+
+## Sécurité
+
+- **Aucune donnée ne sort du téléphone** : pas de serveur, pas d'analytics, pas de ressource externe.
+  La CSP (`<meta http-equiv="Content-Security-Policy">`, GitHub Pages ne permettant pas les en-têtes)
+  n'autorise que les fichiers du site ; `referrer: no-referrer`. Pas de script inline : tout est dans `js/`.
+- **Texte affiché** : tout ce qui vient des fiches ou d'une sauvegarde passe par `esc()`.
+- **Import** : taille plafonnée à 2 Mo (vérifiée avant lecture), validation complète, identifiants
+  de questions contrôlés, champs inconnus ignorés.
+- **CI** : actions figées sur un commit, jeton en lecture seule sauf pour le job de déploiement
+  (`pages: write`, `id-token: write`), identifiants git non conservés, déploiement seulement depuis `main`.
+- **Origine partagée** : tous les sites GitHub Pages d'un même compte partagent l'origine
+  `<compte>.github.io`, donc le `localStorage` (≈ 5 Mo) et le cache hors ligne. Tant que les autres sites
+  Pages du compte sont les tiens, ce n'est pas un risque de sécurité ; en revanche un autre site du
+  compte qui viderait tous les caches ou remplirait le stockage toucherait Envol. Les clés d'Envol
+  sont préfixées `envol-` et son service worker ne supprime que ses propres caches.
+- **Limite connue** : l'anti-clickjacking (`frame-ancestors`) ne peut pas être posé sans en-tête HTTP ;
+  sans action sensible ni donnée secrète dans l'app, le risque est négligeable.
+
+## Écriture
+
+Interface en français, **neutre** : aucune marque de genre et pas d'écriture inclusive (« On décolle ? »,
+« quand tu veux »). Un test navigateur vérifie l'absence de « prête ». Code en anglais.

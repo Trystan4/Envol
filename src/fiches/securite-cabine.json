@@ -1,0 +1,249 @@
+{
+  "questions": [
+    {
+      "id": "securite-001",
+      "question": "Lors d'une dépressurisation, que fait le PNC en premier ?",
+      "answers": [
+        {
+          "text": "Il met son propre masque à oxygène",
+          "correct": true
+        },
+        {
+          "text": "Il rejoint le poste de pilotage",
+          "correct": false
+        },
+        {
+          "text": "Il aide d'abord les passagers",
+          "correct": false
+        },
+        {
+          "text": "Il distribue les gilets de sauvetage",
+          "correct": false
+        }
+      ],
+      "explanation": "On se protège d'abord : sans oxygène, on ne peut aider personne."
+    },
+    {
+      "id": "securite-002",
+      "question": "Que signifie « Mayday » à la radio ?",
+      "answers": [
+        {
+          "text": "Une situation de détresse",
+          "correct": true
+        },
+        {
+          "text": "Une simple urgence sans danger immédiat",
+          "correct": false
+        },
+        {
+          "text": "Une panne radio",
+          "correct": false
+        },
+        {
+          "text": "Un message de routine",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "securite-003",
+      "question": "Que signifie « Pan-pan » à la radio ?",
+      "answers": [
+        {
+          "text": "Une situation d'urgence sans danger immédiat",
+          "correct": true
+        },
+        {
+          "text": "Une situation de détresse",
+          "correct": false
+        },
+        {
+          "text": "Fin de message",
+          "correct": false
+        },
+        {
+          "text": "Une demande de répétition",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "securite-004",
+      "question": "Lesquels sont des messages d'urgence ou de détresse ?",
+      "answers": [
+        {
+          "text": "Mayday",
+          "correct": true
+        },
+        {
+          "text": "Pan-pan",
+          "correct": true
+        },
+        {
+          "text": "Roger",
+          "correct": false
+        },
+        {
+          "text": "Wilco",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "securite-005",
+      "question": "Quel code transpondeur signale une urgence générale ?",
+      "answers": [
+        {
+          "text": "7700",
+          "correct": true
+        },
+        {
+          "text": "7600",
+          "correct": false
+        },
+        {
+          "text": "7500",
+          "correct": false
+        },
+        {
+          "text": "1200",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "securite-006",
+      "question": "Quel code transpondeur signale une panne radio ?",
+      "answers": [
+        {
+          "text": "7600",
+          "correct": true
+        },
+        {
+          "text": "7700",
+          "correct": false
+        },
+        {
+          "text": "7500",
+          "correct": false
+        },
+        {
+          "text": "2000",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "securite-007",
+      "question": "Quel code transpondeur signale une intervention illicite à bord ?",
+      "answers": [
+        {
+          "text": "7500",
+          "correct": true
+        },
+        {
+          "text": "7700",
+          "correct": false
+        },
+        {
+          "text": "7600",
+          "correct": false
+        },
+        {
+          "text": "1000",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "securite-008",
+      "question": "En combien de temps un avion doit-il pouvoir être évacué, lors de sa certification ?",
+      "answers": [
+        {
+          "text": "90 secondes",
+          "correct": true
+        },
+        {
+          "text": "30 secondes",
+          "correct": false
+        },
+        {
+          "text": "3 minutes",
+          "correct": false
+        },
+        {
+          "text": "5 minutes",
+          "correct": false
+        }
+      ],
+      "explanation": "Avec seulement la moitié des issues utilisables."
+    },
+    {
+      "id": "securite-009",
+      "question": "Combien faut-il de PNC au minimum en cabine ?",
+      "answers": [
+        {
+          "text": "Un pour 50 sièges passagers",
+          "correct": true
+        },
+        {
+          "text": "Un pour 100 sièges passagers",
+          "correct": false
+        },
+        {
+          "text": "Un pour 25 passagers",
+          "correct": false
+        },
+        {
+          "text": "Deux par avion, quelle que soit sa taille",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "securite-010",
+      "question": "Avant d'ouvrir une porte pour une évacuation, que vérifie-t-on ?",
+      "answers": [
+        {
+          "text": "Que l'extérieur est sans danger (feu, eau, obstacle)",
+          "correct": true
+        },
+        {
+          "text": "Que tous les passagers ont leurs bagages",
+          "correct": false
+        },
+        {
+          "text": "Que le commandant a coupé les moteurs depuis 5 minutes",
+          "correct": false
+        },
+        {
+          "text": "Rien, on ouvre immédiatement",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "securite-011",
+      "question": "Un passager voyageant avec un bébé sur les genoux peut-il s'asseoir à une rangée d'issue de secours ?",
+      "answers": [
+        {
+          "text": "Non",
+          "correct": true
+        },
+        {
+          "text": "Oui",
+          "correct": false
+        },
+        {
+          "text": "Oui, si le bébé dort",
+          "correct": false
+        },
+        {
+          "text": "Oui, avec l'accord d'un autre passager",
+          "correct": false
+        }
+      ],
+      "explanation": "Les rangées d'issue sont réservées à des adultes capables d'aider à l'évacuation."
+    }
+  ]
+}
