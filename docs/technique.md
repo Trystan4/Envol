@@ -36,6 +36,7 @@ src/                  ce qui est publié, tel quel (aucune étape de build)
   js/deck.js          lecture et validation des fiches, empreinte des fiches
   js/summary.js       chiffres des écrans de résultats, plus ratées, prévisions, signalements
   js/session.js       séance en cours gardée pour être reprise
+  js/course.js        cours : passages par thème et recherche
   js/app.js           démarrage, actions, mises à jour
   js/screens/         un fichier par écran
   fiches/             les questions
@@ -104,7 +105,9 @@ est écrite dans les fichiers de signalements.
 
 ## Déploiement
 
-Le workflow `.github/workflows/pages.yml` teste chaque push et chaque pull request. Sur `main`, il
+Le workflow `.github/workflows/pages.yml` teste chaque push et chaque pull request. Ses actions tournent
+sous Node 24 et sont figées sur un commit ; le serveur est figé sur `ubuntu-24.04` (une nouvelle
+version d'Ubuntu n'est pas toujours prise en charge tout de suite par `playwright install --with-deps`). Sur `main`, il
 publie `src/` sur GitHub Pages **seulement si tous les tests passent**.
 
 Réglage à faire une seule fois : **Settings → Pages → Build and deployment → Source : GitHub Actions**.

@@ -1,27 +1,42 @@
 /* Styles specific to one screen. */
 
 /* Home */
-.ring { display: flex; justify-content: center; margin: 28px 0 8px; }
-.ring svg { width: 190px; height: 190px; }
-/* Short screens (small phones, browser bars): the home screen still fits without scrolling. */
+/* The home screen is exactly one screen high and never scrolls, whatever the phone's fonts and the
+   notes shown: every block keeps its size and the ring takes the height left (190 px at most, 72 px
+   at least). Only when even that is not enough, the page scrolls. */
+.home { height: 100vh; height: 100dvh; }
+:root[data-text="large"] .home { height: calc(100dvh / 1.15); }
+.home > * { flex-shrink: 0; }
+.ring {
+  flex: 0 1 190px;
+  min-height: 72px;
+  margin: 28px 0 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  container-type: size;
+}
+.ring svg { height: 100%; width: auto; aspect-ratio: 1; }
+/* A small ring cannot hold its caption: it moves beside it, at a readable size. */
+.ring-side { display: none; font-size: 15px; font-weight: 600; color: var(--ink-muted); }
+@container (max-height: 140px) {
+  .ring .in-ring { display: none; }
+  .ring-side { display: block; }
+}
+/* Short screens (small phones, browser bars): tighter spacing, so the ring stays as large as it can. */
 @media (max-height: 760px) {
   .display { font-size: 30px; line-height: 36px; margin-top: 12px; }
   .reminder { margin-top: 6px; }
   .day-bar { margin-top: 6px; }
-  .ring { margin: 14px 0 4px; }
-  .ring svg { width: min(190px, 18vh); height: min(190px, 18vh); }
+  .ring { margin: 12px 0 4px; }
   .actions { padding-top: 12px; }
   .btn { min-height: 54px; }
   .foot { margin-top: 4px; }
 }
-.ring-side { display: none; }
 @media (max-height: 680px) {
   .display { font-size: 27px; line-height: 32px; }
-  .ring { margin: 8px 0 0; align-items: center; gap: 12px; }
-  .ring svg { width: 15vh; height: 15vh; }
-  /* The ring is too small for its caption: it moves beside it, at a readable size. */
-  .ring .in-ring { display: none; }
-  .ring-side { display: block; font-size: 15px; font-weight: 600; color: var(--ink-muted); }
+  .ring { margin: 8px 0 0; }
 }
 
 /* Question */

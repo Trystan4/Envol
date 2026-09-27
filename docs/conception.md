@@ -86,6 +86,24 @@ statistique).
   `envol-v2-session`) à chaque question ; l'accueil propose de la reprendre pendant 12 h. Une question
   déjà répondue n'est pas reposée. Terminer ou quitter la séance l'efface.
 
+- **Séance express** : 5 questions, tirées comme une séance de révision (nouvelles dans la même
+  proportion, au plus 4).
+
+### Cours
+
+`course.js` rassemble les extraits des questions (`excerpt`) par thème, sans doublon, dans l'ordre des
+pages : c'est le cours tel que les fiches le citent. La recherche ignore accents et majuscules et
+porte sur les textes, les tableaux et les descriptions d'images ; seule la liste est redessinée à
+chaque lettre, le champ garde le clavier.
+
+### Fiches mises à jour, signalements corrigés
+
+- Une empreinte par question (texte et réponses) est gardée sur l'appareil (clé `envol-v2-deck`, hors
+  sauvegarde). À l'ouverture suivante, l'accueil annonce les questions nouvelles et corrigées jusqu'à
+  « Compris ». À la première ouverture, rien n'est annoncé.
+- Une question signalée dont la fiche donne désormais une autre réponse que celle vue au signalement
+  est annoncée comme corrigée sur l'accueil (elle revient déjà d'elle-même dans les séances).
+
 ### Suivi du plan
 
 - **Progression du jour** (accueil) : réponses données aujourd'hui (séances terminées et tests blancs)

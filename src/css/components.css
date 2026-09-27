@@ -28,6 +28,7 @@
 }
 
 .foot { display: flex; justify-content: center; gap: 4px; flex-wrap: wrap; margin-top: 12px; }
+.foot .small-link { padding: 10px 6px; }
 .small-link {
   min-height: 44px;
   background: none;
@@ -162,9 +163,13 @@ body:has(.update-bar:not([hidden])) { padding-bottom: 96px; }
 }
 
 /* One-line notes on the home screen (session to resume, backup reminder): text, then its link. */
-.reminder { margin-top: 10px; padding: 4px 6px 4px 14px; display: flex; flex-wrap: wrap; align-items: center; column-gap: 8px; }
-.reminder p { margin: 0; flex: 1 1 auto; font-size: 15px; line-height: 20px; color: var(--ink-muted); }
-.reminder .link { padding: 10px 8px; }
+.reminder { margin-top: 10px; padding: 4px 6px 4px 14px; display: flex; align-items: center; column-gap: 8px; }
+/* Always one line: with a wide font the text is cut ("…"), never pushed above its link. */
+.reminder p { margin: 0; flex: 1 1 0; min-width: 0; font-size: 15px; line-height: 20px; color: var(--ink-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.reminder .link { flex: none; padding: 10px 8px; }
+
+/* Two links side by side on the home screen (they wrap on a very narrow screen). */
+.link-row { display: flex; flex-wrap: wrap; justify-content: center; column-gap: 8px; }
 
 /* Progress of the day under the home subtitle. */
 .day-bar { display: flex; align-items: center; gap: 10px; margin-top: 10px; }
@@ -193,6 +198,17 @@ body:has(.update-bar:not([hidden])) { padding-bottom: 96px; }
   font-weight: 600;
 }
 .segment[aria-pressed="true"] { border-color: var(--cabine); background: var(--cabine); color: var(--on-cabine); }
+
+/* Home: the logo, and the course on the right (no extra height). */
+.home-top { display: flex; align-items: center; justify-content: space-between; margin: -6px 0; }
+
+/* Cours: one folded block per theme, its passages inside. */
+.course-list { display: flex; flex-direction: column; gap: 10px; margin-top: 16px; }
+.course-theme { padding: 0 16px; }
+.course-theme summary { display: flex; justify-content: space-between; align-items: center; gap: 10px; min-height: 52px; cursor: pointer; }
+.course-theme summary .muted { white-space: nowrap; }
+.course-theme[open] { padding-bottom: 8px; }
+.course-theme .excerpt { margin-top: 8px; }
 
 /* Comment marche Envol. */
 .help { display: flex; flex-direction: column; gap: 10px; margin-top: 8px; }

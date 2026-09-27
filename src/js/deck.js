@@ -129,12 +129,29 @@ export function validateDeck(index, files) {
   return { questions, errors, pending };
 }
 
-// Short fingerprint of the questions the app runs (6 hex digits, FNV-1a). Shown in Réglages and
-// written in reports, so a report can be matched to the exact fiches it was made with.
-export function deckFingerprint(questions) {
+// Short hash of a text: 6 hex digits, FNV-1a.
+function shortHash(text) {
   let h = 0x811c9dc5;
-  for (const ch of JSON.stringify(questions)) h = Math.imul(h ^ ch.codePointAt(0), 0x01000193);
+  for (const ch of text) h = Math.imul(h ^ ch.codePointAt(0), 0x01000193);
   return (h >>> 0).toString(16).padStart(8, "0").slice(0, 6);
+}
+
+// Fingerprint of the questions the app runs. Shown in Réglages and written in reports, so a report
+// can be matched to the exact fiches it was made with.
+export const deckFingerprint = questions => shortHash(JSON.stringify(questions));
+
+// One hash per question (its text and answers), kept on the device: at the next visit, tells which
+// questions are new and which were corrected.
+export const questionHashes = questions => Object.fromEntries(questions.map(q => [q.id, shortHash(JSON.stringify([q.question, q.answers || q.answer]))]));
+
+// before: the hashes of the previous visit, or null on the first one (nothing to announce then).
+export function deckChanges(before, now) {
+  let added = 0, changed = 0;
+  if (before) for (const [id, h] of Object.entries(now)) {
+    if (!(id in before)) added++;
+    else if (before[id] !== h) changed++;
+  }
+  return { added, changed };
 }
 
 // fetchJson(path) resolves to parsed JSON, or rejects.

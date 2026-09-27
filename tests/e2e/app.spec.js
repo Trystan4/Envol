@@ -91,6 +91,7 @@ test("premier lancement : guide d'installation, puis accueil, sans texte genré"
 });
 
 test("révision : une séance complète, les erreurs reviennent, tout est gardé", async ({ page }) => {
+  test.setTimeout(60_000); // a whole session, answered one question at a time
   await page.goto("/");
   await page.getByRole("button", { name: "Réviser" }).click();
   await expect(page.getByText(/Question 1 sur 15/)).toBeVisible();
@@ -346,12 +347,21 @@ test("accueil : tout tient sans défiler sur les petits téléphones, même avec
   await expect(page.getByRole("button", { name: "Faire une copie" })).toBeVisible();
   await expect(page.getByRole("button", { name: /Revoir mes erreurs/ })).toBeVisible();
   await expect(page.locator(".day-bar")).toBeVisible();
-  for (const [width, height] of [[360, 640], [375, 667], [360, 700], [390, 844]]) {
-    await page.setViewportSize({ width, height });
-    await page.reload();
-    await expect(page.getByRole("button", { name: "Réviser" })).toBeVisible();
-    const scroll = await page.evaluate(() => document.documentElement.scrollHeight - innerHeight);
-    expect(scroll, `accueil en ${width}×${height} : défilement vertical`).toBeLessThanOrEqual(0);
+  // Fonts differ between phones and systems (Linux CI servers use a much wider one than Windows):
+  // the second pass forces a wide font, so the layout must fit whatever the text widths.
+  for (const font of ["police de l'appareil", "police large"]) {
+    if (font === "police large") await page.addInitScript(() => document.addEventListener("DOMContentLoaded", () => {
+      const style = document.createElement("style");
+      style.textContent = "* { font-family: Verdana, 'DejaVu Sans', sans-serif !important; letter-spacing: .01em; }";
+      document.head.append(style);
+    }));
+    for (const [width, height] of [[360, 640], [375, 667], [360, 700], [390, 844]]) {
+      await page.setViewportSize({ width, height });
+      await page.reload();
+      await expect(page.getByRole("button", { name: "Réviser" })).toBeVisible();
+      const scroll = await page.evaluate(() => document.documentElement.scrollHeight - innerHeight);
+      expect(scroll, `accueil en ${width}×${height}, ${font} : défilement vertical`).toBeLessThanOrEqual(0);
+    }
   }
 });
 
@@ -362,7 +372,7 @@ test("reprendre une séance : l'app fermée en pleine séance, on reprend à la 
   await answer(page, true);
   await expect(page.locator(".meta .label").first()).toHaveText("Question 3 sur 15");
   await page.goto("/");
-  await expect(page.getByText("Séance en cours : 3/15")).toBeVisible();
+  await expect(page.getByText("En cours : 3/15")).toBeVisible();
   await page.getByRole("button", { name: "Reprendre" }).click();
   await expect(page.locator(".meta .label").first()).toHaveText("Question 3 sur 15");
   // Finished or left properly: nothing to resume.
@@ -413,6 +423,76 @@ test("affichage : texte agrandi et thème sombre, gardés après fermeture ; gui
   await expect(page.getByRole("heading", { name: "La pastille" })).toBeVisible();
   await page.getByRole("button", { name: "Retour" }).click();
   await expect(page.getByRole("heading", { name: "Réglages" })).toBeVisible();
+});
+
+/* ---------- Version 2.4.0 ---------- */
+
+test("séance express : 5 questions depuis l'accueil", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: "Séance express : 5 questions" }).click();
+  await expect(page.locator(".meta .label").first()).toHaveText("Question 1 sur 5");
+  let n = 0;
+  while (await onQuestion(page)) { await answer(page, true); n++; }
+  expect(n).toBe(5);
+});
+
+test("fiches mises à jour : nouvelles et corrigées annoncées jusqu'à « Compris »", async ({ page }) => {
+  await page.goto("/");
+  await expect(page.getByText(/Fiches mises à jour/)).toHaveCount(0); // first visit: nothing to announce
+  await page.evaluate(() => {
+    const before = JSON.parse(localStorage.getItem("envol-v2-deck"));
+    const ids = Object.keys(before);
+    delete before[ids[0]]; delete before[ids[1]]; // two questions "added" since
+    before[ids[2]] = "000000"; // one "corrected"
+    localStorage.setItem("envol-v2-deck", JSON.stringify(before));
+  });
+  await page.reload();
+  await expect(page.getByText("Fiches mises à jour : 2 nouvelles questions, 1 question corrigée")).toBeVisible();
+  await page.getByRole("button", { name: "Compris" }).click();
+  await expect(page.getByText(/Fiches mises à jour/)).toHaveCount(0);
+  await page.reload();
+  await expect(page.getByText(/Fiches mises à jour/)).toHaveCount(0);
+});
+
+test("signalement corrigé : l'accueil le dit, Mes résultats le montre", async ({ page }) => {
+  await page.goto("/");
+  const id = PLAYABLE[0].id;
+  await page.evaluate(id => {
+    const save = JSON.parse(localStorage.getItem("envol-v2") || "null") || { version: 2, examDate: null, cards: {}, tests: [], reviews: [] };
+    save.flags = { [id]: { review: false, dispute: true, answer: "réponse d'avant la correction" } };
+    localStorage.setItem("envol-v2", JSON.stringify(save));
+  }, id);
+  await page.reload();
+  await expect(page.getByText("Ta question signalée est corrigée")).toBeVisible();
+  await page.getByRole("button", { name: "Voir" }).click();
+  await expect(page.getByText("La fiche a changé depuis ton signalement")).toBeVisible();
+  await page.getByRole("button", { name: "Retirer le signalement" }).click();
+  await page.getByRole("button", { name: "Retour" }).first().click();
+  await expect(page.getByText("Ta question signalée est corrigée")).toHaveCount(0);
+});
+
+test("cours : lire un thème, chercher dans tous les thèmes, puis réviser le thème", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: "Cours" }).click();
+  await expect(page.getByRole("heading", { name: "Cours" })).toBeVisible();
+  const themes = page.locator(".course-theme");
+  await expect(themes).toHaveCount(THEMES);
+  await themes.filter({ hasText: "Les nuages" }).locator("summary").click();
+  await expect(themes.filter({ hasText: "Les nuages" }).locator(".excerpt-table table").first()).toBeVisible();
+
+  const search = page.getByLabel("Chercher");
+  await search.fill("cumulonimbus");
+  await expect(page.getByText(/\d+ passages? trouvés?/)).toBeVisible();
+  for (const text of await page.locator("#courseList .excerpt").allInnerTexts()) expect(text.toLowerCase()).toMatch(/cumulo-?nimbus/);
+  await expect(search).toBeFocused(); // the list is redrawn, not the field
+  await search.fill("mot introuvable");
+  await expect(page.getByText("Aucun passage ne contient ces mots.")).toBeVisible();
+
+  await search.fill("");
+  const theme = themes.filter({ hasText: "Anatomie" });
+  await theme.locator("summary").click();
+  await theme.getByRole("button", { name: "Réviser ce thème" }).click();
+  await expect(page.locator(".meta .theme")).toHaveText("Anatomie");
 });
 
 test("fiabilité : la pastille de chaque question explique son état", async ({ page }) => {
@@ -523,7 +603,7 @@ test("régularité et rappel de sauvegarde", async ({ page }) => {
     }));
   }, PLAYABLE[0].id);
   await page.reload();
-  await expect(page.getByText("Pas encore de copie")).toBeVisible();
+  await expect(page.getByText("Aucune copie")).toBeVisible();
   await page.getByRole("button", { name: "Faire une copie" }).click();
   const download = page.waitForEvent("download");
   await page.getByRole("button", { name: "Enregistrer une copie" }).click();

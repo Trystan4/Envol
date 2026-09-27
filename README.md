@@ -6,8 +6,9 @@ n'importe quelles fiches : voir [Créer ses propres fiches](#créer-ses-propres-
 
 ## Ce que fait l'app
 
-- **Réviser** : des séances de 20 questions. Les questions ratées reviennent plus souvent (et un peu
-  plus loin dans la même séance), celles qu'on maîtrise s'espacent.
+- **Cours** : les passages du cours, thème par thème, avec une recherche dans tous les thèmes.
+- **Réviser** : des séances de 20 questions (ou une séance express de 5). Les questions ratées
+  reviennent plus souvent (et un peu plus loin dans la même séance), celles qu'on maîtrise s'espacent.
 - **Plan de révision** : avec une date d'examen (dans Réglages), l'app dose les nouvelles questions
   pour que tout soit vu trois jours avant, dit combien de séances faire par jour et montre la
   progression du jour.
@@ -24,7 +25,8 @@ n'importe quelles fiches : voir [Créer ses propres fiches](#créer-ses-propres-
 - **Affichage** : texte agrandi, thème clair ou sombre au choix.
 - **Comment marche Envol** : un guide des fonctionnalités, dans Réglages.
 - **Sauvegarde** : une copie de la progression à garder de côté, pour changer de téléphone.
-- **Mises à jour** : un bandeau propose la nouvelle version quand elle arrive.
+- **Mises à jour** : un bandeau propose la nouvelle version quand elle arrive ; l'accueil annonce les
+  questions nouvelles ou corrigées, et les questions signalées qui ont été corrigées.
 
 ## L'installer sur son téléphone
 

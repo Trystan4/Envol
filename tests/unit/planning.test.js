@@ -78,3 +78,39 @@ test("affichage : texte agrandi et thème clair / sombre gardés, valeurs contr�
   const old = { version: 2, examDate: null, cards: {}, tests: [], reviews: [] };
   assert.deepEqual(store.importText(JSON.stringify(old), saveWith()).data.display, { largeText: false, theme: "auto" });
 });
+
+/* ---------- Version 2.4.0 ---------- */
+
+test("fiches mises à jour : nouvelles et corrigées depuis la dernière visite, rien la première fois", async () => {
+  const { questionHashes, deckChanges } = await import("../../src/js/deck.js");
+  const q = makeQuestions(1, 4);
+  const before = questionHashes(q);
+  assert.equal(Object.keys(before).length, 4);
+  assert.deepEqual(deckChanges(null, before), { added: 0, changed: 0 }); // first visit: nothing to announce
+  const after = q.slice(0, 3).map(x => x.id === "t0-q1" ? { ...x, answers: [{ text: "corrigée", correct: true }, { text: "faux", correct: false }] } : x)
+    .concat({ ...q[0], id: "t0-q9" }, { ...q[0], id: "t0-q8" });
+  assert.deepEqual(deckChanges(before, questionHashes(after)), { added: 2, changed: 1 });
+  assert.deepEqual(deckChanges(before, questionHashes(q)), { added: 0, changed: 0 });
+});
+
+test("signalement corrigé : la fiche a changé depuis le signalement", async () => {
+  const { correctedReports } = await import("../../src/js/summary.js");
+  const { rightAnswerText } = await import("../../src/js/engine.js");
+  const q = makeQuestions(1, 3);
+  const save = saveWith({}, { flags: {
+    "t0-q0": { review: false, dispute: true, answer: rightAnswerText(q[0]) }, // pas encore corrigée
+    "t0-q1": { review: false, dispute: true, answer: "ancienne réponse" }, // corrigée depuis
+  } });
+  assert.deepEqual(correctedReports(q, save).map(x => x.id), ["t0-q1"]);
+});
+
+test("séance express : 5 questions, tirées comme une séance de révision", async () => {
+  const { buildReviewSession } = await import("../../src/js/engine.js");
+  const { EXPRESS_SIZE } = await import("../../src/js/config.js");
+  const { createRng } = await import("../../src/js/util.js");
+  const q = makeQuestions(2, 20);
+  const s = buildReviewSession(q, saveWith(), { now: NOW, rng: createRng(3), size: EXPRESS_SIZE });
+  assert.equal(EXPRESS_SIZE, 5);
+  assert.equal(s.length, 5);
+  assert.equal(new Set(s.map(x => x.id)).size, 5);
+});

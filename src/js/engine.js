@@ -68,16 +68,18 @@ export const activeQuestions = (questions, save) => questions.filter(q => {
 
 export const isFlagged = (save, id) => !!(save.flags && save.flags[id] && save.flags[id].review);
 
-export function buildReviewSession(questions, save, { now, rng = Math.random, focusThemes = null }) {
+// size: SESSION_SIZE, or EXPRESS_SIZE for an express session (new questions in the same proportion).
+export function buildReviewSession(questions, save, { now, rng = Math.random, focusThemes = null, size = SESSION_SIZE }) {
   const focus = q => (focusThemes && focusThemes.includes(q.theme) ? WEIGHTS.focusTheme : 1)
     * (isFlagged(save, q.id) ? WEIGHTS.flagged : 1);
   const unseen = questions.filter(q => !isSeen(save.cards[q.id]));
   const seen = questions.filter(q => isSeen(save.cards[q.id]));
-  const fresh = weightedSample(unseen, focus, newQuota(questions, save, now), rng);
-  const known = weightedSample(seen, q => cardWeight(save.cards[q.id], now) * focus(q), SESSION_SIZE - fresh.length, rng);
+  const maxNew = Math.round(size * NEW_PER_SESSION_MAX / SESSION_SIZE);
+  const fresh = weightedSample(unseen, focus, Math.min(maxNew, newQuota(questions, save, now)), rng);
+  const known = weightedSample(seen, q => cardWeight(save.cards[q.id], now) * focus(q), size - fresh.length, rng);
   let picked = fresh.concat(known);
   // Not enough known questions yet (first days): top up with more new ones.
-  const room = Math.min(SESSION_SIZE - picked.length, NEW_PER_SESSION_MAX - fresh.length);
+  const room = Math.min(size - picked.length, NEW_PER_SESSION_MAX - fresh.length);
   picked = picked.concat(weightedSample(unseen.filter(q => !fresh.includes(q)), focus, room, rng));
   return shuffle(picked, rng);
 }

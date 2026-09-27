@@ -1,5 +1,5 @@
 // Keeps a running session across a restart: phones close apps left in the background, and the user
-// finds "Séance en cours · Reprendre" on the home screen. Pure: the caller stores the result as JSON.
+// finds "En cours · Reprendre" on the home screen. Pure: the caller stores the result as JSON.
 
 export const SESSION_MAX_AGE = 12 * 3600e3; // an older session is dropped
 

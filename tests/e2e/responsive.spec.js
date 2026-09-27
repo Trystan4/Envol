@@ -81,6 +81,11 @@ for (const [label, viewport] of Object.entries(SIZES)) {
     await checkScreen(page, "réglages");
     await page.getByRole("button", { name: "Comment marche Envol" }).click();
     await checkScreen(page, "comment marche Envol");
+    await page.goto("/");
+    await page.getByRole("button", { name: "Cours" }).click();
+    await checkScreen(page, "cours");
+    for (const summary of await page.locator(".course-theme summary").all()) await summary.click(); // every theme open: tables and diagrams
+    await checkScreen(page, "cours, thèmes ouverts");
 
     expect(cspErrors, "violations de la politique de sécurité").toEqual([]);
   });

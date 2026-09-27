@@ -2,7 +2,7 @@
 
 // Shown in Réglages to check that the phone runs the latest published version.
 // Keep equal to "version" in package.json and VERSION in sw.js (a test checks it).
-export const APP_VERSION = "2.3.0";
+export const APP_VERSION = "2.4.0";
 
 export const DAY = 864e5;
 
@@ -13,6 +13,7 @@ export const INTERVALS = [0, 1, 2, 4, 7, 15];
 export const MASTERED_LEVEL = 3; // a question at this level or above counts as "maîtrisée"
 
 export const SESSION_SIZE = 20; // questions per review session
+export const EXPRESS_SIZE = 5; // questions per express session (a short moment)
 export const TEST_SIZE = 20; // questions per mock test
 
 // Pace of new questions.

@@ -7,6 +7,7 @@ const SECTIONS = [
   ["Test blanc", "20 questions sur tous les thèmes, notées sur 20, en 20 minutes (le chrono se désactive dans Réglages). Une erreur y compte comme en révision : la question reviendra plus souvent."],
   ["Revoir mes erreurs", "Une séance faite des questions ratées ces derniers jours et de celles marquées « à revoir » avec le drapeau ⚑."],
   ["Mes résultats", "La maîtrise par thème (avec « Réviser ce thème »), les questions les plus ratées, tes jours de révision, tes notes de test blanc et la date où tout sera découvert."],
+  ["Cours", "En haut de l'accueil : les passages du cours, thème par thème, et une recherche dans tous les thèmes. Pour apprendre avant de te tester."],
   ["Après une erreur", "L'extrait du cours s'affiche avec sa page : le texte, le tableau ou le schéma qui donne la bonne réponse."],
   ["La pastille", "À côté du thème, une pastille dit si la réponse est sûre. Verte : vérifiée dans le cours. Orange : à recouper avec tes sources. Rouge : douteuse. Touche-la pour en savoir plus."],
   ["Signaler une erreur", "Après ta réponse, « Signaler une erreur dans cette question », avec la raison si tu veux. Elle ne te sera plus posée tant qu'elle n'est pas corrigée. Envoie tes signalements depuis Mes résultats."],

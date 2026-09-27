@@ -116,6 +116,12 @@ export function dayProgress(questions, save, now) {
 // Questions whose answer the user doubts, to send to whoever writes the fiches.
 export const disputed = (questions, save) => questions.filter(q => save.flags[q.id] && save.flags[q.id].dispute);
 
+// Reported questions whose fiche now gives another answer than the one doubted: corrected since.
+export const correctedReports = (questions, save) => disputed(questions, save).filter(q => {
+  const seen = save.flags[q.id].answer;
+  return seen !== undefined && seen !== rightAnswerText(q);
+});
+
 // The file the user sends back: app version and fiches fingerprint say exactly what was on screen,
 // the fiche's answer and the user's reason say what is doubted. Read by tools/signalements.mjs.
 export const reportFile = (questions, save, { version, fingerprint, now }) => ({

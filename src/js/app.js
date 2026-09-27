@@ -1,12 +1,12 @@
 // Entry point: loads the deck and the save, keeps the running session, dispatches button actions.
 // Every action updates `state`, then renders one screen. Screens only build HTML.
 
-import { DAY, RETRY_LIMIT, RETRY_GAP, REVIEWS_KEPT, ACTIVITY_DAYS_KEPT, TEST_DURATION_MIN, TIMER_WARNING_SEC, APP_VERSION, REPORT_NOTE_MAX } from "./config.js";
-import { loadDeck, deckFingerprint } from "./deck.js";
+import { EXPRESS_SIZE, DAY, RETRY_LIMIT, RETRY_GAP, REVIEWS_KEPT, ACTIVITY_DAYS_KEPT, TEST_DURATION_MIN, TIMER_WARNING_SEC, APP_VERSION, REPORT_NOTE_MAX } from "./config.js";
+import { loadDeck, deckFingerprint, questionHashes, deckChanges } from "./deck.js";
 import { createStore, validateSave, isValidExamDate, MAX_IMPORT_BYTES, KEY } from "./storage.js";
 import { serializeSession, restoreSession } from "./session.js";
 import { buildReviewSession, buildMockTest, buildMistakesSession, mistakePool, applyAnswer, activeQuestions, rightAnswerText, dailyPlan } from "./engine.js";
-import { overview, themeBreakdown, testTrend, strengths, reviewCount, streak, calendar, disputed, backupDue, reportFile, mostMissed, discoveryForecast, dayProgress } from "./summary.js";
+import { overview, themeBreakdown, testTrend, strengths, reviewCount, streak, calendar, disputed, backupDue, reportFile, mostMissed, discoveryForecast, dayProgress, correctedReports } from "./summary.js";
 import { shuffle, daysUntil, isoDate } from "./util.js";
 import { renderHome } from "./screens/home.js";
 import { renderQuestion, formatClock } from "./screens/question.js";
@@ -16,6 +16,8 @@ import { renderBackup } from "./screens/backup.js";
 import { renderSettings } from "./screens/settings.js";
 import { renderGuide, renderDeckError, detectPlatform } from "./screens/guide.js";
 import { renderHelp } from "./screens/help.js";
+import { renderCourse, renderCourseList } from "./screens/course.js";
+import { buildCourse } from "./course.js";
 
 const $app = document.getElementById("app");
 
@@ -36,6 +38,17 @@ function savedSession() {
   try { return restoreSession(JSON.parse(device.getItem(SESSION_KEY)), state.questions, Date.now()); } catch { return null; }
 }
 
+// What the fiches looked like at the last visit (one hash per question, kept on this device only):
+// new and corrected questions are announced on the home screen until "Compris".
+const DECK_KEY = `${KEY}-deck`;
+const keepDeck = () => { try { device.setItem(DECK_KEY, JSON.stringify(questionHashes(state.questions))); } catch { /* announced again next time */ } };
+function noteDeckChanges() {
+  let before = null;
+  try { before = JSON.parse(device.getItem(DECK_KEY)); } catch { /* unreadable: treated as a first visit */ }
+  state.deckNews = deckChanges(before, questionHashes(state.questions));
+  if (!before) keepDeck(); // first visit: every question is new, nothing to announce
+}
+
 // Display settings (larger text, forced light or dark theme), applied to the whole page.
 function applyDisplay() {
   const { largeText, theme } = state.save.display;
@@ -47,6 +60,7 @@ function applyDisplay() {
 const state = {
   questions: [],
   fingerprint: "", // of the loaded fiches, see deckFingerprint
+  deckNews: { added: 0, changed: 0 }, // questions new or corrected since the last visit
   save: null,
   session: null,
   storageFull: false, // the last write was refused by the phone
@@ -75,7 +89,9 @@ async function loadQuestions() {
     const { questions, errors } = await loadDeck(fetchJson);
     if (errors.length) console.warn("Fiches ignorées :", errors);
     state.questions = questions;
+    course = null;
     state.fingerprint = deckFingerprint(questions);
+    noteDeckChanges();
   } catch (e) {
     console.warn("Fiches illisibles :", e);
     state.questions = [];
@@ -97,6 +113,8 @@ function showHome() {
   render(renderHome({
     ov: overview(pool(), state.save, now),
     progress: dayProgress(pool(), state.save, now),
+    corrected: correctedReports(state.questions, state.save).length,
+    deckNews: state.deckNews,
     resume: resume && { position: resume.queue.slice(0, resume.index + 1).filter(x => !x.retry).length, size: resume.size, label: resume.label },
     days: daysUntil(state.save.examDate, now),
     firstTime: !Object.keys(state.save.cards).length,
@@ -128,6 +146,8 @@ function showSummary(message = "") {
 const MISSED_SHOWN = 10; // questions listed under "Les plus ratées"
 
 const showHelp = () => render(renderHelp());
+let course = null; // built once, on first opening
+const showCourse = () => render(renderCourse(course || (course = buildCourse(state.questions))));
 const showBackup = (feedback = {}) => render(renderBackup({ ...feedback, canUndo: store.canUndoImport() }));
 const showSettings = (feedback = {}) => render(renderSettings({
   ...feedback, examDate: state.save.examDate, today: isoDate(Date.now()), timed: state.save.timedTests, minutes: TEST_DURATION_MIN,
@@ -146,6 +166,7 @@ function startSession(mode, focusThemes = null, only = null) {
   const queue = mode === "test" ? buildMockTest(questions, state.save, { now })
     : mode === "mistakes" ? buildMistakesSession(questions, state.save, { now })
     : only && only.theme ? buildReviewSession(questions.filter(q => q.theme === only.theme), state.save, { now })
+    : only && only.express ? buildReviewSession(questions, state.save, { now, size: EXPRESS_SIZE })
     : only && only.missed ? shuffle(mostMissed(questions, state.save, MISSED_SHOWN).map(q => questions.find(x => x.id === q.id)))
     : buildReviewSession(questions, state.save, { now, focusThemes });
   if (!queue.length) return showHome();
@@ -155,7 +176,7 @@ function startSession(mode, focusThemes = null, only = null) {
     lastCorrect: false, requeued: false, revealed: false, flagOpen: false, reliabilityOpen: false, unanswered: 0,
     deadline: timed ? now + TEST_DURATION_MIN * 60e3 : null, warnMs: TIMER_WARNING_SEC * 1000,
     byTheme: {}, mistakes: [], retries: {}, missed: new Set(), correct: 0, total: 0, finished: false, weak: [],
-    label: only && only.theme ? only.theme : only && only.missed ? "Les plus ratées" : null,
+    label: only && only.theme ? only.theme : only && only.missed ? "Les plus ratées" : only && only.express ? "Séance express" : null,
   };
   if (timed) startTimer();
   showQuestion();
@@ -458,9 +479,12 @@ document.getElementById("update").addEventListener("click", e => {
 const actions = {
   review: () => startSession("review"),
   resume: resumeSession,
+  express: () => startSession("review", null, { express: true }),
+  deckSeen: () => { keepDeck(); state.deckNews = { added: 0, changed: 0 }; showHome(); },
   themeReview: button => startSession("review", null, { theme: button.dataset.theme }),
   missedReview: () => startSession("review", null, { missed: true }),
   help: showHelp,
+  course: showCourse,
   largeText: () => { state.save.display = { ...state.save.display, largeText: !state.save.display.largeText }; persist(); applyDisplay(); showSettings(); },
   theme: button => { state.save.display = { ...state.save.display, theme: button.dataset.theme }; persist(); applyDisplay(); showSettings(); },
   mistakes: () => startSession("mistakes"),
@@ -505,6 +529,8 @@ $app.addEventListener("click", e => {
 
 $app.addEventListener("input", e => {
   if (e.target.id === "reportNote") saveReportNote(e.target.value);
+  // Search in the course: only the list is redrawn, so the field keeps the focus and the keyboard.
+  if (e.target.id === "courseSearch") document.getElementById("courseList").innerHTML = renderCourseList(course, e.target.value);
 });
 
 $app.addEventListener("change", e => {
