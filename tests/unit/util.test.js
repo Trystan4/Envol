@@ -27,3 +27,12 @@ test("compte à rebours de l'examen", () => {
   assert.equal(daysUntil(isoDate(NOW + 10 * DAY), NOW), 10);
   assert.equal(daysUntil(isoDate(NOW - DAY), NOW), -1);
 });
+
+test("détection de l'appareil pour le guide d'installation", async () => {
+  const { detectPlatform } = await import("../../src/js/screens/guide.js");
+  assert.equal(detectPlatform("Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 Mobile/15E148 Safari/604.1"), "ios");
+  assert.equal(detectPlatform("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 Version/18.0 Safari/605.1.15", 5), "ios"); // iPad
+  assert.equal(detectPlatform("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 Version/18.0 Safari/605.1.15", 0), "desktop");
+  assert.equal(detectPlatform("Mozilla/5.0 (Linux; Android 15; Pixel 9) AppleWebKit/537.36 Chrome/140.0 Mobile Safari/537.36"), "android");
+  assert.equal(detectPlatform("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/140.0 Safari/537.36"), "desktop");
+});

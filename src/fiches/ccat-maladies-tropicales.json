@@ -1,0 +1,1104 @@
+{
+  "document": "Prérequis CCAT",
+  "fiabilite": "verifiee",
+  "questions": [
+    {
+      "id": "ccat-maladies-tropicales-001",
+      "question": "Comment se transmet le paludisme ?",
+      "answers": [
+        {
+          "text": "Piqûre d'Anophèle",
+          "correct": true
+        },
+        {
+          "text": "Piqûre d'Aèdes",
+          "correct": false
+        },
+        {
+          "text": "Piqûre de tique",
+          "correct": false
+        },
+        {
+          "text": "Voie digestive",
+          "correct": false
+        }
+      ],
+      "page": 13,
+      "excerpt": {
+        "table": {
+          "caption": "Maladies tropicales",
+          "head": [
+            "Maladie",
+            "Mode de contamination",
+            "Agents",
+            "Prévention"
+          ],
+          "rows": [
+            [
+              "PALUDISME",
+              "Piqûre d'Anophèle",
+              "PLASMODIUM",
+              "Chimio prophylaxie et protection contre les piqûres d'insectes"
+            ],
+            [
+              "DENGUE",
+              "Piqûre d'Aèdes",
+              "ARBOVIRUS DE LA DENGUE",
+              "Protection contre les piqûres d'insectes"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-maladies-tropicales-002",
+      "question": "Quel est l'agent du paludisme ?",
+      "answers": [
+        {
+          "text": "Plasmodium",
+          "correct": true
+        },
+        {
+          "text": "Lyssavirus",
+          "correct": false
+        },
+        {
+          "text": "Borrelia burgdorferi",
+          "correct": false
+        },
+        {
+          "text": "Bilharzie",
+          "correct": false
+        }
+      ],
+      "page": 13,
+      "excerpt": {
+        "table": {
+          "caption": "Maladies tropicales",
+          "head": [
+            "Maladie",
+            "Mode de contamination",
+            "Agents",
+            "Prévention"
+          ],
+          "rows": [
+            [
+              "PALUDISME",
+              "Piqûre d'Anophèle",
+              "PLASMODIUM",
+              "Chimio prophylaxie et protection contre les piqûres d'insectes"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-maladies-tropicales-003",
+      "question": "Comment se transmet la dengue ?",
+      "answers": [
+        {
+          "text": "Piqûre d'Aèdes",
+          "correct": true
+        },
+        {
+          "text": "Piqûre d'Anophèle",
+          "correct": false
+        },
+        {
+          "text": "Piqûre de tique",
+          "correct": false
+        },
+        {
+          "text": "Voie aérienne",
+          "correct": false
+        }
+      ],
+      "page": 13,
+      "excerpt": {
+        "table": {
+          "caption": "Maladies tropicales",
+          "head": [
+            "Maladie",
+            "Mode de contamination",
+            "Agents",
+            "Prévention"
+          ],
+          "rows": [
+            [
+              "DENGUE",
+              "Piqûre d'Aèdes",
+              "ARBOVIRUS DE LA DENGUE",
+              "Protection contre les piqûres d'insectes"
+            ],
+            [
+              "PALUDISME",
+              "Piqûre d'Anophèle",
+              "PLASMODIUM",
+              "Chimio prophylaxie et protection contre les piqûres d'insectes"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-maladies-tropicales-004",
+      "question": "Quel est l'agent de la fièvre jaune ?",
+      "answers": [
+        {
+          "text": "Virus amaril",
+          "correct": true
+        },
+        {
+          "text": "Bilharzie",
+          "correct": false
+        },
+        {
+          "text": "Plasmodium",
+          "correct": false
+        },
+        {
+          "text": "Lyssavirus",
+          "correct": false
+        }
+      ],
+      "page": 13,
+      "excerpt": {
+        "table": {
+          "caption": "Maladies tropicales",
+          "head": [
+            "Maladie",
+            "Mode de contamination",
+            "Agents",
+            "Prévention"
+          ],
+          "rows": [
+            [
+              "FIEVRE JAUNE",
+              "Piqûre d'Aèdes",
+              "VIRUS AMARIL",
+              "Vaccin antiamaril"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-maladies-tropicales-005",
+      "question": "Quelle est la prévention de la fièvre jaune ?",
+      "answers": [
+        {
+          "text": "Vaccin antiamaril",
+          "correct": true
+        },
+        {
+          "text": "Vaccin antirabique",
+          "correct": false
+        },
+        {
+          "text": "BCG",
+          "correct": false
+        },
+        {
+          "text": "Eviter baignades en eau douce",
+          "correct": false
+        }
+      ],
+      "page": 13,
+      "excerpt": {
+        "table": {
+          "caption": "Maladies tropicales",
+          "head": [
+            "Maladie",
+            "Mode de contamination",
+            "Agents",
+            "Prévention"
+          ],
+          "rows": [
+            [
+              "FIEVRE JAUNE",
+              "Piqûre d'Aèdes",
+              "VIRUS AMARIL",
+              "Vaccin antiamaril"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-maladies-tropicales-006",
+      "question": "Quelle est la prévention de la bilharziose ?",
+      "answers": [
+        {
+          "text": "Eviter baignades en eau douce",
+          "correct": true
+        },
+        {
+          "text": "Hygiène alimentaire",
+          "correct": false
+        },
+        {
+          "text": "Gants et masques",
+          "correct": false
+        },
+        {
+          "text": "Protection contre les piqûres",
+          "correct": false
+        }
+      ],
+      "page": 13,
+      "excerpt": {
+        "table": {
+          "caption": "Maladies tropicales",
+          "head": [
+            "Maladie",
+            "Mode de contamination",
+            "Agents",
+            "Prévention"
+          ],
+          "rows": [
+            [
+              "BILHARZIOSE",
+              "Voie transcutanée",
+              "BILHARZIE",
+              "Eviter baignades en eau douce"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-maladies-tropicales-007",
+      "question": "Comment se transmet la bilharziose ?",
+      "answers": [
+        {
+          "text": "Voie transcutanée",
+          "correct": true
+        },
+        {
+          "text": "Voie aérienne",
+          "correct": false
+        },
+        {
+          "text": "Piqûre d'Aèdes",
+          "correct": false
+        },
+        {
+          "text": "Sécrétions corporelles",
+          "correct": false
+        }
+      ],
+      "page": 13,
+      "excerpt": {
+        "table": {
+          "caption": "Maladies tropicales",
+          "head": [
+            "Maladie",
+            "Mode de contamination",
+            "Agents",
+            "Prévention"
+          ],
+          "rows": [
+            [
+              "BILHARZIOSE",
+              "Voie transcutanée",
+              "BILHARZIE",
+              "Eviter baignades en eau douce"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-maladies-tropicales-008",
+      "question": "Quel est l'agent de la rage ?",
+      "answers": [
+        {
+          "text": "Lyssavirus",
+          "correct": true
+        },
+        {
+          "text": "Virus amaril",
+          "correct": false
+        },
+        {
+          "text": "Plasmodium",
+          "correct": false
+        },
+        {
+          "text": "Bacille de Koch",
+          "correct": false
+        }
+      ],
+      "page": 13,
+      "excerpt": {
+        "table": {
+          "caption": "Maladies tropicales",
+          "head": [
+            "Maladie",
+            "Mode de contamination",
+            "Agents",
+            "Prévention"
+          ],
+          "rows": [
+            [
+              "RAGE",
+              "Voie cutanée",
+              "LYSSAVIRUS",
+              "Vaccin antirabique, désinfection"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-maladies-tropicales-009",
+      "question": "Quelle est la prévention de la rage ?",
+      "answers": [
+        {
+          "text": "Vaccin antirabique, désinfection",
+          "correct": true
+        },
+        {
+          "text": "Vêtements couvrants, insecticides",
+          "correct": false
+        },
+        {
+          "text": "Hygiène alimentaire, port de gants",
+          "correct": false
+        },
+        {
+          "text": "Vaccin antiamaril, désinfection",
+          "correct": false
+        }
+      ],
+      "page": 13,
+      "excerpt": {
+        "table": {
+          "caption": "Maladies tropicales",
+          "head": [
+            "Maladie",
+            "Mode de contamination",
+            "Agents",
+            "Prévention"
+          ],
+          "rows": [
+            [
+              "RAGE",
+              "Voie cutanée",
+              "LYSSAVIRUS",
+              "Vaccin antirabique, désinfection"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-maladies-tropicales-010",
+      "question": "Quel est l'agent de la tuberculose ?",
+      "answers": [
+        {
+          "text": "Bacille de Koch",
+          "correct": true
+        },
+        {
+          "text": "Borrelia burgdorferi",
+          "correct": false
+        },
+        {
+          "text": "Plasmodium",
+          "correct": false
+        },
+        {
+          "text": "Lyssavirus",
+          "correct": false
+        }
+      ],
+      "page": 13,
+      "excerpt": {
+        "table": {
+          "caption": "Maladies tropicales",
+          "head": [
+            "Maladie",
+            "Mode de contamination",
+            "Agents",
+            "Prévention"
+          ],
+          "rows": [
+            [
+              "TUBERCULOSE",
+              "Voie aérienne",
+              "BACILLE DE KOCH",
+              "BCG"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-maladies-tropicales-011",
+      "question": "Quelle est la prévention de la tuberculose ?",
+      "answers": [
+        {
+          "text": "BCG",
+          "correct": true
+        },
+        {
+          "text": "Vaccin antiamaril",
+          "correct": false
+        },
+        {
+          "text": "Chimio prophylaxie",
+          "correct": false
+        },
+        {
+          "text": "Hygiène alimentaire",
+          "correct": false
+        }
+      ],
+      "page": 13,
+      "excerpt": {
+        "table": {
+          "caption": "Maladies tropicales",
+          "head": [
+            "Maladie",
+            "Mode de contamination",
+            "Agents",
+            "Prévention"
+          ],
+          "rows": [
+            [
+              "TUBERCULOSE",
+              "Voie aérienne",
+              "BACILLE DE KOCH",
+              "BCG"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-maladies-tropicales-012",
+      "question": "Comment se transmet la tuberculose ?",
+      "answers": [
+        {
+          "text": "Voie aérienne",
+          "correct": true
+        },
+        {
+          "text": "Voie digestive",
+          "correct": false
+        },
+        {
+          "text": "Voie cutanée",
+          "correct": false
+        },
+        {
+          "text": "Piqûre de tique",
+          "correct": false
+        }
+      ],
+      "page": 13,
+      "excerpt": {
+        "table": {
+          "caption": "Maladies tropicales",
+          "head": [
+            "Maladie",
+            "Mode de contamination",
+            "Agents",
+            "Prévention"
+          ],
+          "rows": [
+            [
+              "TUBERCULOSE",
+              "Voie aérienne",
+              "BACILLE DE KOCH",
+              "BCG"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-maladies-tropicales-013",
+      "question": "Quel est l'agent du choléra ?",
+      "answers": [
+        {
+          "text": "Vibrion cholérique",
+          "correct": true
+        },
+        {
+          "text": "Salmonella",
+          "correct": false
+        },
+        {
+          "text": "Bacille de Koch",
+          "correct": false
+        },
+        {
+          "text": "Amibe pathogène",
+          "correct": false
+        }
+      ],
+      "page": 13,
+      "excerpt": {
+        "table": {
+          "caption": "Maladies tropicales",
+          "head": [
+            "Maladie",
+            "Mode de contamination",
+            "Agents",
+            "Prévention"
+          ],
+          "rows": [
+            [
+              "CHOLERA",
+              "Voie digestive",
+              "VIBRION CHOLERIQUE",
+              "Vaccin anticholérique"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-maladies-tropicales-014",
+      "question": "Comment se transmet la maladie de Lyme ?",
+      "answers": [
+        {
+          "text": "Piqûre de tique",
+          "correct": true
+        },
+        {
+          "text": "Piqûre d'Anophèle",
+          "correct": false
+        },
+        {
+          "text": "Piqûre d'Aèdes",
+          "correct": false
+        },
+        {
+          "text": "Voie digestive",
+          "correct": false
+        }
+      ],
+      "page": 13,
+      "excerpt": {
+        "table": {
+          "caption": "Maladies tropicales",
+          "head": [
+            "Maladie",
+            "Mode de contamination",
+            "Agents",
+            "Prévention"
+          ],
+          "rows": [
+            [
+              "MALADIE DE LYME",
+              "Piqûre de tique",
+              "BORRELIA BURGDORFERI",
+              "Vêtements couvrants Insecticides"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-maladies-tropicales-015",
+      "question": "Quel est l'agent de la maladie de Lyme ?",
+      "answers": [
+        {
+          "text": "Borrelia burgdorferi",
+          "correct": true
+        },
+        {
+          "text": "Amibe pathogène",
+          "correct": false
+        },
+        {
+          "text": "Lyssavirus",
+          "correct": false
+        },
+        {
+          "text": "Bacille de Koch",
+          "correct": false
+        }
+      ],
+      "page": 13,
+      "excerpt": {
+        "table": {
+          "caption": "Maladies tropicales",
+          "head": [
+            "Maladie",
+            "Mode de contamination",
+            "Agents",
+            "Prévention"
+          ],
+          "rows": [
+            [
+              "MALADIE DE LYME",
+              "Piqûre de tique",
+              "BORRELIA BURGDORFERI",
+              "Vêtements couvrants Insecticides"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-maladies-tropicales-016",
+      "question": "Quelle est la prévention du tétanos ?",
+      "answers": [
+        {
+          "text": "Vaccin antitétanique",
+          "correct": true
+        },
+        {
+          "text": "BCG",
+          "correct": false
+        },
+        {
+          "text": "Vaccin antirabique",
+          "correct": false
+        },
+        {
+          "text": "Hygiène alimentaire",
+          "correct": false
+        }
+      ],
+      "page": 13,
+      "excerpt": {
+        "table": {
+          "caption": "Maladies tropicales",
+          "head": [
+            "Maladie",
+            "Mode de contamination",
+            "Agents",
+            "Prévention"
+          ],
+          "rows": [
+            [
+              "TETANOS",
+              "Voie cutanée",
+              "BACILLE DU TETANOS",
+              "Vaccin antitétanique"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-maladies-tropicales-017",
+      "question": "Comment se transmet le tétanos ?",
+      "answers": [
+        {
+          "text": "Voie cutanée",
+          "correct": true
+        },
+        {
+          "text": "Voie aérienne",
+          "correct": false
+        },
+        {
+          "text": "Voie digestive",
+          "correct": false
+        },
+        {
+          "text": "Piqûre de tique",
+          "correct": false
+        }
+      ],
+      "page": 13,
+      "excerpt": {
+        "table": {
+          "caption": "Maladies tropicales",
+          "head": [
+            "Maladie",
+            "Mode de contamination",
+            "Agents",
+            "Prévention"
+          ],
+          "rows": [
+            [
+              "TETANOS",
+              "Voie cutanée",
+              "BACILLE DU TETANOS",
+              "Vaccin antitétanique"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-maladies-tropicales-018",
+      "question": "Comment se transmet l'hépatite A ?",
+      "answers": [
+        {
+          "text": "Voie digestive",
+          "correct": true
+        },
+        {
+          "text": "Sécrétions corporelles",
+          "correct": false
+        },
+        {
+          "text": "Voie aérienne",
+          "correct": false
+        },
+        {
+          "text": "Piqûre d'Aèdes",
+          "correct": false
+        }
+      ],
+      "page": 13,
+      "excerpt": {
+        "table": {
+          "caption": "Maladies tropicales",
+          "head": [
+            "Maladie",
+            "Mode de contamination",
+            "Agents",
+            "Prévention"
+          ],
+          "rows": [
+            [
+              "HEPATITES VIRALES",
+              "A : voie digestive ; B, C : sécrétions corporelles",
+              "VHA ; VHB, VHC",
+              "Vaccins anti VHA et VHB"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-maladies-tropicales-019",
+      "question": "Contre quelles hépatites la fiche indique-t-elle des vaccins ?",
+      "answers": [
+        {
+          "text": "Hépatites A et B (vaccins anti VHA et VHB)",
+          "correct": true
+        },
+        {
+          "text": "Hépatites A, B et C (vaccins anti VHA, VHB et VHC)",
+          "correct": false
+        },
+        {
+          "text": "Hépatites A et C (vaccins anti VHA et VHC)",
+          "correct": false
+        },
+        {
+          "text": "Hépatites B et C (vaccins anti VHB et VHC)",
+          "correct": false
+        }
+      ],
+      "page": 13,
+      "excerpt": {
+        "table": {
+          "caption": "Maladies tropicales",
+          "head": [
+            "Maladie",
+            "Mode de contamination",
+            "Agents",
+            "Prévention"
+          ],
+          "rows": [
+            [
+              "HEPATITES VIRALES",
+              "A : voie digestive ; B, C : sécrétions corporelles",
+              "VHA ; VHB, VHC",
+              "Vaccins anti VHA et VHB"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-maladies-tropicales-020",
+      "question": "Comment se transmet le VIH ?",
+      "answers": [
+        {
+          "text": "Sécrétions corporelles",
+          "correct": true
+        },
+        {
+          "text": "Voie aérienne",
+          "correct": false
+        },
+        {
+          "text": "Piqûre d'Aèdes",
+          "correct": false
+        },
+        {
+          "text": "Voie transcutanée",
+          "correct": false
+        }
+      ],
+      "page": 13,
+      "excerpt": {
+        "table": {
+          "caption": "Maladies tropicales",
+          "head": [
+            "Maladie",
+            "Mode de contamination",
+            "Agents",
+            "Prévention"
+          ],
+          "rows": [
+            [
+              "VIH",
+              "Sécrétions corporelles",
+              "VIRUS DE L'IMMUNO DEFICIENCE HUMAINE",
+              "Protection rapports sexuels, utilisation de matériels stériles, gants lors de présence de sang"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-maladies-tropicales-021",
+      "question": "Quel est l'agent de la salmonellose ?",
+      "answers": [
+        {
+          "text": "Salmonella",
+          "correct": true
+        },
+        {
+          "text": "Vibrion cholérique",
+          "correct": false
+        },
+        {
+          "text": "Amibe pathogène",
+          "correct": false
+        },
+        {
+          "text": "Bacille de Koch",
+          "correct": false
+        }
+      ],
+      "page": 13,
+      "excerpt": {
+        "table": {
+          "caption": "Maladies tropicales",
+          "head": [
+            "Maladie",
+            "Mode de contamination",
+            "Agents",
+            "Prévention"
+          ],
+          "rows": [
+            [
+              "SALMONELLOSE",
+              "Voie digestive",
+              "SALMONELLA",
+              "Hygiène alimentaire"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-maladies-tropicales-022",
+      "question": "Quel est l'agent de l'amibiase ?",
+      "answers": [
+        {
+          "text": "Amibe pathogène",
+          "correct": true
+        },
+        {
+          "text": "Bilharzie",
+          "correct": false
+        },
+        {
+          "text": "Plasmodium",
+          "correct": false
+        },
+        {
+          "text": "Salmonella",
+          "correct": false
+        }
+      ],
+      "page": 13,
+      "excerpt": {
+        "table": {
+          "caption": "Maladies tropicales",
+          "head": [
+            "Maladie",
+            "Mode de contamination",
+            "Agents",
+            "Prévention"
+          ],
+          "rows": [
+            [
+              "AMIBIASE",
+              "Voie digestive",
+              "AMIBE PATHOGENE",
+              "Hygiène alimentaire"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-maladies-tropicales-023",
+      "question": "Quelle est la prévention d'Ebola ?",
+      "answers": [
+        {
+          "text": "Hygiène alimentaire, port de gants",
+          "correct": true
+        },
+        {
+          "text": "Vaccin antirabique, désinfection",
+          "correct": false
+        },
+        {
+          "text": "Vêtements couvrants, insecticides",
+          "correct": false
+        },
+        {
+          "text": "Eviter baignades en eau douce",
+          "correct": false
+        }
+      ],
+      "page": 13,
+      "excerpt": {
+        "table": {
+          "caption": "Maladies tropicales",
+          "head": [
+            "Maladie",
+            "Mode de contamination",
+            "Agents",
+            "Prévention"
+          ],
+          "rows": [
+            [
+              "EBOLA",
+              "Voie digestive, Sécrétions corporelles",
+              "VIRUS EBOLA",
+              "Hygiène alimentaire, port de gants"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-maladies-tropicales-024",
+      "question": "Quelle est la prévention du SRAS ?",
+      "answers": [
+        {
+          "text": "Gants et masques",
+          "correct": true
+        },
+        {
+          "text": "Vaccin antirabique",
+          "correct": false
+        },
+        {
+          "text": "Eviter baignades en eau douce",
+          "correct": false
+        },
+        {
+          "text": "Chimio prophylaxie",
+          "correct": false
+        }
+      ],
+      "page": 13,
+      "excerpt": {
+        "table": {
+          "caption": "Maladies tropicales",
+          "head": [
+            "Maladie",
+            "Mode de contamination",
+            "Agents",
+            "Prévention"
+          ],
+          "rows": [
+            [
+              "SRAS",
+              "Voie aérienne",
+              "CORONAVIRUS DU SRAS",
+              "Gants et masques"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-maladies-tropicales-025",
+      "question": "Laquelle de ces maladies est classée parmi les maladies bactériennes ?",
+      "answers": [
+        {
+          "text": "Tuberculose",
+          "correct": true
+        },
+        {
+          "text": "Dengue",
+          "correct": false
+        },
+        {
+          "text": "Paludisme",
+          "correct": false
+        },
+        {
+          "text": "Rage",
+          "correct": false
+        }
+      ],
+      "page": 13,
+      "excerpt": {
+        "text": "Maladies tropicales (p. 13) :\nPARASITAIRES : Amibiase, Bilharziose, Paludisme.\nVIRALES : Dengue, Fièvre jaune, Coronavirus, Hépatites virales, Rage, SRAS, Ebola, VIH.\nBACTERIENNES : Choléra, Salmonellose, Maladie de Lyme, Tétanos, Tuberculose."
+      }
+    },
+    {
+      "id": "ccat-maladies-tropicales-026",
+      "question": "Laquelle de ces maladies est classée parmi les maladies parasitaires ?",
+      "answers": [
+        {
+          "text": "Bilharziose",
+          "correct": true
+        },
+        {
+          "text": "Choléra",
+          "correct": false
+        },
+        {
+          "text": "Fièvre jaune",
+          "correct": false
+        },
+        {
+          "text": "SRAS",
+          "correct": false
+        }
+      ],
+      "page": 13,
+      "excerpt": {
+        "text": "Maladies tropicales (p. 13) :\nPARASITAIRES : Amibiase, Bilharziose, Paludisme.\nVIRALES : Dengue, Fièvre jaune, Coronavirus, Hépatites virales, Rage, SRAS, Ebola, VIH.\nBACTERIENNES : Choléra, Salmonellose, Maladie de Lyme, Tétanos, Tuberculose."
+      }
+    },
+    {
+      "id": "ccat-maladies-tropicales-027",
+      "question": "Laquelle de ces maladies est classée parmi les maladies virales ?",
+      "answers": [
+        {
+          "text": "Rage",
+          "correct": true
+        },
+        {
+          "text": "Tétanos",
+          "correct": false
+        },
+        {
+          "text": "Bilharziose",
+          "correct": false
+        },
+        {
+          "text": "Choléra",
+          "correct": false
+        }
+      ],
+      "page": 13,
+      "excerpt": {
+        "text": "Maladies tropicales (p. 13) :\nPARASITAIRES : Amibiase, Bilharziose, Paludisme.\nVIRALES : Dengue, Fièvre jaune, Coronavirus, Hépatites virales, Rage, SRAS, Ebola, VIH.\nBACTERIENNES : Choléra, Salmonellose, Maladie de Lyme, Tétanos, Tuberculose."
+      }
+    }
+  ]
+}

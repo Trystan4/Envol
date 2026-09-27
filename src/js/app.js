@@ -1,11 +1,11 @@
 // Entry point: loads the deck and the save, keeps the running session, dispatches button actions.
 // Every action updates `state`, then renders one screen. Screens only build HTML.
 
-import { DAY, RETRY_LIMIT, RETRY_GAP, REVIEWS_KEPT, ACTIVITY_DAYS_KEPT, TEST_DURATION_MIN, TIMER_WARNING_SEC } from "./config.js";
-import { loadDeck } from "./deck.js";
+import { DAY, RETRY_LIMIT, RETRY_GAP, REVIEWS_KEPT, ACTIVITY_DAYS_KEPT, TEST_DURATION_MIN, TIMER_WARNING_SEC, APP_VERSION, REPORT_NOTE_MAX } from "./config.js";
+import { loadDeck, deckFingerprint } from "./deck.js";
 import { createStore, validateSave, isValidExamDate, MAX_IMPORT_BYTES } from "./storage.js";
-import { buildReviewSession, buildMockTest, buildMistakesSession, mistakePool, applyAnswer } from "./engine.js";
-import { overview, themeBreakdown, testTrend, strengths, reviewCount, streak, calendar, disputed, backupDue } from "./summary.js";
+import { buildReviewSession, buildMockTest, buildMistakesSession, mistakePool, applyAnswer, activeQuestions, rightAnswerText, dailyPlan } from "./engine.js";
+import { overview, themeBreakdown, testTrend, strengths, reviewCount, streak, calendar, disputed, backupDue, reportFile } from "./summary.js";
 import { shuffle, daysUntil, isoDate } from "./util.js";
 import { renderHome } from "./screens/home.js";
 import { renderQuestion, formatClock } from "./screens/question.js";
@@ -13,7 +13,7 @@ import { renderResults } from "./screens/results.js";
 import { renderSummary } from "./screens/summary.js";
 import { renderBackup } from "./screens/backup.js";
 import { renderSettings } from "./screens/settings.js";
-import { renderGuide, renderDeckError } from "./screens/guide.js";
+import { renderGuide, renderDeckError, detectPlatform } from "./screens/guide.js";
 
 const $app = document.getElementById("app");
 
@@ -27,6 +27,7 @@ const store = createStore(phoneStorage());
 
 const state = {
   questions: [],
+  fingerprint: "", // of the loaded fiches, see deckFingerprint
   save: null,
   session: null,
   storageFull: false, // the last write was refused by the phone
@@ -34,6 +35,7 @@ const state = {
 };
 
 function render(html) {
+  guideOnScreen = false;
   $app.innerHTML = html;
   window.scrollTo(0, 0);
   // VoiceOver starts reading each new screen from its title.
@@ -41,6 +43,8 @@ function render(html) {
   if (title) { title.tabIndex = -1; title.focus({ preventScroll: true }); }
 }
 function persist() { state.storageFull = !store.save(state.save); }
+// The questions that can be drawn now (reported ones are set aside, see activeQuestions).
+const pool = () => activeQuestions(state.questions, state.save);
 
 async function loadQuestions() {
   const fetchJson = async path => {
@@ -52,6 +56,7 @@ async function loadQuestions() {
     const { questions, errors } = await loadDeck(fetchJson);
     if (errors.length) console.warn("Fiches ignorées :", errors);
     state.questions = questions;
+    state.fingerprint = deckFingerprint(questions);
   } catch (e) {
     console.warn("Fiches illisibles :", e);
     state.questions = [];
@@ -64,17 +69,17 @@ function showHome() {
   state.session = null;
   if (!state.questions.length) return render(renderDeckError());
   const notices = [];
-  if (state.storageFull) notices.push("Le stockage de l'iPhone refuse d'enregistrer : les derniers progrès ne sont pas gardés. Fais une copie depuis Sauvegarde.");
-  if (state.recovered) notices.push("La sauvegarde de cet iPhone était abîmée : l'app repart de zéro. Si tu as une copie, reprends-la depuis Sauvegarde.");
+  if (state.storageFull) notices.push("Le stockage de cet appareil refuse d'enregistrer : les derniers progrès ne sont pas gardés. Fais une copie depuis Sauvegarde.");
+  if (state.recovered) notices.push("La sauvegarde de cet appareil était abîmée : l'app repart de zéro. Si tu as une copie, reprends-la depuis Sauvegarde.");
   const now = Date.now();
   const firsts = Object.values(state.save.cards).map(c => c.firstSeen);
   const since = state.save.lastExport ?? (firsts.length ? Math.min(...firsts) : now);
   render(renderHome({
-    ov: overview(state.questions, state.save, now),
+    ov: overview(pool(), state.save, now),
     days: daysUntil(state.save.examDate, now),
     firstTime: !Object.keys(state.save.cards).length,
     notices,
-    mistakes: mistakePool(state.questions, state.save, now).length,
+    mistakes: mistakePool(pool(), state.save, now).length,
     backupDays: backupDue(state.save, now) ? (state.save.lastExport === null ? Infinity : Math.floor((now - since) / DAY)) : null,
   }));
 }
@@ -84,10 +89,12 @@ function showSummary(message = "") {
   render(renderSummary({
     streak: streak(state.save.activity, now),
     days: calendar(state.save.activity, now),
-    disputed: disputed(state.questions, state.save),
+    disputed: disputed(state.questions, state.save).map(q => ({
+      ...q, note: state.save.flags[q.id].note || "", setAside: !pool().includes(q),
+    })),
     message,
-    ov: overview(state.questions, state.save, now),
-    themes: themeBreakdown(state.questions, state.save),
+    ov: overview(pool(), state.save, now),
+    themes: themeBreakdown(pool(), state.save),
     trend: testTrend(state.save.tests),
     tests: state.save.tests,
     reviewsThisWeek: reviewCount(state.save, now - 7 * DAY),
@@ -97,6 +104,8 @@ function showSummary(message = "") {
 const showBackup = (feedback = {}) => render(renderBackup({ ...feedback, canUndo: store.canUndoImport() }));
 const showSettings = (feedback = {}) => render(renderSettings({
   ...feedback, examDate: state.save.examDate, today: isoDate(Date.now()), timed: state.save.timedTests, minutes: TEST_DURATION_MIN,
+  installed: isInstalled(), version: APP_VERSION, fingerprint: state.fingerprint, count: state.questions.length,
+  plan: dailyPlan(pool(), state.save, Date.now()),
 }));
 
 /* ---------- Session ---------- */
@@ -105,14 +114,15 @@ const showSettings = (feedback = {}) => render(renderSettings({
 function startSession(mode, focusThemes = null) {
   if (!state.questions.length) return render(renderDeckError());
   const now = Date.now();
-  const queue = mode === "test" ? buildMockTest(state.questions, state.save, { now })
-    : mode === "mistakes" ? buildMistakesSession(state.questions, state.save, { now })
-    : buildReviewSession(state.questions, state.save, { now, focusThemes });
+  const questions = pool();
+  const queue = mode === "test" ? buildMockTest(questions, state.save, { now })
+    : mode === "mistakes" ? buildMistakesSession(questions, state.save, { now })
+    : buildReviewSession(questions, state.save, { now, focusThemes });
   if (!queue.length) return showHome();
   const timed = mode === "test" && state.save.timedTests;
   state.session = {
     mode: mode === "test" ? "test" : "review", queue, size: queue.length, index: 0, selected: new Set(), answered: false, order: null,
-    lastCorrect: false, requeued: false, revealed: false, flagOpen: false, unanswered: 0,
+    lastCorrect: false, requeued: false, revealed: false, flagOpen: false, reliabilityOpen: false, unanswered: 0,
     deadline: timed ? now + TEST_DURATION_MIN * 60e3 : null, warnMs: TIMER_WARNING_SEC * 1000,
     byTheme: {}, mistakes: [], retries: {}, missed: new Set(), correct: 0, total: 0, finished: false, weak: [],
   };
@@ -130,14 +140,37 @@ function showQuestion() {
   render(renderQuestion(s, flagOf(q.id), Date.now()));
 }
 
-// The user's own marks on a question: "à revoir" (drawn more often) and "réponse douteuse" (listed).
-function toggleFlag(kind) {
-  const s = state.session, id = s.queue[s.index].id;
-  const flag = { ...flagOf(id), [kind]: !flagOf(id)[kind] };
+// The user's own marks on a question: "à revoir" (drawn more often) and "réponse douteuse" (reported,
+// with an optional reason). A mark with nothing left is removed.
+function setFlag(id, flag) {
+  if (!flag.dispute) { delete flag.note; delete flag.answer; }
   if (flag.review || flag.dispute) state.save.flags[id] = flag; else delete state.save.flags[id];
   persist();
+}
+const currentId = () => state.session.queue[state.session.index].id;
+function toggleFlag(kind) {
+  const q = state.session.queue[state.session.index];
+  const flag = { ...flagOf(q.id), [kind]: !flagOf(q.id)[kind] };
+  if (kind === "dispute" && flag.dispute) flag.answer = rightAnswerText(q);
+  setFlag(q.id, flag);
   showQuestion();
 }
+// From Mes résultats: the report is withdrawn, the question can be drawn again.
+function withdraw(button) {
+  const id = button.dataset.id;
+  if (state.save.flags[id]) setFlag(id, { ...state.save.flags[id], dispute: false });
+  showSummary("Signalement retiré : la question revient dans les séances.");
+}
+// Reporting keeps the answer the fiche gave: the question stays out of sessions until that answer changes.
+function report() {
+  const s = state.session, q = s.queue[s.index];
+  setFlag(q.id, { ...flagOf(q.id), dispute: true, answer: rightAnswerText(q) });
+  s.queue = s.queue.filter((x, k) => k <= s.index || x.id !== q.id); // no second try of it in this session
+  showQuestion();
+  const note = document.getElementById("reportNote");
+  if (note) note.focus();
+}
+const saveReportNote = text => setFlag(currentId(), { ...flagOf(currentId()), note: text.trim().slice(0, REPORT_NOTE_MAX) });
 
 /* ---------- Mock test timer ---------- */
 
@@ -208,7 +241,7 @@ function validate(selfGrade) {
 
 function next() {
   const s = state.session;
-  s.index++; s.selected = new Set(); s.answered = false; s.order = null; s.revealed = false; s.flagOpen = false;
+  s.index++; s.selected = new Set(); s.answered = false; s.order = null; s.revealed = false; s.flagOpen = false; s.reliabilityOpen = false;
   showQuestion();
 }
 
@@ -249,17 +282,18 @@ function quit() {
 
 /* ---------- Backup ---------- */
 
-async function exportBackup() {
-  const name = `envol-sauvegarde-${isoDate(Date.now())}.json`;
-  const blob = new Blob([store.exportText(state.save)], { type: "application/json" });
+// Hands a JSON file to the user: share sheet on phones (to send or keep it), download elsewhere.
+// Resolves to false when the share sheet was closed without doing anything.
+async function saveFile(name, text, title) {
+  const blob = new Blob([text], { type: "application/json" });
   try {
     const file = new File([blob], name, { type: "application/json" });
     if (navigator.canShare && navigator.canShare({ files: [file] })) {
-      await navigator.share({ files: [file], title: "Sauvegarde Envol" });
-      return markExported();
+      await navigator.share({ files: [file], title });
+      return true;
     }
   } catch (e) {
-    if (e && e.name === "AbortError") return; // share sheet closed
+    if (e && e.name === "AbortError") return false; // share sheet closed
   }
   const a = document.createElement("a");
   a.href = URL.createObjectURL(blob);
@@ -268,7 +302,11 @@ async function exportBackup() {
   a.click();
   a.remove();
   setTimeout(() => URL.revokeObjectURL(a.href), 5000);
-  markExported();
+  return true;
+}
+
+async function exportBackup() {
+  if (await saveFile(`envol-sauvegarde-${isoDate(Date.now())}.json`, store.exportText(state.save), "Sauvegarde Envol")) markExported();
 }
 
 function markExported() {
@@ -277,18 +315,11 @@ function markExported() {
   showBackup({ message: "Copie enregistrée. Garde-la en lieu sûr (Fichiers, message…)." });
 }
 
-// Sends the list of doubtful answers (share sheet, or clipboard as a fallback).
-async function shareDisputes() {
-  const lines = disputed(state.questions, state.save).map(q =>
-    `- [${q.id}] ${q.question}\n  Réponse de la fiche : ${q.kind === "card" ? q.answer : q.answers.filter(a => a.correct).map(a => a.text).join(", ")}`);
-  const text = `Envol : réponses douteuses signalées\n\n${lines.join("\n")}`;
-  try {
-    if (navigator.share) { await navigator.share({ title: "Envol : réponses douteuses", text }); return; }
-    await navigator.clipboard.writeText(text);
-    showSummary("Liste copiée : colle-la dans un message.");
-  } catch (e) {
-    if (e && e.name === "AbortError") return;
-    showSummary("Impossible d'envoyer la liste depuis ce navigateur.");
+// The reported questions as a file, to send to whoever checks the fiches (read by tools/signalements.mjs).
+async function exportReports() {
+  const file = reportFile(state.questions, state.save, { version: APP_VERSION, fingerprint: state.fingerprint, now: Date.now() });
+  if (await saveFile(`envol-signalements-${file.date}.json`, JSON.stringify(file, null, 2), "Signalements Envol")) {
+    showSummary("Fichier prêt : envoie-le à la personne qui vérifie les fiches.");
   }
 }
 
@@ -302,7 +333,7 @@ function importBackup(file) {
     let error;
     try { error = validateSave(JSON.parse(text)); } catch { error = "ce fichier n'est pas une sauvegarde Envol"; }
     if (error) return showBackup({ error: `Import impossible : ${error}. Rien n'a été modifié.` });
-    if (!confirm("Remplacer les progrès de cet iPhone par ceux de la copie ?")) return;
+    if (!confirm("Remplacer les progrès de cet appareil par ceux de la copie ?")) return;
     const r = store.importText(text, state.save);
     if (!r.ok) return showBackup({ error: `Import impossible : ${r.error}. Rien n'a été modifié.` });
     state.save = r.data;
@@ -337,6 +368,48 @@ function clearExam() {
   showSettings({ message: "Date retirée." });
 }
 
+/* ---------- Updates ---------- */
+
+// A new version installs by itself in the background (sw.js); the running page keeps the old one
+// until it reloads. The bar offers that reload, so the user picks the moment (never mid-question).
+let registration = null;
+let lastUpdateCheck = 0;
+const UPDATE_CHECK_EVERY = 30 * 60e3;
+
+function watchForUpdates() {
+  if (!("serviceWorker" in navigator)) return;
+  const hadController = !!navigator.serviceWorker.controller; // false on the very first install
+  navigator.serviceWorker.addEventListener("controllerchange", () => {
+    if (hadController) document.getElementById("update").hidden = false;
+  });
+  navigator.serviceWorker.register("sw.js").then(r => { registration = r; }).catch(() => {});
+  // An installed app can stay open for days: look for a new version each time it comes back.
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden || !registration || Date.now() - lastUpdateCheck < UPDATE_CHECK_EVERY) return;
+    lastUpdateCheck = Date.now();
+    registration.update().catch(() => {});
+  });
+}
+
+async function checkUpdate() {
+  if (!registration) return showSettings({ error: "Les mises à jour ne sont pas disponibles dans ce navigateur." });
+  try {
+    lastUpdateCheck = Date.now();
+    await registration.update();
+  } catch {
+    return showSettings({ error: "Pas de connexion : impossible de chercher une mise à jour." });
+  }
+  if (registration.installing || registration.waiting) return showSettings({ message: "Nouvelle version trouvée : elle se télécharge, un bandeau proposera de mettre à jour." });
+  showSettings({ message: `Envol est à jour (version ${APP_VERSION}).` });
+}
+
+document.getElementById("update").addEventListener("click", e => {
+  const button = e.target.closest("[data-update]");
+  if (!button) return;
+  if (button.dataset.update === "reload") location.reload();
+  else document.getElementById("update").hidden = true; // "Plus tard": the next launch runs the new version anyway
+});
+
 /* ---------- Actions ---------- */
 
 const actions = {
@@ -347,7 +420,10 @@ const actions = {
   flagDispute: () => toggleFlag("dispute"),
   reveal: () => { state.session.revealed = true; showQuestion(); },
   selfGrade: button => validate(button.dataset.v === "1"),
-  shareDisputes,
+  report,
+  withdraw,
+  exportReports,
+  reliability: () => { state.session.reliabilityOpen = !state.session.reliabilityOpen; showQuestion(); },
   toggleTimed: () => { state.save.timedTests = !state.save.timedTests; persist(); showSettings(); },
   test: () => startSession("test"),
   focus: () => startSession("review", state.session && state.session.weak),
@@ -360,7 +436,10 @@ const actions = {
   undoImport,
   saveExam,
   clearExam,
+  checkUpdate,
   guideDone: () => { store.markGuideSeen(); showHome(); },
+  guide: showGuide,
+  install,
   reload: async () => { await loadQuestions(); showHome(); },
   choose: button => choose(Number(button.dataset.k)),
   validate: () => validate(),
@@ -375,23 +454,51 @@ $app.addEventListener("click", e => {
   if (action) action(button);
 });
 
+$app.addEventListener("input", e => {
+  if (e.target.id === "reportNote") saveReportNote(e.target.value);
+});
+
 $app.addEventListener("change", e => {
   if (e.target.id !== "file" || !e.target.files[0]) return;
   importBackup(e.target.files[0]);
   e.target.value = ""; // the same file can be picked again
 });
 
-/* ---------- Startup ---------- */
+/* ---------- Installation ---------- */
 
 const isInstalled = () => window.navigator.standalone === true || matchMedia("(display-mode: standalone)").matches;
+
+// Chrome and Edge (Android, computer) offer a one-tap install; iOS only has the manual steps.
+let installPrompt = null;
+let guideOnScreen = false;
+window.addEventListener("beforeinstallprompt", e => {
+  e.preventDefault();
+  installPrompt = e;
+  if (guideOnScreen) showGuide();
+});
+
+function showGuide() {
+  guideOnScreen = true;
+  render(renderGuide({ platform: detectPlatform(navigator.userAgent, navigator.maxTouchPoints), canPrompt: !!installPrompt }));
+}
+
+async function install() {
+  if (!installPrompt) return showGuide();
+  installPrompt.prompt();
+  const { outcome } = await installPrompt.userChoice;
+  installPrompt = null;
+  if (outcome === "accepted") { store.markGuideSeen(); showHome(); } else showGuide();
+}
+
+/* ---------- Startup ---------- */
 
 (async function start() {
   const { data, recovered } = store.load();
   state.save = data;
   state.recovered = recovered;
   if (navigator.storage && navigator.storage.persist) navigator.storage.persist().catch(() => {});
-  if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js").catch(() => {});
+  watchForUpdates();
   await loadQuestions();
-  if (!isInstalled() && !store.guideSeen()) render(renderGuide());
+  if (!isInstalled() && !store.guideSeen()) showGuide();
   else showHome();
 })();

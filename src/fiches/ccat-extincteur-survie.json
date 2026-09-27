@@ -1,0 +1,981 @@
+{
+  "document": "Prérequis CCAT",
+  "fiabilite": "verifiee",
+  "questions": [
+    {
+      "id": "ccat-extincteur-survie-001",
+      "question": "Quelles sont les actions principales de l'extincteur CO2 ?",
+      "answers": [
+        {
+          "text": "Etouffement et refroidissement",
+          "correct": true
+        },
+        {
+          "text": "Etouffement et inhibition",
+          "correct": false
+        },
+        {
+          "text": "Inhibition et mouillage",
+          "correct": false
+        },
+        {
+          "text": "Mouillage et refroidissement",
+          "correct": false
+        }
+      ],
+      "page": 6,
+      "excerpt": {
+        "table": {
+          "caption": "EXTINCTEUR CO2",
+          "head": [
+            "Rubrique",
+            "Contenu"
+          ],
+          "rows": [
+            [
+              "Actions principales",
+              "Etouffement et refroidissement"
+            ],
+            [
+              "Durée de fonctionnement",
+              "Environ 15 secondes"
+            ],
+            [
+              "Agent extincteur",
+              "2 kg de dioxyde de carbone"
+            ],
+            [
+              "Pertinence du choix de cet extincteur",
+              "Utilisable sur tout type de feux"
+            ],
+            [
+              "Visite pré vol",
+              "Présence du matériel conforme au plan d'armement, Etat de l'extincteur, Etat du diffuseur (non fendu), Plaquette de validité, Présence de la goupille plombée, Contrôle du système d'arrimage sur son support."
+            ],
+            [
+              "Mise en œuvre",
+              "Arracher la goupille de sécurité, Attaquer le feu à la base des flammes (angle à 45°), Appuyer sur la gâchette de façon continue."
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-extincteur-survie-002",
+      "question": "Quelle est la durée de fonctionnement de l'extincteur CO2 ?",
+      "answers": [
+        {
+          "text": "Environ 15 secondes",
+          "correct": true
+        },
+        {
+          "text": "Environ 5 secondes",
+          "correct": false
+        },
+        {
+          "text": "Environ 45 secondes",
+          "correct": false
+        },
+        {
+          "text": "Environ 2 minutes",
+          "correct": false
+        }
+      ],
+      "page": 6,
+      "excerpt": {
+        "table": {
+          "caption": "EXTINCTEUR CO2",
+          "head": [
+            "Rubrique",
+            "Contenu"
+          ],
+          "rows": [
+            [
+              "Actions principales",
+              "Etouffement et refroidissement"
+            ],
+            [
+              "Durée de fonctionnement",
+              "Environ 15 secondes"
+            ],
+            [
+              "Agent extincteur",
+              "2 kg de dioxyde de carbone"
+            ],
+            [
+              "Pertinence du choix de cet extincteur",
+              "Utilisable sur tout type de feux"
+            ],
+            [
+              "Visite pré vol",
+              "Présence du matériel conforme au plan d'armement, Etat de l'extincteur, Etat du diffuseur (non fendu), Plaquette de validité, Présence de la goupille plombée, Contrôle du système d'arrimage sur son support."
+            ],
+            [
+              "Mise en œuvre",
+              "Arracher la goupille de sécurité, Attaquer le feu à la base des flammes (angle à 45°), Appuyer sur la gâchette de façon continue."
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-extincteur-survie-003",
+      "question": "Quel est l'agent extincteur de l'extincteur CO2 ?",
+      "answers": [
+        {
+          "text": "2 kg de dioxyde de carbone",
+          "correct": true
+        },
+        {
+          "text": "1 kg de dioxyde de carbone",
+          "correct": false
+        },
+        {
+          "text": "5 kg de dioxyde de carbone",
+          "correct": false
+        },
+        {
+          "text": "3 kg de dioxyde de carbone",
+          "correct": false
+        }
+      ],
+      "page": 6,
+      "excerpt": {
+        "table": {
+          "caption": "EXTINCTEUR CO2",
+          "head": [
+            "Rubrique",
+            "Contenu"
+          ],
+          "rows": [
+            [
+              "Actions principales",
+              "Etouffement et refroidissement"
+            ],
+            [
+              "Durée de fonctionnement",
+              "Environ 15 secondes"
+            ],
+            [
+              "Agent extincteur",
+              "2 kg de dioxyde de carbone"
+            ],
+            [
+              "Pertinence du choix de cet extincteur",
+              "Utilisable sur tout type de feux"
+            ],
+            [
+              "Visite pré vol",
+              "Présence du matériel conforme au plan d'armement, Etat de l'extincteur, Etat du diffuseur (non fendu), Plaquette de validité, Présence de la goupille plombée, Contrôle du système d'arrimage sur son support."
+            ],
+            [
+              "Mise en œuvre",
+              "Arracher la goupille de sécurité, Attaquer le feu à la base des flammes (angle à 45°), Appuyer sur la gâchette de façon continue."
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-extincteur-survie-004",
+      "question": "Sur quels feux l'extincteur CO2 est-il utilisable d'après la fiche ?",
+      "answers": [
+        {
+          "text": "Sur tout type de feux",
+          "correct": true
+        },
+        {
+          "text": "Sur les feux non électriques",
+          "correct": false
+        },
+        {
+          "text": "Sur les feux non textiles",
+          "correct": false
+        },
+        {
+          "text": "Sur les feux non graisseux",
+          "correct": false
+        }
+      ],
+      "page": 6,
+      "excerpt": {
+        "table": {
+          "caption": "EXTINCTEUR CO2",
+          "head": [
+            "Rubrique",
+            "Contenu"
+          ],
+          "rows": [
+            [
+              "Actions principales",
+              "Etouffement et refroidissement"
+            ],
+            [
+              "Durée de fonctionnement",
+              "Environ 15 secondes"
+            ],
+            [
+              "Agent extincteur",
+              "2 kg de dioxyde de carbone"
+            ],
+            [
+              "Pertinence du choix de cet extincteur",
+              "Utilisable sur tout type de feux"
+            ],
+            [
+              "Visite pré vol",
+              "Présence du matériel conforme au plan d'armement, Etat de l'extincteur, Etat du diffuseur (non fendu), Plaquette de validité, Présence de la goupille plombée, Contrôle du système d'arrimage sur son support."
+            ],
+            [
+              "Mise en œuvre",
+              "Arracher la goupille de sécurité, Attaquer le feu à la base des flammes (angle à 45°), Appuyer sur la gâchette de façon continue."
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-extincteur-survie-005",
+      "question": "Comment attaque-t-on le feu avec l'extincteur CO2 ?",
+      "answers": [
+        {
+          "text": "À la base des flammes (angle à 45°)",
+          "correct": true
+        },
+        {
+          "text": "Au sommet des flammes (angle à 60°)",
+          "correct": false
+        },
+        {
+          "text": "Au centre des flammes (angle à 30°)",
+          "correct": false
+        },
+        {
+          "text": "Au-dessus des flammes (angle à 90°)",
+          "correct": false
+        }
+      ],
+      "page": 6,
+      "excerpt": {
+        "table": {
+          "caption": "EXTINCTEUR CO2",
+          "head": [
+            "Rubrique",
+            "Contenu"
+          ],
+          "rows": [
+            [
+              "Actions principales",
+              "Etouffement et refroidissement"
+            ],
+            [
+              "Durée de fonctionnement",
+              "Environ 15 secondes"
+            ],
+            [
+              "Agent extincteur",
+              "2 kg de dioxyde de carbone"
+            ],
+            [
+              "Pertinence du choix de cet extincteur",
+              "Utilisable sur tout type de feux"
+            ],
+            [
+              "Visite pré vol",
+              "Présence du matériel conforme au plan d'armement, Etat de l'extincteur, Etat du diffuseur (non fendu), Plaquette de validité, Présence de la goupille plombée, Contrôle du système d'arrimage sur son support."
+            ],
+            [
+              "Mise en œuvre",
+              "Arracher la goupille de sécurité, Attaquer le feu à la base des flammes (angle à 45°), Appuyer sur la gâchette de façon continue."
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-extincteur-survie-006",
+      "question": "Comment appuie-t-on sur la gâchette de l'extincteur CO2 ?",
+      "answers": [
+        {
+          "text": "De façon continue",
+          "correct": true
+        },
+        {
+          "text": "Par impulsions brèves",
+          "correct": false
+        },
+        {
+          "text": "Une seule fois, brièvement",
+          "correct": false
+        },
+        {
+          "text": "De façon progressive",
+          "correct": false
+        }
+      ],
+      "page": 6,
+      "excerpt": {
+        "table": {
+          "caption": "EXTINCTEUR CO2",
+          "head": [
+            "Rubrique",
+            "Contenu"
+          ],
+          "rows": [
+            [
+              "Actions principales",
+              "Etouffement et refroidissement"
+            ],
+            [
+              "Durée de fonctionnement",
+              "Environ 15 secondes"
+            ],
+            [
+              "Agent extincteur",
+              "2 kg de dioxyde de carbone"
+            ],
+            [
+              "Pertinence du choix de cet extincteur",
+              "Utilisable sur tout type de feux"
+            ],
+            [
+              "Visite pré vol",
+              "Présence du matériel conforme au plan d'armement, Etat de l'extincteur, Etat du diffuseur (non fendu), Plaquette de validité, Présence de la goupille plombée, Contrôle du système d'arrimage sur son support."
+            ],
+            [
+              "Mise en œuvre",
+              "Arracher la goupille de sécurité, Attaquer le feu à la base des flammes (angle à 45°), Appuyer sur la gâchette de façon continue."
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-extincteur-survie-007",
+      "question": "Dans quel ordre la fiche présente-t-elle la mise en œuvre de l'extincteur CO2 ?",
+      "answers": [
+        {
+          "text": "Arracher la goupille, attaquer le feu à la base des flammes, appuyer sur la gâchette de façon continue",
+          "correct": true
+        },
+        {
+          "text": "Arracher la goupille, appuyer sur la gâchette de façon continue, attaquer le feu à la base des flammes",
+          "correct": false
+        },
+        {
+          "text": "Attaquer le feu à la base des flammes, arracher la goupille, appuyer sur la gâchette de façon continue",
+          "correct": false
+        },
+        {
+          "text": "Contrôler la plaquette de validité, arracher la goupille, appuyer sur la gâchette de façon continue",
+          "correct": false
+        }
+      ],
+      "page": 6,
+      "excerpt": {
+        "table": {
+          "caption": "EXTINCTEUR CO2",
+          "head": [
+            "Rubrique",
+            "Contenu"
+          ],
+          "rows": [
+            [
+              "Actions principales",
+              "Etouffement et refroidissement"
+            ],
+            [
+              "Durée de fonctionnement",
+              "Environ 15 secondes"
+            ],
+            [
+              "Agent extincteur",
+              "2 kg de dioxyde de carbone"
+            ],
+            [
+              "Pertinence du choix de cet extincteur",
+              "Utilisable sur tout type de feux"
+            ],
+            [
+              "Visite pré vol",
+              "Présence du matériel conforme au plan d'armement, Etat de l'extincteur, Etat du diffuseur (non fendu), Plaquette de validité, Présence de la goupille plombée, Contrôle du système d'arrimage sur son support."
+            ],
+            [
+              "Mise en œuvre",
+              "Arracher la goupille de sécurité, Attaquer le feu à la base des flammes (angle à 45°), Appuyer sur la gâchette de façon continue."
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-extincteur-survie-008",
+      "question": "Lequel de ces points fait partie de la visite pré vol de l'extincteur CO2 ?",
+      "answers": [
+        {
+          "text": "Présence de la goupille plombée",
+          "correct": true
+        },
+        {
+          "text": "Retrait du plomb de la goupille",
+          "correct": false
+        },
+        {
+          "text": "Essai de la gâchette en continu",
+          "correct": false
+        },
+        {
+          "text": "Orientation du diffuseur à 45°",
+          "correct": false
+        }
+      ],
+      "page": 6,
+      "excerpt": {
+        "table": {
+          "caption": "EXTINCTEUR CO2",
+          "head": [
+            "Rubrique",
+            "Contenu"
+          ],
+          "rows": [
+            [
+              "Actions principales",
+              "Etouffement et refroidissement"
+            ],
+            [
+              "Durée de fonctionnement",
+              "Environ 15 secondes"
+            ],
+            [
+              "Agent extincteur",
+              "2 kg de dioxyde de carbone"
+            ],
+            [
+              "Pertinence du choix de cet extincteur",
+              "Utilisable sur tout type de feux"
+            ],
+            [
+              "Visite pré vol",
+              "Présence du matériel conforme au plan d'armement, Etat de l'extincteur, Etat du diffuseur (non fendu), Plaquette de validité, Présence de la goupille plombée, Contrôle du système d'arrimage sur son support."
+            ],
+            [
+              "Mise en œuvre",
+              "Arracher la goupille de sécurité, Attaquer le feu à la base des flammes (angle à 45°), Appuyer sur la gâchette de façon continue."
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-extincteur-survie-009",
+      "question": "Lors de la visite pré vol, que vérifie-t-on sur le diffuseur de l'extincteur CO2 ?",
+      "answers": [
+        {
+          "text": "Son état (non fendu)",
+          "correct": true
+        },
+        {
+          "text": "Son orientation (à 45°)",
+          "correct": false
+        },
+        {
+          "text": "Son plombage (intact)",
+          "correct": false
+        },
+        {
+          "text": "Son étiquette (lisible)",
+          "correct": false
+        }
+      ],
+      "page": 6,
+      "excerpt": {
+        "table": {
+          "caption": "EXTINCTEUR CO2",
+          "head": [
+            "Rubrique",
+            "Contenu"
+          ],
+          "rows": [
+            [
+              "Actions principales",
+              "Etouffement et refroidissement"
+            ],
+            [
+              "Durée de fonctionnement",
+              "Environ 15 secondes"
+            ],
+            [
+              "Agent extincteur",
+              "2 kg de dioxyde de carbone"
+            ],
+            [
+              "Pertinence du choix de cet extincteur",
+              "Utilisable sur tout type de feux"
+            ],
+            [
+              "Visite pré vol",
+              "Présence du matériel conforme au plan d'armement, Etat de l'extincteur, Etat du diffuseur (non fendu), Plaquette de validité, Présence de la goupille plombée, Contrôle du système d'arrimage sur son support."
+            ],
+            [
+              "Mise en œuvre",
+              "Arracher la goupille de sécurité, Attaquer le feu à la base des flammes (angle à 45°), Appuyer sur la gâchette de façon continue."
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-extincteur-survie-010",
+      "question": "Quand utilise-t-on le fumigène ?",
+      "answers": [
+        {
+          "text": "Uniquement de jour",
+          "correct": true
+        },
+        {
+          "text": "De préférence de nuit",
+          "correct": false
+        },
+        {
+          "text": "Uniquement de nuit",
+          "correct": false
+        },
+        {
+          "text": "De jour comme de nuit, indifféremment",
+          "correct": false
+        }
+      ],
+      "page": 6,
+      "excerpt": {
+        "table": {
+          "caption": "Survie",
+          "head": [
+            "Utilisation",
+            "Fumigène (fumée orange)",
+            "Feu de Bengale"
+          ],
+          "rows": [
+            [
+              "Quand ?",
+              "Uniquement de jour",
+              "De préférence de nuit"
+            ],
+            [
+              "Portée",
+              "Environ 10 km (6Nm)",
+              "Environ 48 km (25Nm)"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-extincteur-survie-011",
+      "question": "Quand utilise-t-on le feu de Bengale ?",
+      "answers": [
+        {
+          "text": "De préférence de nuit",
+          "correct": true
+        },
+        {
+          "text": "Uniquement de jour",
+          "correct": false
+        },
+        {
+          "text": "De préférence au crépuscule",
+          "correct": false
+        },
+        {
+          "text": "De préférence de jour",
+          "correct": false
+        }
+      ],
+      "page": 6,
+      "excerpt": {
+        "table": {
+          "caption": "Survie",
+          "head": [
+            "Utilisation",
+            "Fumigène (fumée orange)",
+            "Feu de Bengale"
+          ],
+          "rows": [
+            [
+              "Quand ?",
+              "Uniquement de jour",
+              "De préférence de nuit"
+            ],
+            [
+              "Portée",
+              "Environ 10 km (6Nm)",
+              "Environ 48 km (25Nm)"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-extincteur-survie-012",
+      "question": "De quelle couleur est la fumée du fumigène ?",
+      "answers": [
+        {
+          "text": "Orange",
+          "correct": true
+        },
+        {
+          "text": "Rouge",
+          "correct": false
+        },
+        {
+          "text": "Blanche",
+          "correct": false
+        },
+        {
+          "text": "Verte",
+          "correct": false
+        }
+      ],
+      "page": 6,
+      "excerpt": {
+        "table": {
+          "caption": "Survie",
+          "head": [
+            "Utilisation",
+            "Fumigène (fumée orange)",
+            "Feu de Bengale"
+          ],
+          "rows": [
+            [
+              "Quand ?",
+              "Uniquement de jour",
+              "De préférence de nuit"
+            ],
+            [
+              "Portée",
+              "Environ 10 km (6Nm)",
+              "Environ 48 km (25Nm)"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-extincteur-survie-013",
+      "question": "Quelle est la portée du fumigène ?",
+      "answers": [
+        {
+          "text": "Environ 10 km (6Nm)",
+          "correct": true
+        },
+        {
+          "text": "Environ 48 km (25Nm)",
+          "correct": false
+        },
+        {
+          "text": "Environ 4 km (2Nm)",
+          "correct": false
+        },
+        {
+          "text": "Environ 28 km (15Nm)",
+          "correct": false
+        }
+      ],
+      "page": 6,
+      "excerpt": {
+        "table": {
+          "caption": "Survie",
+          "head": [
+            "Utilisation",
+            "Fumigène (fumée orange)",
+            "Feu de Bengale"
+          ],
+          "rows": [
+            [
+              "Quand ?",
+              "Uniquement de jour",
+              "De préférence de nuit"
+            ],
+            [
+              "Portée",
+              "Environ 10 km (6Nm)",
+              "Environ 48 km (25Nm)"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-extincteur-survie-014",
+      "question": "Quelle est la portée du feu de Bengale ?",
+      "answers": [
+        {
+          "text": "Environ 48 km (25Nm)",
+          "correct": true
+        },
+        {
+          "text": "Environ 10 km (6Nm)",
+          "correct": false
+        },
+        {
+          "text": "Environ 28 km (15Nm)",
+          "correct": false
+        },
+        {
+          "text": "Environ 93 km (50Nm)",
+          "correct": false
+        }
+      ],
+      "page": 6,
+      "excerpt": {
+        "table": {
+          "caption": "Survie",
+          "head": [
+            "Utilisation",
+            "Fumigène (fumée orange)",
+            "Feu de Bengale"
+          ],
+          "rows": [
+            [
+              "Quand ?",
+              "Uniquement de jour",
+              "De préférence de nuit"
+            ],
+            [
+              "Portée",
+              "Environ 10 km (6Nm)",
+              "Environ 48 km (25Nm)"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-extincteur-survie-015",
+      "question": "Quelle est la durée du fumigène et du feu de Bengale ?",
+      "answers": [
+        {
+          "text": "20 à 25 secondes",
+          "correct": true
+        },
+        {
+          "text": "10 à 15 secondes",
+          "correct": false
+        },
+        {
+          "text": "1 à 2 minutes",
+          "correct": false
+        },
+        {
+          "text": "3 à 5 minutes",
+          "correct": false
+        }
+      ],
+      "page": 6,
+      "excerpt": {
+        "table": {
+          "caption": "Signal de détresse",
+          "head": [
+            "Utilisation",
+            "Fumigène (fumée orange)",
+            "Feu de Bengale"
+          ],
+          "rows": [
+            [
+              "Durée",
+              "20 à 25 secondes",
+              "20 à 25 secondes"
+            ],
+            [
+              "Utilisation",
+              "D'une seule main avec des gants polaires",
+              "D'une seule main avec des gants polaires"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-extincteur-survie-016",
+      "question": "Comment utilise-t-on le fumigène et le feu de Bengale ?",
+      "answers": [
+        {
+          "text": "D'une seule main avec des gants polaires",
+          "correct": true
+        },
+        {
+          "text": "À deux mains avec des gants en cuir",
+          "correct": false
+        },
+        {
+          "text": "Posé au sol, loin des survivants et du radeau",
+          "correct": false
+        },
+        {
+          "text": "D'une seule main, sans gants",
+          "correct": false
+        }
+      ],
+      "page": 6,
+      "excerpt": {
+        "table": {
+          "caption": "Signal de détresse",
+          "head": [
+            "Utilisation",
+            "Fumigène (fumée orange)",
+            "Feu de Bengale"
+          ],
+          "rows": [
+            [
+              "Durée",
+              "20 à 25 secondes",
+              "20 à 25 secondes"
+            ],
+            [
+              "Utilisation",
+              "D'une seule main avec des gants polaires",
+              "D'une seule main avec des gants polaires"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-extincteur-survie-017",
+      "question": "Dans le désert sans réserve d'eau, quelle est la durée de survie à 48° ?",
+      "answers": [
+        {
+          "text": "6 heures",
+          "correct": true
+        },
+        {
+          "text": "12 heures",
+          "correct": false
+        },
+        {
+          "text": "20 heures",
+          "correct": false
+        },
+        {
+          "text": "2 heures",
+          "correct": false
+        }
+      ],
+      "page": 6,
+      "excerpt": {
+        "table": {
+          "caption": "Durée de survie dans le désert sans réserve d'eau",
+          "head": [
+            "Durée de survie",
+            "Température extérieure"
+          ],
+          "rows": [
+            [
+              "6 heures",
+              "48°"
+            ],
+            [
+              "12 heures",
+              "43°"
+            ],
+            [
+              "20 heures",
+              "38°"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-extincteur-survie-018",
+      "question": "Dans le désert sans réserve d'eau, quelle est la durée de survie à 38° ?",
+      "answers": [
+        {
+          "text": "20 heures",
+          "correct": true
+        },
+        {
+          "text": "12 heures",
+          "correct": false
+        },
+        {
+          "text": "6 heures",
+          "correct": false
+        },
+        {
+          "text": "48 heures",
+          "correct": false
+        }
+      ],
+      "page": 6,
+      "excerpt": {
+        "table": {
+          "caption": "Durée de survie dans le désert sans réserve d'eau",
+          "head": [
+            "Durée de survie",
+            "Température extérieure"
+          ],
+          "rows": [
+            [
+              "6 heures",
+              "48°"
+            ],
+            [
+              "12 heures",
+              "43°"
+            ],
+            [
+              "20 heures",
+              "38°"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-extincteur-survie-019",
+      "question": "Dans le désert sans réserve d'eau, à quelle température la durée de survie est-elle de 12 heures ?",
+      "answers": [
+        {
+          "text": "43°",
+          "correct": true
+        },
+        {
+          "text": "48°",
+          "correct": false
+        },
+        {
+          "text": "38°",
+          "correct": false
+        },
+        {
+          "text": "33°",
+          "correct": false
+        }
+      ],
+      "page": 6,
+      "excerpt": {
+        "table": {
+          "caption": "Durée de survie dans le désert sans réserve d'eau",
+          "head": [
+            "Durée de survie",
+            "Température extérieure"
+          ],
+          "rows": [
+            [
+              "6 heures",
+              "48°"
+            ],
+            [
+              "12 heures",
+              "43°"
+            ],
+            [
+              "20 heures",
+              "38°"
+            ]
+          ]
+        }
+      }
+    }
+  ]
+}

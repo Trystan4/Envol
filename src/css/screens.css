@@ -6,7 +6,10 @@
 
 /* Question */
 .meta { display: flex; justify-content: space-between; gap: 12px; margin: 20px 0 6px; }
-.question { font-size: 21px; line-height: 29px; font-weight: 600; margin: 0 0 6px; }
+.meta .label:last-child { text-align: right; }
+/* Long questions and answers wrap, even on a long unbroken word, instead of widening the page. */
+.question { font-size: 21px; line-height: 29px; font-weight: 600; margin: 0 0 6px; overflow-wrap: anywhere; }
+.choice .text, .mistake b { overflow-wrap: anywhere; }
 .hint { font-size: 14px; color: var(--ink-muted); margin: 0 0 4px; }
 .choices { display: flex; flex-direction: column; gap: 10px; margin-top: 14px; }
 .choice {
@@ -39,6 +42,28 @@
   color: var(--ink-muted);
   font-size: 16px;
 }
+
+/* Passage of the course shown after a wrong answer. A table keeps its columns and scrolls
+   sideways inside its own frame: the page itself never scrolls sideways. */
+.excerpt {
+  margin: 14px 0 0;
+  padding: 12px 14px;
+  min-width: 0;
+  border-radius: var(--radius-choice);
+  background: var(--surface-raised);
+  border: 1px solid var(--line);
+}
+.excerpt-text { margin: 6px 0 0; font-size: 16px; line-height: 23px; white-space: pre-line; overflow-wrap: anywhere; }
+.excerpt-table { margin-top: 8px; max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; overscroll-behavior-x: contain; }
+.excerpt-table:focus-visible { outline: none; box-shadow: var(--focus); }
+.excerpt table { border-collapse: collapse; min-width: 100%; font-size: 14px; line-height: 19px; }
+.excerpt caption { text-align: left; font-weight: 600; padding-bottom: 6px; }
+.excerpt th, .excerpt td { min-width: 6.5em; padding: 6px 8px; border: 1px solid var(--line); text-align: left; vertical-align: top; }
+.excerpt th { background: var(--surface); font-weight: 600; }
+.excerpt img { display: block; max-width: 100%; height: auto; margin-top: 8px; border-radius: 8px; background: var(--image-backdrop); }
+.excerpt figcaption, .source { display: block; margin: 8px 0 0; font-size: 13px; line-height: 18px; color: var(--ink-muted); }
+.mistake details { margin-top: 6px; }
+.mistake summary { padding: 10px 0; color: var(--cabine); font-weight: 600; cursor: pointer; }
 
 .verso { margin-top: 16px; }
 .verso p { margin: 6px 0 0; font-size: 19px; line-height: 27px; font-weight: 600; }
@@ -107,3 +132,6 @@
 .calendar span { aspect-ratio: 1; border-radius: 8px; background: var(--line); }
 .calendar span.on { background: var(--acquis); }
 .calendar span.today { box-shadow: 0 0 0 2px var(--surface-raised), 0 0 0 4px var(--cabine); }
+
+/* Settings */
+.version { margin-top: 20px; font-size: 13px; text-align: center; }

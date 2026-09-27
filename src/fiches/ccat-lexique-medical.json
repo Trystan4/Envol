@@ -1,0 +1,916 @@
+{
+  "document": "Prérequis CCAT",
+  "fiabilite": "verifiee",
+  "questions": [
+    {
+      "id": "ccat-lexique-medical-001",
+      "question": "Que signifie « (…)ALGIE » ?",
+      "answers": [
+        {
+          "text": "douleur",
+          "correct": true
+        },
+        {
+          "text": "fatigue",
+          "correct": false
+        },
+        {
+          "text": "paralysie",
+          "correct": false
+        },
+        {
+          "text": "rupture",
+          "correct": false
+        }
+      ],
+      "page": 12,
+      "excerpt": {
+        "text": "(…)ALGIE : douleur"
+      }
+    },
+    {
+      "id": "ccat-lexique-medical-002",
+      "question": "Que signifie « ANOXIE » ?",
+      "answers": [
+        {
+          "text": "absence d'o2 en général",
+          "correct": true
+        },
+        {
+          "text": "gonflement des tissus",
+          "correct": false
+        },
+        {
+          "text": "dilatation des pupilles",
+          "correct": false
+        },
+        {
+          "text": "quantité d'urine émise",
+          "correct": false
+        }
+      ],
+      "page": 12,
+      "excerpt": {
+        "text": "ANOXIE : absence d'o2 en général\nCYANOSE : coloration bleutée de la peau, des ongles, des lèvres, des oreilles provoquée par une déficience d'o2 dans le sang"
+      }
+    },
+    {
+      "id": "ccat-lexique-medical-003",
+      "question": "Que signifie « ANTI (…) » ?",
+      "answers": [
+        {
+          "text": "contre",
+          "correct": true
+        },
+        {
+          "text": "nausée",
+          "correct": false
+        },
+        {
+          "text": "autour",
+          "correct": false
+        },
+        {
+          "text": "fatigue",
+          "correct": false
+        }
+      ],
+      "page": 12,
+      "excerpt": {
+        "text": "ANTI (…) : contre"
+      }
+    },
+    {
+      "id": "ccat-lexique-medical-004",
+      "question": "Que signifie « ASTHENIE » ?",
+      "answers": [
+        {
+          "text": "fatigue",
+          "correct": true
+        },
+        {
+          "text": "nausée",
+          "correct": false
+        },
+        {
+          "text": "rupture",
+          "correct": false
+        },
+        {
+          "text": "douleur",
+          "correct": false
+        }
+      ],
+      "page": 12,
+      "excerpt": {
+        "text": "ASTHENIE : fatigue"
+      }
+    },
+    {
+      "id": "ccat-lexique-medical-005",
+      "question": "Que signifie « AURICULAIRE » ?",
+      "answers": [
+        {
+          "text": "(en rapport avec l') oreille ou oreillette",
+          "correct": true
+        },
+        {
+          "text": "rougeur plus ou moins importante de la peau",
+          "correct": false
+        },
+        {
+          "text": "femme accouchant pour la première fois",
+          "correct": false
+        },
+        {
+          "text": "qui se rapporte à une infection (souillure) d'origine microbienne",
+          "correct": false
+        }
+      ],
+      "page": 12,
+      "excerpt": {
+        "text": "AURICULAIRE : (en rapport avec l') oreille ou oreillette"
+      }
+    },
+    {
+      "id": "ccat-lexique-medical-006",
+      "question": "Que signifie « CEPHALEES » ?",
+      "answers": [
+        {
+          "text": "maux de tête",
+          "correct": true
+        },
+        {
+          "text": "paralysie",
+          "correct": false
+        },
+        {
+          "text": "vomissement",
+          "correct": false
+        },
+        {
+          "text": "crachement",
+          "correct": false
+        }
+      ],
+      "page": 12,
+      "excerpt": {
+        "text": "CEPHALEES : maux de tête"
+      }
+    },
+    {
+      "id": "ccat-lexique-medical-007",
+      "question": "Que signifie « COLLAPSUS » ?",
+      "answers": [
+        {
+          "text": "effondrement du système vasculaire avec diminution de la pression artérielle",
+          "correct": true
+        },
+        {
+          "text": "qui se rapporte à une infection (souillure) d'origine microbienne",
+          "correct": false
+        },
+        {
+          "text": "douleur aiguë de l'intestin, des voies biliaires et urinaires",
+          "correct": false
+        },
+        {
+          "text": "rougeur plus ou moins importante de la peau",
+          "correct": false
+        }
+      ],
+      "page": 12,
+      "excerpt": {
+        "text": "COLLAPSUS : effondrement du système vasculaire avec diminution de la pression artérielle"
+      }
+    },
+    {
+      "id": "ccat-lexique-medical-008",
+      "question": "Que signifie « COLIQUE » ?",
+      "answers": [
+        {
+          "text": "douleur aiguë de l'intestin, des voies biliaires et urinaires",
+          "correct": true
+        },
+        {
+          "text": "qui se rapporte à une infection (souillure) d'origine microbienne",
+          "correct": false
+        },
+        {
+          "text": "rougeur plus ou moins importante de la peau",
+          "correct": false
+        },
+        {
+          "text": "effondrement du système vasculaire avec diminution de la pression artérielle",
+          "correct": false
+        }
+      ],
+      "page": 12,
+      "excerpt": {
+        "text": "COLIQUE : douleur aiguë de l'intestin, des voies biliaires et urinaires"
+      }
+    },
+    {
+      "id": "ccat-lexique-medical-009",
+      "question": "Que signifie « CYANOSE » ?",
+      "answers": [
+        {
+          "text": "coloration bleutée de la peau, des ongles, des lèvres, des oreilles provoquée par une déficience d'o2 dans le sang",
+          "correct": true
+        },
+        {
+          "text": "rougeur plus ou moins importante de la peau",
+          "correct": false
+        },
+        {
+          "text": "effondrement du système vasculaire avec diminution de la pression artérielle",
+          "correct": false
+        },
+        {
+          "text": "qui se rapporte à une infection (souillure) d'origine microbienne",
+          "correct": false
+        }
+      ],
+      "page": 12,
+      "excerpt": {
+        "text": "CYANOSE : coloration bleutée de la peau, des ongles, des lèvres, des oreilles provoquée par une déficience d'o2 dans le sang\nERYTHEME : rougeur plus ou moins importante de la peau"
+      }
+    },
+    {
+      "id": "ccat-lexique-medical-010",
+      "question": "Que signifie « DIURESE » ?",
+      "answers": [
+        {
+          "text": "quantité d'urine émise",
+          "correct": true
+        },
+        {
+          "text": "action d'uriner",
+          "correct": false
+        },
+        {
+          "text": "dilatation des pupilles",
+          "correct": false
+        },
+        {
+          "text": "gonflement des tissus",
+          "correct": false
+        }
+      ],
+      "page": 12,
+      "excerpt": {
+        "text": "DIURESE : quantité d'urine émise\nMICTION : action d'uriner"
+      }
+    },
+    {
+      "id": "ccat-lexique-medical-011",
+      "question": "Que signifie « ERYTHEME » ?",
+      "answers": [
+        {
+          "text": "rougeur plus ou moins importante de la peau",
+          "correct": true
+        },
+        {
+          "text": "coloration bleutée de la peau, des ongles, des lèvres, des oreilles provoquée par une déficience d'o2 dans le sang",
+          "correct": false
+        },
+        {
+          "text": "(en rapport avec l') oreille ou oreillette",
+          "correct": false
+        },
+        {
+          "text": "femme accouchant pour la première fois",
+          "correct": false
+        }
+      ],
+      "page": 12,
+      "excerpt": {
+        "text": "ERYTHEME : rougeur plus ou moins importante de la peau\nCYANOSE : coloration bleutée de la peau, des ongles, des lèvres, des oreilles provoquée par une déficience d'o2 dans le sang"
+      }
+    },
+    {
+      "id": "ccat-lexique-medical-012",
+      "question": "Que signifie « (…)EMESE » ?",
+      "answers": [
+        {
+          "text": "vomissement",
+          "correct": true
+        },
+        {
+          "text": "nausée",
+          "correct": false
+        },
+        {
+          "text": "paralysie",
+          "correct": false
+        },
+        {
+          "text": "crachement",
+          "correct": false
+        }
+      ],
+      "page": 12,
+      "excerpt": {
+        "text": "(…)EMESE : vomissement\nNAUPATHIE : nausée"
+      }
+    },
+    {
+      "id": "ccat-lexique-medical-013",
+      "question": "Que signifie « GASTRE » ?",
+      "answers": [
+        {
+          "text": "estomac",
+          "correct": true
+        },
+        {
+          "text": "foie",
+          "correct": false
+        },
+        {
+          "text": "œil",
+          "correct": false
+        },
+        {
+          "text": "sang",
+          "correct": false
+        }
+      ],
+      "page": 12,
+      "excerpt": {
+        "text": "GASTRE : estomac\nHEPA(…) : foie"
+      }
+    },
+    {
+      "id": "ccat-lexique-medical-014",
+      "question": "Que signifie « HEMA(…), HEMO(…) » ?",
+      "answers": [
+        {
+          "text": "sang",
+          "correct": true
+        },
+        {
+          "text": "demi",
+          "correct": false
+        },
+        {
+          "text": "foie",
+          "correct": false
+        },
+        {
+          "text": "œil",
+          "correct": false
+        }
+      ],
+      "page": 12,
+      "excerpt": {
+        "text": "HEMA(…), HEMO(…) : sang\nHEMI(…) : demi"
+      }
+    },
+    {
+      "id": "ccat-lexique-medical-015",
+      "question": "Que signifie « HEMI(…) » ?",
+      "answers": [
+        {
+          "text": "demi",
+          "correct": true
+        },
+        {
+          "text": "sang",
+          "correct": false
+        },
+        {
+          "text": "foie",
+          "correct": false
+        },
+        {
+          "text": "œil",
+          "correct": false
+        }
+      ],
+      "page": 12,
+      "excerpt": {
+        "text": "HEMI(…) : demi\nHEMA(…), HEMO(…) : sang"
+      }
+    },
+    {
+      "id": "ccat-lexique-medical-016",
+      "question": "Que signifie « HEPA(…) » ?",
+      "answers": [
+        {
+          "text": "foie",
+          "correct": true
+        },
+        {
+          "text": "estomac",
+          "correct": false
+        },
+        {
+          "text": "sang",
+          "correct": false
+        },
+        {
+          "text": "demi",
+          "correct": false
+        }
+      ],
+      "page": 12,
+      "excerpt": {
+        "text": "HEPA(…) : foie\nGASTRE : estomac"
+      }
+    },
+    {
+      "id": "ccat-lexique-medical-017",
+      "question": "Que signifie « HYPER(…) » ?",
+      "answers": [
+        {
+          "text": "trop (élevé)",
+          "correct": true
+        },
+        {
+          "text": "pas assez (bas)",
+          "correct": false
+        },
+        {
+          "text": "autour",
+          "correct": false
+        },
+        {
+          "text": "demi",
+          "correct": false
+        }
+      ],
+      "page": 12,
+      "excerpt": {
+        "text": "HYPER(…) : trop (élevé)\nHYPO(…) : pas assez (bas)"
+      }
+    },
+    {
+      "id": "ccat-lexique-medical-018",
+      "question": "Que signifie « HYPO(…) » ?",
+      "answers": [
+        {
+          "text": "pas assez (bas)",
+          "correct": true
+        },
+        {
+          "text": "trop (élevé)",
+          "correct": false
+        },
+        {
+          "text": "contre",
+          "correct": false
+        },
+        {
+          "text": "demi",
+          "correct": false
+        }
+      ],
+      "page": 12,
+      "excerpt": {
+        "text": "HYPO(…) : pas assez (bas)\nHYPER(…) : trop (élevé)"
+      }
+    },
+    {
+      "id": "ccat-lexique-medical-019",
+      "question": "Que signifie « (…)ITE » ?",
+      "answers": [
+        {
+          "text": "inflammation (otite, péritonite, méningite, …)",
+          "correct": true
+        },
+        {
+          "text": "rougeur plus ou moins importante de la peau",
+          "correct": false
+        },
+        {
+          "text": "(en rapport avec l') oreille ou oreillette",
+          "correct": false
+        },
+        {
+          "text": "respiration (apnée, dyspnée, polypnée…)",
+          "correct": false
+        }
+      ],
+      "page": 12,
+      "excerpt": {
+        "text": "(…)ITE : inflammation (otite, péritonite, méningite, …)"
+      }
+    },
+    {
+      "id": "ccat-lexique-medical-020",
+      "question": "Que signifie « MICTION » ?",
+      "answers": [
+        {
+          "text": "action d'uriner",
+          "correct": true
+        },
+        {
+          "text": "quantité d'urine émise",
+          "correct": false
+        },
+        {
+          "text": "gonflement des tissus",
+          "correct": false
+        },
+        {
+          "text": "maux de tête",
+          "correct": false
+        }
+      ],
+      "page": 12,
+      "excerpt": {
+        "text": "MICTION : action d'uriner\nDIURESE : quantité d'urine émise"
+      }
+    },
+    {
+      "id": "ccat-lexique-medical-021",
+      "question": "Que signifie « MYDRIASE » ?",
+      "answers": [
+        {
+          "text": "dilatation des pupilles",
+          "correct": true
+        },
+        {
+          "text": "rétractation des pupilles",
+          "correct": false
+        },
+        {
+          "text": "action d'uriner",
+          "correct": false
+        },
+        {
+          "text": "quantité d'urine émise",
+          "correct": false
+        }
+      ],
+      "page": 12,
+      "excerpt": {
+        "text": "MYDRIASE : dilatation des pupilles\nMYOSIS : rétractation des pupilles"
+      }
+    },
+    {
+      "id": "ccat-lexique-medical-022",
+      "question": "Que signifie « MYOSIS » ?",
+      "answers": [
+        {
+          "text": "rétractation des pupilles",
+          "correct": true
+        },
+        {
+          "text": "dilatation des pupilles",
+          "correct": false
+        },
+        {
+          "text": "action d'uriner",
+          "correct": false
+        },
+        {
+          "text": "quantité d'urine émise",
+          "correct": false
+        }
+      ],
+      "page": 12,
+      "excerpt": {
+        "text": "MYOSIS : rétractation des pupilles\nMYDRIASE : dilatation des pupilles"
+      }
+    },
+    {
+      "id": "ccat-lexique-medical-023",
+      "question": "Que signifie « NAUPATHIE » ?",
+      "answers": [
+        {
+          "text": "nausée",
+          "correct": true
+        },
+        {
+          "text": "vomissement",
+          "correct": false
+        },
+        {
+          "text": "fatigue",
+          "correct": false
+        },
+        {
+          "text": "douleur",
+          "correct": false
+        }
+      ],
+      "page": 12,
+      "excerpt": {
+        "text": "NAUPATHIE : nausée\n(…)EMESE : vomissement"
+      }
+    },
+    {
+      "id": "ccat-lexique-medical-024",
+      "question": "Que signifie « OEDEME » ?",
+      "answers": [
+        {
+          "text": "gonflement des tissus",
+          "correct": true
+        },
+        {
+          "text": "dilatation des pupilles",
+          "correct": false
+        },
+        {
+          "text": "quantité d'urine émise",
+          "correct": false
+        },
+        {
+          "text": "absence d'o2 en général",
+          "correct": false
+        }
+      ],
+      "page": 12,
+      "excerpt": {
+        "text": "OEDEME : gonflement des tissus"
+      }
+    },
+    {
+      "id": "ccat-lexique-medical-025",
+      "question": "Que signifie « OPH(…) » ?",
+      "answers": [
+        {
+          "text": "œil",
+          "correct": true
+        },
+        {
+          "text": "sang",
+          "correct": false
+        },
+        {
+          "text": "demi",
+          "correct": false
+        },
+        {
+          "text": "foie",
+          "correct": false
+        }
+      ],
+      "page": 12,
+      "excerpt": {
+        "text": "OPH(…) : œil"
+      }
+    },
+    {
+      "id": "ccat-lexique-medical-026",
+      "question": "Que signifie « PERI(…) » ?",
+      "answers": [
+        {
+          "text": "autour",
+          "correct": true
+        },
+        {
+          "text": "contre",
+          "correct": false
+        },
+        {
+          "text": "demi",
+          "correct": false
+        },
+        {
+          "text": "sang",
+          "correct": false
+        }
+      ],
+      "page": 12,
+      "excerpt": {
+        "text": "PERI(…) : autour"
+      }
+    },
+    {
+      "id": "ccat-lexique-medical-027",
+      "question": "Que signifie « (…)PLEGIE » ?",
+      "answers": [
+        {
+          "text": "paralysie",
+          "correct": true
+        },
+        {
+          "text": "crachement",
+          "correct": false
+        },
+        {
+          "text": "rupture",
+          "correct": false
+        },
+        {
+          "text": "douleur",
+          "correct": false
+        }
+      ],
+      "page": 12,
+      "excerpt": {
+        "text": "(…)PLEGIE : paralysie"
+      }
+    },
+    {
+      "id": "ccat-lexique-medical-028",
+      "question": "Que signifie « (…)PNEE » ?",
+      "answers": [
+        {
+          "text": "respiration (apnée, dyspnée, polypnée…)",
+          "correct": true
+        },
+        {
+          "text": "femme accouchant pour la première fois",
+          "correct": false
+        },
+        {
+          "text": "(en rapport avec l') oreille ou oreillette",
+          "correct": false
+        },
+        {
+          "text": "rougeur plus ou moins importante de la peau",
+          "correct": false
+        }
+      ],
+      "page": 12,
+      "excerpt": {
+        "text": "(…)PNEE : respiration (apnée, dyspnée, polypnée…)"
+      }
+    },
+    {
+      "id": "ccat-lexique-medical-029",
+      "question": "Que signifie « PRIMIPARE » ?",
+      "answers": [
+        {
+          "text": "femme accouchant pour la première fois",
+          "correct": true
+        },
+        {
+          "text": "respiration (apnée, dyspnée, polypnée…)",
+          "correct": false
+        },
+        {
+          "text": "(en rapport avec l') oreille ou oreillette",
+          "correct": false
+        },
+        {
+          "text": "rougeur plus ou moins importante de la peau",
+          "correct": false
+        }
+      ],
+      "page": 12,
+      "excerpt": {
+        "text": "PRIMIPARE : femme accouchant pour la première fois"
+      }
+    },
+    {
+      "id": "ccat-lexique-medical-030",
+      "question": "Que signifie « (…)PTYSIE » ?",
+      "answers": [
+        {
+          "text": "crachement",
+          "correct": true
+        },
+        {
+          "text": "vomissement",
+          "correct": false
+        },
+        {
+          "text": "paralysie",
+          "correct": false
+        },
+        {
+          "text": "maux de tête",
+          "correct": false
+        }
+      ],
+      "page": 12,
+      "excerpt": {
+        "text": "(…)PTYSIE : crachement"
+      }
+    },
+    {
+      "id": "ccat-lexique-medical-031",
+      "question": "Que signifie « PYRETIQUE » ?",
+      "answers": [
+        {
+          "text": "relatif à la fièvre",
+          "correct": true
+        },
+        {
+          "text": "relatif à la miction",
+          "correct": false
+        },
+        {
+          "text": "gonflement des tissus",
+          "correct": false
+        },
+        {
+          "text": "quantité d'urine émise",
+          "correct": false
+        }
+      ],
+      "page": 12,
+      "excerpt": {
+        "text": "PYRETIQUE : relatif à la fièvre"
+      }
+    },
+    {
+      "id": "ccat-lexique-medical-032",
+      "question": "Que signifie « (…)RAGIE » ?",
+      "answers": [
+        {
+          "text": "rupture",
+          "correct": true
+        },
+        {
+          "text": "douleur",
+          "correct": false
+        },
+        {
+          "text": "fatigue",
+          "correct": false
+        },
+        {
+          "text": "paralysie",
+          "correct": false
+        }
+      ],
+      "page": 12,
+      "excerpt": {
+        "text": "(…)RAGIE : rupture"
+      }
+    },
+    {
+      "id": "ccat-lexique-medical-033",
+      "question": "Que signifie « SEPTIQUE » ?",
+      "answers": [
+        {
+          "text": "qui se rapporte à une infection (souillure) d'origine microbienne",
+          "correct": true
+        },
+        {
+          "text": "douleur aiguë de l'intestin, des voies biliaires et urinaires",
+          "correct": false
+        },
+        {
+          "text": "effondrement du système vasculaire avec diminution de la pression artérielle",
+          "correct": false
+        },
+        {
+          "text": "(en rapport avec l') oreille ou oreillette",
+          "correct": false
+        }
+      ],
+      "page": 12,
+      "excerpt": {
+        "text": "SEPTIQUE : qui se rapporte à une infection (souillure) d'origine microbienne"
+      }
+    },
+    {
+      "id": "ccat-lexique-medical-034",
+      "question": "Que signifie « STASE » ?",
+      "answers": [
+        {
+          "text": "arrêt",
+          "correct": true
+        },
+        {
+          "text": "rupture",
+          "correct": false
+        },
+        {
+          "text": "sang",
+          "correct": false
+        },
+        {
+          "text": "fatigue",
+          "correct": false
+        }
+      ],
+      "page": 12,
+      "excerpt": {
+        "text": "STASE : arrêt"
+      }
+    },
+    {
+      "id": "ccat-lexique-medical-035",
+      "question": "Que signifie « URI(…) » ?",
+      "answers": [
+        {
+          "text": "relatif à la miction",
+          "correct": true
+        },
+        {
+          "text": "gonflement des tissus",
+          "correct": false
+        },
+        {
+          "text": "relatif à la fièvre",
+          "correct": false
+        },
+        {
+          "text": "absence d'o2 en général",
+          "correct": false
+        }
+      ],
+      "page": 12,
+      "excerpt": {
+        "text": "URI(…) : relatif à la miction"
+      }
+    }
+  ]
+}

@@ -1,5 +1,5 @@
 import { esc, grade20, formatGrade, shortDate, plural } from "../util.js";
-import { closeBar, gauge, stackedGauge, rightAnswer } from "./common.js";
+import { closeBar, gauge, stackedGauge, rightAnswer, sourceLine } from "./common.js";
 
 const weekday = day => { const [y, m, d] = day.split("-").map(Number); return new Date(y, m - 1, d).toLocaleDateString("fr-FR", { weekday: "long", day: "numeric", month: "long" }); };
 
@@ -40,10 +40,10 @@ export function renderSummary({ ov, themes, trend, tests, reviewsThisWeek, strea
           return gauge(shortDate(t.at), g * 5, formatGrade(g));
         }).join("")}</div>`
       : `<p class="muted">Pas encore de test blanc. Il se lance depuis l'accueil, quand tu veux.</p>`}
-    ${disputed.length ? `<h2 class="section">Réponses douteuses signalées</h2>
-      <div class="mistakes">${disputed.map(q => `<div class="mistake card"><b>${esc(q.question)}</b><span>✓ ${rightAnswer(q)}</span></div>`).join("")}</div>
-      ${message ? `<p class="success" role="status">${esc(message)}</p>` : ""}
-      <button class="link" data-act="shareDisputes" style="align-self:center;margin-top:8px">Envoyer la liste</button>` : ""}
+    ${disputed.length ? `<h2 class="section">Questions signalées</h2>
+      <div class="mistakes">${disputed.map(q => `<div class="mistake card"><b>${esc(q.question)}</b><span>✓ ${rightAnswer(q)}</span>${q.note ? `<span class="muted">Pourquoi : ${esc(q.note)}</span>` : ""}${q.page ? `<small class="source">${sourceLine(q)}</small>` : ""}<small class="muted">${q.setAside ? "Écartée des séances jusqu'à correction de la fiche." : "La fiche a changé depuis ton signalement : la question revient dans les séances."}</small><button class="small-link" data-act="withdraw" data-id="${esc(q.id)}">Retirer le signalement</button></div>`).join("")}</div>
+      <button class="link" data-act="exportReports" style="align-self:center;margin-top:8px">Envoyer mes signalements</button>` : ""}
+    ${message ? `<p class="success" role="status">${esc(message)}</p>` : ""}
     <div class="actions"><button class="btn" data-act="test">Faire un test blanc</button></div>
   </main>`;
 }

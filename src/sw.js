@@ -5,6 +5,8 @@
 // ASSETS must list every published file except sw.js itself and the fiches, which are read
 // from fiches/index.json at install time. tests/unit/sw.test.js checks the list.
 
+// Equal to APP_VERSION in js/config.js: bumping it changes this file, so phones install the new version.
+const VERSION = "2.2.0";
 const CACHE = "envol-v2";
 const ASSETS = [
   "./",
@@ -31,6 +33,17 @@ const ASSETS = [
   "js/screens/settings.js",
   "js/screens/summary.js",
   "fiches/index.json",
+  "img/ccat-p07-cerveau.webp",
+  "img/ccat-p07-systeme-nerveux.webp",
+  "img/ccat-p08-circulation.webp",
+  "img/ccat-p08-coeur.webp",
+  "img/ccat-p09-appareil-digestif.webp",
+  "img/ccat-p09-regions-abdomen.webp",
+  "img/ccat-p10-appareil-respiratoire.webp",
+  "img/ccat-p11-bassin.webp",
+  "img/ccat-p11-membre-inferieur.webp",
+  "img/ccat-p11-membre-superieur.webp",
+  "img/ccat-p11-thorax.webp",
 ];
 const TIMEOUT = 4000;
 

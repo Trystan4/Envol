@@ -1,0 +1,1174 @@
+{
+  "document": "Prérequis CCAT",
+  "fiabilite": "verifiee",
+  "questions": [
+    {
+      "id": "ccat-calculs-001",
+      "question": "Qu'est-ce qui est interdit le jour de l'examen pour les calculs ?",
+      "answers": [
+        {
+          "text": "Les machines à calculer et les téléphones portables",
+          "correct": true
+        },
+        {
+          "text": "Les machines à calculer et les brouillons",
+          "correct": false
+        },
+        {
+          "text": "Les téléphones portables et les brouillons",
+          "correct": false
+        },
+        {
+          "text": "Les brouillons et les fiches récapitulatives",
+          "correct": false
+        }
+      ],
+      "page": 14,
+      "excerpt": {
+        "text": "Le jour de l'examen, quelques questions de conversions peuvent être posées et sachez que les machines à calculer et téléphones portables sont interdits. Vous devrez effectuer par vous-même les calculs."
+      }
+    },
+    {
+      "id": "ccat-calculs-002",
+      "question": "Quelles tables de multiplication faut-il connaître pour les calculs ?",
+      "answers": [
+        {
+          "text": "Les tables de 2 et de 3",
+          "correct": true
+        },
+        {
+          "text": "Les tables de 5 et de 10",
+          "correct": false
+        },
+        {
+          "text": "Les tables de 7 et de 9",
+          "correct": false
+        },
+        {
+          "text": "Les tables de 4 et de 6",
+          "correct": false
+        }
+      ],
+      "page": 14,
+      "excerpt": {
+        "text": "Pour réaliser les différents calculs vous devez connaitre la table de multiplication de 2 et de 3."
+      }
+    },
+    {
+      "id": "ccat-calculs-003",
+      "question": "Quelle formule donne l'altitude en pieds à partir de l'altitude en mètres ?",
+      "answers": [
+        {
+          "text": "Altitude en mètres / 3 × 10",
+          "correct": true
+        },
+        {
+          "text": "Altitude en mètres / 10 × 3",
+          "correct": false
+        },
+        {
+          "text": "Altitude en mètres × 3 × 10",
+          "correct": false
+        },
+        {
+          "text": "Altitude en mètres / 3 / 10",
+          "correct": false
+        }
+      ],
+      "page": 14,
+      "excerpt": {
+        "text": "Altitude en mètres → altitude en pieds : altitude en pieds = altitude en mètres / 3 × 10.\nAltitude en pieds → altitude en mètres : altitude en mètres = altitude en pieds / 10 × 3."
+      }
+    },
+    {
+      "id": "ccat-calculs-004",
+      "question": "Quelle formule donne l'altitude en mètres à partir de l'altitude en pieds ?",
+      "answers": [
+        {
+          "text": "Altitude en pieds / 10 × 3",
+          "correct": true
+        },
+        {
+          "text": "Altitude en pieds / 3 × 10",
+          "correct": false
+        },
+        {
+          "text": "Altitude en pieds × 10 × 3",
+          "correct": false
+        },
+        {
+          "text": "Altitude en pieds / 10 / 3",
+          "correct": false
+        }
+      ],
+      "page": 14,
+      "excerpt": {
+        "text": "Altitude en mètres → altitude en pieds : altitude en pieds = altitude en mètres / 3 × 10.\nAltitude en pieds → altitude en mètres : altitude en mètres = altitude en pieds / 10 × 3."
+      }
+    },
+    {
+      "id": "ccat-calculs-005",
+      "question": "Combien font 9000 mètres en pieds ?",
+      "answers": [
+        {
+          "text": "30 000 pieds",
+          "correct": true
+        },
+        {
+          "text": "2 700 pieds",
+          "correct": false
+        },
+        {
+          "text": "3 000 pieds",
+          "correct": false
+        },
+        {
+          "text": "27 000 pieds",
+          "correct": false
+        }
+      ],
+      "page": 15,
+      "excerpt": {
+        "text": "Question 1 : Convertir 9000 mètres en pieds ? altitude en pieds = 9000 / 3 × 10 = 3000 × 10 = 30000. Réponse : 9000 mètres font 30 000 pieds."
+      }
+    },
+    {
+      "id": "ccat-calculs-006",
+      "question": "Combien font 25 000 pieds en mètres ?",
+      "answers": [
+        {
+          "text": "7 500 mètres",
+          "correct": true
+        },
+        {
+          "text": "2 500 mètres",
+          "correct": false
+        },
+        {
+          "text": "75 000 mètres",
+          "correct": false
+        },
+        {
+          "text": "83 333 mètres",
+          "correct": false
+        }
+      ],
+      "page": 15,
+      "excerpt": {
+        "text": "Question 2 : Convertir 25 000 pieds en mètres ? altitude en mètres = 25 000 / 10 × 3 = 2500 × 3 = 7500. Réponse : 25 000 pieds = 7500 mètres."
+      }
+    },
+    {
+      "id": "ccat-calculs-007",
+      "question": "Avec la formule de la fiche, combien font 6000 mètres en pieds ?",
+      "answers": [
+        {
+          "text": "20 000 pieds",
+          "correct": true
+        },
+        {
+          "text": "1 800 pieds",
+          "correct": false
+        },
+        {
+          "text": "2 000 pieds",
+          "correct": false
+        },
+        {
+          "text": "18 000 pieds",
+          "correct": false
+        }
+      ],
+      "page": 14,
+      "excerpt": {
+        "text": "Altitude en mètres → altitude en pieds : altitude en pieds = altitude en mètres / 3 × 10.\nAltitude en pieds → altitude en mètres : altitude en mètres = altitude en pieds / 10 × 3."
+      }
+    },
+    {
+      "id": "ccat-calculs-008",
+      "question": "Avec la formule de la fiche, combien font 15 000 pieds en mètres ?",
+      "answers": [
+        {
+          "text": "4 500 mètres",
+          "correct": true
+        },
+        {
+          "text": "1 500 mètres",
+          "correct": false
+        },
+        {
+          "text": "50 000 mètres",
+          "correct": false
+        },
+        {
+          "text": "45 000 mètres",
+          "correct": false
+        }
+      ],
+      "page": 14,
+      "excerpt": {
+        "text": "Altitude en mètres → altitude en pieds : altitude en pieds = altitude en mètres / 3 × 10.\nAltitude en pieds → altitude en mètres : altitude en mètres = altitude en pieds / 10 × 3."
+      }
+    },
+    {
+      "id": "ccat-calculs-009",
+      "question": "Selon la fiche, sur quelle unité le niveau de vol est-il basé ?",
+      "answers": [
+        {
+          "text": "Les pieds",
+          "correct": true
+        },
+        {
+          "text": "Les mètres",
+          "correct": false
+        },
+        {
+          "text": "Les kilomètres",
+          "correct": false
+        },
+        {
+          "text": "Les Nautique miles",
+          "correct": false
+        }
+      ],
+      "page": 15,
+      "excerpt": {
+        "text": "Pour aller plus vite, le pilote indique son altitude de vol aux contrôleurs aériens par radio en lui disant « je suis au niveau de vol 290 » ou « je suis au FL290 », cela signifie que l'altitude de vol de l'avion est de 29 000 pieds.\nDonc le niveau de vol est basé par rapport à l'altitude en PIEDS : niveau de vol = altitude en pieds / 100.\nOn rajoute FL devant le nombre pour indiquer qu'il s'agit d'un niveau de vol."
+      }
+    },
+    {
+      "id": "ccat-calculs-010",
+      "question": "Que signifie « je suis au FL290 » ?",
+      "answers": [
+        {
+          "text": "L'altitude de vol de l'avion est de 29 000 pieds",
+          "correct": true
+        },
+        {
+          "text": "L'altitude de vol de l'avion est de 2 900 pieds",
+          "correct": false
+        },
+        {
+          "text": "L'altitude de vol de l'avion est de 2 900 mètres",
+          "correct": false
+        },
+        {
+          "text": "L'altitude de vol de l'avion est de 29 000 mètres",
+          "correct": false
+        }
+      ],
+      "page": 15,
+      "excerpt": {
+        "text": "Pour aller plus vite, le pilote indique son altitude de vol aux contrôleurs aériens par radio en lui disant « je suis au niveau de vol 290 » ou « je suis au FL290 », cela signifie que l'altitude de vol de l'avion est de 29 000 pieds.\nDonc le niveau de vol est basé par rapport à l'altitude en PIEDS : niveau de vol = altitude en pieds / 100.\nOn rajoute FL devant le nombre pour indiquer qu'il s'agit d'un niveau de vol."
+      }
+    },
+    {
+      "id": "ccat-calculs-011",
+      "question": "À quel niveau de vol vole un avion dont l'altitude de croisière est de 35 000 pieds ?",
+      "answers": [
+        {
+          "text": "FL350",
+          "correct": true
+        },
+        {
+          "text": "FL35",
+          "correct": false
+        },
+        {
+          "text": "FL1050",
+          "correct": false
+        },
+        {
+          "text": "FL105",
+          "correct": false
+        }
+      ],
+      "page": 15,
+      "excerpt": {
+        "text": "Pour aller plus vite, le pilote indique son altitude de vol aux contrôleurs aériens par radio en lui disant « je suis au niveau de vol 290 » ou « je suis au FL290 », cela signifie que l'altitude de vol de l'avion est de 29 000 pieds.\nDonc le niveau de vol est basé par rapport à l'altitude en PIEDS : niveau de vol = altitude en pieds / 100.\nOn rajoute FL devant le nombre pour indiquer qu'il s'agit d'un niveau de vol."
+      }
+    },
+    {
+      "id": "ccat-calculs-012",
+      "question": "Avec la formule de la fiche, à quel niveau de vol correspond une altitude de 31 000 pieds ?",
+      "answers": [
+        {
+          "text": "FL310",
+          "correct": true
+        },
+        {
+          "text": "FL31",
+          "correct": false
+        },
+        {
+          "text": "FL930",
+          "correct": false
+        },
+        {
+          "text": "FL93",
+          "correct": false
+        }
+      ],
+      "page": 15,
+      "excerpt": {
+        "text": "Pour aller plus vite, le pilote indique son altitude de vol aux contrôleurs aériens par radio en lui disant « je suis au niveau de vol 290 » ou « je suis au FL290 », cela signifie que l'altitude de vol de l'avion est de 29 000 pieds.\nDonc le niveau de vol est basé par rapport à l'altitude en PIEDS : niveau de vol = altitude en pieds / 100.\nOn rajoute FL devant le nombre pour indiquer qu'il s'agit d'un niveau de vol."
+      }
+    },
+    {
+      "id": "ccat-calculs-013",
+      "question": "En quelle unité les distances sont-elles exprimées en aéronautique ?",
+      "answers": [
+        {
+          "text": "En Nautique miles (Nm)",
+          "correct": true
+        },
+        {
+          "text": "En kilomètres (km)",
+          "correct": false
+        },
+        {
+          "text": "En pieds (ft)",
+          "correct": false
+        },
+        {
+          "text": "En mètres (m)",
+          "correct": false
+        }
+      ],
+      "page": 15,
+      "excerpt": {
+        "text": "En aéronautique (comme pour les bateaux), les distances sont exprimées en Nautique miles noté Nm.\n1 Nm = 1852 mètres ou 1 Nm = 1,852 kilomètres"
+      }
+    },
+    {
+      "id": "ccat-calculs-014",
+      "question": "À combien de mètres correspond 1 Nm ?",
+      "answers": [
+        {
+          "text": "1 852 mètres",
+          "correct": true
+        },
+        {
+          "text": "1 000 mètres",
+          "correct": false
+        },
+        {
+          "text": "1 609 mètres",
+          "correct": false
+        },
+        {
+          "text": "18 520 mètres",
+          "correct": false
+        }
+      ],
+      "page": 15,
+      "excerpt": {
+        "text": "En aéronautique (comme pour les bateaux), les distances sont exprimées en Nautique miles noté Nm.\n1 Nm = 1852 mètres ou 1 Nm = 1,852 kilomètres"
+      }
+    },
+    {
+      "id": "ccat-calculs-015",
+      "question": "Quelle est la formule exacte pour convertir des Nm en km ?",
+      "answers": [
+        {
+          "text": "Distance en Nm × 1,852",
+          "correct": true
+        },
+        {
+          "text": "Distance en Nm / 1,852",
+          "correct": false
+        },
+        {
+          "text": "Distance en Nm × 18,52",
+          "correct": false
+        },
+        {
+          "text": "Distance en Nm / 18,52",
+          "correct": false
+        }
+      ],
+      "page": 16,
+      "excerpt": {
+        "text": "Donc pour convertir des Nm en km on applique la formule :\ndistance en Nm x 1,852 = distance en km\nEt pour convertir les Km en Nm : distance en Nm = distance en Km / 1,852"
+      }
+    },
+    {
+      "id": "ccat-calculs-016",
+      "question": "Avec la formule exacte, combien font 50 Nm en kilomètres ?",
+      "answers": [
+        {
+          "text": "92,6 km",
+          "correct": true
+        },
+        {
+          "text": "27,0 km",
+          "correct": false
+        },
+        {
+          "text": "185,2 km",
+          "correct": false
+        },
+        {
+          "text": "9,26 km",
+          "correct": false
+        }
+      ],
+      "page": 16,
+      "excerpt": {
+        "text": "Par exemple 50 Nm font donc 50 X 1,852 kilomètres (donc 92,6 km)."
+      }
+    },
+    {
+      "id": "ccat-calculs-017",
+      "question": "Avec la formule exacte, combien font 40 Nm en kilomètres ?",
+      "answers": [
+        {
+          "text": "74,080 kilomètres",
+          "correct": true
+        },
+        {
+          "text": "21,598 kilomètres",
+          "correct": false
+        },
+        {
+          "text": "148,160 kilomètres",
+          "correct": false
+        },
+        {
+          "text": "7,408 kilomètres",
+          "correct": false
+        }
+      ],
+      "page": 16,
+      "excerpt": {
+        "text": "Question 1 : Combien font 40 Nm en kilomètres ? Réponse : 40 × 1,852 = 74,080 kilomètres."
+      }
+    },
+    {
+      "id": "ccat-calculs-018",
+      "question": "Quelle est la formule approchée pour convertir des Nm en km ?",
+      "answers": [
+        {
+          "text": "(Distance en Nm × 2) − 10 % de (distance en Nm × 2)",
+          "correct": true
+        },
+        {
+          "text": "(Distance en Nm × 2) + 10 % de (distance en Nm × 2)",
+          "correct": false
+        },
+        {
+          "text": "(Distance en Nm / 2) + 10 % de (distance en Nm / 2)",
+          "correct": false
+        },
+        {
+          "text": "(Distance en Nm / 2) − 10 % de (distance en Nm / 2)",
+          "correct": false
+        }
+      ],
+      "page": 16,
+      "excerpt": {
+        "text": "Formules approchées (résultat approximatif mais plus rapide) :\nDistance en km = (distance en Nm X 2) – 10% de (Distance en Nm X 2)\nDistance en Nm = (distance en kilomètres / 2) + 10% de (distance en kilomètres / 2)\nAstuce : quand je multiplie par 2, il faut que je retire 10% du résultat. Quand je divise par 2, il faut que je rajoute 10% du résultat."
+      }
+    },
+    {
+      "id": "ccat-calculs-019",
+      "question": "Quelle est la formule approchée pour convertir des km en Nm ?",
+      "answers": [
+        {
+          "text": "(Distance en km / 2) + 10 % de (distance en km / 2)",
+          "correct": true
+        },
+        {
+          "text": "(Distance en km / 2) − 10 % de (distance en km / 2)",
+          "correct": false
+        },
+        {
+          "text": "(Distance en km × 2) − 10 % de (distance en km × 2)",
+          "correct": false
+        },
+        {
+          "text": "(Distance en km × 2) + 10 % de (distance en km × 2)",
+          "correct": false
+        }
+      ],
+      "page": 16,
+      "excerpt": {
+        "text": "Formules approchées (résultat approximatif mais plus rapide) :\nDistance en km = (distance en Nm X 2) – 10% de (Distance en Nm X 2)\nDistance en Nm = (distance en kilomètres / 2) + 10% de (distance en kilomètres / 2)\nAstuce : quand je multiplie par 2, il faut que je retire 10% du résultat. Quand je divise par 2, il faut que je rajoute 10% du résultat."
+      }
+    },
+    {
+      "id": "ccat-calculs-020",
+      "question": "Avec la formule approchée, combien font 40 Nm en kilomètres ?",
+      "answers": [
+        {
+          "text": "72 km",
+          "correct": true
+        },
+        {
+          "text": "88 km",
+          "correct": false
+        },
+        {
+          "text": "22 km",
+          "correct": false
+        },
+        {
+          "text": "80 km",
+          "correct": false
+        }
+      ],
+      "page": 16,
+      "excerpt": {
+        "text": "Distance en km = (40 X 2) – 10% de (40 X 2) = 80 – 8 = 72. Ce résultat est une approximation (voir le résultat exact dans la question 1)."
+      }
+    },
+    {
+      "id": "ccat-calculs-021",
+      "question": "Avec la formule approchée, combien font 100 kilomètres en Nm ?",
+      "answers": [
+        {
+          "text": "55 Nm",
+          "correct": true
+        },
+        {
+          "text": "45 Nm",
+          "correct": false
+        },
+        {
+          "text": "180 Nm",
+          "correct": false
+        },
+        {
+          "text": "60 Nm",
+          "correct": false
+        }
+      ],
+      "page": 17,
+      "excerpt": {
+        "text": "Distance en Nm = 100/2 + 10% de (100/2) = 50 + 5 = 55. Ce résultat est une approximation (voir le résultat exact dans la question 2)."
+      }
+    },
+    {
+      "id": "ccat-calculs-022",
+      "question": "Quelle est l'astuce à retenir quand je multiplie par 2 ?",
+      "answers": [
+        {
+          "text": "Il faut retirer 10 % du résultat",
+          "correct": true
+        },
+        {
+          "text": "Il faut rajouter 10 % du résultat",
+          "correct": false
+        },
+        {
+          "text": "Il faut retirer 20 % du résultat",
+          "correct": false
+        },
+        {
+          "text": "Il faut rajouter 20 % du résultat",
+          "correct": false
+        }
+      ],
+      "page": 17,
+      "excerpt": {
+        "text": "Astuce à retenir !\nQuand je multiplie par 2, il faut que je retire 10% du résultat.\nQuand je divise par 2, il faut que je rajoute 10% du résultat."
+      }
+    },
+    {
+      "id": "ccat-calculs-023",
+      "question": "Quelle est l'astuce à retenir quand je divise par 2 ?",
+      "answers": [
+        {
+          "text": "Il faut rajouter 10 % du résultat",
+          "correct": true
+        },
+        {
+          "text": "Il faut retirer 10 % du résultat",
+          "correct": false
+        },
+        {
+          "text": "Il faut rajouter 20 % du résultat",
+          "correct": false
+        },
+        {
+          "text": "Il faut retirer 20 % du résultat",
+          "correct": false
+        }
+      ],
+      "page": 17,
+      "excerpt": {
+        "text": "Astuce à retenir !\nQuand je multiplie par 2, il faut que je retire 10% du résultat.\nQuand je divise par 2, il faut que je rajoute 10% du résultat."
+      }
+    },
+    {
+      "id": "ccat-calculs-024",
+      "question": "Avec la formule approchée, combien font 60 Nm en kilomètres ?",
+      "answers": [
+        {
+          "text": "108 km",
+          "correct": true
+        },
+        {
+          "text": "132 km",
+          "correct": false
+        },
+        {
+          "text": "33 km",
+          "correct": false
+        },
+        {
+          "text": "120 km",
+          "correct": false
+        }
+      ],
+      "page": 16,
+      "excerpt": {
+        "text": "Formules approchées (résultat approximatif mais plus rapide) :\nDistance en km = (distance en Nm X 2) – 10% de (Distance en Nm X 2)\nDistance en Nm = (distance en kilomètres / 2) + 10% de (distance en kilomètres / 2)\nAstuce : quand je multiplie par 2, il faut que je retire 10% du résultat. Quand je divise par 2, il faut que je rajoute 10% du résultat."
+      }
+    },
+    {
+      "id": "ccat-calculs-025",
+      "question": "Avec la formule approchée, combien font 200 kilomètres en Nm ?",
+      "answers": [
+        {
+          "text": "110 Nm",
+          "correct": true
+        },
+        {
+          "text": "90 Nm",
+          "correct": false
+        },
+        {
+          "text": "360 Nm",
+          "correct": false
+        },
+        {
+          "text": "100 Nm",
+          "correct": false
+        }
+      ],
+      "page": 16,
+      "excerpt": {
+        "text": "Formules approchées (résultat approximatif mais plus rapide) :\nDistance en km = (distance en Nm X 2) – 10% de (Distance en Nm X 2)\nDistance en Nm = (distance en kilomètres / 2) + 10% de (distance en kilomètres / 2)\nAstuce : quand je multiplie par 2, il faut que je retire 10% du résultat. Quand je divise par 2, il faut que je rajoute 10% du résultat."
+      }
+    },
+    {
+      "id": "ccat-calculs-026",
+      "question": "En quelle unité la vitesse s'exprime-t-elle en aéronautique ?",
+      "answers": [
+        {
+          "text": "En nœuds (kt)",
+          "correct": true
+        },
+        {
+          "text": "En kilomètres par heure (km/h)",
+          "correct": false
+        },
+        {
+          "text": "En miles par heure (mph)",
+          "correct": false
+        },
+        {
+          "text": "En mètres par seconde (m/s)",
+          "correct": false
+        }
+      ],
+      "page": 17,
+      "excerpt": {
+        "text": "En aéronautique, la vitesse s'exprime en nœuds (knot en anglais, et noté kt), comme pour les bateaux ! Dire qu'un avion vole à la vitesse de 240 kt, cela signifie que l'avion parcourt 240 Nautique miles en 1 heure."
+      }
+    },
+    {
+      "id": "ccat-calculs-027",
+      "question": "Que signifie qu'un avion vole à 240 kt ?",
+      "answers": [
+        {
+          "text": "Il parcourt 240 Nautique miles en 1 heure",
+          "correct": true
+        },
+        {
+          "text": "Il parcourt 240 kilomètres en 1 heure",
+          "correct": false
+        },
+        {
+          "text": "Il parcourt 240 kilomètres en 1 minute",
+          "correct": false
+        },
+        {
+          "text": "Il parcourt 240 Nautique miles en 1 minute",
+          "correct": false
+        }
+      ],
+      "page": 17,
+      "excerpt": {
+        "text": "En aéronautique, la vitesse s'exprime en nœuds (knot en anglais, et noté kt), comme pour les bateaux ! Dire qu'un avion vole à la vitesse de 240 kt, cela signifie que l'avion parcourt 240 Nautique miles en 1 heure."
+      }
+    },
+    {
+      "id": "ccat-calculs-028",
+      "question": "Un avion vole à 260 kt : quelle distance parcourt-il en 2h30 ?",
+      "answers": [
+        {
+          "text": "650 Nm",
+          "correct": true
+        },
+        {
+          "text": "520 Nm",
+          "correct": false
+        },
+        {
+          "text": "780 Nm",
+          "correct": false
+        },
+        {
+          "text": "598 Nm",
+          "correct": false
+        }
+      ],
+      "page": 17,
+      "excerpt": {
+        "text": "Voler à 260 kt signifie que l'avion en 1 heure a parcouru 260 nautique miles, donc : en ½ heure, il parcourt 130 Nm (260 / 2) ; en 2h00, il parcourt 520 Nm (260 X 2) ; en 2h30, il parcourt 650 Nm (260 X 2 + 260 / 2)."
+      }
+    },
+    {
+      "id": "ccat-calculs-029",
+      "question": "Un avion vole à 260 kt : quelle distance parcourt-il en ½ heure ?",
+      "answers": [
+        {
+          "text": "130 Nm",
+          "correct": true
+        },
+        {
+          "text": "260 Nm",
+          "correct": false
+        },
+        {
+          "text": "520 Nm",
+          "correct": false
+        },
+        {
+          "text": "143 Nm",
+          "correct": false
+        }
+      ],
+      "page": 17,
+      "excerpt": {
+        "text": "Voler à 260 kt signifie que l'avion en 1 heure a parcouru 260 nautique miles, donc : en ½ heure, il parcourt 130 Nm (260 / 2)."
+      }
+    },
+    {
+      "id": "ccat-calculs-030",
+      "question": "Une voiture roule à 80 km/h : quelle distance parcourt-elle en 2h30 ?",
+      "answers": [
+        {
+          "text": "200 kilomètres",
+          "correct": true
+        },
+        {
+          "text": "160 kilomètres",
+          "correct": false
+        },
+        {
+          "text": "240 kilomètres",
+          "correct": false
+        },
+        {
+          "text": "184 kilomètres",
+          "correct": false
+        }
+      ],
+      "page": 17,
+      "excerpt": {
+        "text": "Rouler à 80 km/h signifie qu'en 1h00, la voiture parcourt 80 kilomètres, donc : en ½ heure, elle parcourt 40 kilomètres (80 km / 2) ; en 2h00, 160 kilomètres (80km X 2) ; en 2h30, 200 kilomètres (80 km X 2 + 80 km/2)."
+      }
+    },
+    {
+      "id": "ccat-calculs-031",
+      "question": "Quelle formule convertit une vitesse en kt en km/h ?",
+      "answers": [
+        {
+          "text": "(Vitesse en kt × 2) − 10 % de (vitesse en kt × 2)",
+          "correct": true
+        },
+        {
+          "text": "(Vitesse en kt / 2) + 10 % de (vitesse en kt / 2)",
+          "correct": false
+        },
+        {
+          "text": "(Vitesse en kt × 2) + 10 % de (vitesse en kt × 2)",
+          "correct": false
+        },
+        {
+          "text": "(Vitesse en kt / 2) − 10 % de (vitesse en kt / 2)",
+          "correct": false
+        }
+      ],
+      "page": 17,
+      "excerpt": {
+        "text": "Vitesse en km/h → vitesse en kt : vitesse en kt = (vitesse en kilomètres/heure / 2) + 10% de (vitesse en kilomètres/heure / 2).\nVitesse en kt → vitesse en km/h : vitesse en km/h = (vitesse en kt × 2) − 10% de (vitesse en kt × 2)."
+      }
+    },
+    {
+      "id": "ccat-calculs-032",
+      "question": "Quelle formule convertit une vitesse en km/h en kt ?",
+      "answers": [
+        {
+          "text": "(Vitesse en km/h / 2) + 10 % de (vitesse en km/h / 2)",
+          "correct": true
+        },
+        {
+          "text": "(Vitesse en km/h × 2) − 10 % de (vitesse en km/h × 2)",
+          "correct": false
+        },
+        {
+          "text": "(Vitesse en km/h / 2) − 10 % de (vitesse en km/h / 2)",
+          "correct": false
+        },
+        {
+          "text": "(Vitesse en km/h × 2) + 10 % de (vitesse en km/h × 2)",
+          "correct": false
+        }
+      ],
+      "page": 17,
+      "excerpt": {
+        "text": "Vitesse en km/h → vitesse en kt : vitesse en kt = (vitesse en kilomètres/heure / 2) + 10% de (vitesse en kilomètres/heure / 2).\nVitesse en kt → vitesse en km/h : vitesse en km/h = (vitesse en kt × 2) − 10% de (vitesse en kt × 2)."
+      }
+    },
+    {
+      "id": "ccat-calculs-033",
+      "question": "Un avion vole à 300 kt : quelle est sa vitesse en km/h avec la formule de la fiche ?",
+      "answers": [
+        {
+          "text": "540 km/h",
+          "correct": true
+        },
+        {
+          "text": "660 km/h",
+          "correct": false
+        },
+        {
+          "text": "165 km/h",
+          "correct": false
+        },
+        {
+          "text": "600 km/h",
+          "correct": false
+        }
+      ],
+      "page": 18,
+      "excerpt": {
+        "text": "Vitesse en km/h = (300 × 2) − 10% de (300 × 2) = 600 − 60 = 540. La vitesse de l'avion est donc de 540 km/h."
+      }
+    },
+    {
+      "id": "ccat-calculs-034",
+      "question": "Un avion vole à 800 km/h : quelle est sa vitesse en kt avec la formule de la fiche ?",
+      "answers": [
+        {
+          "text": "440 kt",
+          "correct": true
+        },
+        {
+          "text": "360 kt",
+          "correct": false
+        },
+        {
+          "text": "1 440 kt",
+          "correct": false
+        },
+        {
+          "text": "400 kt",
+          "correct": false
+        }
+      ],
+      "page": 18,
+      "excerpt": {
+        "text": "Vitesse en kt = (800 / 2) + 10% de (800 / 2) = 400 + 40 = 440. La vitesse de l'avion est donc de 440 nœuds (kt), c'est-à-dire que l'avion parcourt une distance de 440 nautique miles (Nm) en 1 heure."
+      }
+    },
+    {
+      "id": "ccat-calculs-035",
+      "question": "Avec la formule de la fiche, combien font 250 kt en km/h ?",
+      "answers": [
+        {
+          "text": "450 km/h",
+          "correct": true
+        },
+        {
+          "text": "550 km/h",
+          "correct": false
+        },
+        {
+          "text": "137,5 km/h",
+          "correct": false
+        },
+        {
+          "text": "500 km/h",
+          "correct": false
+        }
+      ],
+      "page": 17,
+      "excerpt": {
+        "text": "Vitesse en km/h → vitesse en kt : vitesse en kt = (vitesse en kilomètres/heure / 2) + 10% de (vitesse en kilomètres/heure / 2).\nVitesse en kt → vitesse en km/h : vitesse en km/h = (vitesse en kt × 2) − 10% de (vitesse en kt × 2)."
+      }
+    },
+    {
+      "id": "ccat-calculs-036",
+      "question": "Avec la formule de la fiche, combien font 900 km/h en kt ?",
+      "answers": [
+        {
+          "text": "495 kt",
+          "correct": true
+        },
+        {
+          "text": "405 kt",
+          "correct": false
+        },
+        {
+          "text": "1 620 kt",
+          "correct": false
+        },
+        {
+          "text": "450 kt",
+          "correct": false
+        }
+      ],
+      "page": 17,
+      "excerpt": {
+        "text": "Vitesse en km/h → vitesse en kt : vitesse en kt = (vitesse en kilomètres/heure / 2) + 10% de (vitesse en kilomètres/heure / 2).\nVitesse en kt → vitesse en km/h : vitesse en km/h = (vitesse en kt × 2) − 10% de (vitesse en kt × 2)."
+      }
+    },
+    {
+      "id": "ccat-calculs-037",
+      "question": "Quelle unité la fiche donne-t-elle pour la pression dans les circuits ?",
+      "answers": [
+        {
+          "text": "PSI",
+          "correct": true
+        },
+        {
+          "text": "HPa",
+          "correct": false
+        },
+        {
+          "text": "mmHg",
+          "correct": false
+        },
+        {
+          "text": "Atm",
+          "correct": false
+        }
+      ],
+      "page": 18,
+      "excerpt": {
+        "table": {
+          "caption": "RECAP Unités de mesure",
+          "head": [
+            "Grandeur",
+            "Unités"
+          ],
+          "rows": [
+            [
+              "Distance",
+              "Km (kilomètres) ; Nm (Nautical Miles)"
+            ],
+            [
+              "Vitesse",
+              "Km/h (kilomètres/heure) ; Kt (Knot = nœud)"
+            ],
+            [
+              "Altitude",
+              "M (mètres) ; Ft (feet = pieds)"
+            ],
+            [
+              "Niveau de vol",
+              "FL (Flight level = niveau de vol)"
+            ],
+            [
+              "Pression atmosphérique",
+              "HPa (hectopascal = uniquement en météo !)"
+            ],
+            [
+              "Pression dans les circuits",
+              "PSI (Pound Per Sqaure Inch)"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-calculs-038",
+      "question": "Pour quelle grandeur la fiche indique-t-elle l'hectopascal (HPa) ?",
+      "answers": [
+        {
+          "text": "La pression atmosphérique (uniquement en météo)",
+          "correct": true
+        },
+        {
+          "text": "La pression dans les circuits (uniquement en vol)",
+          "correct": false
+        },
+        {
+          "text": "L'altitude de l'avion (uniquement en croisière)",
+          "correct": false
+        },
+        {
+          "text": "Le niveau de vol (uniquement en approche)",
+          "correct": false
+        }
+      ],
+      "page": 18,
+      "excerpt": {
+        "table": {
+          "caption": "RECAP Unités de mesure",
+          "head": [
+            "Grandeur",
+            "Unités"
+          ],
+          "rows": [
+            [
+              "Distance",
+              "Km (kilomètres) ; Nm (Nautical Miles)"
+            ],
+            [
+              "Vitesse",
+              "Km/h (kilomètres/heure) ; Kt (Knot = nœud)"
+            ],
+            [
+              "Altitude",
+              "M (mètres) ; Ft (feet = pieds)"
+            ],
+            [
+              "Niveau de vol",
+              "FL (Flight level = niveau de vol)"
+            ],
+            [
+              "Pression atmosphérique",
+              "HPa (hectopascal = uniquement en météo !)"
+            ],
+            [
+              "Pression dans les circuits",
+              "PSI (Pound Per Sqaure Inch)"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-calculs-039",
+      "question": "Quelles unités le récapitulatif donne-t-il pour l'altitude ?",
+      "answers": [
+        {
+          "text": "M (mètres) et Ft (feet = pieds)",
+          "correct": true
+        },
+        {
+          "text": "Km (kilomètres) et Nm (Nautical Miles)",
+          "correct": false
+        },
+        {
+          "text": "Km/h (kilomètres/heure) et Kt (Knot = nœud)",
+          "correct": false
+        },
+        {
+          "text": "FL (Flight level) et HPa (hectopascal)",
+          "correct": false
+        }
+      ],
+      "page": 18,
+      "excerpt": {
+        "table": {
+          "caption": "RECAP Unités de mesure",
+          "head": [
+            "Grandeur",
+            "Unités"
+          ],
+          "rows": [
+            [
+              "Distance",
+              "Km (kilomètres) ; Nm (Nautical Miles)"
+            ],
+            [
+              "Vitesse",
+              "Km/h (kilomètres/heure) ; Kt (Knot = nœud)"
+            ],
+            [
+              "Altitude",
+              "M (mètres) ; Ft (feet = pieds)"
+            ],
+            [
+              "Niveau de vol",
+              "FL (Flight level = niveau de vol)"
+            ],
+            [
+              "Pression atmosphérique",
+              "HPa (hectopascal = uniquement en météo !)"
+            ],
+            [
+              "Pression dans les circuits",
+              "PSI (Pound Per Sqaure Inch)"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-calculs-040",
+      "question": "Quelles unités le récapitulatif donne-t-il pour la vitesse ?",
+      "answers": [
+        {
+          "text": "Km/h (kilomètres/heure) et Kt (Knot = nœud)",
+          "correct": true
+        },
+        {
+          "text": "M (mètres) et Ft (feet = pieds)",
+          "correct": false
+        },
+        {
+          "text": "Km (kilomètres) et Nm (Nautical Miles)",
+          "correct": false
+        },
+        {
+          "text": "FL (Flight level) et HPa (hectopascal)",
+          "correct": false
+        }
+      ],
+      "page": 18,
+      "excerpt": {
+        "table": {
+          "caption": "RECAP Unités de mesure",
+          "head": [
+            "Grandeur",
+            "Unités"
+          ],
+          "rows": [
+            [
+              "Distance",
+              "Km (kilomètres) ; Nm (Nautical Miles)"
+            ],
+            [
+              "Vitesse",
+              "Km/h (kilomètres/heure) ; Kt (Knot = nœud)"
+            ],
+            [
+              "Altitude",
+              "M (mètres) ; Ft (feet = pieds)"
+            ],
+            [
+              "Niveau de vol",
+              "FL (Flight level = niveau de vol)"
+            ],
+            [
+              "Pression atmosphérique",
+              "HPa (hectopascal = uniquement en météo !)"
+            ],
+            [
+              "Pression dans les circuits",
+              "PSI (Pound Per Sqaure Inch)"
+            ]
+          ]
+        }
+      }
+    }
+  ]
+}

@@ -2,6 +2,7 @@
 
 import { test, expect } from "@playwright/test";
 import { readFileSync } from "node:fs";
+import { allocateByTheme } from "../../src/js/engine.js";
 
 const KEY = "envol-v2";
 const DAY = 864e5;
@@ -10,12 +11,17 @@ const DAY = 864e5;
 const deckDir = new URL("../../src/fiches/", import.meta.url);
 const clean = s => s.replace(/ /g, " ").trim();
 const RIGHT = new Map();
+const PLAYABLE = []; // questions shown by the app (not set aside with "a_verifier")
 for (const t of JSON.parse(readFileSync(new URL("index.json", deckDir), "utf8")).themes) {
   for (const q of JSON.parse(readFileSync(new URL(t.file, deckDir), "utf8")).questions) {
+    if (q.a_verifier) continue;
+    PLAYABLE.push({ ...q, theme: t.title });
     if (q.type === "card") continue; // flashcards are self-graded, see answer()
     RIGHT.set(clean(q.question), new Set(q.answers.filter(a => a.correct).map(a => clean(a.text))));
   }
 }
+const THEMES = new Set(PLAYABLE.map(q => q.theme)).size;
+const TEST_THEMES = allocateByTheme(PLAYABLE, 20).filter(g => g.count > 0).length;
 
 let jsErrors;
 test.beforeEach(async ({ page }) => {
@@ -28,6 +34,15 @@ test.beforeEach(async ({ page }) => {
   });
 });
 test.afterEach(() => expect(jsErrors, "erreurs JavaScript").toEqual([]));
+
+// Clicks the choice whose text is exactly `text` (by position: several answers can contain
+// one another, e.g. "Type I" and "Type III", so a text filter could click the wrong one).
+async function clickChoice(page, text) {
+  const texts = (await page.locator(".choice .text").allInnerTexts()).map(clean);
+  const k = texts.indexOf(text);
+  expect(k, `choix introuvable : ${text}`).toBeGreaterThanOrEqual(0);
+  await page.locator(".choice").nth(k).click();
+}
 
 async function answer(page, right) {
   const reveal = page.locator('[data-act="reveal"]');
@@ -44,11 +59,21 @@ async function answer(page, right) {
   const choices = page.locator(".choice");
   const texts = (await choices.locator(".text").allInnerTexts()).map(clean);
   const targets = right ? texts.filter(t => good.has(t)) : [texts.find(t => !good.has(t))];
-  for (const t of targets) await choices.filter({ hasText: t }).first().click();
+  for (const t of targets) await clickChoice(page, t);
   const validate = page.locator('[data-act="validate"]');
   if (await validate.count()) await validate.click();
   const next = page.locator('[data-act="next"]');
   if (await next.count()) await next.click();
+}
+
+// Answers the current multiple-choice question right and stays on the feedback (review mode).
+async function answerWithoutMoving(page) {
+  const good = RIGHT.get(clean(await page.locator("h2.question").innerText()));
+  const texts = (await page.locator(".choice .text").allInnerTexts()).map(clean);
+  for (const t of texts.filter(t => good.has(t))) await clickChoice(page, t);
+  const validate = page.locator('[data-act="validate"]');
+  if (await validate.count()) await validate.click();
+  await expect(page.locator('[data-act="next"]')).toBeVisible();
 }
 
 const onQuestion = page => page.locator("h2.question").count().then(n => n > 0);
@@ -57,10 +82,10 @@ const saved = page => page.evaluate(k => JSON.parse(localStorage.getItem(k)), KE
 test("premier lancement : guide d'installation, puis accueil, sans texte genré", async ({ page }) => {
   await page.addInitScript(() => localStorage.removeItem("envol-v2-guide-seen"));
   await page.goto("/");
-  await expect(page.getByRole("heading", { name: "Installer Envol sur l'iPhone" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Installer Envol" })).toBeVisible();
   await page.getByRole("button", { name: "C'est fait" }).click();
   await expect(page.getByRole("heading", { name: "On décolle ?" })).toBeVisible();
-  await expect(page.getByText("77 questions à découvrir")).toBeVisible();
+  await expect(page.getByText(`${PLAYABLE.length} questions à découvrir`)).toBeVisible();
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", /noindex/);
   expect(await page.locator("body").innerText()).not.toMatch(/prête|prêt·e|prêt\(e\)/i);
 });
@@ -98,7 +123,7 @@ test("test blanc : 20 questions sur tous les thèmes, noté sur 20, visible dans
     themes.add(await page.locator(".meta .label").nth(1).innerText());
     await answer(page, i % 4 !== 0);
   }
-  expect(themes.size).toBe(7);
+  expect(themes.size).toBe(TEST_THEMES);
   await expect(page.getByText("15 / 20")).toBeVisible();
   await expect(page.locator(".mistake")).toHaveCount(5);
   await page.getByRole("button", { name: /On s'y met|Retour à l'accueil/ }).first().click();
@@ -106,7 +131,7 @@ test("test blanc : 20 questions sur tous les thèmes, noté sur 20, visible dans
   await page.goto("/");
   await page.getByRole("button", { name: "Mes résultats" }).click();
   await expect(page.getByText(/1 test\. Meilleure note : 15 \/ 20/)).toBeVisible();
-  await expect(page.locator(".gauges").first().locator(".gauge")).toHaveCount(7);
+  await expect(page.locator(".gauges").first().locator(".gauge")).toHaveCount(THEMES);
 });
 
 test("quitter un test blanc : il n'est pas noté", async ({ page }) => {
@@ -128,6 +153,9 @@ test("réglages : la date d'examen règle le compte à rebours", async ({ page }
   await page.getByRole("button", { name: "Enregistrer la date" }).click();
   await expect(page.getByText("Date enregistrée")).toBeVisible();
   expect((await saved(page)).examDate).toBe(iso);
+  // Everything discovered 3 days before the exam: the pace and the number of sessions it takes.
+  const perDay = Math.ceil(PLAYABLE.length / 7), sessions = Math.ceil(perDay / 15);
+  await expect(page.locator(".plan")).toHaveText(`Rythme conseillé : environ ${perDay} nouvelles questions par jour, soit ${sessions} séances de révision par jour.`);
   await page.getByRole("button", { name: "Retour" }).click();
   await expect(page.getByText("maîtrisé, J-10")).toBeVisible();
 
@@ -185,7 +213,7 @@ test("sauvegarde abîmée sur le téléphone : l'app repart et prévient", async
   await expect(page.getByRole("heading", { name: "On décolle ?" })).toBeVisible(); // deck loaded
   await page.evaluate(k => localStorage.setItem(k, "{abîmé"), KEY);
   await page.reload();
-  await expect(page.getByText(/La sauvegarde de cet iPhone était abîmée/)).toBeVisible();
+  await expect(page.getByText(/La sauvegarde de cet appareil était abîmée/)).toBeVisible();
   await page.getByRole("button", { name: "Réviser" }).click();
   await expect(page.locator("h2.question")).toBeVisible();
   expect(await page.evaluate(k => localStorage.getItem(k + "-corrupt"), KEY)).toBe("{abîmé");
@@ -209,23 +237,84 @@ test("hors ligne : l'app s'ouvre avec ses fiches et ses progrès", async ({ page
 
 /* ---------- Évolutions ---------- */
 
-test("drapeau : la question est marquée par l'utilisatrice, et les réponses douteuses sont listées", async ({ page }) => {
+test("drapeau : « à revoir » la fait revenir ; signalée, elle est écartée jusqu'au retrait du signalement", async ({ page }) => {
   await page.goto("/");
   await page.getByRole("button", { name: "Réviser" }).click();
   const question = clean(await page.locator("h2.question").innerText());
+  const expected = [...RIGHT.get(question)].join(", ");
   await page.getByRole("button", { name: "Marquer cette question" }).click();
   await page.getByRole("button", { name: "À revoir" }).click();
-  await page.getByRole("button", { name: "Réponse douteuse" }).click();
-  await expect(page.getByRole("button", { name: /Réponse douteuse/ })).toHaveAttribute("aria-pressed", "true");
-  const flags = (await saved(page)).flags;
-  expect(Object.values(flags)).toEqual([{ review: true, dispute: true }]);
-
   await page.getByRole("button", { name: "Quitter" }).click();
   await page.goto("/");
   await expect(page.getByRole("button", { name: "Revoir mes erreurs (1)" })).toBeVisible();
+
+  await page.getByRole("button", { name: "Revoir mes erreurs (1)" }).click();
+  await page.getByRole("button", { name: "Marquer cette question" }).click();
+  await page.getByRole("button", { name: "Réponse douteuse" }).click();
+  await expect(page.getByRole("button", { name: /Réponse douteuse/ })).toHaveAttribute("aria-pressed", "true");
+  const [flag] = Object.values((await saved(page)).flags);
+  expect(flag).toMatchObject({ review: true, dispute: true });
+  expect(flag.answer.split(", ").sort()).toEqual(expected.split(", ").sort());
+
+  await page.getByRole("button", { name: "Quitter" }).click();
+  await page.goto("/");
+  await expect(page.getByRole("button", { name: /Revoir mes erreurs/ })).toHaveCount(0); // set aside
   await page.getByRole("button", { name: "Mes résultats" }).click();
-  await expect(page.getByRole("heading", { name: "Réponses douteuses signalées" })).toBeVisible();
-  await expect(page.locator(".mistake").filter({ hasText: question.replace(/ \?$/, "") })).toHaveCount(1);
+  await expect(page.getByRole("heading", { name: "Questions signalées" })).toBeVisible();
+  const item = page.locator(".mistake").filter({ hasText: question.replace(/ \?$/, "") });
+  await expect(item).toContainText("Écartée des séances");
+  await item.getByRole("button", { name: "Retirer le signalement" }).click();
+  await expect(page.getByText("Signalement retiré")).toBeVisible();
+  await page.getByRole("button", { name: "Retour" }).first().click();
+  await expect(page.getByRole("button", { name: "Revoir mes erreurs (1)" })).toBeVisible();
+});
+
+test("signalement : après la réponse, on signale avec une raison, puis on envoie le fichier", async ({ page }, info) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: "Réviser" }).click();
+  const question = clean(await page.locator("h2.question").innerText());
+  await answerWithoutMoving(page);
+  await page.getByRole("button", { name: "Signaler une erreur dans cette question" }).click();
+  await expect(page.getByText("Question signalée")).toBeVisible();
+  await page.getByLabel("Pourquoi ? (facultatif)").fill("La page dit autre chose.");
+  await expect.poll(async () => Object.values((await saved(page)).flags)).toEqual([{ review: false, dispute: true, answer: expect.any(String), note: "La page dit autre chose." }]);
+
+  await page.getByRole("button", { name: "Quitter" }).click();
+  await page.goto("/");
+  await page.getByRole("button", { name: "Mes résultats" }).click();
+  await expect(page.locator(".mistake").filter({ hasText: "Pourquoi : La page dit autre chose." })).toHaveCount(1);
+  const download = page.waitForEvent("download");
+  await page.getByRole("button", { name: "Envoyer mes signalements" }).click();
+  const file = await download;
+  expect(file.suggestedFilename()).toMatch(/^envol-signalements-\d{4}-\d{2}-\d{2}\.json$/);
+  const path = info.outputPath("signalements.json");
+  await file.saveAs(path);
+  const report = JSON.parse(readFileSync(path, "utf8"));
+  expect(report).toMatchObject({ app: "envol", type: "signalements", version: expect.stringMatching(/^\d+\.\d+\.\d+$/), fiches: expect.stringMatching(/^[0-9a-f]{6}$/) });
+  expect(report.items).toHaveLength(1);
+  expect(clean(report.items[0].question)).toBe(question);
+  expect(report.items[0].note).toBe("La page dit autre chose.");
+  await expect(page.getByText("Fichier prêt")).toBeVisible();
+});
+
+test("fiabilité : la pastille de chaque question explique son état", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: "Réviser" }).click();
+  const dot = page.getByRole("button", { name: /^Fiabilité : / });
+  await expect(dot).toBeVisible();
+  await dot.click();
+  await expect(page.locator(".reliability")).toContainText(/Vérifiée|À recouper|Douteuse/);
+  await dot.click();
+  await expect(page.locator(".reliability")).toHaveCount(0);
+});
+
+test("réglages : version, empreinte des fiches et recherche de mise à jour", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: "Réglages" }).click();
+  await expect(page.locator(".version")).toHaveText(new RegExp(`^Version \\d+\\.\\d+\\.\\d+ · fiches [0-9a-f]{6} · ${PLAYABLE.length} questions$`));
+  await page.waitForFunction(() => navigator.serviceWorker && navigator.serviceWorker.ready);
+  await page.getByRole("button", { name: "Rechercher une mise à jour" }).click();
+  await expect(page.getByText(/Envol est à jour \(version \d+\.\d+\.\d+\)/)).toBeVisible();
 });
 
 test("Mes erreurs : une séance faite uniquement des questions ratées", async ({ page }) => {
@@ -244,26 +333,39 @@ test("Mes erreurs : une séance faite uniquement des questions ratées", async (
   await expect(page.getByText("4 bonnes réponses du premier coup sur 4.")).toBeVisible();
 });
 
-test("cartes mémoire : on retourne la carte puis on se note", async ({ page }) => {
-  await page.goto("/");
-  await expect(page.getByRole("heading", { name: "On décolle ?" })).toBeVisible();
-  // Only the flashcard theme is left to discover, so the session is made of cards.
-  await page.evaluate(async () => {
-    const { loadDeck } = await import("/js/deck.js");
-    const { questions } = await loadDeck(async p => (await fetch("/" + p)).json());
-    const now = Date.now(), cards = {};
-    for (const q of questions) if (q.kind === "mcq") cards[q.id] = { level: 5, due: now + 9e8, seen: 3, correct: 3, firstSeen: now - 9e8, lastWrong: null };
-    localStorage.setItem("envol-v2", JSON.stringify({ version: 2, examDate: null, cards, tests: [], reviews: [] }));
+test.describe(() => {
+  // The test theme is served by the test itself: the service worker must not answer first.
+  test.use({ serviceWorkers: "block" });
+  test("cartes mémoire : on retourne la carte puis on se note", async ({ page, context }) => {
+    // The published deck has no flashcards: serve a test theme next to it.
+    await context.route("**/fiches/index.json", async route => {
+      const index = await (await route.fetch()).json();
+      index.themes.push({ id: "test-cartes", title: "Cartes de test", file: "test-cartes.json" });
+      await route.fulfill({ json: index });
+    });
+    await context.route("**/fiches/test-cartes.json", route => route.fulfill({ json: { questions: [1, 2, 3, 4, 5, 6].map(n => ({
+      id: `test-carte-${n}`, type: "card", question: `Carte ${n} : recto`, answer: `Verso ${n}`,
+    })) } }));
+    await page.goto("/");
+    await expect(page.getByRole("heading", { name: "On décolle ?" })).toBeVisible();
+    // Only the flashcard theme is left to discover, so the session is made of cards.
+    await page.evaluate(async () => {
+      const { loadDeck } = await import("/js/deck.js");
+      const { questions } = await loadDeck(async p => (await fetch("/" + p)).json());
+      const now = Date.now(), cards = {};
+      for (const q of questions) if (q.kind === "mcq") cards[q.id] = { level: 5, due: now + 9e8, seen: 3, correct: 3, firstSeen: now - 9e8, lastWrong: null };
+      localStorage.setItem("envol-v2", JSON.stringify({ version: 2, examDate: null, cards, tests: [], reviews: [] }));
+    });
+    await page.reload();
+    await page.getByRole("button", { name: "Réviser" }).click();
+    // The 6 new flashcards are mixed with already known questions: move on until a card shows up.
+    for (let i = 0; i < 20 && !(await page.locator('[data-act="reveal"]').count()); i++) await answer(page, true);
+    expect(await page.locator(".choice").count()).toBe(0);
+    await page.getByRole("button", { name: "Voir la réponse" }).click();
+    await expect(page.locator(".verso")).toBeVisible();
+    await page.getByRole("button", { name: "Je savais" }).click();
+    await expect(page.getByText("Bien joué.")).toBeVisible();
   });
-  await page.reload();
-  await page.getByRole("button", { name: "Réviser" }).click();
-  // The 6 new flashcards are mixed with already known questions: move on until a card shows up.
-  for (let i = 0; i < 20 && !(await page.locator('[data-act="reveal"]').count()); i++) await answer(page, true);
-  expect(await page.locator(".choice").count()).toBe(0);
-  await page.getByRole("button", { name: "Voir la réponse" }).click();
-  await expect(page.locator(".verso")).toBeVisible();
-  await page.getByRole("button", { name: "Je savais" }).click();
-  await expect(page.getByText("Bien joué.")).toBeVisible();
 });
 
 test("test blanc chronométré : le temps écoulé termine le test et compte le reste faux", async ({ page }) => {
@@ -293,15 +395,15 @@ test("réglages : le chronomètre se désactive", async ({ page }) => {
 test("régularité et rappel de sauvegarde", async ({ page }) => {
   await page.goto("/");
   await expect(page.getByRole("heading", { name: "On décolle ?" })).toBeVisible();
-  await page.evaluate(() => {
+  await page.evaluate(id => {
     const d = k => { const x = new Date(Date.now() - k * 864e5); return `${x.getFullYear()}-${String(x.getMonth() + 1).padStart(2, "0")}-${String(x.getDate()).padStart(2, "0")}`; };
     const old = Date.now() - 10 * 864e5;
     localStorage.setItem("envol-v2", JSON.stringify({
       version: 2, examDate: null, tests: [], reviews: [],
-      cards: { "securite-001": { level: 1, due: old, seen: 1, correct: 1, firstSeen: old, lastWrong: null } },
+      cards: { [id]: { level: 1, due: old, seen: 1, correct: 1, firstSeen: old, lastWrong: null } },
       activity: [d(3), d(2), d(1)], lastExport: null,
     }));
-  });
+  }, PLAYABLE[0].id);
   await page.reload();
   await expect(page.getByText("Aucune copie de sauvegarde pour l'instant.")).toBeVisible();
   await page.getByRole("button", { name: "Faire une copie" }).click();
@@ -316,3 +418,51 @@ test("régularité et rappel de sauvegarde", async ({ page }) => {
   await expect(page.getByText("3 jours d'affilée")).toBeVisible();
   await expect(page.locator(".calendar span.on")).toHaveCount(3);
 });
+
+test("erreur : l'extrait de la fiche s'affiche avec sa page, lisible sur un petit iPhone", async ({ page }) => {
+  await page.setViewportSize({ width: 320, height: 568 });
+  await page.goto("/");
+  await page.getByRole("button", { name: "Réviser" }).click();
+  // Answer wrong until a question whose excerpt holds a table shows up.
+  const withTable = PLAYABLE.filter(q => q.excerpt && q.excerpt.table).map(q => clean(q.question));
+  let found = false;
+  for (let i = 0; i < 40 && await onQuestion(page); i++) {
+    const question = clean(await page.locator("h2.question").innerText());
+    const good = RIGHT.get(question);
+    const texts = (await page.locator(".choice .text").allInnerTexts()).map(clean);
+    await clickChoice(page, texts.find(t => !good.has(t)));
+    const validate = page.locator('[data-act="validate"]');
+    if (await validate.count()) await validate.click();
+    await expect(page.locator(".excerpt")).toBeVisible();
+    await expect(page.locator(".excerpt figcaption")).toContainText(/, page \d+/);
+    if (withTable.includes(question)) {
+      await expect(page.locator(".excerpt-table table")).toBeVisible();
+      found = true;
+    }
+    const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
+    expect(overflow, "défilement horizontal de la page").toBeLessThanOrEqual(0);
+    if (found) break;
+    await page.locator('[data-act="next"]').click();
+  }
+  expect(found, "une question avec un tableau de la fiche").toBe(true);
+});
+
+for (const [device, ua, expected] of [
+  ["iPhone", "Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 Mobile/15E148 Safari/604.1", "Sur l'écran d'accueil"],
+  ["Android", "Mozilla/5.0 (Linux; Android 15; Pixel 9) AppleWebKit/537.36 Chrome/140.0 Mobile Safari/537.36", "Installer l'application"],
+  ["ordinateur", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/140.0 Safari/537.36", "barre d'adresse"],
+]) {
+  test.describe(() => {
+    test.use({ userAgent: ua });
+    test(`guide d'installation adapté : ${device}`, async ({ page }) => {
+      await page.addInitScript(() => localStorage.removeItem("envol-v2-guide-seen"));
+      await page.goto("/");
+      await expect(page.getByRole("heading", { name: "Installer Envol" })).toBeVisible();
+      await expect(page.locator(".steps")).toContainText(expected);
+      await page.getByRole("button", { name: "Continuer dans le navigateur" }).click();
+      await page.getByRole("button", { name: "Réglages" }).click();
+      await page.getByRole("button", { name: "Installer Envol sur cet appareil" }).click();
+      await expect(page.locator(".steps")).toContainText(expected);
+    });
+  });
+}

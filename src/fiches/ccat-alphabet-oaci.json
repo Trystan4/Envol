@@ -1,0 +1,2892 @@
+{
+  "document": "Prérequis CCAT",
+  "fiabilite": "verifiee",
+  "questions": [
+    {
+      "id": "ccat-alphabet-oaci-001",
+      "question": "Pourquoi tous les pays ont-ils codifié les communications radio air/sol et l'alphabet ?",
+      "answers": [
+        {
+          "text": "À cause du nombre d'avions sur une même fréquence de contrôle et de l'importance d'une communication précise",
+          "correct": true
+        },
+        {
+          "text": "À cause de l'obligation de chiffrer les messages et de la confidentialité des échanges",
+          "correct": false
+        },
+        {
+          "text": "À cause du nombre de passagers à bord et de l'importance des annonces faites en cabine",
+          "correct": false
+        },
+        {
+          "text": "À cause du bruit dans le poste de pilotage et de la faible portée des radios de bord",
+          "correct": false
+        }
+      ],
+      "page": 5,
+      "excerpt": {
+        "text": "Le nombre d'avions pouvant se trouver simultanément sur une même fréquence de contrôle et l'importance d'une communication précise ont amené tous les pays à codifier les communications radio air/sol et à utiliser un code pour l'alphabet des communications aéronautiques."
+      }
+    },
+    {
+      "id": "ccat-alphabet-oaci-002",
+      "question": "Quel mot code la lettre A dans l'alphabet OACI ?",
+      "answers": [
+        {
+          "text": "ALPHA",
+          "correct": true
+        },
+        {
+          "text": "ABLE",
+          "correct": false
+        },
+        {
+          "text": "ADAM",
+          "correct": false
+        },
+        {
+          "text": "ANTON",
+          "correct": false
+        }
+      ],
+      "page": 6,
+      "excerpt": {
+        "table": {
+          "caption": "Alphabet OACI",
+          "head": [
+            "Lettre",
+            "Mot",
+            "Lettre",
+            "Mot",
+            "Lettre",
+            "Mot"
+          ],
+          "rows": [
+            [
+              "A",
+              "ALPHA",
+              "J",
+              "JULIET",
+              "S",
+              "SIERRA"
+            ],
+            [
+              "B",
+              "BRAVO",
+              "K",
+              "KILO",
+              "T",
+              "TANGO"
+            ],
+            [
+              "C",
+              "CHARLIE",
+              "L",
+              "LIMA",
+              "U",
+              "UNIFORM"
+            ],
+            [
+              "D",
+              "DELTA",
+              "M",
+              "MIKE",
+              "V",
+              "VICTOR"
+            ],
+            [
+              "E",
+              "ECHO",
+              "N",
+              "NOVEMBER",
+              "W",
+              "WHISKY"
+            ],
+            [
+              "F",
+              "FOXTROT",
+              "O",
+              "OSCAR",
+              "X",
+              "X-RAY"
+            ],
+            [
+              "G",
+              "GOLF",
+              "P",
+              "PAPA",
+              "Y",
+              "YANKEE"
+            ],
+            [
+              "H",
+              "HOTEL",
+              "Q",
+              "QUEBEC",
+              "Z",
+              "ZULU"
+            ],
+            [
+              "I",
+              "INDIA",
+              "R",
+              "ROMEO",
+              "",
+              ""
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-alphabet-oaci-003",
+      "question": "Quel mot code la lettre B dans l'alphabet OACI ?",
+      "answers": [
+        {
+          "text": "BRAVO",
+          "correct": true
+        },
+        {
+          "text": "BAKER",
+          "correct": false
+        },
+        {
+          "text": "BOSTON",
+          "correct": false
+        },
+        {
+          "text": "BERTHA",
+          "correct": false
+        }
+      ],
+      "page": 6,
+      "excerpt": {
+        "table": {
+          "caption": "Alphabet OACI",
+          "head": [
+            "Lettre",
+            "Mot",
+            "Lettre",
+            "Mot",
+            "Lettre",
+            "Mot"
+          ],
+          "rows": [
+            [
+              "A",
+              "ALPHA",
+              "J",
+              "JULIET",
+              "S",
+              "SIERRA"
+            ],
+            [
+              "B",
+              "BRAVO",
+              "K",
+              "KILO",
+              "T",
+              "TANGO"
+            ],
+            [
+              "C",
+              "CHARLIE",
+              "L",
+              "LIMA",
+              "U",
+              "UNIFORM"
+            ],
+            [
+              "D",
+              "DELTA",
+              "M",
+              "MIKE",
+              "V",
+              "VICTOR"
+            ],
+            [
+              "E",
+              "ECHO",
+              "N",
+              "NOVEMBER",
+              "W",
+              "WHISKY"
+            ],
+            [
+              "F",
+              "FOXTROT",
+              "O",
+              "OSCAR",
+              "X",
+              "X-RAY"
+            ],
+            [
+              "G",
+              "GOLF",
+              "P",
+              "PAPA",
+              "Y",
+              "YANKEE"
+            ],
+            [
+              "H",
+              "HOTEL",
+              "Q",
+              "QUEBEC",
+              "Z",
+              "ZULU"
+            ],
+            [
+              "I",
+              "INDIA",
+              "R",
+              "ROMEO",
+              "",
+              ""
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-alphabet-oaci-004",
+      "question": "Quel mot code la lettre C dans l'alphabet OACI ?",
+      "answers": [
+        {
+          "text": "CHARLIE",
+          "correct": true
+        },
+        {
+          "text": "CAESAR",
+          "correct": false
+        },
+        {
+          "text": "CANADA",
+          "correct": false
+        },
+        {
+          "text": "COCA",
+          "correct": false
+        }
+      ],
+      "page": 6,
+      "excerpt": {
+        "table": {
+          "caption": "Alphabet OACI",
+          "head": [
+            "Lettre",
+            "Mot",
+            "Lettre",
+            "Mot",
+            "Lettre",
+            "Mot"
+          ],
+          "rows": [
+            [
+              "A",
+              "ALPHA",
+              "J",
+              "JULIET",
+              "S",
+              "SIERRA"
+            ],
+            [
+              "B",
+              "BRAVO",
+              "K",
+              "KILO",
+              "T",
+              "TANGO"
+            ],
+            [
+              "C",
+              "CHARLIE",
+              "L",
+              "LIMA",
+              "U",
+              "UNIFORM"
+            ],
+            [
+              "D",
+              "DELTA",
+              "M",
+              "MIKE",
+              "V",
+              "VICTOR"
+            ],
+            [
+              "E",
+              "ECHO",
+              "N",
+              "NOVEMBER",
+              "W",
+              "WHISKY"
+            ],
+            [
+              "F",
+              "FOXTROT",
+              "O",
+              "OSCAR",
+              "X",
+              "X-RAY"
+            ],
+            [
+              "G",
+              "GOLF",
+              "P",
+              "PAPA",
+              "Y",
+              "YANKEE"
+            ],
+            [
+              "H",
+              "HOTEL",
+              "Q",
+              "QUEBEC",
+              "Z",
+              "ZULU"
+            ],
+            [
+              "I",
+              "INDIA",
+              "R",
+              "ROMEO",
+              "",
+              ""
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-alphabet-oaci-005",
+      "question": "Quel mot code la lettre D dans l'alphabet OACI ?",
+      "answers": [
+        {
+          "text": "DELTA",
+          "correct": true
+        },
+        {
+          "text": "DAVID",
+          "correct": false
+        },
+        {
+          "text": "DORA",
+          "correct": false
+        },
+        {
+          "text": "DENVER",
+          "correct": false
+        }
+      ],
+      "page": 6,
+      "excerpt": {
+        "table": {
+          "caption": "Alphabet OACI",
+          "head": [
+            "Lettre",
+            "Mot",
+            "Lettre",
+            "Mot",
+            "Lettre",
+            "Mot"
+          ],
+          "rows": [
+            [
+              "A",
+              "ALPHA",
+              "J",
+              "JULIET",
+              "S",
+              "SIERRA"
+            ],
+            [
+              "B",
+              "BRAVO",
+              "K",
+              "KILO",
+              "T",
+              "TANGO"
+            ],
+            [
+              "C",
+              "CHARLIE",
+              "L",
+              "LIMA",
+              "U",
+              "UNIFORM"
+            ],
+            [
+              "D",
+              "DELTA",
+              "M",
+              "MIKE",
+              "V",
+              "VICTOR"
+            ],
+            [
+              "E",
+              "ECHO",
+              "N",
+              "NOVEMBER",
+              "W",
+              "WHISKY"
+            ],
+            [
+              "F",
+              "FOXTROT",
+              "O",
+              "OSCAR",
+              "X",
+              "X-RAY"
+            ],
+            [
+              "G",
+              "GOLF",
+              "P",
+              "PAPA",
+              "Y",
+              "YANKEE"
+            ],
+            [
+              "H",
+              "HOTEL",
+              "Q",
+              "QUEBEC",
+              "Z",
+              "ZULU"
+            ],
+            [
+              "I",
+              "INDIA",
+              "R",
+              "ROMEO",
+              "",
+              ""
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-alphabet-oaci-006",
+      "question": "Quel mot code la lettre E dans l'alphabet OACI ?",
+      "answers": [
+        {
+          "text": "ECHO",
+          "correct": true
+        },
+        {
+          "text": "EASY",
+          "correct": false
+        },
+        {
+          "text": "EMIL",
+          "correct": false
+        },
+        {
+          "text": "EDEN",
+          "correct": false
+        }
+      ],
+      "page": 6,
+      "excerpt": {
+        "table": {
+          "caption": "Alphabet OACI",
+          "head": [
+            "Lettre",
+            "Mot",
+            "Lettre",
+            "Mot",
+            "Lettre",
+            "Mot"
+          ],
+          "rows": [
+            [
+              "A",
+              "ALPHA",
+              "J",
+              "JULIET",
+              "S",
+              "SIERRA"
+            ],
+            [
+              "B",
+              "BRAVO",
+              "K",
+              "KILO",
+              "T",
+              "TANGO"
+            ],
+            [
+              "C",
+              "CHARLIE",
+              "L",
+              "LIMA",
+              "U",
+              "UNIFORM"
+            ],
+            [
+              "D",
+              "DELTA",
+              "M",
+              "MIKE",
+              "V",
+              "VICTOR"
+            ],
+            [
+              "E",
+              "ECHO",
+              "N",
+              "NOVEMBER",
+              "W",
+              "WHISKY"
+            ],
+            [
+              "F",
+              "FOXTROT",
+              "O",
+              "OSCAR",
+              "X",
+              "X-RAY"
+            ],
+            [
+              "G",
+              "GOLF",
+              "P",
+              "PAPA",
+              "Y",
+              "YANKEE"
+            ],
+            [
+              "H",
+              "HOTEL",
+              "Q",
+              "QUEBEC",
+              "Z",
+              "ZULU"
+            ],
+            [
+              "I",
+              "INDIA",
+              "R",
+              "ROMEO",
+              "",
+              ""
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-alphabet-oaci-007",
+      "question": "Quel mot code la lettre F dans l'alphabet OACI ?",
+      "answers": [
+        {
+          "text": "FOXTROT",
+          "correct": true
+        },
+        {
+          "text": "FREDDIE",
+          "correct": false
+        },
+        {
+          "text": "FLORIDA",
+          "correct": false
+        },
+        {
+          "text": "FRANKLIN",
+          "correct": false
+        }
+      ],
+      "page": 6,
+      "excerpt": {
+        "table": {
+          "caption": "Alphabet OACI",
+          "head": [
+            "Lettre",
+            "Mot",
+            "Lettre",
+            "Mot",
+            "Lettre",
+            "Mot"
+          ],
+          "rows": [
+            [
+              "A",
+              "ALPHA",
+              "J",
+              "JULIET",
+              "S",
+              "SIERRA"
+            ],
+            [
+              "B",
+              "BRAVO",
+              "K",
+              "KILO",
+              "T",
+              "TANGO"
+            ],
+            [
+              "C",
+              "CHARLIE",
+              "L",
+              "LIMA",
+              "U",
+              "UNIFORM"
+            ],
+            [
+              "D",
+              "DELTA",
+              "M",
+              "MIKE",
+              "V",
+              "VICTOR"
+            ],
+            [
+              "E",
+              "ECHO",
+              "N",
+              "NOVEMBER",
+              "W",
+              "WHISKY"
+            ],
+            [
+              "F",
+              "FOXTROT",
+              "O",
+              "OSCAR",
+              "X",
+              "X-RAY"
+            ],
+            [
+              "G",
+              "GOLF",
+              "P",
+              "PAPA",
+              "Y",
+              "YANKEE"
+            ],
+            [
+              "H",
+              "HOTEL",
+              "Q",
+              "QUEBEC",
+              "Z",
+              "ZULU"
+            ],
+            [
+              "I",
+              "INDIA",
+              "R",
+              "ROMEO",
+              "",
+              ""
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-alphabet-oaci-008",
+      "question": "Quel mot code la lettre G dans l'alphabet OACI ?",
+      "answers": [
+        {
+          "text": "GOLF",
+          "correct": true
+        },
+        {
+          "text": "GOLD",
+          "correct": false
+        },
+        {
+          "text": "GEORGE",
+          "correct": false
+        },
+        {
+          "text": "GUSTAV",
+          "correct": false
+        }
+      ],
+      "page": 6,
+      "excerpt": {
+        "table": {
+          "caption": "Alphabet OACI",
+          "head": [
+            "Lettre",
+            "Mot",
+            "Lettre",
+            "Mot",
+            "Lettre",
+            "Mot"
+          ],
+          "rows": [
+            [
+              "A",
+              "ALPHA",
+              "J",
+              "JULIET",
+              "S",
+              "SIERRA"
+            ],
+            [
+              "B",
+              "BRAVO",
+              "K",
+              "KILO",
+              "T",
+              "TANGO"
+            ],
+            [
+              "C",
+              "CHARLIE",
+              "L",
+              "LIMA",
+              "U",
+              "UNIFORM"
+            ],
+            [
+              "D",
+              "DELTA",
+              "M",
+              "MIKE",
+              "V",
+              "VICTOR"
+            ],
+            [
+              "E",
+              "ECHO",
+              "N",
+              "NOVEMBER",
+              "W",
+              "WHISKY"
+            ],
+            [
+              "F",
+              "FOXTROT",
+              "O",
+              "OSCAR",
+              "X",
+              "X-RAY"
+            ],
+            [
+              "G",
+              "GOLF",
+              "P",
+              "PAPA",
+              "Y",
+              "YANKEE"
+            ],
+            [
+              "H",
+              "HOTEL",
+              "Q",
+              "QUEBEC",
+              "Z",
+              "ZULU"
+            ],
+            [
+              "I",
+              "INDIA",
+              "R",
+              "ROMEO",
+              "",
+              ""
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-alphabet-oaci-009",
+      "question": "Quel mot code la lettre H dans l'alphabet OACI ?",
+      "answers": [
+        {
+          "text": "HOTEL",
+          "correct": true
+        },
+        {
+          "text": "HENRY",
+          "correct": false
+        },
+        {
+          "text": "HAVANA",
+          "correct": false
+        },
+        {
+          "text": "HARRY",
+          "correct": false
+        }
+      ],
+      "page": 6,
+      "excerpt": {
+        "table": {
+          "caption": "Alphabet OACI",
+          "head": [
+            "Lettre",
+            "Mot",
+            "Lettre",
+            "Mot",
+            "Lettre",
+            "Mot"
+          ],
+          "rows": [
+            [
+              "A",
+              "ALPHA",
+              "J",
+              "JULIET",
+              "S",
+              "SIERRA"
+            ],
+            [
+              "B",
+              "BRAVO",
+              "K",
+              "KILO",
+              "T",
+              "TANGO"
+            ],
+            [
+              "C",
+              "CHARLIE",
+              "L",
+              "LIMA",
+              "U",
+              "UNIFORM"
+            ],
+            [
+              "D",
+              "DELTA",
+              "M",
+              "MIKE",
+              "V",
+              "VICTOR"
+            ],
+            [
+              "E",
+              "ECHO",
+              "N",
+              "NOVEMBER",
+              "W",
+              "WHISKY"
+            ],
+            [
+              "F",
+              "FOXTROT",
+              "O",
+              "OSCAR",
+              "X",
+              "X-RAY"
+            ],
+            [
+              "G",
+              "GOLF",
+              "P",
+              "PAPA",
+              "Y",
+              "YANKEE"
+            ],
+            [
+              "H",
+              "HOTEL",
+              "Q",
+              "QUEBEC",
+              "Z",
+              "ZULU"
+            ],
+            [
+              "I",
+              "INDIA",
+              "R",
+              "ROMEO",
+              "",
+              ""
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-alphabet-oaci-010",
+      "question": "Quel mot code la lettre I dans l'alphabet OACI ?",
+      "answers": [
+        {
+          "text": "INDIA",
+          "correct": true
+        },
+        {
+          "text": "ITALY",
+          "correct": false
+        },
+        {
+          "text": "ITEM",
+          "correct": false
+        },
+        {
+          "text": "IDAHO",
+          "correct": false
+        }
+      ],
+      "page": 6,
+      "excerpt": {
+        "table": {
+          "caption": "Alphabet OACI",
+          "head": [
+            "Lettre",
+            "Mot",
+            "Lettre",
+            "Mot",
+            "Lettre",
+            "Mot"
+          ],
+          "rows": [
+            [
+              "A",
+              "ALPHA",
+              "J",
+              "JULIET",
+              "S",
+              "SIERRA"
+            ],
+            [
+              "B",
+              "BRAVO",
+              "K",
+              "KILO",
+              "T",
+              "TANGO"
+            ],
+            [
+              "C",
+              "CHARLIE",
+              "L",
+              "LIMA",
+              "U",
+              "UNIFORM"
+            ],
+            [
+              "D",
+              "DELTA",
+              "M",
+              "MIKE",
+              "V",
+              "VICTOR"
+            ],
+            [
+              "E",
+              "ECHO",
+              "N",
+              "NOVEMBER",
+              "W",
+              "WHISKY"
+            ],
+            [
+              "F",
+              "FOXTROT",
+              "O",
+              "OSCAR",
+              "X",
+              "X-RAY"
+            ],
+            [
+              "G",
+              "GOLF",
+              "P",
+              "PAPA",
+              "Y",
+              "YANKEE"
+            ],
+            [
+              "H",
+              "HOTEL",
+              "Q",
+              "QUEBEC",
+              "Z",
+              "ZULU"
+            ],
+            [
+              "I",
+              "INDIA",
+              "R",
+              "ROMEO",
+              "",
+              ""
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-alphabet-oaci-011",
+      "question": "Quel mot code la lettre J dans l'alphabet OACI ?",
+      "answers": [
+        {
+          "text": "JULIET",
+          "correct": true
+        },
+        {
+          "text": "JOSEPH",
+          "correct": false
+        },
+        {
+          "text": "JOHNNY",
+          "correct": false
+        },
+        {
+          "text": "JAMAICA",
+          "correct": false
+        }
+      ],
+      "page": 6,
+      "excerpt": {
+        "table": {
+          "caption": "Alphabet OACI",
+          "head": [
+            "Lettre",
+            "Mot",
+            "Lettre",
+            "Mot",
+            "Lettre",
+            "Mot"
+          ],
+          "rows": [
+            [
+              "A",
+              "ALPHA",
+              "J",
+              "JULIET",
+              "S",
+              "SIERRA"
+            ],
+            [
+              "B",
+              "BRAVO",
+              "K",
+              "KILO",
+              "T",
+              "TANGO"
+            ],
+            [
+              "C",
+              "CHARLIE",
+              "L",
+              "LIMA",
+              "U",
+              "UNIFORM"
+            ],
+            [
+              "D",
+              "DELTA",
+              "M",
+              "MIKE",
+              "V",
+              "VICTOR"
+            ],
+            [
+              "E",
+              "ECHO",
+              "N",
+              "NOVEMBER",
+              "W",
+              "WHISKY"
+            ],
+            [
+              "F",
+              "FOXTROT",
+              "O",
+              "OSCAR",
+              "X",
+              "X-RAY"
+            ],
+            [
+              "G",
+              "GOLF",
+              "P",
+              "PAPA",
+              "Y",
+              "YANKEE"
+            ],
+            [
+              "H",
+              "HOTEL",
+              "Q",
+              "QUEBEC",
+              "Z",
+              "ZULU"
+            ],
+            [
+              "I",
+              "INDIA",
+              "R",
+              "ROMEO",
+              "",
+              ""
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-alphabet-oaci-012",
+      "question": "Quel mot code la lettre K dans l'alphabet OACI ?",
+      "answers": [
+        {
+          "text": "KILO",
+          "correct": true
+        },
+        {
+          "text": "KING",
+          "correct": false
+        },
+        {
+          "text": "KONRAD",
+          "correct": false
+        },
+        {
+          "text": "KANSAS",
+          "correct": false
+        }
+      ],
+      "page": 6,
+      "excerpt": {
+        "table": {
+          "caption": "Alphabet OACI",
+          "head": [
+            "Lettre",
+            "Mot",
+            "Lettre",
+            "Mot",
+            "Lettre",
+            "Mot"
+          ],
+          "rows": [
+            [
+              "A",
+              "ALPHA",
+              "J",
+              "JULIET",
+              "S",
+              "SIERRA"
+            ],
+            [
+              "B",
+              "BRAVO",
+              "K",
+              "KILO",
+              "T",
+              "TANGO"
+            ],
+            [
+              "C",
+              "CHARLIE",
+              "L",
+              "LIMA",
+              "U",
+              "UNIFORM"
+            ],
+            [
+              "D",
+              "DELTA",
+              "M",
+              "MIKE",
+              "V",
+              "VICTOR"
+            ],
+            [
+              "E",
+              "ECHO",
+              "N",
+              "NOVEMBER",
+              "W",
+              "WHISKY"
+            ],
+            [
+              "F",
+              "FOXTROT",
+              "O",
+              "OSCAR",
+              "X",
+              "X-RAY"
+            ],
+            [
+              "G",
+              "GOLF",
+              "P",
+              "PAPA",
+              "Y",
+              "YANKEE"
+            ],
+            [
+              "H",
+              "HOTEL",
+              "Q",
+              "QUEBEC",
+              "Z",
+              "ZULU"
+            ],
+            [
+              "I",
+              "INDIA",
+              "R",
+              "ROMEO",
+              "",
+              ""
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-alphabet-oaci-013",
+      "question": "Quel mot code la lettre L dans l'alphabet OACI ?",
+      "answers": [
+        {
+          "text": "LIMA",
+          "correct": true
+        },
+        {
+          "text": "LOVE",
+          "correct": false
+        },
+        {
+          "text": "LONDON",
+          "correct": false
+        },
+        {
+          "text": "LUDWIG",
+          "correct": false
+        }
+      ],
+      "page": 6,
+      "excerpt": {
+        "table": {
+          "caption": "Alphabet OACI",
+          "head": [
+            "Lettre",
+            "Mot",
+            "Lettre",
+            "Mot",
+            "Lettre",
+            "Mot"
+          ],
+          "rows": [
+            [
+              "A",
+              "ALPHA",
+              "J",
+              "JULIET",
+              "S",
+              "SIERRA"
+            ],
+            [
+              "B",
+              "BRAVO",
+              "K",
+              "KILO",
+              "T",
+              "TANGO"
+            ],
+            [
+              "C",
+              "CHARLIE",
+              "L",
+              "LIMA",
+              "U",
+              "UNIFORM"
+            ],
+            [
+              "D",
+              "DELTA",
+              "M",
+              "MIKE",
+              "V",
+              "VICTOR"
+            ],
+            [
+              "E",
+              "ECHO",
+              "N",
+              "NOVEMBER",
+              "W",
+              "WHISKY"
+            ],
+            [
+              "F",
+              "FOXTROT",
+              "O",
+              "OSCAR",
+              "X",
+              "X-RAY"
+            ],
+            [
+              "G",
+              "GOLF",
+              "P",
+              "PAPA",
+              "Y",
+              "YANKEE"
+            ],
+            [
+              "H",
+              "HOTEL",
+              "Q",
+              "QUEBEC",
+              "Z",
+              "ZULU"
+            ],
+            [
+              "I",
+              "INDIA",
+              "R",
+              "ROMEO",
+              "",
+              ""
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-alphabet-oaci-014",
+      "question": "Quel mot code la lettre M dans l'alphabet OACI ?",
+      "answers": [
+        {
+          "text": "MIKE",
+          "correct": true
+        },
+        {
+          "text": "METRO",
+          "correct": false
+        },
+        {
+          "text": "MARTHA",
+          "correct": false
+        },
+        {
+          "text": "MADRID",
+          "correct": false
+        }
+      ],
+      "page": 6,
+      "excerpt": {
+        "table": {
+          "caption": "Alphabet OACI",
+          "head": [
+            "Lettre",
+            "Mot",
+            "Lettre",
+            "Mot",
+            "Lettre",
+            "Mot"
+          ],
+          "rows": [
+            [
+              "A",
+              "ALPHA",
+              "J",
+              "JULIET",
+              "S",
+              "SIERRA"
+            ],
+            [
+              "B",
+              "BRAVO",
+              "K",
+              "KILO",
+              "T",
+              "TANGO"
+            ],
+            [
+              "C",
+              "CHARLIE",
+              "L",
+              "LIMA",
+              "U",
+              "UNIFORM"
+            ],
+            [
+              "D",
+              "DELTA",
+              "M",
+              "MIKE",
+              "V",
+              "VICTOR"
+            ],
+            [
+              "E",
+              "ECHO",
+              "N",
+              "NOVEMBER",
+              "W",
+              "WHISKY"
+            ],
+            [
+              "F",
+              "FOXTROT",
+              "O",
+              "OSCAR",
+              "X",
+              "X-RAY"
+            ],
+            [
+              "G",
+              "GOLF",
+              "P",
+              "PAPA",
+              "Y",
+              "YANKEE"
+            ],
+            [
+              "H",
+              "HOTEL",
+              "Q",
+              "QUEBEC",
+              "Z",
+              "ZULU"
+            ],
+            [
+              "I",
+              "INDIA",
+              "R",
+              "ROMEO",
+              "",
+              ""
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-alphabet-oaci-015",
+      "question": "Quel mot code la lettre N dans l'alphabet OACI ?",
+      "answers": [
+        {
+          "text": "NOVEMBER",
+          "correct": true
+        },
+        {
+          "text": "NECTAR",
+          "correct": false
+        },
+        {
+          "text": "NEBRASKA",
+          "correct": false
+        },
+        {
+          "text": "NORWAY",
+          "correct": false
+        }
+      ],
+      "page": 6,
+      "excerpt": {
+        "table": {
+          "caption": "Alphabet OACI",
+          "head": [
+            "Lettre",
+            "Mot",
+            "Lettre",
+            "Mot",
+            "Lettre",
+            "Mot"
+          ],
+          "rows": [
+            [
+              "A",
+              "ALPHA",
+              "J",
+              "JULIET",
+              "S",
+              "SIERRA"
+            ],
+            [
+              "B",
+              "BRAVO",
+              "K",
+              "KILO",
+              "T",
+              "TANGO"
+            ],
+            [
+              "C",
+              "CHARLIE",
+              "L",
+              "LIMA",
+              "U",
+              "UNIFORM"
+            ],
+            [
+              "D",
+              "DELTA",
+              "M",
+              "MIKE",
+              "V",
+              "VICTOR"
+            ],
+            [
+              "E",
+              "ECHO",
+              "N",
+              "NOVEMBER",
+              "W",
+              "WHISKY"
+            ],
+            [
+              "F",
+              "FOXTROT",
+              "O",
+              "OSCAR",
+              "X",
+              "X-RAY"
+            ],
+            [
+              "G",
+              "GOLF",
+              "P",
+              "PAPA",
+              "Y",
+              "YANKEE"
+            ],
+            [
+              "H",
+              "HOTEL",
+              "Q",
+              "QUEBEC",
+              "Z",
+              "ZULU"
+            ],
+            [
+              "I",
+              "INDIA",
+              "R",
+              "ROMEO",
+              "",
+              ""
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-alphabet-oaci-016",
+      "question": "Quel mot code la lettre O dans l'alphabet OACI ?",
+      "answers": [
+        {
+          "text": "OSCAR",
+          "correct": true
+        },
+        {
+          "text": "OBOE",
+          "correct": false
+        },
+        {
+          "text": "OTTO",
+          "correct": false
+        },
+        {
+          "text": "OSLO",
+          "correct": false
+        }
+      ],
+      "page": 6,
+      "excerpt": {
+        "table": {
+          "caption": "Alphabet OACI",
+          "head": [
+            "Lettre",
+            "Mot",
+            "Lettre",
+            "Mot",
+            "Lettre",
+            "Mot"
+          ],
+          "rows": [
+            [
+              "A",
+              "ALPHA",
+              "J",
+              "JULIET",
+              "S",
+              "SIERRA"
+            ],
+            [
+              "B",
+              "BRAVO",
+              "K",
+              "KILO",
+              "T",
+              "TANGO"
+            ],
+            [
+              "C",
+              "CHARLIE",
+              "L",
+              "LIMA",
+              "U",
+              "UNIFORM"
+            ],
+            [
+              "D",
+              "DELTA",
+              "M",
+              "MIKE",
+              "V",
+              "VICTOR"
+            ],
+            [
+              "E",
+              "ECHO",
+              "N",
+              "NOVEMBER",
+              "W",
+              "WHISKY"
+            ],
+            [
+              "F",
+              "FOXTROT",
+              "O",
+              "OSCAR",
+              "X",
+              "X-RAY"
+            ],
+            [
+              "G",
+              "GOLF",
+              "P",
+              "PAPA",
+              "Y",
+              "YANKEE"
+            ],
+            [
+              "H",
+              "HOTEL",
+              "Q",
+              "QUEBEC",
+              "Z",
+              "ZULU"
+            ],
+            [
+              "I",
+              "INDIA",
+              "R",
+              "ROMEO",
+              "",
+              ""
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-alphabet-oaci-017",
+      "question": "Quel mot code la lettre P dans l'alphabet OACI ?",
+      "answers": [
+        {
+          "text": "PAPA",
+          "correct": true
+        },
+        {
+          "text": "PETER",
+          "correct": false
+        },
+        {
+          "text": "PAULA",
+          "correct": false
+        },
+        {
+          "text": "PARIS",
+          "correct": false
+        }
+      ],
+      "page": 6,
+      "excerpt": {
+        "table": {
+          "caption": "Alphabet OACI",
+          "head": [
+            "Lettre",
+            "Mot",
+            "Lettre",
+            "Mot",
+            "Lettre",
+            "Mot"
+          ],
+          "rows": [
+            [
+              "A",
+              "ALPHA",
+              "J",
+              "JULIET",
+              "S",
+              "SIERRA"
+            ],
+            [
+              "B",
+              "BRAVO",
+              "K",
+              "KILO",
+              "T",
+              "TANGO"
+            ],
+            [
+              "C",
+              "CHARLIE",
+              "L",
+              "LIMA",
+              "U",
+              "UNIFORM"
+            ],
+            [
+              "D",
+              "DELTA",
+              "M",
+              "MIKE",
+              "V",
+              "VICTOR"
+            ],
+            [
+              "E",
+              "ECHO",
+              "N",
+              "NOVEMBER",
+              "W",
+              "WHISKY"
+            ],
+            [
+              "F",
+              "FOXTROT",
+              "O",
+              "OSCAR",
+              "X",
+              "X-RAY"
+            ],
+            [
+              "G",
+              "GOLF",
+              "P",
+              "PAPA",
+              "Y",
+              "YANKEE"
+            ],
+            [
+              "H",
+              "HOTEL",
+              "Q",
+              "QUEBEC",
+              "Z",
+              "ZULU"
+            ],
+            [
+              "I",
+              "INDIA",
+              "R",
+              "ROMEO",
+              "",
+              ""
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-alphabet-oaci-018",
+      "question": "Quel mot code la lettre Q dans l'alphabet OACI ?",
+      "answers": [
+        {
+          "text": "QUEBEC",
+          "correct": true
+        },
+        {
+          "text": "QUEEN",
+          "correct": false
+        },
+        {
+          "text": "QUELLE",
+          "correct": false
+        },
+        {
+          "text": "QUINTAL",
+          "correct": false
+        }
+      ],
+      "page": 6,
+      "excerpt": {
+        "table": {
+          "caption": "Alphabet OACI",
+          "head": [
+            "Lettre",
+            "Mot",
+            "Lettre",
+            "Mot",
+            "Lettre",
+            "Mot"
+          ],
+          "rows": [
+            [
+              "A",
+              "ALPHA",
+              "J",
+              "JULIET",
+              "S",
+              "SIERRA"
+            ],
+            [
+              "B",
+              "BRAVO",
+              "K",
+              "KILO",
+              "T",
+              "TANGO"
+            ],
+            [
+              "C",
+              "CHARLIE",
+              "L",
+              "LIMA",
+              "U",
+              "UNIFORM"
+            ],
+            [
+              "D",
+              "DELTA",
+              "M",
+              "MIKE",
+              "V",
+              "VICTOR"
+            ],
+            [
+              "E",
+              "ECHO",
+              "N",
+              "NOVEMBER",
+              "W",
+              "WHISKY"
+            ],
+            [
+              "F",
+              "FOXTROT",
+              "O",
+              "OSCAR",
+              "X",
+              "X-RAY"
+            ],
+            [
+              "G",
+              "GOLF",
+              "P",
+              "PAPA",
+              "Y",
+              "YANKEE"
+            ],
+            [
+              "H",
+              "HOTEL",
+              "Q",
+              "QUEBEC",
+              "Z",
+              "ZULU"
+            ],
+            [
+              "I",
+              "INDIA",
+              "R",
+              "ROMEO",
+              "",
+              ""
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-alphabet-oaci-019",
+      "question": "Quel mot code la lettre R dans l'alphabet OACI ?",
+      "answers": [
+        {
+          "text": "ROMEO",
+          "correct": true
+        },
+        {
+          "text": "ROGER",
+          "correct": false
+        },
+        {
+          "text": "ROMA",
+          "correct": false
+        },
+        {
+          "text": "ROBERT",
+          "correct": false
+        }
+      ],
+      "page": 6,
+      "excerpt": {
+        "table": {
+          "caption": "Alphabet OACI",
+          "head": [
+            "Lettre",
+            "Mot",
+            "Lettre",
+            "Mot",
+            "Lettre",
+            "Mot"
+          ],
+          "rows": [
+            [
+              "A",
+              "ALPHA",
+              "J",
+              "JULIET",
+              "S",
+              "SIERRA"
+            ],
+            [
+              "B",
+              "BRAVO",
+              "K",
+              "KILO",
+              "T",
+              "TANGO"
+            ],
+            [
+              "C",
+              "CHARLIE",
+              "L",
+              "LIMA",
+              "U",
+              "UNIFORM"
+            ],
+            [
+              "D",
+              "DELTA",
+              "M",
+              "MIKE",
+              "V",
+              "VICTOR"
+            ],
+            [
+              "E",
+              "ECHO",
+              "N",
+              "NOVEMBER",
+              "W",
+              "WHISKY"
+            ],
+            [
+              "F",
+              "FOXTROT",
+              "O",
+              "OSCAR",
+              "X",
+              "X-RAY"
+            ],
+            [
+              "G",
+              "GOLF",
+              "P",
+              "PAPA",
+              "Y",
+              "YANKEE"
+            ],
+            [
+              "H",
+              "HOTEL",
+              "Q",
+              "QUEBEC",
+              "Z",
+              "ZULU"
+            ],
+            [
+              "I",
+              "INDIA",
+              "R",
+              "ROMEO",
+              "",
+              ""
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-alphabet-oaci-020",
+      "question": "Quel mot code la lettre S dans l'alphabet OACI ?",
+      "answers": [
+        {
+          "text": "SIERRA",
+          "correct": true
+        },
+        {
+          "text": "SUGAR",
+          "correct": false
+        },
+        {
+          "text": "SAMUEL",
+          "correct": false
+        },
+        {
+          "text": "SANTIAGO",
+          "correct": false
+        }
+      ],
+      "page": 6,
+      "excerpt": {
+        "table": {
+          "caption": "Alphabet OACI",
+          "head": [
+            "Lettre",
+            "Mot",
+            "Lettre",
+            "Mot",
+            "Lettre",
+            "Mot"
+          ],
+          "rows": [
+            [
+              "A",
+              "ALPHA",
+              "J",
+              "JULIET",
+              "S",
+              "SIERRA"
+            ],
+            [
+              "B",
+              "BRAVO",
+              "K",
+              "KILO",
+              "T",
+              "TANGO"
+            ],
+            [
+              "C",
+              "CHARLIE",
+              "L",
+              "LIMA",
+              "U",
+              "UNIFORM"
+            ],
+            [
+              "D",
+              "DELTA",
+              "M",
+              "MIKE",
+              "V",
+              "VICTOR"
+            ],
+            [
+              "E",
+              "ECHO",
+              "N",
+              "NOVEMBER",
+              "W",
+              "WHISKY"
+            ],
+            [
+              "F",
+              "FOXTROT",
+              "O",
+              "OSCAR",
+              "X",
+              "X-RAY"
+            ],
+            [
+              "G",
+              "GOLF",
+              "P",
+              "PAPA",
+              "Y",
+              "YANKEE"
+            ],
+            [
+              "H",
+              "HOTEL",
+              "Q",
+              "QUEBEC",
+              "Z",
+              "ZULU"
+            ],
+            [
+              "I",
+              "INDIA",
+              "R",
+              "ROMEO",
+              "",
+              ""
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-alphabet-oaci-021",
+      "question": "Quel mot code la lettre T dans l'alphabet OACI ?",
+      "answers": [
+        {
+          "text": "TANGO",
+          "correct": true
+        },
+        {
+          "text": "TARE",
+          "correct": false
+        },
+        {
+          "text": "TOKYO",
+          "correct": false
+        },
+        {
+          "text": "THOMAS",
+          "correct": false
+        }
+      ],
+      "page": 6,
+      "excerpt": {
+        "table": {
+          "caption": "Alphabet OACI",
+          "head": [
+            "Lettre",
+            "Mot",
+            "Lettre",
+            "Mot",
+            "Lettre",
+            "Mot"
+          ],
+          "rows": [
+            [
+              "A",
+              "ALPHA",
+              "J",
+              "JULIET",
+              "S",
+              "SIERRA"
+            ],
+            [
+              "B",
+              "BRAVO",
+              "K",
+              "KILO",
+              "T",
+              "TANGO"
+            ],
+            [
+              "C",
+              "CHARLIE",
+              "L",
+              "LIMA",
+              "U",
+              "UNIFORM"
+            ],
+            [
+              "D",
+              "DELTA",
+              "M",
+              "MIKE",
+              "V",
+              "VICTOR"
+            ],
+            [
+              "E",
+              "ECHO",
+              "N",
+              "NOVEMBER",
+              "W",
+              "WHISKY"
+            ],
+            [
+              "F",
+              "FOXTROT",
+              "O",
+              "OSCAR",
+              "X",
+              "X-RAY"
+            ],
+            [
+              "G",
+              "GOLF",
+              "P",
+              "PAPA",
+              "Y",
+              "YANKEE"
+            ],
+            [
+              "H",
+              "HOTEL",
+              "Q",
+              "QUEBEC",
+              "Z",
+              "ZULU"
+            ],
+            [
+              "I",
+              "INDIA",
+              "R",
+              "ROMEO",
+              "",
+              ""
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-alphabet-oaci-022",
+      "question": "Quel mot code la lettre U dans l'alphabet OACI ?",
+      "answers": [
+        {
+          "text": "UNIFORM",
+          "correct": true
+        },
+        {
+          "text": "UNCLE",
+          "correct": false
+        },
+        {
+          "text": "UNION",
+          "correct": false
+        },
+        {
+          "text": "ULRICH",
+          "correct": false
+        }
+      ],
+      "page": 6,
+      "excerpt": {
+        "table": {
+          "caption": "Alphabet OACI",
+          "head": [
+            "Lettre",
+            "Mot",
+            "Lettre",
+            "Mot",
+            "Lettre",
+            "Mot"
+          ],
+          "rows": [
+            [
+              "A",
+              "ALPHA",
+              "J",
+              "JULIET",
+              "S",
+              "SIERRA"
+            ],
+            [
+              "B",
+              "BRAVO",
+              "K",
+              "KILO",
+              "T",
+              "TANGO"
+            ],
+            [
+              "C",
+              "CHARLIE",
+              "L",
+              "LIMA",
+              "U",
+              "UNIFORM"
+            ],
+            [
+              "D",
+              "DELTA",
+              "M",
+              "MIKE",
+              "V",
+              "VICTOR"
+            ],
+            [
+              "E",
+              "ECHO",
+              "N",
+              "NOVEMBER",
+              "W",
+              "WHISKY"
+            ],
+            [
+              "F",
+              "FOXTROT",
+              "O",
+              "OSCAR",
+              "X",
+              "X-RAY"
+            ],
+            [
+              "G",
+              "GOLF",
+              "P",
+              "PAPA",
+              "Y",
+              "YANKEE"
+            ],
+            [
+              "H",
+              "HOTEL",
+              "Q",
+              "QUEBEC",
+              "Z",
+              "ZULU"
+            ],
+            [
+              "I",
+              "INDIA",
+              "R",
+              "ROMEO",
+              "",
+              ""
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-alphabet-oaci-023",
+      "question": "Quel mot code la lettre V dans l'alphabet OACI ?",
+      "answers": [
+        {
+          "text": "VICTOR",
+          "correct": true
+        },
+        {
+          "text": "VIENNA",
+          "correct": false
+        },
+        {
+          "text": "VIOLET",
+          "correct": false
+        },
+        {
+          "text": "VENICE",
+          "correct": false
+        }
+      ],
+      "page": 6,
+      "excerpt": {
+        "table": {
+          "caption": "Alphabet OACI",
+          "head": [
+            "Lettre",
+            "Mot",
+            "Lettre",
+            "Mot",
+            "Lettre",
+            "Mot"
+          ],
+          "rows": [
+            [
+              "A",
+              "ALPHA",
+              "J",
+              "JULIET",
+              "S",
+              "SIERRA"
+            ],
+            [
+              "B",
+              "BRAVO",
+              "K",
+              "KILO",
+              "T",
+              "TANGO"
+            ],
+            [
+              "C",
+              "CHARLIE",
+              "L",
+              "LIMA",
+              "U",
+              "UNIFORM"
+            ],
+            [
+              "D",
+              "DELTA",
+              "M",
+              "MIKE",
+              "V",
+              "VICTOR"
+            ],
+            [
+              "E",
+              "ECHO",
+              "N",
+              "NOVEMBER",
+              "W",
+              "WHISKY"
+            ],
+            [
+              "F",
+              "FOXTROT",
+              "O",
+              "OSCAR",
+              "X",
+              "X-RAY"
+            ],
+            [
+              "G",
+              "GOLF",
+              "P",
+              "PAPA",
+              "Y",
+              "YANKEE"
+            ],
+            [
+              "H",
+              "HOTEL",
+              "Q",
+              "QUEBEC",
+              "Z",
+              "ZULU"
+            ],
+            [
+              "I",
+              "INDIA",
+              "R",
+              "ROMEO",
+              "",
+              ""
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-alphabet-oaci-024",
+      "question": "Quel mot code la lettre W dans l'alphabet OACI ?",
+      "answers": [
+        {
+          "text": "WHISKY",
+          "correct": true
+        },
+        {
+          "text": "WILLIAM",
+          "correct": false
+        },
+        {
+          "text": "WALTER",
+          "correct": false
+        },
+        {
+          "text": "WINDSOR",
+          "correct": false
+        }
+      ],
+      "page": 6,
+      "excerpt": {
+        "table": {
+          "caption": "Alphabet OACI",
+          "head": [
+            "Lettre",
+            "Mot",
+            "Lettre",
+            "Mot",
+            "Lettre",
+            "Mot"
+          ],
+          "rows": [
+            [
+              "A",
+              "ALPHA",
+              "J",
+              "JULIET",
+              "S",
+              "SIERRA"
+            ],
+            [
+              "B",
+              "BRAVO",
+              "K",
+              "KILO",
+              "T",
+              "TANGO"
+            ],
+            [
+              "C",
+              "CHARLIE",
+              "L",
+              "LIMA",
+              "U",
+              "UNIFORM"
+            ],
+            [
+              "D",
+              "DELTA",
+              "M",
+              "MIKE",
+              "V",
+              "VICTOR"
+            ],
+            [
+              "E",
+              "ECHO",
+              "N",
+              "NOVEMBER",
+              "W",
+              "WHISKY"
+            ],
+            [
+              "F",
+              "FOXTROT",
+              "O",
+              "OSCAR",
+              "X",
+              "X-RAY"
+            ],
+            [
+              "G",
+              "GOLF",
+              "P",
+              "PAPA",
+              "Y",
+              "YANKEE"
+            ],
+            [
+              "H",
+              "HOTEL",
+              "Q",
+              "QUEBEC",
+              "Z",
+              "ZULU"
+            ],
+            [
+              "I",
+              "INDIA",
+              "R",
+              "ROMEO",
+              "",
+              ""
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-alphabet-oaci-025",
+      "question": "Quel mot code la lettre X dans l'alphabet OACI ?",
+      "answers": [
+        {
+          "text": "X-RAY",
+          "correct": true
+        },
+        {
+          "text": "XAVIER",
+          "correct": false
+        },
+        {
+          "text": "XANTHIPPE",
+          "correct": false
+        },
+        {
+          "text": "XYLOPHONE",
+          "correct": false
+        }
+      ],
+      "page": 6,
+      "excerpt": {
+        "table": {
+          "caption": "Alphabet OACI",
+          "head": [
+            "Lettre",
+            "Mot",
+            "Lettre",
+            "Mot",
+            "Lettre",
+            "Mot"
+          ],
+          "rows": [
+            [
+              "A",
+              "ALPHA",
+              "J",
+              "JULIET",
+              "S",
+              "SIERRA"
+            ],
+            [
+              "B",
+              "BRAVO",
+              "K",
+              "KILO",
+              "T",
+              "TANGO"
+            ],
+            [
+              "C",
+              "CHARLIE",
+              "L",
+              "LIMA",
+              "U",
+              "UNIFORM"
+            ],
+            [
+              "D",
+              "DELTA",
+              "M",
+              "MIKE",
+              "V",
+              "VICTOR"
+            ],
+            [
+              "E",
+              "ECHO",
+              "N",
+              "NOVEMBER",
+              "W",
+              "WHISKY"
+            ],
+            [
+              "F",
+              "FOXTROT",
+              "O",
+              "OSCAR",
+              "X",
+              "X-RAY"
+            ],
+            [
+              "G",
+              "GOLF",
+              "P",
+              "PAPA",
+              "Y",
+              "YANKEE"
+            ],
+            [
+              "H",
+              "HOTEL",
+              "Q",
+              "QUEBEC",
+              "Z",
+              "ZULU"
+            ],
+            [
+              "I",
+              "INDIA",
+              "R",
+              "ROMEO",
+              "",
+              ""
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-alphabet-oaci-026",
+      "question": "Quel mot code la lettre Y dans l'alphabet OACI ?",
+      "answers": [
+        {
+          "text": "YANKEE",
+          "correct": true
+        },
+        {
+          "text": "YOKE",
+          "correct": false
+        },
+        {
+          "text": "YELLOW",
+          "correct": false
+        },
+        {
+          "text": "YOKOHAMA",
+          "correct": false
+        }
+      ],
+      "page": 6,
+      "excerpt": {
+        "table": {
+          "caption": "Alphabet OACI",
+          "head": [
+            "Lettre",
+            "Mot",
+            "Lettre",
+            "Mot",
+            "Lettre",
+            "Mot"
+          ],
+          "rows": [
+            [
+              "A",
+              "ALPHA",
+              "J",
+              "JULIET",
+              "S",
+              "SIERRA"
+            ],
+            [
+              "B",
+              "BRAVO",
+              "K",
+              "KILO",
+              "T",
+              "TANGO"
+            ],
+            [
+              "C",
+              "CHARLIE",
+              "L",
+              "LIMA",
+              "U",
+              "UNIFORM"
+            ],
+            [
+              "D",
+              "DELTA",
+              "M",
+              "MIKE",
+              "V",
+              "VICTOR"
+            ],
+            [
+              "E",
+              "ECHO",
+              "N",
+              "NOVEMBER",
+              "W",
+              "WHISKY"
+            ],
+            [
+              "F",
+              "FOXTROT",
+              "O",
+              "OSCAR",
+              "X",
+              "X-RAY"
+            ],
+            [
+              "G",
+              "GOLF",
+              "P",
+              "PAPA",
+              "Y",
+              "YANKEE"
+            ],
+            [
+              "H",
+              "HOTEL",
+              "Q",
+              "QUEBEC",
+              "Z",
+              "ZULU"
+            ],
+            [
+              "I",
+              "INDIA",
+              "R",
+              "ROMEO",
+              "",
+              ""
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-alphabet-oaci-027",
+      "question": "Quel mot code la lettre Z dans l'alphabet OACI ?",
+      "answers": [
+        {
+          "text": "ZULU",
+          "correct": true
+        },
+        {
+          "text": "ZEBRA",
+          "correct": false
+        },
+        {
+          "text": "ZERO",
+          "correct": false
+        },
+        {
+          "text": "ZETA",
+          "correct": false
+        }
+      ],
+      "page": 6,
+      "excerpt": {
+        "table": {
+          "caption": "Alphabet OACI",
+          "head": [
+            "Lettre",
+            "Mot",
+            "Lettre",
+            "Mot",
+            "Lettre",
+            "Mot"
+          ],
+          "rows": [
+            [
+              "A",
+              "ALPHA",
+              "J",
+              "JULIET",
+              "S",
+              "SIERRA"
+            ],
+            [
+              "B",
+              "BRAVO",
+              "K",
+              "KILO",
+              "T",
+              "TANGO"
+            ],
+            [
+              "C",
+              "CHARLIE",
+              "L",
+              "LIMA",
+              "U",
+              "UNIFORM"
+            ],
+            [
+              "D",
+              "DELTA",
+              "M",
+              "MIKE",
+              "V",
+              "VICTOR"
+            ],
+            [
+              "E",
+              "ECHO",
+              "N",
+              "NOVEMBER",
+              "W",
+              "WHISKY"
+            ],
+            [
+              "F",
+              "FOXTROT",
+              "O",
+              "OSCAR",
+              "X",
+              "X-RAY"
+            ],
+            [
+              "G",
+              "GOLF",
+              "P",
+              "PAPA",
+              "Y",
+              "YANKEE"
+            ],
+            [
+              "H",
+              "HOTEL",
+              "Q",
+              "QUEBEC",
+              "Z",
+              "ZULU"
+            ],
+            [
+              "I",
+              "INDIA",
+              "R",
+              "ROMEO",
+              "",
+              ""
+            ]
+          ]
+        }
+      }
+    }
+  ]
+}

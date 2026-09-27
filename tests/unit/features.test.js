@@ -2,8 +2,8 @@
 
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { mistakePool, buildMistakesSession, buildReviewSession } from "../../src/js/engine.js";
-import { streak, calendar, disputed, backupDue } from "../../src/js/summary.js";
+import { mistakePool, buildMistakesSession, buildReviewSession, activeQuestions, rightAnswerText } from "../../src/js/engine.js";
+import { streak, calendar, disputed, backupDue, reportFile } from "../../src/js/summary.js";
 import { validateSave, createStore } from "../../src/js/storage.js";
 import { validateDeck } from "../../src/js/deck.js";
 import { CALENDAR_DAYS, SESSION_SIZE } from "../../src/js/config.js";
@@ -68,6 +68,38 @@ test("rappel de sauvegarde : après 7 jours sans copie, jamais sans progrès", (
   assert.equal(backupDue(saveWith({ a: card({ firstSeen: NOW - 30 * DAY }) }, { lastExport: NOW - 9 * DAY }), NOW), true);
 });
 
+test("signalée : écartée des séances tant que la fiche donne la même réponse, de retour si elle change", () => {
+  const q = makeQuestions(1, 3);
+  const seen = rightAnswerText(q[1]);
+  const save = saveWith({}, { flags: { "t0-q1": { review: false, dispute: true, answer: seen }, "t0-q2": { review: true, dispute: false } } });
+  assert.deepEqual(activeQuestions(q, save).map(x => x.id), ["t0-q0", "t0-q2"]);
+  const fixed = q.map(x => x.id === "t0-q1" ? { ...x, answers: [{ text: "corrigée", correct: true }, { text: "faux", correct: false }] } : x);
+  assert.deepEqual(activeQuestions(fixed, save).map(x => x.id), ["t0-q0", "t0-q1", "t0-q2"]);
+  // Reported before answers were recorded: set aside until the report is withdrawn.
+  const old = saveWith({}, { flags: { "t0-q0": { review: false, dispute: true } } });
+  assert.deepEqual(activeQuestions(q, old).map(x => x.id), ["t0-q1", "t0-q2"]);
+});
+
+test("signalement : la raison est facultative, courte et en texte", () => {
+  const ok = { flags: { "t0-q1": { review: false, dispute: true, note: "Le PDF dit autre chose." } } };
+  assert.equal(validateSave({ ...saveWith(), ...ok }), null);
+  assert.notEqual(validateSave({ ...saveWith(), flags: { "t0-q1": { review: false, dispute: true, answer: 42 } } }), null);
+  for (const note of [42, "x".repeat(501)]) {
+    assert.notEqual(validateSave({ ...saveWith(), flags: { "t0-q1": { review: false, dispute: true, note } } }), null, String(note).slice(0, 20));
+  }
+});
+
+test("signalements : fichier à envoyer avec version, empreinte des fiches, réponse de la fiche et raison", () => {
+  const q = makeQuestions(1, 3).map((x, i) => ({ ...x, page: i + 2 }));
+  const save = saveWith({}, { flags: { "t0-q1": { review: false, dispute: true, note: "Page 3 : c'est l'inverse." }, "t0-q2": { review: true, dispute: false } } });
+  const file = reportFile(q, save, { version: "2.2.0", fingerprint: "abc123", now: NOW });
+  assert.deepEqual(file, {
+    app: "envol", type: "signalements", version: "2.2.0", fiches: "abc123", date: isoDate(NOW),
+    items: [{ id: "t0-q1", theme: q[1].theme, page: 3, question: q[1].question,
+      reponse: q[1].answers.filter(a => a.correct).map(a => a.text).join(", "), note: "Page 3 : c'est l'inverse." }],
+  });
+});
+
 test("sauvegarde : les nouveaux champs sont validés, et facultatifs pour les anciennes copies", () => {
   const old = { version: 2, examDate: null, cards: {}, tests: [], reviews: [] };
   assert.equal(validateSave(old), null);
@@ -84,6 +116,6 @@ test("cartes mémoire : recto, verso, explication facultative", () => {
   const index = { themes: [{ id: "voc", title: "Vocabulaire", file: "voc.json" }] };
   const ok = { id: "voc-001", type: "card", question: "PAX ?", answer: "Un passager." };
   const r = validateDeck(index, { "voc.json": { questions: [ok, { ...ok, id: "voc-002", answer: " " }, { ...ok, id: "voc-003", answers: [] }] } });
-  assert.deepEqual(r.questions, [{ id: "voc-001", theme: "Vocabulaire", question: "PAX ?", explanation: "", kind: "card", answer: "Un passager." }]);
+  assert.deepEqual(r.questions, [{ id: "voc-001", theme: "Vocabulaire", question: "PAX ?", explanation: "", reliability: null, kind: "card", answer: "Un passager." }]);
   assert.equal(r.errors.length, 2);
 });

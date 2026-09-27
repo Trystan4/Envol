@@ -1,6 +1,12 @@
 // Engine settings: every number worth tuning lives here, and nowhere else.
 
+// Shown in Réglages to check that the phone runs the latest published version.
+// Keep equal to "version" in package.json and VERSION in sw.js (a test checks it).
+export const APP_VERSION = "2.2.0";
+
 export const DAY = 864e5;
+
+export const REPORT_NOTE_MAX = 500; // characters in the reason given with a reported question
 
 // Spaced repetition: days before a question comes back, by level (0 to 5).
 export const INTERVALS = [0, 1, 2, 4, 7, 15];

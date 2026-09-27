@@ -7,7 +7,7 @@ const countdown = days => days === null ? "" : days > 0 ? `J-${days}` : days ===
 // mistakes: size of the "Mes erreurs" pool; backupDays: days since the last copy when a reminder is due.
 export function renderHome({ ov, days, firstTime, notices, mistakes, backupDays }) {
   const sub = firstTime ? `${plural(ov.total, "question")} à découvrir. On commence en douceur.`
-    : ov.toDoToday ? `${plural(ov.toDoToday, "question")} à revoir aujourd'hui.`
+    : ov.toDoToday ? `${plural(ov.toDoToday, "question")} à revoir aujourd'hui${ov.sessionsToday > 1 ? `, en ${ov.sessionsToday} séances` : ""}.`
     : "Tout est à jour. Un petit tour pour garder le rythme ?";
   const C = 2 * Math.PI * 76, arc = C * ov.pct / 100;
   const cd = countdown(days);

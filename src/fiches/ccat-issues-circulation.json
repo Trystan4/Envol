@@ -1,0 +1,492 @@
+{
+  "document": "Prérequis CCAT",
+  "fiabilite": "verifiee",
+  "questions": [
+    {
+      "id": "ccat-issues-circulation-001",
+      "question": "Quel type d'issue permet l'évacuation de 2 personnes de front ?",
+      "answers": [
+        {
+          "text": "Type A",
+          "correct": true
+        },
+        {
+          "text": "Type C",
+          "correct": false
+        },
+        {
+          "text": "Type I",
+          "correct": false
+        },
+        {
+          "text": "Type III",
+          "correct": false
+        }
+      ],
+      "page": 3,
+      "excerpt": {
+        "table": {
+          "caption": "Les issues",
+          "head": [
+            "Type d'issue",
+            "Niveau par rapport au plancher",
+            "Définitions"
+          ],
+          "rows": [
+            [
+              "Type A",
+              "0",
+              "Issue de plain-pied. Evacuation de 2 personnes de front (Ex : B777, A330, A380…)"
+            ],
+            [
+              "Type C",
+              "0",
+              "Issue de plain-pied. Evacuation d'une personne de front (Ex : B787, A350…)"
+            ],
+            [
+              "Type I",
+              "0",
+              "Issue de plain-pied. Evacuation d'une personne de front (Ex : B737, A320…)"
+            ],
+            [
+              "Type III",
+              "Environ 0,50m",
+              "Issue d'aile à enjamber, évacuation d'une seule personne à la fois. (Ex B737, A320…)"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-issues-circulation-002",
+      "question": "Quel type d'issue est une issue d'aile à enjamber ?",
+      "answers": [
+        {
+          "text": "Type III",
+          "correct": true
+        },
+        {
+          "text": "Type A",
+          "correct": false
+        },
+        {
+          "text": "Type C",
+          "correct": false
+        },
+        {
+          "text": "Type I",
+          "correct": false
+        }
+      ],
+      "page": 3,
+      "excerpt": {
+        "table": {
+          "caption": "Les issues",
+          "head": [
+            "Type d'issue",
+            "Niveau par rapport au plancher",
+            "Définitions"
+          ],
+          "rows": [
+            [
+              "Type A",
+              "0",
+              "Issue de plain-pied. Evacuation de 2 personnes de front (Ex : B777, A330, A380…)"
+            ],
+            [
+              "Type C",
+              "0",
+              "Issue de plain-pied. Evacuation d'une personne de front (Ex : B787, A350…)"
+            ],
+            [
+              "Type I",
+              "0",
+              "Issue de plain-pied. Evacuation d'une personne de front (Ex : B737, A320…)"
+            ],
+            [
+              "Type III",
+              "Environ 0,50m",
+              "Issue d'aile à enjamber, évacuation d'une seule personne à la fois. (Ex B737, A320…)"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-issues-circulation-003",
+      "question": "À quel niveau par rapport au plancher se trouve une issue de type III ?",
+      "answers": [
+        {
+          "text": "Environ 0,50m",
+          "correct": true
+        },
+        {
+          "text": "0 (issue de plain-pied)",
+          "correct": false
+        },
+        {
+          "text": "Environ 1m",
+          "correct": false
+        },
+        {
+          "text": "Environ 0,25m",
+          "correct": false
+        }
+      ],
+      "page": 3,
+      "excerpt": {
+        "table": {
+          "caption": "Les issues",
+          "head": [
+            "Type d'issue",
+            "Niveau par rapport au plancher",
+            "Définitions"
+          ],
+          "rows": [
+            [
+              "Type A",
+              "0",
+              "Issue de plain-pied. Evacuation de 2 personnes de front (Ex : B777, A330, A380…)"
+            ],
+            [
+              "Type C",
+              "0",
+              "Issue de plain-pied. Evacuation d'une personne de front (Ex : B787, A350…)"
+            ],
+            [
+              "Type I",
+              "0",
+              "Issue de plain-pied. Evacuation d'une personne de front (Ex : B737, A320…)"
+            ],
+            [
+              "Type III",
+              "Environ 0,50m",
+              "Issue d'aile à enjamber, évacuation d'une seule personne à la fois. (Ex B737, A320…)"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-issues-circulation-004",
+      "question": "Combien de personnes une issue de type III permet-elle d'évacuer ?",
+      "answers": [
+        {
+          "text": "Une seule personne à la fois",
+          "correct": true
+        },
+        {
+          "text": "Deux personnes de front",
+          "correct": false
+        },
+        {
+          "text": "Deux personnes à la fois",
+          "correct": false
+        },
+        {
+          "text": "Trois personnes à la fois",
+          "correct": false
+        }
+      ],
+      "page": 3,
+      "excerpt": {
+        "table": {
+          "caption": "Les issues",
+          "head": [
+            "Type d'issue",
+            "Niveau par rapport au plancher",
+            "Définitions"
+          ],
+          "rows": [
+            [
+              "Type A",
+              "0",
+              "Issue de plain-pied. Evacuation de 2 personnes de front (Ex : B777, A330, A380…)"
+            ],
+            [
+              "Type C",
+              "0",
+              "Issue de plain-pied. Evacuation d'une personne de front (Ex : B787, A350…)"
+            ],
+            [
+              "Type I",
+              "0",
+              "Issue de plain-pied. Evacuation d'une personne de front (Ex : B737, A320…)"
+            ],
+            [
+              "Type III",
+              "Environ 0,50m",
+              "Issue d'aile à enjamber, évacuation d'une seule personne à la fois. (Ex B737, A320…)"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-issues-circulation-005",
+      "question": "D'après les exemples de la fiche, quel type d'issue équipe les B787 et A350 ?",
+      "answers": [
+        {
+          "text": "Type C",
+          "correct": true
+        },
+        {
+          "text": "Type A",
+          "correct": false
+        },
+        {
+          "text": "Type III",
+          "correct": false
+        },
+        {
+          "text": "Type I",
+          "correct": false
+        }
+      ],
+      "page": 3,
+      "excerpt": {
+        "table": {
+          "caption": "Les issues",
+          "head": [
+            "Type d'issue",
+            "Niveau par rapport au plancher",
+            "Définitions"
+          ],
+          "rows": [
+            [
+              "Type A",
+              "0",
+              "Issue de plain-pied. Evacuation de 2 personnes de front (Ex : B777, A330, A380…)"
+            ],
+            [
+              "Type C",
+              "0",
+              "Issue de plain-pied. Evacuation d'une personne de front (Ex : B787, A350…)"
+            ],
+            [
+              "Type I",
+              "0",
+              "Issue de plain-pied. Evacuation d'une personne de front (Ex : B737, A320…)"
+            ],
+            [
+              "Type III",
+              "Environ 0,50m",
+              "Issue d'aile à enjamber, évacuation d'une seule personne à la fois. (Ex B737, A320…)"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-issues-circulation-006",
+      "question": "Quelle issue de plain-pied, avec évacuation d'une personne de front, a pour exemples le B737 et l'A320 ?",
+      "answers": [
+        {
+          "text": "Type I",
+          "correct": true
+        },
+        {
+          "text": "Type A",
+          "correct": false
+        },
+        {
+          "text": "Type C",
+          "correct": false
+        },
+        {
+          "text": "Type III",
+          "correct": false
+        }
+      ],
+      "page": 3,
+      "excerpt": {
+        "table": {
+          "caption": "Les issues",
+          "head": [
+            "Type d'issue",
+            "Niveau par rapport au plancher",
+            "Définitions"
+          ],
+          "rows": [
+            [
+              "Type A",
+              "0",
+              "Issue de plain-pied. Evacuation de 2 personnes de front (Ex : B777, A330, A380…)"
+            ],
+            [
+              "Type C",
+              "0",
+              "Issue de plain-pied. Evacuation d'une personne de front (Ex : B787, A350…)"
+            ],
+            [
+              "Type I",
+              "0",
+              "Issue de plain-pied. Evacuation d'une personne de front (Ex : B737, A320…)"
+            ],
+            [
+              "Type III",
+              "Environ 0,50m",
+              "Issue d'aile à enjamber, évacuation d'une seule personne à la fois. (Ex B737, A320…)"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-issues-circulation-007",
+      "question": "Qu'est-ce qu'une paire d'issue ?",
+      "answers": [
+        {
+          "text": "2 issues de même type, situées de chaque côté du fuselage, symétriquement ou presque par rapport à l'axe longitudinal de l'aéronef",
+          "correct": true
+        },
+        {
+          "text": "2 issues de types différents, situées du même côté du fuselage, l'une à l'avant et l'autre à l'arrière de l'aéronef",
+          "correct": false
+        },
+        {
+          "text": "2 issues de même type, situées l'une derrière l'autre du même côté du fuselage, le long de l'axe longitudinal de l'aéronef",
+          "correct": false
+        },
+        {
+          "text": "2 issues de même type, situées de chaque côté du fuselage, en diagonale l'une de l'autre, l'une à l'avant et l'autre à l'arrière de l'aéronef",
+          "correct": false
+        }
+      ],
+      "page": 3,
+      "excerpt": {
+        "text": "Paire d'issue : 2 issues de même type, situées de chaque côté du fuselage, symétriquement ou presque par rapport à l'axe longitudinal de l'aéronef."
+      }
+    },
+    {
+      "id": "ccat-issues-circulation-008",
+      "question": "Comment les voies de relation (taxiways) sont-elles balisées de nuit ?",
+      "answers": [
+        {
+          "text": "Par des lumières bleues",
+          "correct": true
+        },
+        {
+          "text": "Par des lumières vertes",
+          "correct": false
+        },
+        {
+          "text": "Par des lumières rouges",
+          "correct": false
+        },
+        {
+          "text": "Par des lumières blanches",
+          "correct": false
+        }
+      ],
+      "page": 3,
+      "excerpt": {
+        "text": "Aire de trafic = (parking) Aire destinée à l'embarquement, au débarquement, au chargement et au déchargement, à l'avitaillement, ainsi qu'au stationnement des aéronefs.\nVoies de relation ou circulation (taxiways : cheminement entre les pistes et les parkings) balisées de nuit par des lumières bleues.\nAire de manœuvre = Piste + Voies de relation\nAire de mouvement = Aire de manœuvre + Aire de trafic"
+      }
+    },
+    {
+      "id": "ccat-issues-circulation-009",
+      "question": "Qu'est-ce que l'aire de manœuvre ?",
+      "answers": [
+        {
+          "text": "Piste + Voies de relation",
+          "correct": true
+        },
+        {
+          "text": "Piste + Aire de mouvement",
+          "correct": false
+        },
+        {
+          "text": "Piste + Aire de trafic",
+          "correct": false
+        },
+        {
+          "text": "Voies de relation + Aire de trafic",
+          "correct": false
+        }
+      ],
+      "page": 3,
+      "excerpt": {
+        "text": "Aire de trafic = (parking) Aire destinée à l'embarquement, au débarquement, au chargement et au déchargement, à l'avitaillement, ainsi qu'au stationnement des aéronefs.\nVoies de relation ou circulation (taxiways : cheminement entre les pistes et les parkings) balisées de nuit par des lumières bleues.\nAire de manœuvre = Piste + Voies de relation\nAire de mouvement = Aire de manœuvre + Aire de trafic"
+      }
+    },
+    {
+      "id": "ccat-issues-circulation-010",
+      "question": "Qu'est-ce que l'aire de mouvement ?",
+      "answers": [
+        {
+          "text": "Aire de manœuvre + Aire de trafic",
+          "correct": true
+        },
+        {
+          "text": "Piste + Voies de relation",
+          "correct": false
+        },
+        {
+          "text": "Aire de manœuvre + Piste",
+          "correct": false
+        },
+        {
+          "text": "Voies de relation + Aire de trafic",
+          "correct": false
+        }
+      ],
+      "page": 3,
+      "excerpt": {
+        "text": "Aire de trafic = (parking) Aire destinée à l'embarquement, au débarquement, au chargement et au déchargement, à l'avitaillement, ainsi qu'au stationnement des aéronefs.\nVoies de relation ou circulation (taxiways : cheminement entre les pistes et les parkings) balisées de nuit par des lumières bleues.\nAire de manœuvre = Piste + Voies de relation\nAire de mouvement = Aire de manœuvre + Aire de trafic"
+      }
+    },
+    {
+      "id": "ccat-issues-circulation-011",
+      "question": "À quoi est destinée l'aire de trafic (parking) ?",
+      "answers": [
+        {
+          "text": "À l'embarquement, au débarquement, au chargement et au déchargement, à l'avitaillement et au stationnement des aéronefs",
+          "correct": true
+        },
+        {
+          "text": "Au cheminement des aéronefs entre les pistes et les parkings, balisé de nuit par des lumières bleues",
+          "correct": false
+        },
+        {
+          "text": "Au décollage et à l'atterrissage des aéronefs, ainsi qu'à leur roulage entre la piste et les voies de relation",
+          "correct": false
+        },
+        {
+          "text": "Au stationnement de longue durée des aéronefs, à l'écart des zones d'embarquement, de chargement et d'avitaillement",
+          "correct": false
+        }
+      ],
+      "page": 3,
+      "excerpt": {
+        "text": "Aire de trafic = (parking) Aire destinée à l'embarquement, au débarquement, au chargement et au déchargement, à l'avitaillement, ainsi qu'au stationnement des aéronefs.\nVoies de relation ou circulation (taxiways : cheminement entre les pistes et les parkings) balisées de nuit par des lumières bleues.\nAire de manœuvre = Piste + Voies de relation\nAire de mouvement = Aire de manœuvre + Aire de trafic"
+      }
+    },
+    {
+      "id": "ccat-issues-circulation-012",
+      "question": "Que sont les taxiways ?",
+      "answers": [
+        {
+          "text": "Les voies de relation ou circulation : le cheminement entre les pistes et les parkings",
+          "correct": true
+        },
+        {
+          "text": "L'aire de trafic : l'aire destinée à l'embarquement, au débarquement et au stationnement",
+          "correct": false
+        },
+        {
+          "text": "L'aire de mouvement : l'ensemble formé par l'aire de manœuvre et l'aire de trafic",
+          "correct": false
+        },
+        {
+          "text": "Les pistes : les voies réservées au décollage et à l'atterrissage des aéronefs",
+          "correct": false
+        }
+      ],
+      "page": 3,
+      "excerpt": {
+        "text": "Aire de trafic = (parking) Aire destinée à l'embarquement, au débarquement, au chargement et au déchargement, à l'avitaillement, ainsi qu'au stationnement des aéronefs.\nVoies de relation ou circulation (taxiways : cheminement entre les pistes et les parkings) balisées de nuit par des lumières bleues.\nAire de manœuvre = Piste + Voies de relation\nAire de mouvement = Aire de manœuvre + Aire de trafic"
+      }
+    }
+  ]
+}

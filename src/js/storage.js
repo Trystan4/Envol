@@ -2,7 +2,7 @@
 // Everything read from outside (stored data, imported file) is fully validated before use:
 // a file is accepted whole or refused whole, never half-applied.
 
-import { REVIEWS_KEPT, ACTIVITY_DAYS_KEPT } from "./config.js";
+import { REVIEWS_KEPT, ACTIVITY_DAYS_KEPT, REPORT_NOTE_MAX } from "./config.js";
 
 export const KEY = "envol-v2";
 export const BACKUP_KEY = `${KEY}-before-import`; // state kept before the last import, for "Annuler l'import"
@@ -74,6 +74,8 @@ export function validateSave(x) {
     for (const [id, f] of Object.entries(x.flags)) {
       if (id.length > 64 || !CARD_ID.test(id) || !isObject(f)) return "question marquée invalide";
       if (typeof f.review !== "boolean" || typeof f.dispute !== "boolean") return "question marquée invalide";
+      if (f.note !== undefined && (typeof f.note !== "string" || f.note.length > REPORT_NOTE_MAX)) return "raison d'un signalement invalide";
+      if (f.answer !== undefined && (typeof f.answer !== "string" || f.answer.length > 2000)) return "réponse d'un signalement invalide";
     }
   }
   if (x.activity !== undefined && (!Array.isArray(x.activity) || !x.activity.every(isDay))) return "jours d'activité invalides";
@@ -116,8 +118,8 @@ export function createStore(storage) {
       const error = validateSave(parsed);
       if (error) return { ok: false, error };
       const data = clean(parsed);
-      if (!write(BACKUP_KEY, JSON.stringify(current))) return { ok: false, error: "le stockage de l'iPhone est plein" };
-      if (!write(KEY, JSON.stringify(data))) return { ok: false, error: "le stockage de l'iPhone est plein" };
+      if (!write(BACKUP_KEY, JSON.stringify(current))) return { ok: false, error: "le stockage de cet appareil est plein" };
+      if (!write(KEY, JSON.stringify(data))) return { ok: false, error: "le stockage de cet appareil est plein" };
       return { ok: true, data };
     },
     canUndoImport() { return read(BACKUP_KEY) != null; },

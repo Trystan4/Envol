@@ -20,9 +20,14 @@ blob-report/
 playwright/.cache/
 .playwright-mcp/
 
-# Copies de progression exportées depuis l'app (données personnelles)
+# Copies de progression et signalements exportés depuis l'app (données personnelles)
 envol-sauvegarde-*.json
+envol-signalements-*.json
 
 # Brouillons et sources des fiches avant conversion
 brouillons/
 *.bak
+
+# Documents sources privés et fichiers de relecture (jamais publiés)
+real-datas/
+_relecture/

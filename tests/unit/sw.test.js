@@ -31,3 +31,23 @@ test("les fiches listées dans index.json existent toutes", () => {
   const files = publishedFiles().filter(f => f.startsWith("fiches/"));
   for (const t of index.themes) assert.ok(files.includes(`fiches/${t.file}`), t.file);
 });
+
+test("chaque image citée par une fiche existe, et chaque image publiée est citée", () => {
+  const index = JSON.parse(readFileSync(src + "fiches/index.json", "utf8"));
+  const cited = new Set();
+  for (const t of index.themes) {
+    for (const q of JSON.parse(readFileSync(src + `fiches/${t.file}`, "utf8")).questions) {
+      if (q.excerpt && q.excerpt.image) cited.add(q.excerpt.image.src);
+    }
+  }
+  const images = publishedFiles().filter(f => f.startsWith("img/"));
+  assert.deepEqual([...cited].sort(), images.sort());
+});
+
+test("le numéro de version est le même dans l'app, le service worker et package.json", () => {
+  const pkg = JSON.parse(readFileSync(new URL("../../package.json", import.meta.url), "utf8")).version;
+  const config = readFileSync(src + "js/config.js", "utf8").match(/APP_VERSION = "([^"]+)"/)[1];
+  const sw = readFileSync(src + "sw.js", "utf8").match(/const VERSION = "([^"]+)"/)[1];
+  assert.equal(config, pkg);
+  assert.equal(sw, pkg);
+});

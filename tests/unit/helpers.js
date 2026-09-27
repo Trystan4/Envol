@@ -25,7 +25,7 @@ export function saveWith(cards = {}, over = {}) {
   return { ...emptySave(), cards, ...over };
 }
 
-// In-memory localStorage stand-in; `full` makes every write fail like a full iPhone.
+// In-memory localStorage stand-in; `full` makes every write fail like a full phone.
 export function memoryStorage(initial = {}) {
   const m = new Map(Object.entries(initial));
   return {

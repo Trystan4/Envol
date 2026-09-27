@@ -1,0 +1,574 @@
+{
+  "document": "Prérequis CCAT",
+  "fiabilite": "verifiee",
+  "questions": [
+    {
+      "id": "ccat-aerodynamique-001",
+      "question": "Sur le schéma des 4 forces, quelle force est dirigée vers l'arrière de l'avion ?",
+      "answers": [
+        {
+          "text": "La traînée",
+          "correct": true
+        },
+        {
+          "text": "La poussée",
+          "correct": false
+        },
+        {
+          "text": "La portance",
+          "correct": false
+        },
+        {
+          "text": "Le poids",
+          "correct": false
+        }
+      ],
+      "page": 2,
+      "excerpt": {
+        "text": "Schéma « Les 4 forces » : PORTANCE vers le haut, POIDS vers le bas, POUSSEE vers l'avant, TRAINEE vers l'arrière."
+      }
+    },
+    {
+      "id": "ccat-aerodynamique-002",
+      "question": "Sur le schéma des 4 forces, quelle force est dirigée vers l'avant de l'avion ?",
+      "answers": [
+        {
+          "text": "La poussée",
+          "correct": true
+        },
+        {
+          "text": "La traînée",
+          "correct": false
+        },
+        {
+          "text": "La portance",
+          "correct": false
+        },
+        {
+          "text": "Le poids",
+          "correct": false
+        }
+      ],
+      "page": 2,
+      "excerpt": {
+        "text": "Schéma « Les 4 forces » : PORTANCE vers le haut, POIDS vers le bas, POUSSEE vers l'avant, TRAINEE vers l'arrière."
+      }
+    },
+    {
+      "id": "ccat-aerodynamique-003",
+      "question": "Quelle force permet à un aéronef de s'élever et de se maintenir en altitude ?",
+      "answers": [
+        {
+          "text": "La portance",
+          "correct": true
+        },
+        {
+          "text": "La poussée",
+          "correct": false
+        },
+        {
+          "text": "La traînée",
+          "correct": false
+        },
+        {
+          "text": "Le poids",
+          "correct": false
+        }
+      ],
+      "page": 3,
+      "excerpt": {
+        "text": "Portance : La portance est la force qui permet à un aéronef de s'élever et de se maintenir en altitude."
+      }
+    },
+    {
+      "id": "ccat-aerodynamique-004",
+      "question": "Qu'est-ce que la traînée ?",
+      "answers": [
+        {
+          "text": "La force opposée au sens de déplacement de l'aéronef due au frottement de l'air",
+          "correct": true
+        },
+        {
+          "text": "La force qui permet à un aéronef de s'élever et de se maintenir en altitude",
+          "correct": false
+        },
+        {
+          "text": "La force dirigée vers l'avant de l'aéronef produite par les moteurs",
+          "correct": false
+        },
+        {
+          "text": "La force dirigée vers le bas due à la pesanteur qui s'exerce sur l'aéronef",
+          "correct": false
+        }
+      ],
+      "page": 3,
+      "excerpt": {
+        "text": "Trainée : La trainée est la force opposée au sens de déplacement de l'aéronef due au frottement de l'air."
+      }
+    },
+    {
+      "id": "ccat-aerodynamique-005",
+      "question": "D'après le tableau des axes, qu'est-ce qui fait manœuvrer l'avion sur l'axe de roulis ?",
+      "answers": [
+        {
+          "text": "Les ailerons",
+          "correct": true
+        },
+        {
+          "text": "La gouverne de profondeur",
+          "correct": false
+        },
+        {
+          "text": "La gouverne de direction",
+          "correct": false
+        },
+        {
+          "text": "Les palonniers",
+          "correct": false
+        }
+      ],
+      "page": 3,
+      "excerpt": {
+        "table": {
+          "caption": "Axes et gouvernes",
+          "head": [
+            "Axe",
+            "Caractéristiques",
+            "Actions du pilote sur",
+            "Fait manœuvrer",
+            "Mouvements de l'avion"
+          ],
+          "rows": [
+            [
+              "ROULIS",
+              "Confondu avec le fuselage",
+              "Manche (inclinaison à droite ou gauche)",
+              "Ailerons",
+              "Inclinaison latérale"
+            ],
+            [
+              "TANGAGE",
+              "Confondu avec les ailes",
+              "Manche (en le tirant ou en le poussant)",
+              "Gouverne de profondeur",
+              "Montée - Descente"
+            ],
+            [
+              "LACET",
+              "Perpendiculaire au fuselage",
+              "Palonniers",
+              "Gouverne de direction",
+              "Orientation nez gauche droite"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-aerodynamique-006",
+      "question": "D'après le tableau des axes, qu'est-ce qui fait manœuvrer l'avion sur l'axe de tangage ?",
+      "answers": [
+        {
+          "text": "La gouverne de profondeur",
+          "correct": true
+        },
+        {
+          "text": "Les ailerons",
+          "correct": false
+        },
+        {
+          "text": "La gouverne de direction",
+          "correct": false
+        },
+        {
+          "text": "Les palonniers",
+          "correct": false
+        }
+      ],
+      "page": 3,
+      "excerpt": {
+        "table": {
+          "caption": "Axes et gouvernes",
+          "head": [
+            "Axe",
+            "Caractéristiques",
+            "Actions du pilote sur",
+            "Fait manœuvrer",
+            "Mouvements de l'avion"
+          ],
+          "rows": [
+            [
+              "ROULIS",
+              "Confondu avec le fuselage",
+              "Manche (inclinaison à droite ou gauche)",
+              "Ailerons",
+              "Inclinaison latérale"
+            ],
+            [
+              "TANGAGE",
+              "Confondu avec les ailes",
+              "Manche (en le tirant ou en le poussant)",
+              "Gouverne de profondeur",
+              "Montée - Descente"
+            ],
+            [
+              "LACET",
+              "Perpendiculaire au fuselage",
+              "Palonniers",
+              "Gouverne de direction",
+              "Orientation nez gauche droite"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-aerodynamique-007",
+      "question": "D'après le tableau des axes, qu'est-ce qui fait manœuvrer l'avion sur l'axe de lacet ?",
+      "answers": [
+        {
+          "text": "La gouverne de direction",
+          "correct": true
+        },
+        {
+          "text": "Les ailerons",
+          "correct": false
+        },
+        {
+          "text": "La gouverne de profondeur",
+          "correct": false
+        },
+        {
+          "text": "Le manche",
+          "correct": false
+        }
+      ],
+      "page": 3,
+      "excerpt": {
+        "table": {
+          "caption": "Axes et gouvernes",
+          "head": [
+            "Axe",
+            "Caractéristiques",
+            "Actions du pilote sur",
+            "Fait manœuvrer",
+            "Mouvements de l'avion"
+          ],
+          "rows": [
+            [
+              "ROULIS",
+              "Confondu avec le fuselage",
+              "Manche (inclinaison à droite ou gauche)",
+              "Ailerons",
+              "Inclinaison latérale"
+            ],
+            [
+              "TANGAGE",
+              "Confondu avec les ailes",
+              "Manche (en le tirant ou en le poussant)",
+              "Gouverne de profondeur",
+              "Montée - Descente"
+            ],
+            [
+              "LACET",
+              "Perpendiculaire au fuselage",
+              "Palonniers",
+              "Gouverne de direction",
+              "Orientation nez gauche droite"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-aerodynamique-008",
+      "question": "Sur quoi le pilote agit-il pour l'axe de lacet ?",
+      "answers": [
+        {
+          "text": "Les palonniers",
+          "correct": true
+        },
+        {
+          "text": "Le manche",
+          "correct": false
+        },
+        {
+          "text": "La manette des gaz",
+          "correct": false
+        },
+        {
+          "text": "Les ailerons",
+          "correct": false
+        }
+      ],
+      "page": 3,
+      "excerpt": {
+        "table": {
+          "caption": "Axes et gouvernes",
+          "head": [
+            "Axe",
+            "Caractéristiques",
+            "Actions du pilote sur",
+            "Fait manœuvrer",
+            "Mouvements de l'avion"
+          ],
+          "rows": [
+            [
+              "ROULIS",
+              "Confondu avec le fuselage",
+              "Manche (inclinaison à droite ou gauche)",
+              "Ailerons",
+              "Inclinaison latérale"
+            ],
+            [
+              "TANGAGE",
+              "Confondu avec les ailes",
+              "Manche (en le tirant ou en le poussant)",
+              "Gouverne de profondeur",
+              "Montée - Descente"
+            ],
+            [
+              "LACET",
+              "Perpendiculaire au fuselage",
+              "Palonniers",
+              "Gouverne de direction",
+              "Orientation nez gauche droite"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-aerodynamique-009",
+      "question": "Le mouvement « Inclinaison latérale » correspond à quel axe et à quelle gouverne ?",
+      "answers": [
+        {
+          "text": "Roulis, avec les ailerons",
+          "correct": true
+        },
+        {
+          "text": "Tangage, avec la gouverne de profondeur",
+          "correct": false
+        },
+        {
+          "text": "Lacet, avec la gouverne de direction",
+          "correct": false
+        },
+        {
+          "text": "Roulis, avec la gouverne de direction",
+          "correct": false
+        }
+      ],
+      "page": 3,
+      "excerpt": {
+        "table": {
+          "caption": "Axes et gouvernes",
+          "head": [
+            "Axe",
+            "Caractéristiques",
+            "Actions du pilote sur",
+            "Fait manœuvrer",
+            "Mouvements de l'avion"
+          ],
+          "rows": [
+            [
+              "ROULIS",
+              "Confondu avec le fuselage",
+              "Manche (inclinaison à droite ou gauche)",
+              "Ailerons",
+              "Inclinaison latérale"
+            ],
+            [
+              "TANGAGE",
+              "Confondu avec les ailes",
+              "Manche (en le tirant ou en le poussant)",
+              "Gouverne de profondeur",
+              "Montée - Descente"
+            ],
+            [
+              "LACET",
+              "Perpendiculaire au fuselage",
+              "Palonniers",
+              "Gouverne de direction",
+              "Orientation nez gauche droite"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-aerodynamique-010",
+      "question": "Quelle description de l'axe de tangage est juste ?",
+      "answers": [
+        {
+          "text": "Confondu avec les ailes ; mouvement : montée - descente",
+          "correct": true
+        },
+        {
+          "text": "Confondu avec le fuselage ; mouvement : montée - descente",
+          "correct": false
+        },
+        {
+          "text": "Confondu avec le fuselage ; mouvement : inclinaison latérale",
+          "correct": false
+        },
+        {
+          "text": "Confondu avec les ailes ; mouvement : inclinaison latérale",
+          "correct": false
+        }
+      ],
+      "page": 3,
+      "excerpt": {
+        "table": {
+          "caption": "Axes et gouvernes",
+          "head": [
+            "Axe",
+            "Caractéristiques",
+            "Actions du pilote sur",
+            "Fait manœuvrer",
+            "Mouvements de l'avion"
+          ],
+          "rows": [
+            [
+              "ROULIS",
+              "Confondu avec le fuselage",
+              "Manche (inclinaison à droite ou gauche)",
+              "Ailerons",
+              "Inclinaison latérale"
+            ],
+            [
+              "TANGAGE",
+              "Confondu avec les ailes",
+              "Manche (en le tirant ou en le poussant)",
+              "Gouverne de profondeur",
+              "Montée - Descente"
+            ],
+            [
+              "LACET",
+              "Perpendiculaire au fuselage",
+              "Palonniers",
+              "Gouverne de direction",
+              "Orientation nez gauche droite"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-aerodynamique-011",
+      "question": "Quelle description de l'axe de lacet est juste ?",
+      "answers": [
+        {
+          "text": "Perpendiculaire au fuselage ; mouvement : orientation nez gauche droite",
+          "correct": true
+        },
+        {
+          "text": "Confondu avec le fuselage ; mouvement : orientation nez gauche droite",
+          "correct": false
+        },
+        {
+          "text": "Perpendiculaire au fuselage ; mouvement : inclinaison latérale",
+          "correct": false
+        },
+        {
+          "text": "Confondu avec le fuselage ; mouvement : inclinaison latérale",
+          "correct": false
+        }
+      ],
+      "page": 3,
+      "excerpt": {
+        "table": {
+          "caption": "Axes et gouvernes",
+          "head": [
+            "Axe",
+            "Caractéristiques",
+            "Actions du pilote sur",
+            "Fait manœuvrer",
+            "Mouvements de l'avion"
+          ],
+          "rows": [
+            [
+              "ROULIS",
+              "Confondu avec le fuselage",
+              "Manche (inclinaison à droite ou gauche)",
+              "Ailerons",
+              "Inclinaison latérale"
+            ],
+            [
+              "TANGAGE",
+              "Confondu avec les ailes",
+              "Manche (en le tirant ou en le poussant)",
+              "Gouverne de profondeur",
+              "Montée - Descente"
+            ],
+            [
+              "LACET",
+              "Perpendiculaire au fuselage",
+              "Palonniers",
+              "Gouverne de direction",
+              "Orientation nez gauche droite"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-aerodynamique-012",
+      "question": "Quelle description de l'axe de roulis est juste ?",
+      "answers": [
+        {
+          "text": "Confondu avec le fuselage ; mouvement : inclinaison latérale",
+          "correct": true
+        },
+        {
+          "text": "Confondu avec les ailes ; mouvement : inclinaison latérale",
+          "correct": false
+        },
+        {
+          "text": "Confondu avec les ailes ; mouvement : montée - descente",
+          "correct": false
+        },
+        {
+          "text": "Confondu avec le fuselage ; mouvement : montée - descente",
+          "correct": false
+        }
+      ],
+      "page": 3,
+      "excerpt": {
+        "table": {
+          "caption": "Axes et gouvernes",
+          "head": [
+            "Axe",
+            "Caractéristiques",
+            "Actions du pilote sur",
+            "Fait manœuvrer",
+            "Mouvements de l'avion"
+          ],
+          "rows": [
+            [
+              "ROULIS",
+              "Confondu avec le fuselage",
+              "Manche (inclinaison à droite ou gauche)",
+              "Ailerons",
+              "Inclinaison latérale"
+            ],
+            [
+              "TANGAGE",
+              "Confondu avec les ailes",
+              "Manche (en le tirant ou en le poussant)",
+              "Gouverne de profondeur",
+              "Montée - Descente"
+            ],
+            [
+              "LACET",
+              "Perpendiculaire au fuselage",
+              "Palonniers",
+              "Gouverne de direction",
+              "Orientation nez gauche droite"
+            ]
+          ]
+        }
+      }
+    }
+  ]
+}

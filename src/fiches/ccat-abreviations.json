@@ -1,0 +1,1020 @@
+{
+  "document": "Prérequis CCAT",
+  "fiabilite": "verifiee",
+  "questions": [
+    {
+      "id": "ccat-abreviations-001",
+      "question": "Que signifie le sigle A.T.C. ?",
+      "answers": [
+        {
+          "text": "Air Traffic Control - Contrôle de la circulation aérienne",
+          "correct": true
+        },
+        {
+          "text": "Air Transport Certificate - Certificat de transport aérien",
+          "correct": false
+        },
+        {
+          "text": "Aircraft Technical Check - Contrôle technique de l'avion",
+          "correct": false
+        },
+        {
+          "text": "Air Terminal Coordination - Coordination du terminal aérien",
+          "correct": false
+        }
+      ],
+      "page": 2,
+      "excerpt": {
+        "text": "A.T.C. : Air Traffic Control - Contrôle de la circulation aérienne"
+      }
+    },
+    {
+      "id": "ccat-abreviations-002",
+      "question": "Que signifie le sigle A.P.U. ?",
+      "answers": [
+        {
+          "text": "Auxiliary Power Unit",
+          "correct": true
+        },
+        {
+          "text": "Automatic Pilot Unit",
+          "correct": false
+        },
+        {
+          "text": "Auxiliary Pressure Unit",
+          "correct": false
+        },
+        {
+          "text": "Aircraft Protection Unit",
+          "correct": false
+        }
+      ],
+      "page": 2,
+      "excerpt": {
+        "text": "A.P.U. : Auxiliary Power Unit"
+      }
+    },
+    {
+      "id": "ccat-abreviations-003",
+      "question": "Que signifie le sigle B.E.A ?",
+      "answers": [
+        {
+          "text": "Bureau d'Enquêtes et d'Analyses",
+          "correct": true
+        },
+        {
+          "text": "Bureau d'Expertises et d'Audits",
+          "correct": false
+        },
+        {
+          "text": "Brigade d'Enquêtes et d'Analyses",
+          "correct": false
+        },
+        {
+          "text": "Brigade d'Expertises et d'Audits",
+          "correct": false
+        }
+      ],
+      "page": 2,
+      "excerpt": {
+        "text": "B.E.A : Bureau d'Enquêtes et d'Analyses"
+      }
+    },
+    {
+      "id": "ccat-abreviations-004",
+      "question": "Que signifie le sigle C.A.T. ?",
+      "answers": [
+        {
+          "text": "Commercial Air Transport",
+          "correct": true
+        },
+        {
+          "text": "Cabin Air Temperature",
+          "correct": false
+        },
+        {
+          "text": "Civil Aviation Training",
+          "correct": false
+        },
+        {
+          "text": "Controlled Airspace Traffic",
+          "correct": false
+        }
+      ],
+      "page": 2,
+      "excerpt": {
+        "text": "C.A.T. : Commercial Air Transport"
+      }
+    },
+    {
+      "id": "ccat-abreviations-005",
+      "question": "Que signifie le sigle C.R.N.A. ?",
+      "answers": [
+        {
+          "text": "Centre en-Route de la Navigation Aérienne (Contrôle les aéronefs IFR)",
+          "correct": true
+        },
+        {
+          "text": "Centre de Relais de la Navigation Aérienne (Informe les aéronefs VFR)",
+          "correct": false
+        },
+        {
+          "text": "Centre de Recherche de la Navigation Aérienne (Contrôle les aéronefs VFR)",
+          "correct": false
+        },
+        {
+          "text": "Cellule de Régulation de la Navigation Aérienne (Informe les aéronefs IFR)",
+          "correct": false
+        }
+      ],
+      "page": 2,
+      "excerpt": {
+        "text": "C.R.N.A. : Centre en-Route de la Navigation Aérienne (Contrôle les aéronefs IFR)"
+      }
+    },
+    {
+      "id": "ccat-abreviations-006",
+      "question": "Que signifie le sigle C.C.S ?",
+      "answers": [
+        {
+          "text": "Centre de Coordination Sauvetage",
+          "correct": true
+        },
+        {
+          "text": "Centre de Contrôle Sanitaire",
+          "correct": false
+        },
+        {
+          "text": "Comité de Coordination Sauvetage",
+          "correct": false
+        },
+        {
+          "text": "Comité de Contrôle Sanitaire",
+          "correct": false
+        }
+      ],
+      "page": 2,
+      "excerpt": {
+        "text": "C.C.S : Centre de Coordination Sauvetage"
+      }
+    },
+    {
+      "id": "ccat-abreviations-007",
+      "question": "Que signifie le sigle C.I.V ?",
+      "answers": [
+        {
+          "text": "Centre d'Information de Vol (Informe les aéronefs VFR)",
+          "correct": true
+        },
+        {
+          "text": "Centre d'Inspection des Vols (Contrôle les aéronefs IFR)",
+          "correct": false
+        },
+        {
+          "text": "Centre d'Instruction au Vol (Informe les aéronefs IFR)",
+          "correct": false
+        },
+        {
+          "text": "Cellule d'Intervention en Vol (Contrôle les aéronefs VFR)",
+          "correct": false
+        }
+      ],
+      "page": 2,
+      "excerpt": {
+        "text": "C.I.V : Centre d'Information de Vol (Informe les aéronefs VFR)"
+      }
+    },
+    {
+      "id": "ccat-abreviations-008",
+      "question": "Que signifie le sigle C.C.A ?",
+      "answers": [
+        {
+          "text": "Cabin Crew Attestation",
+          "correct": true
+        },
+        {
+          "text": "Cabin Crew Assistant",
+          "correct": false
+        },
+        {
+          "text": "Cabin Crew Authority",
+          "correct": false
+        },
+        {
+          "text": "Cabin Crew Agreement",
+          "correct": false
+        }
+      ],
+      "page": 2,
+      "excerpt": {
+        "text": "C.C.A : Cabin Crew Attestation"
+      }
+    },
+    {
+      "id": "ccat-abreviations-009",
+      "question": "Que signifie le sigle C.R.D ?",
+      "answers": [
+        {
+          "text": "Child Restraint Device",
+          "correct": true
+        },
+        {
+          "text": "Child Rescue Device",
+          "correct": false
+        },
+        {
+          "text": "Cabin Restraint Device",
+          "correct": false
+        },
+        {
+          "text": "Cabin Rescue Device",
+          "correct": false
+        }
+      ],
+      "page": 2,
+      "excerpt": {
+        "text": "C.R.D : Child Restraint Device"
+      }
+    },
+    {
+      "id": "ccat-abreviations-010",
+      "question": "Que signifie le sigle C.R.S ?",
+      "answers": [
+        {
+          "text": "Child Restraint System",
+          "correct": true
+        },
+        {
+          "text": "Child Rescue System",
+          "correct": false
+        },
+        {
+          "text": "Cabin Restraint System",
+          "correct": false
+        },
+        {
+          "text": "Cabin Rescue System",
+          "correct": false
+        }
+      ],
+      "page": 2,
+      "excerpt": {
+        "text": "C.R.S : Child Restraint System"
+      }
+    },
+    {
+      "id": "ccat-abreviations-011",
+      "question": "Que signifie le sigle S.C.P ?",
+      "answers": [
+        {
+          "text": "Catégories Spéciales de Passagers",
+          "correct": true
+        },
+        {
+          "text": "Services Commerciaux aux Passagers",
+          "correct": false
+        },
+        {
+          "text": "Sûreté et Contrôle des Passagers",
+          "correct": false
+        },
+        {
+          "text": "Consignes de Sécurité des Passagers",
+          "correct": false
+        }
+      ],
+      "page": 2,
+      "excerpt": {
+        "text": "S.C.P : Catégories Spéciales de Passagers"
+      }
+    },
+    {
+      "id": "ccat-abreviations-012",
+      "question": "Que signifie le sigle C.T.A ?",
+      "answers": [
+        {
+          "text": "Certificat de Transporteur Aérien",
+          "correct": true
+        },
+        {
+          "text": "Certificat Technique d'Aéronef",
+          "correct": false
+        },
+        {
+          "text": "Carnet Technique d'Aéronef",
+          "correct": false
+        },
+        {
+          "text": "Commission des Transports Aériens",
+          "correct": false
+        }
+      ],
+      "page": 2,
+      "excerpt": {
+        "text": "C.T.A : Certificat de Transporteur Aérien"
+      }
+    },
+    {
+      "id": "ccat-abreviations-013",
+      "question": "Que signifie le sigle D.G.A.C. ?",
+      "answers": [
+        {
+          "text": "Direction Générale de l'Aviation Civile",
+          "correct": true
+        },
+        {
+          "text": "Délégation Générale de l'Aviation Civile",
+          "correct": false
+        },
+        {
+          "text": "Direction Générale des Aéroports Civils",
+          "correct": false
+        },
+        {
+          "text": "Délégation Générale des Aéroports Civils",
+          "correct": false
+        }
+      ],
+      "page": 2,
+      "excerpt": {
+        "text": "D.G.A.C. : Direction Générale de l'Aviation Civile"
+      }
+    },
+    {
+      "id": "ccat-abreviations-014",
+      "question": "Que signifie le sigle E.A.S.A ?",
+      "answers": [
+        {
+          "text": "European Aviation Safety Agency ( = AESA Agence Européenne de la Sécurité Aérienne)",
+          "correct": true
+        },
+        {
+          "text": "European Aviation Security Agency ( = AESA Agence Européenne de la Sûreté Aérienne)",
+          "correct": false
+        },
+        {
+          "text": "European Aviation Safety Association ( = AESA Association Européenne de la Sécurité Aérienne)",
+          "correct": false
+        },
+        {
+          "text": "European Aviation Security Association ( = AESA Association Européenne de la Sûreté Aérienne)",
+          "correct": false
+        }
+      ],
+      "page": 2,
+      "excerpt": {
+        "text": "E.A.S.A : European Aviation Safety Agency ( = AESA Agence Européenne de la Sécurité Aérienne)"
+      }
+    },
+    {
+      "id": "ccat-abreviations-015",
+      "question": "Que signifie le sigle R.I.V ?",
+      "answers": [
+        {
+          "text": "Région d'Information de Vol (FIR)",
+          "correct": true
+        },
+        {
+          "text": "Relais d'Information de Vol (CIV)",
+          "correct": false
+        },
+        {
+          "text": "Région d'Intervention en Vol (SAR)",
+          "correct": false
+        },
+        {
+          "text": "Registre International des Vols (IFR)",
+          "correct": false
+        }
+      ],
+      "page": 2,
+      "excerpt": {
+        "text": "R.I.V : Région d'Information de Vol (FIR)"
+      }
+    },
+    {
+      "id": "ccat-abreviations-016",
+      "question": "Que signifie le sigle GTA ?",
+      "answers": [
+        {
+          "text": "Gendarmerie des Transports Aériens",
+          "correct": true
+        },
+        {
+          "text": "Garde des Terminaux Aéroportuaires",
+          "correct": false
+        },
+        {
+          "text": "Groupement des Transporteurs Aériens",
+          "correct": false
+        },
+        {
+          "text": "Garde du Territoire Aérien",
+          "correct": false
+        }
+      ],
+      "page": 2,
+      "excerpt": {
+        "text": "GTA : Gendarmerie des Transports Aériens"
+      }
+    },
+    {
+      "id": "ccat-abreviations-017",
+      "question": "Que signifie le sigle G.P.U. ?",
+      "answers": [
+        {
+          "text": "Ground Power Unit",
+          "correct": true
+        },
+        {
+          "text": "Ground Pressure Unit",
+          "correct": false
+        },
+        {
+          "text": "Galley Power Unit",
+          "correct": false
+        },
+        {
+          "text": "Galley Pressure Unit",
+          "correct": false
+        }
+      ],
+      "page": 2,
+      "excerpt": {
+        "text": "G.P.U. : Ground Power Unit"
+      }
+    },
+    {
+      "id": "ccat-abreviations-018",
+      "question": "Que signifie le sigle I.A.T.A. ?",
+      "answers": [
+        {
+          "text": "International Air Transport Association",
+          "correct": true
+        },
+        {
+          "text": "International Aviation Training Association",
+          "correct": false
+        },
+        {
+          "text": "International Airline Travel Agency",
+          "correct": false
+        },
+        {
+          "text": "International Air Traffic Authority",
+          "correct": false
+        }
+      ],
+      "page": 2,
+      "excerpt": {
+        "text": "I.A.T.A. : International Air Transport Association"
+      }
+    },
+    {
+      "id": "ccat-abreviations-019",
+      "question": "Que signifie le sigle I.F.E ?",
+      "answers": [
+        {
+          "text": "In-flight Entertainment – Système de divertissement",
+          "correct": true
+        },
+        {
+          "text": "In-flight Emergency – Système d'alerte d'urgence",
+          "correct": false
+        },
+        {
+          "text": "In-flight Electricity – Système d'alimentation électrique",
+          "correct": false
+        },
+        {
+          "text": "In-flight Equipment – Système d'équipement de cabine",
+          "correct": false
+        }
+      ],
+      "page": 2,
+      "excerpt": {
+        "text": "I.F.E : In-flight Entertainment – Système de divertissement"
+      }
+    },
+    {
+      "id": "ccat-abreviations-020",
+      "question": "Que signifie le sigle L.M.E ?",
+      "answers": [
+        {
+          "text": "Liste Minimale d'Equipements (MEL en anglais)",
+          "correct": true
+        },
+        {
+          "text": "Liste des Matériels d'Evacuation (EML en anglais)",
+          "correct": false
+        },
+        {
+          "text": "Livret de Maintenance Embarqué (TLB en anglais)",
+          "correct": false
+        },
+        {
+          "text": "Limite Maximale d'Emport (MPL en anglais)",
+          "correct": false
+        }
+      ],
+      "page": 2,
+      "excerpt": {
+        "text": "L.M.E : Liste Minimale d'Equipements (MEL en anglais)"
+      }
+    },
+    {
+      "id": "ccat-abreviations-021",
+      "question": "Que signifie le sigle MOPSC ?",
+      "answers": [
+        {
+          "text": "Maximum Operational Passenger Seating Configuration",
+          "correct": true
+        },
+        {
+          "text": "Minimum Operational Passenger Safety Crew",
+          "correct": false
+        },
+        {
+          "text": "Mandatory Onboard Passenger Safety Card",
+          "correct": false
+        },
+        {
+          "text": "Maximum Oxygen Pressure Supply Capacity",
+          "correct": false
+        }
+      ],
+      "page": 2,
+      "excerpt": {
+        "text": "MOPSC : Maximum Operational Passenger Seating Configuration"
+      }
+    },
+    {
+      "id": "ccat-abreviations-022",
+      "question": "Que signifie le sigle O.A.C.I. ?",
+      "answers": [
+        {
+          "text": "Organisation de l'Aviation Civile Internationale",
+          "correct": true
+        },
+        {
+          "text": "Organisation des Aéroports Civils Internationaux",
+          "correct": false
+        },
+        {
+          "text": "Office de l'Aviation Civile Internationale",
+          "correct": false
+        },
+        {
+          "text": "Office des Aéroports Civils Internationaux",
+          "correct": false
+        }
+      ],
+      "page": 2,
+      "excerpt": {
+        "text": "O.A.C.I. : Organisation de l'Aviation Civile Internationale"
+      }
+    },
+    {
+      "id": "ccat-abreviations-023",
+      "question": "Que signifie le sigle PAF ?",
+      "answers": [
+        {
+          "text": "Police Aux Frontières",
+          "correct": true
+        },
+        {
+          "text": "Personnel Affecté au Fret",
+          "correct": false
+        },
+        {
+          "text": "Poste Avancé de Filtrage",
+          "correct": false
+        },
+        {
+          "text": "Pôle Aérien de Fret",
+          "correct": false
+        }
+      ],
+      "page": 2,
+      "excerpt": {
+        "text": "PAF : Police Aux Frontières"
+      }
+    },
+    {
+      "id": "ccat-abreviations-024",
+      "question": "Que signifie le sigle PAX ?",
+      "answers": [
+        {
+          "text": "Passager",
+          "correct": true
+        },
+        {
+          "text": "Equipage",
+          "correct": false
+        },
+        {
+          "text": "Personnel Sol",
+          "correct": false
+        },
+        {
+          "text": "Personnel Complémentaire de Bord",
+          "correct": false
+        }
+      ],
+      "page": 2,
+      "excerpt": {
+        "text": "PAX : Passager"
+      }
+    },
+    {
+      "id": "ccat-abreviations-025",
+      "question": "Que signifie le sigle PEQ ?",
+      "answers": [
+        {
+          "text": "Equipage",
+          "correct": true
+        },
+        {
+          "text": "Equipement",
+          "correct": false
+        },
+        {
+          "text": "Equilibre",
+          "correct": false
+        },
+        {
+          "text": "Enquête",
+          "correct": false
+        }
+      ],
+      "page": 2,
+      "excerpt": {
+        "text": "PEQ : Equipage"
+      }
+    },
+    {
+      "id": "ccat-abreviations-026",
+      "question": "Que signifie le sigle P.C.B ?",
+      "answers": [
+        {
+          "text": "Personnel Complémentaire de Bord",
+          "correct": true
+        },
+        {
+          "text": "Personnel Certifié de Bord",
+          "correct": false
+        },
+        {
+          "text": "Poste de Commandement de Bord",
+          "correct": false
+        },
+        {
+          "text": "Procédure de Contrôle à Bord",
+          "correct": false
+        }
+      ],
+      "page": 2,
+      "excerpt": {
+        "text": "P.C.B : Personnel Complémentaire de Bord"
+      }
+    },
+    {
+      "id": "ccat-abreviations-027",
+      "question": "Que signifie le sigle P.N.C. ?",
+      "answers": [
+        {
+          "text": "Personnel Navigant Commercial",
+          "correct": true
+        },
+        {
+          "text": "Personnel Navigant Complémentaire",
+          "correct": false
+        },
+        {
+          "text": "Personnel Non Certifié",
+          "correct": false
+        },
+        {
+          "text": "Pilote Navigant Commandant",
+          "correct": false
+        }
+      ],
+      "page": 2,
+      "excerpt": {
+        "text": "P.N.C. : Personnel Navigant Commercial"
+      }
+    },
+    {
+      "id": "ccat-abreviations-028",
+      "question": "Que signifie le sigle P.S. ?",
+      "answers": [
+        {
+          "text": "Personnel Sol",
+          "correct": true
+        },
+        {
+          "text": "Passager Spécial",
+          "correct": false
+        },
+        {
+          "text": "Poste Sanitaire",
+          "correct": false
+        },
+        {
+          "text": "Personnel Sûreté",
+          "correct": false
+        }
+      ],
+      "page": 2,
+      "excerpt": {
+        "text": "P.S. : Personnel Sol"
+      }
+    },
+    {
+      "id": "ccat-abreviations-029",
+      "question": "Que signifie le sigle P.S.U. ?",
+      "answers": [
+        {
+          "text": "Passenger Service Unit",
+          "correct": true
+        },
+        {
+          "text": "Personnel Service Unit",
+          "correct": false
+        },
+        {
+          "text": "Passenger Safety Unit",
+          "correct": false
+        },
+        {
+          "text": "Personnel Safety Unit",
+          "correct": false
+        }
+      ],
+      "page": 2,
+      "excerpt": {
+        "text": "P.S.U. : Passenger Service Unit"
+      }
+    },
+    {
+      "id": "ccat-abreviations-030",
+      "question": "Que signifie le sigle REX ?",
+      "answers": [
+        {
+          "text": "Retour d'expérience",
+          "correct": true
+        },
+        {
+          "text": "Relevé d'expertise",
+          "correct": false
+        },
+        {
+          "text": "Registre d'examen",
+          "correct": false
+        },
+        {
+          "text": "Rapport d'exploitation",
+          "correct": false
+        }
+      ],
+      "page": 2,
+      "excerpt": {
+        "text": "REX : Retour d'expérience"
+      }
+    },
+    {
+      "id": "ccat-abreviations-031",
+      "question": "Que signifie le sigle S.A.R. ?",
+      "answers": [
+        {
+          "text": "Search and Rescue",
+          "correct": true
+        },
+        {
+          "text": "Safety and Regulation",
+          "correct": false
+        },
+        {
+          "text": "Security Alert Report",
+          "correct": false
+        },
+        {
+          "text": "Search Area Radar",
+          "correct": false
+        }
+      ],
+      "page": 2,
+      "excerpt": {
+        "text": "S.A.R. : Search and Rescue"
+      }
+    },
+    {
+      "id": "ccat-abreviations-032",
+      "question": "Que signifie le sigle S.O.P / OPS ?",
+      "answers": [
+        {
+          "text": "Procédures standard de travail en équipage de l'exploitant",
+          "correct": true
+        },
+        {
+          "text": "Procédures de sûreté opérationnelle de l'exploitant",
+          "correct": false
+        },
+        {
+          "text": "Programme standard d'organisation des vols de l'exploitant",
+          "correct": false
+        },
+        {
+          "text": "Procédures spéciales d'opérations en cabine passagers",
+          "correct": false
+        }
+      ],
+      "page": 2,
+      "excerpt": {
+        "text": "S.O.P / OPS : Procédures standard de travail en équipage de l'exploitant"
+      }
+    },
+    {
+      "id": "ccat-abreviations-033",
+      "question": "Que signifie le sigle U.T.C / T.U.C ?",
+      "answers": [
+        {
+          "text": "Universal Time Coordinated – Temps Universel Coordonné",
+          "correct": true
+        },
+        {
+          "text": "Universal Traffic Control – Trafic Universel Contrôlé",
+          "correct": false
+        },
+        {
+          "text": "Unified Time Calculation – Temps Unifié Calculé",
+          "correct": false
+        },
+        {
+          "text": "Universal Transit Code – Transit Universel Codé",
+          "correct": false
+        }
+      ],
+      "page": 2,
+      "excerpt": {
+        "text": "U.T.C / T.U.C : Universal Time Coordinated – Temps Universel Coordonné"
+      }
+    },
+    {
+      "id": "ccat-abreviations-034",
+      "question": "Que signifie l'abréviation CO2 ?",
+      "answers": [
+        {
+          "text": "Dioxyde de carbone",
+          "correct": true
+        },
+        {
+          "text": "Monoxyde de carbone",
+          "correct": false
+        },
+        {
+          "text": "Dioxyde de chlore",
+          "correct": false
+        },
+        {
+          "text": "Oxyde de cobalt",
+          "correct": false
+        }
+      ],
+      "page": 2,
+      "excerpt": {
+        "text": "CO2 : Dioxyde de carbone"
+      }
+    },
+    {
+      "id": "ccat-abreviations-035",
+      "question": "Quel organisme contrôle les aéronefs IFR ?",
+      "answers": [
+        {
+          "text": "Le C.R.N.A.",
+          "correct": true
+        },
+        {
+          "text": "Le C.I.V",
+          "correct": false
+        },
+        {
+          "text": "Le C.C.S",
+          "correct": false
+        },
+        {
+          "text": "Le B.E.A",
+          "correct": false
+        }
+      ],
+      "page": 2,
+      "excerpt": {
+        "text": "C.R.N.A. : Centre en-Route de la Navigation Aérienne (Contrôle les aéronefs IFR)\nC.I.V : Centre d'Information de Vol (Informe les aéronefs VFR)"
+      }
+    },
+    {
+      "id": "ccat-abreviations-036",
+      "question": "Quel organisme informe les aéronefs VFR ?",
+      "answers": [
+        {
+          "text": "Le C.I.V",
+          "correct": true
+        },
+        {
+          "text": "Le C.R.N.A.",
+          "correct": false
+        },
+        {
+          "text": "Le C.C.S",
+          "correct": false
+        },
+        {
+          "text": "Le B.E.A",
+          "correct": false
+        }
+      ],
+      "page": 2,
+      "excerpt": {
+        "text": "C.I.V : Centre d'Information de Vol (Informe les aéronefs VFR)\nC.R.N.A. : Centre en-Route de la Navigation Aérienne (Contrôle les aéronefs IFR)"
+      }
+    },
+    {
+      "id": "ccat-abreviations-037",
+      "question": "Quel sigle français correspond à la F.I.R. ?",
+      "answers": [
+        {
+          "text": "R.I.V",
+          "correct": true
+        },
+        {
+          "text": "C.I.V",
+          "correct": false
+        },
+        {
+          "text": "C.R.N.A.",
+          "correct": false
+        },
+        {
+          "text": "C.C.S",
+          "correct": false
+        }
+      ],
+      "page": 2,
+      "excerpt": {
+        "text": "F.I.R. : Flight Information Région (RIV)\nR.I.V : Région d'Information de Vol (FIR)"
+      }
+    },
+    {
+      "id": "ccat-abreviations-038",
+      "question": "Quel sigle désigne le personnel de cabine ?",
+      "answers": [
+        {
+          "text": "P.N.C.",
+          "correct": true
+        },
+        {
+          "text": "PAX",
+          "correct": false
+        },
+        {
+          "text": "P.S.",
+          "correct": false
+        },
+        {
+          "text": "P.N.T.",
+          "correct": false
+        }
+      ],
+      "page": 2,
+      "excerpt": {
+        "text": "P.N.C. : Personnel Navigant Commercial\nP.C.B : Personnel Complémentaire de Bord\nP.S. : Personnel Sol"
+      }
+    },
+    {
+      "id": "ccat-abreviations-039",
+      "question": "Quel est l'équivalent français de l'E.A.S.A ?",
+      "answers": [
+        {
+          "text": "AESA (Agence Européenne de la Sécurité Aérienne)",
+          "correct": true
+        },
+        {
+          "text": "AESA (Agence Européenne de la Sûreté Aérienne)",
+          "correct": false
+        },
+        {
+          "text": "AESA (Association Européenne de la Sécurité Aérienne)",
+          "correct": false
+        },
+        {
+          "text": "AESA (Association Européenne de la Sûreté Aérienne)",
+          "correct": false
+        }
+      ],
+      "page": 2,
+      "excerpt": {
+        "text": "E.A.S.A : European Aviation Safety Agency ( = AESA Agence Européenne de la Sécurité Aérienne)"
+      }
+    }
+  ]
+}

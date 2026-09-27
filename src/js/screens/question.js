@@ -1,4 +1,6 @@
 import { esc } from "../util.js";
+import { REPORT_NOTE_MAX } from "../config.js";
+import { excerptHtml, sourceLine } from "./common.js";
 
 export const formatClock = ms => {
   const s = Math.max(0, Math.ceil(ms / 1000));
@@ -27,7 +29,32 @@ function flagPanel(flag) {
   </div>`;
 }
 
-// s: the running session (see app.js). flag: { review, dispute } for the current question.
+// Reliability dot (green / orange / red) next to the theme; tapping it explains the question's status.
+const RELIABILITY_TEXT = {
+  verifiee: ["Vérifiée", "Réponse confirmée dans le document source, contrôlée par une relecture indépendante."],
+  a_recouper: ["À recouper", "Réponse à recouper avec tes sources."],
+  douteuse: ["Douteuse", "Réponse incertaine : vérifie-la dans ton cours."],
+};
+function reliabilityDot(r, open) {
+  if (!r) return "";
+  const [name] = RELIABILITY_TEXT[r.level];
+  return `<button class="dot-btn" data-act="reliability" aria-expanded="${open}" aria-label="Fiabilité : ${name}"><span class="dot ${r.level}" aria-hidden="true"></span></button>`;
+}
+function reliabilityInfo(r) {
+  const [name, text] = RELIABILITY_TEXT[r.level];
+  return `<p class="reliability ${r.level}" role="status"><b>${name}.</b> ${esc(r.note || text)}</p>`;
+}
+
+// After an answer: report a doubtful question, then say why (optional, saved as it is typed).
+function reportBlock(flag) {
+  if (!flag.dispute) return `<button class="small-link report-link" data-act="report">Signaler une erreur dans cette question</button>`;
+  return `<div class="report card"><p class="label">Question signalée</p>
+    <label class="field"><span class="muted">Pourquoi ? (facultatif)</span>
+    <textarea id="reportNote" rows="3" maxlength="${REPORT_NOTE_MAX}" placeholder="Ex. : la fiche, page 4, dit autre chose.">${esc(flag.note || "")}</textarea></label>
+    <p class="muted">Elle ne te sera plus posée tant que la fiche n'est pas corrigée. Envoie tes signalements depuis Mes résultats.</p></div>`;
+}
+
+// s: the running session (see app.js). flag: { review, dispute, note? } for the current question.
 export function renderQuestion(s, flag, now) {
   const q = s.queue[s.index];
   const test = s.mode === "test";
@@ -54,6 +81,12 @@ export function renderQuestion(s, flag, now) {
     const again = s.requeued ? "cette question reviendra un peu plus loin." : "elle reviendra lors d'une prochaine séance.";
     feedback = s.lastCorrect ? `<p class="success" role="status">Bien joué.</p>` : `<p class="warning" role="status">Pas encore : ${again}</p>`;
     if (q.explanation) feedback += `<p class="explanation">${esc(q.explanation)}</p>`;
+    // A wrong answer shows the passage of the course; a right one just says where to find it.
+    if (!s.lastCorrect) feedback += excerptHtml(q);
+    else if (q.page) feedback += `<p class="source">${sourceLine(q)}</p>`;
+    // A question not fully checked says so after every answer, right or wrong.
+    if (q.reliability && q.reliability.level !== "verifiee" && !s.reliabilityOpen) feedback += reliabilityInfo(q.reliability);
+    feedback += reportBlock(flag);
   }
 
   let main = "";
@@ -71,7 +104,8 @@ export function renderQuestion(s, flag, now) {
       ${timer}
       <button class="close flag${flagged ? " on" : ""}" data-act="flagMenu" aria-label="Marquer cette question" aria-expanded="${s.flagOpen}">⚑</button></div>
     ${s.flagOpen ? flagPanel(flag) : ""}
-    <div class="meta"><p class="label">${counter}</p><p class="label">${esc(q.theme)}</p></div>
+    <div class="meta"><p class="label">${counter}</p><p class="label theme">${reliabilityDot(q.reliability, s.reliabilityOpen)}${esc(q.theme)}</p></div>
+    ${s.reliabilityOpen && q.reliability ? reliabilityInfo(q.reliability) : ""}
     <h2 class="question">${esc(q.question)}</h2>
     ${body}
     ${feedback}

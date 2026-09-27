@@ -1,10 +1,11 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import {
-  cardWeight, weightedSample, newQuota, buildReviewSession, buildMockTest, allocateByTheme, applyAnswer,
+  cardWeight, weightedSample, newQuota, dailyPlan, buildReviewSession, buildMockTest, allocateByTheme, applyAnswer,
 } from "../../src/js/engine.js";
 import { SESSION_SIZE, TEST_SIZE, NEW_PER_SESSION_MAX, NEW_PER_DAY_DEFAULT, WEIGHTS } from "../../src/js/config.js";
 import { createRng } from "../../src/js/util.js";
+import { overview } from "../../src/js/summary.js";
 import { DAY, NOW, makeQuestions, card, saveWith } from "./helpers.js";
 
 const iso = t => { const d = new Date(t); return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`; };
@@ -70,6 +71,23 @@ test("rythme : avec une date d'examen, tout est découvert 3 jours avant", () =>
   const save = saveWith({}, { examDate: iso(NOW + 30 * DAY) });
   assert.equal(newQuota(q, save, NOW), 12); // 300 questions sur 30 - 3 jours utiles
   assert.equal(newQuota(q, { ...save, examDate: iso(NOW + 5 * DAY) }, NOW), NEW_PER_SESSION_MAX); // plafond
+});
+
+test("rythme : le plan du jour dit combien de nouvelles il faut vraiment, et en combien de séances", () => {
+  const q = makeQuestions(12, 24); // 288 questions
+  const save = saveWith({}, { examDate: iso(NOW + 15 * DAY) });
+  assert.deepEqual(dailyPlan(q, save, NOW), { perDay: 24, left: 24, sessions: 2 }); // 288 sur 15 - 3 jours utiles
+  assert.equal(newQuota(q, save, NOW), NEW_PER_SESSION_MAX); // une séance n'en donne que 15…
+  const after = saveWith(Object.fromEntries(q.slice(0, 15).map(x => [x.id, card({ firstSeen: NOW })])), { examDate: save.examDate });
+  assert.equal(newQuota(q, after, NOW + 3600e3), 9); // …la deuxième donne le reste du jour
+  assert.deepEqual(dailyPlan(q, saveWith(), NOW), { perDay: NEW_PER_DAY_DEFAULT, left: NEW_PER_DAY_DEFAULT, sessions: 1 });
+});
+
+test("rythme : le compte « à revoir aujourd'hui » inclut toutes les nouvelles du jour, pas seulement une séance", () => {
+  const q = makeQuestions(12, 24);
+  const ov = overview(q, saveWith({}, { examDate: iso(NOW + 15 * DAY) }), NOW);
+  assert.equal(ov.toDoToday, 24);
+  assert.equal(ov.sessionsToday, 2);
 });
 
 test("rythme : les nouvelles déjà vues aujourd'hui sont décomptées", () => {

@@ -1,0 +1,582 @@
+{
+  "document": "Prérequis CCAT",
+  "fiabilite": "verifiee",
+  "questions": [
+    {
+      "id": "ccat-air-pression-001",
+      "question": "Quelle est la composition de l'air ?",
+      "answers": [
+        {
+          "text": "78% d'azote, 21% d'oxygène, 1% de gaz rares",
+          "correct": true
+        },
+        {
+          "text": "78% d'oxygène, 21% d'azote, 1% de gaz rares",
+          "correct": false
+        },
+        {
+          "text": "50% d'azote, 49% d'oxygène, 1% de gaz rares",
+          "correct": false
+        },
+        {
+          "text": "78% d'azote, 1% d'oxygène, 21% de gaz rares",
+          "correct": false
+        }
+      ],
+      "page": 5,
+      "excerpt": {
+        "text": "Composition de l'air : 78% d'azote, 21% d'oxygène, 1% de gaz rares."
+      }
+    },
+    {
+      "id": "ccat-air-pression-002",
+      "question": "Quelle part de l'air l'oxygène représente-t-il ?",
+      "answers": [
+        {
+          "text": "21%",
+          "correct": true
+        },
+        {
+          "text": "78%",
+          "correct": false
+        },
+        {
+          "text": "1%",
+          "correct": false
+        },
+        {
+          "text": "50%",
+          "correct": false
+        }
+      ],
+      "page": 5,
+      "excerpt": {
+        "text": "Composition de l'air : 78% d'azote, 21% d'oxygène, 1% de gaz rares."
+      }
+    },
+    {
+      "id": "ccat-air-pression-003",
+      "question": "Qu'est-ce que le Delta P ?",
+      "answers": [
+        {
+          "text": "La différence entre la pression à l'intérieur de l'avion et la pression à l'extérieur de l'avion",
+          "correct": true
+        },
+        {
+          "text": "La différence entre la pression au niveau de la mer et la pression à l'altitude de croisière de l'avion",
+          "correct": false
+        },
+        {
+          "text": "La différence entre la pression cabine au sol et la pression cabine rencontrée à 8 000 ft",
+          "correct": false
+        },
+        {
+          "text": "La différence entre la pression d'oxygène dans le sang et la pression d'oxygène dans la cabine",
+          "correct": false
+        }
+      ],
+      "page": 5,
+      "excerpt": {
+        "text": "Delta P : différence entre la pression à l'intérieur de l'avion et la pression à l'extérieur de l'avion."
+      }
+    },
+    {
+      "id": "ccat-air-pression-004",
+      "question": "Qu'est-ce que l'altitude pression cabine ?",
+      "answers": [
+        {
+          "text": "Une altitude fictive correspondant à la pression atmosphérique artificiellement maintenue à l'intérieur de la cabine en raison de la pressurisation",
+          "correct": true
+        },
+        {
+          "text": "Une altitude fictive correspondant à la pression atmosphérique extérieure, mesurée hors de la cabine pendant la croisière",
+          "correct": false
+        },
+        {
+          "text": "L'altitude réelle de l'avion, mesurée par rapport au niveau de la mer, qui correspond à son altitude de croisière",
+          "correct": false
+        },
+        {
+          "text": "La différence entre l'altitude réelle de l'avion et l'altitude à laquelle la pression de la cabine est maintenue par la pressurisation",
+          "correct": false
+        }
+      ],
+      "page": 5,
+      "excerpt": {
+        "text": "Altitude pression cabine : Altitude fictive correspondant à la pression atmosphérique artificiellement maintenue à l'intérieur de la cabine d'un aéronef en raison de la pressurisation et rencontrée à 8.000 ft."
+      }
+    },
+    {
+      "id": "ccat-air-pression-005",
+      "question": "Qu'est-ce que le temps de conscience utile ?",
+      "answers": [
+        {
+          "text": "La période entre le manque d'oxygène occasionné par la dépressurisation et l'altération des facultés physiques et mentales qui en découle",
+          "correct": true
+        },
+        {
+          "text": "La période entre le début de la dépressurisation et le retour de l'avion à une altitude où l'oxygène redevient suffisant",
+          "correct": false
+        },
+        {
+          "text": "La période entre la pose du masque à oxygène et la récupération complète des facultés physiques et mentales",
+          "correct": false
+        },
+        {
+          "text": "La période pendant laquelle la cabine reste pressurisée après une panne, avant que les masques à oxygène ne tombent",
+          "correct": false
+        }
+      ],
+      "page": 5,
+      "excerpt": {
+        "text": "Le temps de conscience utile (ou réserve de temps) est la période entre le manque d'oxygène occasionné par la dépressurisation et l'altération des facultés physiques et mentales qui en découle."
+      }
+    },
+    {
+      "id": "ccat-air-pression-006",
+      "question": "Quel autre nom la fiche donne-t-elle au temps de conscience utile ?",
+      "answers": [
+        {
+          "text": "Temps de performance effective",
+          "correct": true
+        },
+        {
+          "text": "Temps de réaction effective",
+          "correct": false
+        },
+        {
+          "text": "Temps d'autonomie en oxygène",
+          "correct": false
+        },
+        {
+          "text": "Temps de survie",
+          "correct": false
+        }
+      ],
+      "page": 5,
+      "excerpt": {
+        "text": "Temps de conscience utile ou Temps de performance Effective. Le temps de conscience utile (ou réserve de temps) est la période entre le manque d'oxygène occasionné par la dépressurisation et l'altération des facultés physiques et mentales qui en découle."
+      }
+    },
+    {
+      "id": "ccat-air-pression-007",
+      "question": "Temps de conscience utile à 30 000 ft (9 000 m) pour un sujet actif ?",
+      "answers": [
+        {
+          "text": "45 secondes",
+          "correct": true
+        },
+        {
+          "text": "75 secondes",
+          "correct": false
+        },
+        {
+          "text": "18 secondes",
+          "correct": false
+        },
+        {
+          "text": "5 minutes",
+          "correct": false
+        }
+      ],
+      "page": 5,
+      "excerpt": {
+        "text": "Le temps de conscience utile (ou réserve de temps) est la période entre le manque d'oxygène occasionné par la dépressurisation et l'altération des facultés physiques et mentales qui en découle.",
+        "table": {
+          "head": [
+            "Altitude en m",
+            "Altitude en ft",
+            "Sujet actif",
+            "Sujet immobile"
+          ],
+          "rows": [
+            [
+              "4 000 m",
+              "14 000 ft",
+              "Illimité",
+              "Illimité"
+            ],
+            [
+              "6 000 m",
+              "20 000 ft",
+              "5 minutes",
+              "10 minutes"
+            ],
+            [
+              "9 000 m",
+              "30 000 ft",
+              "45 secondes",
+              "75 secondes"
+            ],
+            [
+              "12 000 m",
+              "40 000 ft",
+              "18 secondes",
+              "30 secondes"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-air-pression-008",
+      "question": "Temps de conscience utile à 30 000 ft (9 000 m) pour un sujet immobile ?",
+      "answers": [
+        {
+          "text": "75 secondes",
+          "correct": true
+        },
+        {
+          "text": "45 secondes",
+          "correct": false
+        },
+        {
+          "text": "30 secondes",
+          "correct": false
+        },
+        {
+          "text": "10 minutes",
+          "correct": false
+        }
+      ],
+      "page": 5,
+      "excerpt": {
+        "text": "Le temps de conscience utile (ou réserve de temps) est la période entre le manque d'oxygène occasionné par la dépressurisation et l'altération des facultés physiques et mentales qui en découle.",
+        "table": {
+          "head": [
+            "Altitude en m",
+            "Altitude en ft",
+            "Sujet actif",
+            "Sujet immobile"
+          ],
+          "rows": [
+            [
+              "4 000 m",
+              "14 000 ft",
+              "Illimité",
+              "Illimité"
+            ],
+            [
+              "6 000 m",
+              "20 000 ft",
+              "5 minutes",
+              "10 minutes"
+            ],
+            [
+              "9 000 m",
+              "30 000 ft",
+              "45 secondes",
+              "75 secondes"
+            ],
+            [
+              "12 000 m",
+              "40 000 ft",
+              "18 secondes",
+              "30 secondes"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-air-pression-009",
+      "question": "Temps de conscience utile à 40 000 ft (12 000 m) pour un sujet actif ?",
+      "answers": [
+        {
+          "text": "18 secondes",
+          "correct": true
+        },
+        {
+          "text": "30 secondes",
+          "correct": false
+        },
+        {
+          "text": "45 secondes",
+          "correct": false
+        },
+        {
+          "text": "10 secondes",
+          "correct": false
+        }
+      ],
+      "page": 5,
+      "excerpt": {
+        "text": "Le temps de conscience utile (ou réserve de temps) est la période entre le manque d'oxygène occasionné par la dépressurisation et l'altération des facultés physiques et mentales qui en découle.",
+        "table": {
+          "head": [
+            "Altitude en m",
+            "Altitude en ft",
+            "Sujet actif",
+            "Sujet immobile"
+          ],
+          "rows": [
+            [
+              "4 000 m",
+              "14 000 ft",
+              "Illimité",
+              "Illimité"
+            ],
+            [
+              "6 000 m",
+              "20 000 ft",
+              "5 minutes",
+              "10 minutes"
+            ],
+            [
+              "9 000 m",
+              "30 000 ft",
+              "45 secondes",
+              "75 secondes"
+            ],
+            [
+              "12 000 m",
+              "40 000 ft",
+              "18 secondes",
+              "30 secondes"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-air-pression-010",
+      "question": "Temps de conscience utile à 40 000 ft (12 000 m) pour un sujet immobile ?",
+      "answers": [
+        {
+          "text": "30 secondes",
+          "correct": true
+        },
+        {
+          "text": "18 secondes",
+          "correct": false
+        },
+        {
+          "text": "75 secondes",
+          "correct": false
+        },
+        {
+          "text": "10 minutes",
+          "correct": false
+        }
+      ],
+      "page": 5,
+      "excerpt": {
+        "text": "Le temps de conscience utile (ou réserve de temps) est la période entre le manque d'oxygène occasionné par la dépressurisation et l'altération des facultés physiques et mentales qui en découle.",
+        "table": {
+          "head": [
+            "Altitude en m",
+            "Altitude en ft",
+            "Sujet actif",
+            "Sujet immobile"
+          ],
+          "rows": [
+            [
+              "4 000 m",
+              "14 000 ft",
+              "Illimité",
+              "Illimité"
+            ],
+            [
+              "6 000 m",
+              "20 000 ft",
+              "5 minutes",
+              "10 minutes"
+            ],
+            [
+              "9 000 m",
+              "30 000 ft",
+              "45 secondes",
+              "75 secondes"
+            ],
+            [
+              "12 000 m",
+              "40 000 ft",
+              "18 secondes",
+              "30 secondes"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-air-pression-011",
+      "question": "Temps de conscience utile à 20 000 ft (6 000 m) pour un sujet actif ?",
+      "answers": [
+        {
+          "text": "5 minutes",
+          "correct": true
+        },
+        {
+          "text": "10 minutes",
+          "correct": false
+        },
+        {
+          "text": "45 secondes",
+          "correct": false
+        },
+        {
+          "text": "Illimité",
+          "correct": false
+        }
+      ],
+      "page": 5,
+      "excerpt": {
+        "text": "Le temps de conscience utile (ou réserve de temps) est la période entre le manque d'oxygène occasionné par la dépressurisation et l'altération des facultés physiques et mentales qui en découle.",
+        "table": {
+          "head": [
+            "Altitude en m",
+            "Altitude en ft",
+            "Sujet actif",
+            "Sujet immobile"
+          ],
+          "rows": [
+            [
+              "4 000 m",
+              "14 000 ft",
+              "Illimité",
+              "Illimité"
+            ],
+            [
+              "6 000 m",
+              "20 000 ft",
+              "5 minutes",
+              "10 minutes"
+            ],
+            [
+              "9 000 m",
+              "30 000 ft",
+              "45 secondes",
+              "75 secondes"
+            ],
+            [
+              "12 000 m",
+              "40 000 ft",
+              "18 secondes",
+              "30 secondes"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-air-pression-012",
+      "question": "Temps de conscience utile à 20 000 ft (6 000 m) pour un sujet immobile ?",
+      "answers": [
+        {
+          "text": "10 minutes",
+          "correct": true
+        },
+        {
+          "text": "5 minutes",
+          "correct": false
+        },
+        {
+          "text": "75 secondes",
+          "correct": false
+        },
+        {
+          "text": "Illimité",
+          "correct": false
+        }
+      ],
+      "page": 5,
+      "excerpt": {
+        "text": "Le temps de conscience utile (ou réserve de temps) est la période entre le manque d'oxygène occasionné par la dépressurisation et l'altération des facultés physiques et mentales qui en découle.",
+        "table": {
+          "head": [
+            "Altitude en m",
+            "Altitude en ft",
+            "Sujet actif",
+            "Sujet immobile"
+          ],
+          "rows": [
+            [
+              "4 000 m",
+              "14 000 ft",
+              "Illimité",
+              "Illimité"
+            ],
+            [
+              "6 000 m",
+              "20 000 ft",
+              "5 minutes",
+              "10 minutes"
+            ],
+            [
+              "9 000 m",
+              "30 000 ft",
+              "45 secondes",
+              "75 secondes"
+            ],
+            [
+              "12 000 m",
+              "40 000 ft",
+              "18 secondes",
+              "30 secondes"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-air-pression-013",
+      "question": "Temps de conscience utile à 14 000 ft (4 000 m) ?",
+      "answers": [
+        {
+          "text": "Illimité",
+          "correct": true
+        },
+        {
+          "text": "10 minutes",
+          "correct": false
+        },
+        {
+          "text": "5 minutes",
+          "correct": false
+        },
+        {
+          "text": "75 secondes",
+          "correct": false
+        }
+      ],
+      "page": 5,
+      "excerpt": {
+        "text": "Le temps de conscience utile (ou réserve de temps) est la période entre le manque d'oxygène occasionné par la dépressurisation et l'altération des facultés physiques et mentales qui en découle.",
+        "table": {
+          "head": [
+            "Altitude en m",
+            "Altitude en ft",
+            "Sujet actif",
+            "Sujet immobile"
+          ],
+          "rows": [
+            [
+              "4 000 m",
+              "14 000 ft",
+              "Illimité",
+              "Illimité"
+            ],
+            [
+              "6 000 m",
+              "20 000 ft",
+              "5 minutes",
+              "10 minutes"
+            ],
+            [
+              "9 000 m",
+              "30 000 ft",
+              "45 secondes",
+              "75 secondes"
+            ],
+            [
+              "12 000 m",
+              "40 000 ft",
+              "18 secondes",
+              "30 secondes"
+            ]
+          ]
+        }
+      }
+    }
+  ]
+}

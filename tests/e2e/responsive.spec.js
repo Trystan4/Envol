@@ -58,8 +58,13 @@ for (const [label, viewport] of Object.entries(SIZES)) {
 
     await page.getByRole("button", { name: "Réviser" }).click();
     await checkScreen(page, "question");
-    await page.locator(".choice").first().click();
-    if (await page.locator('[data-act="validate"]').count()) await page.locator('[data-act="validate"]').click();
+    if (await page.locator('[data-act="reveal"]').count()) { // flashcard drawn: turn it and grade it
+      await page.locator('[data-act="reveal"]').click();
+      await page.locator('[data-act="selfGrade"][data-v="0"]').click();
+    } else {
+      await page.locator(".choice").first().click();
+      if (await page.locator('[data-act="validate"]').count()) await page.locator('[data-act="validate"]').click();
+    }
     await checkScreen(page, "question corrigée");
     page.once("dialog", d => d.accept());
     await page.getByRole("button", { name: "Quitter" }).click();

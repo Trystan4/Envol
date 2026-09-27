@@ -35,7 +35,9 @@ export function weightedSample(items, weightOf, k, rng = Math.random) {
 }
 
 // How many never-seen questions to introduce now, so everything is discovered before the exam.
-export function newQuota(questions, save, now) {
+// Today's plan for new questions: how many a day (perDay), how many are still to discover today (left),
+// and in how many review sessions (a session brings at most NEW_PER_SESSION_MAX new ones).
+export function dailyPlan(questions, save, now) {
   const today = startOfDay(now);
   let unseen = 0, introducedToday = 0;
   for (const q of questions) {
@@ -43,14 +45,27 @@ export function newQuota(questions, save, now) {
     if (!isSeen(c)) unseen++;
     else if (c.firstSeen >= today) introducedToday++;
   }
-  const left = daysUntil(save.examDate, now);
-  const perDay = left === null
+  const days = daysUntil(save.examDate, now);
+  const perDay = days === null
     ? NEW_PER_DAY_DEFAULT
-    : Math.max(NEW_PER_DAY_MIN, Math.ceil((unseen + introducedToday) / Math.max(1, left - EXAM_MARGIN_DAYS)));
-  return Math.max(0, Math.min(NEW_PER_SESSION_MAX, perDay - introducedToday, unseen));
+    : Math.max(NEW_PER_DAY_MIN, Math.ceil((unseen + introducedToday) / Math.max(1, days - EXAM_MARGIN_DAYS)));
+  return { perDay, left: Math.max(0, Math.min(perDay - introducedToday, unseen)), sessions: Math.ceil(perDay / NEW_PER_SESSION_MAX) };
 }
 
+// New questions for the next review session.
+export const newQuota = (questions, save, now) => Math.min(NEW_PER_SESSION_MAX, dailyPlan(questions, save, now).left);
+
 // Marked "à revoir" by the user.
+// The answer a question expects, as text: kept with a report to know whether the fiche changed since.
+export const rightAnswerText = q => q.kind === "card" ? q.answer : q.answers.filter(a => a.correct).map(a => a.text).join(", ");
+
+// Questions that can be drawn: a reported question is set aside while the fiche still gives the answer
+// the user doubted (a report made before answers were recorded counts as such), until it is withdrawn.
+export const activeQuestions = (questions, save) => questions.filter(q => {
+  const f = save.flags[q.id];
+  return !(f && f.dispute && (f.answer === undefined || f.answer === rightAnswerText(q)));
+});
+
 export const isFlagged = (save, id) => !!(save.flags && save.flags[id] && save.flags[id].review);
 
 export function buildReviewSession(questions, save, { now, rng = Math.random, focusThemes = null }) {

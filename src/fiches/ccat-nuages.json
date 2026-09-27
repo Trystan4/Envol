@@ -1,0 +1,1160 @@
+{
+  "document": "Prérequis CCAT",
+  "fiabilite": "verifiee",
+  "questions": [
+    {
+      "id": "ccat-nuages-001",
+      "question": "Qu'est-ce qu'un nuage ?",
+      "answers": [
+        {
+          "text": "Un ensemble visible de minuscules particules d'eau liquide et/ou de cristaux de glace en suspension dans l'atmosphère",
+          "correct": true
+        },
+        {
+          "text": "Un ensemble visible de vapeur d'eau à l'état gazeux, concentrée en couches juste au-dessus de la tropopause",
+          "correct": false
+        },
+        {
+          "text": "Un ensemble visible de minuscules grains de sel et de poussières en suspension dans l'atmosphère",
+          "correct": false
+        },
+        {
+          "text": "Un ensemble visible de grosses gouttes de pluie et de grêlons en chute entre le sol et la tropopause",
+          "correct": false
+        }
+      ],
+      "page": 3,
+      "excerpt": {
+        "text": "Ensemble visible de minuscules particules d'eau liquide et/ou de cristaux de glace en suspension dans l'atmosphère.\nLes nuages sont situés entre la tropopause et le sol."
+      }
+    },
+    {
+      "id": "ccat-nuages-002",
+      "question": "Où sont situés les nuages ?",
+      "answers": [
+        {
+          "text": "Entre la tropopause et le sol",
+          "correct": true
+        },
+        {
+          "text": "Au-dessus de la tropopause",
+          "correct": false
+        },
+        {
+          "text": "Entre le sol et 6000m",
+          "correct": false
+        },
+        {
+          "text": "Entre 2000m et la tropopause",
+          "correct": false
+        }
+      ],
+      "page": 3,
+      "excerpt": {
+        "text": "Les nuages sont situés entre la tropopause et le sol."
+      }
+    },
+    {
+      "id": "ccat-nuages-003",
+      "question": "En combien d'étages les nuages sont-ils répartis ?",
+      "answers": [
+        {
+          "text": "Trois",
+          "correct": true
+        },
+        {
+          "text": "Deux",
+          "correct": false
+        },
+        {
+          "text": "Quatre",
+          "correct": false
+        },
+        {
+          "text": "Cinq",
+          "correct": false
+        }
+      ],
+      "page": 4,
+      "excerpt": {
+        "table": {
+          "caption": "Les nuages sont répartis en trois étages, selon leur altitude",
+          "head": [
+            "Etage",
+            "Préfixe",
+            "Altitude",
+            "Constitués essentiellement"
+          ],
+          "rows": [
+            [
+              "Inférieur",
+              "STRATO",
+              "Du sol à 2000m",
+              "Gouttelettes d'eau liquide"
+            ],
+            [
+              "Moyen",
+              "ALTO",
+              "2000 à 6000m",
+              "Cristaux de glace et gouttelettes d'eau liquide"
+            ],
+            [
+              "Supérieur",
+              "CIRRO",
+              "6000 à 13000m",
+              "Cristaux de glace"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-nuages-004",
+      "question": "Quel est le préfixe des nuages de l'étage moyen ?",
+      "answers": [
+        {
+          "text": "ALTO",
+          "correct": true
+        },
+        {
+          "text": "STRATO",
+          "correct": false
+        },
+        {
+          "text": "CIRRO",
+          "correct": false
+        },
+        {
+          "text": "NIMBUS",
+          "correct": false
+        }
+      ],
+      "page": 4,
+      "excerpt": {
+        "table": {
+          "caption": "Les nuages sont répartis en trois étages, selon leur altitude",
+          "head": [
+            "Etage",
+            "Préfixe",
+            "Altitude",
+            "Constitués essentiellement"
+          ],
+          "rows": [
+            [
+              "Inférieur",
+              "STRATO",
+              "Du sol à 2000m",
+              "Gouttelettes d'eau liquide"
+            ],
+            [
+              "Moyen",
+              "ALTO",
+              "2000 à 6000m",
+              "Cristaux de glace et gouttelettes d'eau liquide"
+            ],
+            [
+              "Supérieur",
+              "CIRRO",
+              "6000 à 13000m",
+              "Cristaux de glace"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-nuages-005",
+      "question": "Quel est le préfixe des nuages de l'étage supérieur ?",
+      "answers": [
+        {
+          "text": "CIRRO",
+          "correct": true
+        },
+        {
+          "text": "ALTO",
+          "correct": false
+        },
+        {
+          "text": "STRATO",
+          "correct": false
+        },
+        {
+          "text": "NIMBUS",
+          "correct": false
+        }
+      ],
+      "page": 4,
+      "excerpt": {
+        "table": {
+          "caption": "Les nuages sont répartis en trois étages, selon leur altitude",
+          "head": [
+            "Etage",
+            "Préfixe",
+            "Altitude",
+            "Constitués essentiellement"
+          ],
+          "rows": [
+            [
+              "Inférieur",
+              "STRATO",
+              "Du sol à 2000m",
+              "Gouttelettes d'eau liquide"
+            ],
+            [
+              "Moyen",
+              "ALTO",
+              "2000 à 6000m",
+              "Cristaux de glace et gouttelettes d'eau liquide"
+            ],
+            [
+              "Supérieur",
+              "CIRRO",
+              "6000 à 13000m",
+              "Cristaux de glace"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-nuages-006",
+      "question": "Quel est le préfixe des nuages de l'étage inférieur ?",
+      "answers": [
+        {
+          "text": "STRATO",
+          "correct": true
+        },
+        {
+          "text": "ALTO",
+          "correct": false
+        },
+        {
+          "text": "CIRRO",
+          "correct": false
+        },
+        {
+          "text": "NIMBUS",
+          "correct": false
+        }
+      ],
+      "page": 4,
+      "excerpt": {
+        "table": {
+          "caption": "Les nuages sont répartis en trois étages, selon leur altitude",
+          "head": [
+            "Etage",
+            "Préfixe",
+            "Altitude",
+            "Constitués essentiellement"
+          ],
+          "rows": [
+            [
+              "Inférieur",
+              "STRATO",
+              "Du sol à 2000m",
+              "Gouttelettes d'eau liquide"
+            ],
+            [
+              "Moyen",
+              "ALTO",
+              "2000 à 6000m",
+              "Cristaux de glace et gouttelettes d'eau liquide"
+            ],
+            [
+              "Supérieur",
+              "CIRRO",
+              "6000 à 13000m",
+              "Cristaux de glace"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-nuages-007",
+      "question": "À quelle altitude se trouve l'étage supérieur ?",
+      "answers": [
+        {
+          "text": "6000 à 13000m",
+          "correct": true
+        },
+        {
+          "text": "2000 à 13000m",
+          "correct": false
+        },
+        {
+          "text": "2000 à 6000m",
+          "correct": false
+        },
+        {
+          "text": "13000 à 20000m",
+          "correct": false
+        }
+      ],
+      "page": 4,
+      "excerpt": {
+        "table": {
+          "caption": "Les nuages sont répartis en trois étages, selon leur altitude",
+          "head": [
+            "Etage",
+            "Préfixe",
+            "Altitude",
+            "Constitués essentiellement"
+          ],
+          "rows": [
+            [
+              "Inférieur",
+              "STRATO",
+              "Du sol à 2000m",
+              "Gouttelettes d'eau liquide"
+            ],
+            [
+              "Moyen",
+              "ALTO",
+              "2000 à 6000m",
+              "Cristaux de glace et gouttelettes d'eau liquide"
+            ],
+            [
+              "Supérieur",
+              "CIRRO",
+              "6000 à 13000m",
+              "Cristaux de glace"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-nuages-008",
+      "question": "À quelle altitude se trouve l'étage inférieur ?",
+      "answers": [
+        {
+          "text": "Du sol à 2000m",
+          "correct": true
+        },
+        {
+          "text": "2000 à 6000m",
+          "correct": false
+        },
+        {
+          "text": "Du sol à 1000m",
+          "correct": false
+        },
+        {
+          "text": "Du sol à 6000m",
+          "correct": false
+        }
+      ],
+      "page": 4,
+      "excerpt": {
+        "table": {
+          "caption": "Les nuages sont répartis en trois étages, selon leur altitude",
+          "head": [
+            "Etage",
+            "Préfixe",
+            "Altitude",
+            "Constitués essentiellement"
+          ],
+          "rows": [
+            [
+              "Inférieur",
+              "STRATO",
+              "Du sol à 2000m",
+              "Gouttelettes d'eau liquide"
+            ],
+            [
+              "Moyen",
+              "ALTO",
+              "2000 à 6000m",
+              "Cristaux de glace et gouttelettes d'eau liquide"
+            ],
+            [
+              "Supérieur",
+              "CIRRO",
+              "6000 à 13000m",
+              "Cristaux de glace"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-nuages-009",
+      "question": "De quoi sont constitués essentiellement les nuages de l'étage inférieur ?",
+      "answers": [
+        {
+          "text": "Gouttelettes d'eau liquide",
+          "correct": true
+        },
+        {
+          "text": "Cristaux de glace",
+          "correct": false
+        },
+        {
+          "text": "Cristaux de glace et gouttelettes d'eau liquide",
+          "correct": false
+        },
+        {
+          "text": "Grêle et grésil",
+          "correct": false
+        }
+      ],
+      "page": 4,
+      "excerpt": {
+        "table": {
+          "caption": "Les nuages sont répartis en trois étages, selon leur altitude",
+          "head": [
+            "Etage",
+            "Préfixe",
+            "Altitude",
+            "Constitués essentiellement"
+          ],
+          "rows": [
+            [
+              "Inférieur",
+              "STRATO",
+              "Du sol à 2000m",
+              "Gouttelettes d'eau liquide"
+            ],
+            [
+              "Moyen",
+              "ALTO",
+              "2000 à 6000m",
+              "Cristaux de glace et gouttelettes d'eau liquide"
+            ],
+            [
+              "Supérieur",
+              "CIRRO",
+              "6000 à 13000m",
+              "Cristaux de glace"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-nuages-010",
+      "question": "De quoi sont constitués essentiellement les nuages de l'étage supérieur ?",
+      "answers": [
+        {
+          "text": "Cristaux de glace",
+          "correct": true
+        },
+        {
+          "text": "Gouttelettes d'eau liquide",
+          "correct": false
+        },
+        {
+          "text": "Cristaux de glace et gouttelettes d'eau liquide",
+          "correct": false
+        },
+        {
+          "text": "Grêle, grésil et gouttelettes d'eau liquide",
+          "correct": false
+        }
+      ],
+      "page": 4,
+      "excerpt": {
+        "table": {
+          "caption": "Les nuages sont répartis en trois étages, selon leur altitude",
+          "head": [
+            "Etage",
+            "Préfixe",
+            "Altitude",
+            "Constitués essentiellement"
+          ],
+          "rows": [
+            [
+              "Inférieur",
+              "STRATO",
+              "Du sol à 2000m",
+              "Gouttelettes d'eau liquide"
+            ],
+            [
+              "Moyen",
+              "ALTO",
+              "2000 à 6000m",
+              "Cristaux de glace et gouttelettes d'eau liquide"
+            ],
+            [
+              "Supérieur",
+              "CIRRO",
+              "6000 à 13000m",
+              "Cristaux de glace"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-nuages-011",
+      "question": "De quoi sont constitués essentiellement les nuages de l'étage moyen ?",
+      "answers": [
+        {
+          "text": "Cristaux de glace et gouttelettes d'eau liquide",
+          "correct": true
+        },
+        {
+          "text": "Grêle et cristaux de glace",
+          "correct": false
+        },
+        {
+          "text": "Vapeur d'eau et gouttelettes d'eau liquide",
+          "correct": false
+        },
+        {
+          "text": "Grêle, grésil et gouttelettes d'eau liquide",
+          "correct": false
+        }
+      ],
+      "page": 4,
+      "excerpt": {
+        "table": {
+          "caption": "Les nuages sont répartis en trois étages, selon leur altitude",
+          "head": [
+            "Etage",
+            "Préfixe",
+            "Altitude",
+            "Constitués essentiellement"
+          ],
+          "rows": [
+            [
+              "Inférieur",
+              "STRATO",
+              "Du sol à 2000m",
+              "Gouttelettes d'eau liquide"
+            ],
+            [
+              "Moyen",
+              "ALTO",
+              "2000 à 6000m",
+              "Cristaux de glace et gouttelettes d'eau liquide"
+            ],
+            [
+              "Supérieur",
+              "CIRRO",
+              "6000 à 13000m",
+              "Cristaux de glace"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-nuages-012",
+      "question": "Qu'est-ce que la « base des nuages » ?",
+      "answers": [
+        {
+          "text": "La hauteur de la base des nuages les plus bas observés ou prévus à proximité d'un aérodrome",
+          "correct": true
+        },
+        {
+          "text": "La hauteur de la base des nuages les plus épais observés ou prévus à proximité d'un aérodrome",
+          "correct": false
+        },
+        {
+          "text": "La hauteur moyenne de la base de l'ensemble des nuages observés ou prévus au-dessus d'un aérodrome",
+          "correct": false
+        },
+        {
+          "text": "La hauteur de la base de l'étage moyen, soit 2000m au-dessus du sol de l'aérodrome",
+          "correct": false
+        }
+      ],
+      "page": 4,
+      "excerpt": {
+        "text": "La « base des nuages » est la hauteur de la base des nuages les plus bas observés ou prévus à proximité d'un aérodrome."
+      }
+    },
+    {
+      "id": "ccat-nuages-013",
+      "question": "Quelle terminaison ont les nuages de forme soudée, étalée en couches superposées ?",
+      "answers": [
+        {
+          "text": "STRATUS",
+          "correct": true
+        },
+        {
+          "text": "CUMULUS",
+          "correct": false
+        },
+        {
+          "text": "NIMBUS",
+          "correct": false
+        },
+        {
+          "text": "CIRRUS",
+          "correct": false
+        }
+      ],
+      "page": 4,
+      "excerpt": {
+        "text": "Forme soudée, étalée en couches superposées : Terminaison STRATUS.\nForme isolée, non soudée, aspect « choux-fleurs » ou amas nuageux : TERMINAISON CUMULUS.\nOu une grande extension verticale et sont caractéristiques des précipitations et du mauvais temps, préfixe ou terminaison « NIMBUS » : Nimbostratus, Cumulonimbus."
+      }
+    },
+    {
+      "id": "ccat-nuages-014",
+      "question": "Quelle terminaison ont les nuages de forme isolée, non soudée, d'aspect « choux-fleurs » ?",
+      "answers": [
+        {
+          "text": "CUMULUS",
+          "correct": true
+        },
+        {
+          "text": "STRATUS",
+          "correct": false
+        },
+        {
+          "text": "NIMBUS",
+          "correct": false
+        },
+        {
+          "text": "CIRRUS",
+          "correct": false
+        }
+      ],
+      "page": 4,
+      "excerpt": {
+        "text": "Forme soudée, étalée en couches superposées : Terminaison STRATUS.\nForme isolée, non soudée, aspect « choux-fleurs » ou amas nuageux : TERMINAISON CUMULUS.\nOu une grande extension verticale et sont caractéristiques des précipitations et du mauvais temps, préfixe ou terminaison « NIMBUS » : Nimbostratus, Cumulonimbus."
+      }
+    },
+    {
+      "id": "ccat-nuages-015",
+      "question": "Que caractérise le préfixe ou la terminaison « NIMBUS » ?",
+      "answers": [
+        {
+          "text": "Des nuages à grande extension verticale, caractéristiques des précipitations et du mauvais temps",
+          "correct": true
+        },
+        {
+          "text": "Des nuages de l'étage supérieur, constitués essentiellement de cristaux de glace",
+          "correct": false
+        },
+        {
+          "text": "Des nuages de forme isolée, non soudée, d'aspect « choux-fleurs » ou en amas nuageux",
+          "correct": false
+        },
+        {
+          "text": "Des nuages en forme de filaments blancs d'aspect fibreux, situés à l'étage supérieur",
+          "correct": false
+        }
+      ],
+      "page": 4,
+      "excerpt": {
+        "text": "Forme soudée, étalée en couches superposées : Terminaison STRATUS.\nForme isolée, non soudée, aspect « choux-fleurs » ou amas nuageux : TERMINAISON CUMULUS.\nOu une grande extension verticale et sont caractéristiques des précipitations et du mauvais temps, préfixe ou terminaison « NIMBUS » : Nimbostratus, Cumulonimbus."
+      }
+    },
+    {
+      "id": "ccat-nuages-016",
+      "question": "Quels nuages peuvent échapper à la classification ?",
+      "answers": [
+        {
+          "text": "Le stratocumulus et le cirrus",
+          "correct": true
+        },
+        {
+          "text": "Le nimbostratus et le cumulonimbus",
+          "correct": false
+        },
+        {
+          "text": "L'altostratus et l'altocumulus",
+          "correct": false
+        },
+        {
+          "text": "Le cirrostratus et le stratus",
+          "correct": false
+        }
+      ],
+      "page": 4,
+      "excerpt": {
+        "text": "Certains nuages peuvent échapper à cette classification : le stratocumulus qui présente les 2 aspects mélangés ; le cirrus."
+      }
+    },
+    {
+      "id": "ccat-nuages-017",
+      "question": "Quel nuage se présente en galets et/ou rouleaux, avec une ombre visible sur le sol ?",
+      "answers": [
+        {
+          "text": "Altocumulus",
+          "correct": true
+        },
+        {
+          "text": "Altostratus",
+          "correct": false
+        },
+        {
+          "text": "Cirrus",
+          "correct": false
+        },
+        {
+          "text": "Nimbostratus",
+          "correct": false
+        }
+      ],
+      "page": 4,
+      "excerpt": {
+        "text": "Altocumulus : En galets et/ou rouleaux. Ombre du nuage visible sur le sol. Couleur grise ou blanche avec des parties ombragées."
+      }
+    },
+    {
+      "id": "ccat-nuages-018",
+      "question": "Quel nuage est une nappe uniforme (striée ou fibreuse) qui laisse voir le soleil au moins vaguement ?",
+      "answers": [
+        {
+          "text": "Altostratus",
+          "correct": true
+        },
+        {
+          "text": "Nimbostratus",
+          "correct": false
+        },
+        {
+          "text": "Cirrus",
+          "correct": false
+        },
+        {
+          "text": "Altocumulus",
+          "correct": false
+        }
+      ],
+      "page": 4,
+      "excerpt": {
+        "text": "Altostratus : Nappe uniforme (striée ou fibreuse). A son ombre propre, mais présente des parties suffisamment minces pour laisser voir le soleil au moins vaguement."
+      }
+    },
+    {
+      "id": "ccat-nuages-019",
+      "question": "Quel nuage est une immense masse uniforme, sombre et pluvieuse, qui ne laisse jamais voir le soleil ?",
+      "answers": [
+        {
+          "text": "Nimbostratus",
+          "correct": true
+        },
+        {
+          "text": "Altostratus",
+          "correct": false
+        },
+        {
+          "text": "Cirrostratus",
+          "correct": false
+        },
+        {
+          "text": "Altocumulus",
+          "correct": false
+        }
+      ],
+      "page": 5,
+      "excerpt": {
+        "text": "Nimbostratus : Immense masse uniforme, sombre et pluvieuse. Très grande épaisseur. Ne laisse jamais voir le soleil."
+      }
+    },
+    {
+      "id": "ccat-nuages-020",
+      "question": "Quel nuage élevé a la forme de filaments blancs d'aspect fibreux (cheveux) ?",
+      "answers": [
+        {
+          "text": "Cirrus",
+          "correct": true
+        },
+        {
+          "text": "Altocumulus",
+          "correct": false
+        },
+        {
+          "text": "Nimbostratus",
+          "correct": false
+        },
+        {
+          "text": "Cirrostratus",
+          "correct": false
+        }
+      ],
+      "page": 5,
+      "excerpt": {
+        "text": "Cirrus : Nuage élevé en forme de filaments blancs ayant un aspect fibreux (cheveux)."
+      }
+    },
+    {
+      "id": "ccat-nuages-021",
+      "question": "Quel nuage est un voile uniforme ou fibreux qui ne supprime pas les ombres au sol quand le soleil est assez haut ?",
+      "answers": [
+        {
+          "text": "Cirrostratus",
+          "correct": true
+        },
+        {
+          "text": "Nimbostratus",
+          "correct": false
+        },
+        {
+          "text": "Altocumulus",
+          "correct": false
+        },
+        {
+          "text": "Cumulonimbus",
+          "correct": false
+        }
+      ],
+      "page": 5,
+      "excerpt": {
+        "text": "Cirrostratus : Voile uniforme ou fibreux. Ne supprime pas les ombres au sol lorsque le soleil est suffisamment élevé au-dessus de l'horizon."
+      }
+    },
+    {
+      "id": "ccat-nuages-022",
+      "question": "Quel nuage produit les phénomènes atmosphériques les plus violents et les plus dangereux ?",
+      "answers": [
+        {
+          "text": "Le cumulonimbus",
+          "correct": true
+        },
+        {
+          "text": "Le cirrostratus",
+          "correct": false
+        },
+        {
+          "text": "L'altocumulus",
+          "correct": false
+        },
+        {
+          "text": "Le nimbostratus",
+          "correct": false
+        }
+      ],
+      "page": 5,
+      "excerpt": {
+        "text": "Cumulonimbus : Puissant nuage se développant verticalement rapidement (de l'ordre de la dizaine de kilomètres), produit les phénomènes atmosphérique les plus violents et les plus dangereux : forts coups de vent avec turbulence et cisaillement, fortes précipitations (averses) et souvent de la grêle, parfois des trombes (ou tornades), éclair et tonnerre qui caractérisent l'orage."
+      }
+    },
+    {
+      "id": "ccat-nuages-023",
+      "question": "De quel ordre est le développement vertical du cumulonimbus ?",
+      "answers": [
+        {
+          "text": "De l'ordre de la dizaine de kilomètres",
+          "correct": true
+        },
+        {
+          "text": "De l'ordre de la centaine de mètres",
+          "correct": false
+        },
+        {
+          "text": "De l'ordre du kilomètre",
+          "correct": false
+        },
+        {
+          "text": "De l'ordre de la trentaine de kilomètres",
+          "correct": false
+        }
+      ],
+      "page": 5,
+      "excerpt": {
+        "text": "Cumulonimbus : Puissant nuage se développant verticalement rapidement (de l'ordre de la dizaine de kilomètres), produit les phénomènes atmosphérique les plus violents et les plus dangereux : forts coups de vent avec turbulence et cisaillement, fortes précipitations (averses) et souvent de la grêle, parfois des trombes (ou tornades), éclair et tonnerre qui caractérisent l'orage."
+      }
+    },
+    {
+      "id": "ccat-nuages-024",
+      "question": "Lequel de ces phénomènes le cumulonimbus produit-il ?",
+      "answers": [
+        {
+          "text": "De fortes précipitations (averses) et souvent de la grêle",
+          "correct": true
+        },
+        {
+          "text": "Une bruine fine (crachin) et souvent un givrage léger",
+          "correct": false
+        },
+        {
+          "text": "Des pluies continues (sans averses) et souvent de la neige",
+          "correct": false
+        },
+        {
+          "text": "Des vents faibles (sans cisaillement) et souvent un givrage léger",
+          "correct": false
+        }
+      ],
+      "page": 5,
+      "excerpt": {
+        "text": "Cumulonimbus : Puissant nuage se développant verticalement rapidement (de l'ordre de la dizaine de kilomètres), produit les phénomènes atmosphérique les plus violents et les plus dangereux : forts coups de vent avec turbulence et cisaillement, fortes précipitations (averses) et souvent de la grêle, parfois des trombes (ou tornades), éclair et tonnerre qui caractérisent l'orage."
+      }
+    },
+    {
+      "id": "ccat-nuages-025",
+      "question": "D'après le tableau des nuages, quelle précipitation est associée au stratus ?",
+      "answers": [
+        {
+          "text": "Bruine",
+          "correct": true
+        },
+        {
+          "text": "Pluie, Neige",
+          "correct": false
+        },
+        {
+          "text": "Averses de pluie",
+          "correct": false
+        },
+        {
+          "text": "Grésil",
+          "correct": false
+        }
+      ],
+      "page": 4,
+      "excerpt": {
+        "table": {
+          "caption": "Nuages : précipitations et phénomènes dangereux (extrait)",
+          "head": [
+            "Etage",
+            "Nuage",
+            "Précipitation dans le nuage ou au dessous",
+            "Phénomène dangereux"
+          ],
+          "rows": [
+            [
+              "Moyen/Alto (2000 à 6000m)",
+              "Altostratus",
+              "Pluie, Neige",
+              "Givrage modéré, Turbulences"
+            ],
+            [
+              "Moyen/Alto (2000 à 6000m)",
+              "Altocumulus",
+              "",
+              "Givrage modéré, Turbulences sévères"
+            ],
+            [
+              "Inférieur/Strato (0 à 2000m)",
+              "Stratus",
+              "Bruine",
+              "Givrage léger"
+            ],
+            [
+              "Nuages à développement vertical",
+              "Cumulus",
+              "Pluie, Neige",
+              "Turbulences modérées, Givrage modéré"
+            ],
+            [
+              "Nuages à développement vertical",
+              "Cumulo-nimbus",
+              "Averses modérées à fortes de pluie, grêle et grésil",
+              "Orages, grains, trombes, turbulences fortes, givrage fort"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-nuages-026",
+      "question": "D'après le tableau des nuages, quels phénomènes dangereux sont associés au cumulo-nimbus ?",
+      "answers": [
+        {
+          "text": "Orages, grains, trombes, turbulences fortes, givrage fort",
+          "correct": true
+        },
+        {
+          "text": "Orages isolés, grains, turbulences modérées, givrage léger",
+          "correct": false
+        },
+        {
+          "text": "Givrage modéré, turbulences sévères, brume et bruine",
+          "correct": false
+        },
+        {
+          "text": "Turbulences modérées, givrage modéré, pluie et neige continues",
+          "correct": false
+        }
+      ],
+      "page": 4,
+      "excerpt": {
+        "table": {
+          "caption": "Nuages : précipitations et phénomènes dangereux (extrait)",
+          "head": [
+            "Etage",
+            "Nuage",
+            "Précipitation dans le nuage ou au dessous",
+            "Phénomène dangereux"
+          ],
+          "rows": [
+            [
+              "Moyen/Alto (2000 à 6000m)",
+              "Altostratus",
+              "Pluie, Neige",
+              "Givrage modéré, Turbulences"
+            ],
+            [
+              "Moyen/Alto (2000 à 6000m)",
+              "Altocumulus",
+              "",
+              "Givrage modéré, Turbulences sévères"
+            ],
+            [
+              "Inférieur/Strato (0 à 2000m)",
+              "Stratus",
+              "Bruine",
+              "Givrage léger"
+            ],
+            [
+              "Nuages à développement vertical",
+              "Cumulus",
+              "Pluie, Neige",
+              "Turbulences modérées, Givrage modéré"
+            ],
+            [
+              "Nuages à développement vertical",
+              "Cumulo-nimbus",
+              "Averses modérées à fortes de pluie, grêle et grésil",
+              "Orages, grains, trombes, turbulences fortes, givrage fort"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-nuages-027",
+      "question": "D'après le tableau des nuages, quels phénomènes dangereux sont associés à l'altocumulus ?",
+      "answers": [
+        {
+          "text": "Givrage modéré, Turbulences sévères",
+          "correct": true
+        },
+        {
+          "text": "Turbulence, Givrage fort",
+          "correct": false
+        },
+        {
+          "text": "Turbulences modérées, Givrage modéré",
+          "correct": false
+        },
+        {
+          "text": "Givrage léger, Turbulences faibles",
+          "correct": false
+        }
+      ],
+      "page": 4,
+      "excerpt": {
+        "table": {
+          "caption": "Nuages : précipitations et phénomènes dangereux (extrait)",
+          "head": [
+            "Etage",
+            "Nuage",
+            "Précipitation dans le nuage ou au dessous",
+            "Phénomène dangereux"
+          ],
+          "rows": [
+            [
+              "Moyen/Alto (2000 à 6000m)",
+              "Altostratus",
+              "Pluie, Neige",
+              "Givrage modéré, Turbulences"
+            ],
+            [
+              "Moyen/Alto (2000 à 6000m)",
+              "Altocumulus",
+              "",
+              "Givrage modéré, Turbulences sévères"
+            ],
+            [
+              "Inférieur/Strato (0 à 2000m)",
+              "Stratus",
+              "Bruine",
+              "Givrage léger"
+            ],
+            [
+              "Nuages à développement vertical",
+              "Cumulus",
+              "Pluie, Neige",
+              "Turbulences modérées, Givrage modéré"
+            ],
+            [
+              "Nuages à développement vertical",
+              "Cumulo-nimbus",
+              "Averses modérées à fortes de pluie, grêle et grésil",
+              "Orages, grains, trombes, turbulences fortes, givrage fort"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-nuages-028",
+      "question": "D'après le tableau des nuages, quel phénomène dangereux est associé aux nuages de l'étage supérieur (Cirro) ?",
+      "answers": [
+        {
+          "text": "Givrage léger",
+          "correct": true
+        },
+        {
+          "text": "Givrage fort",
+          "correct": false
+        },
+        {
+          "text": "Turbulences sévères",
+          "correct": false
+        },
+        {
+          "text": "Orages, grains, trombes",
+          "correct": false
+        }
+      ],
+      "page": 4,
+      "excerpt": {
+        "table": {
+          "caption": "Tableau des nuages",
+          "head": [
+            "Etage",
+            "Nuage",
+            "Phénomène dangereux"
+          ],
+          "rows": [
+            [
+              "Supérieur/Cirro (6000 à 13000m)",
+              "Cirrus",
+              "Givrage léger"
+            ],
+            [
+              "Supérieur/Cirro (6000 à 13000m)",
+              "Cirro-cumulus",
+              "Givrage léger"
+            ],
+            [
+              "Supérieur/Cirro (6000 à 13000m)",
+              "Cirro-stratus",
+              "Givrage léger"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "ccat-nuages-029",
+      "question": "D'après le cours (tableau et texte de la page 4), comment se situe le nimbostratus ?",
+      "answers": [
+        {
+          "text": "Rangé à l'étage moyen, il s'étend sur plusieurs étages (grande extension verticale)",
+          "correct": true
+        },
+        {
+          "text": "Rangé à l'étage moyen, il reste entre 2000 et 6000 m (sans extension verticale)",
+          "correct": false
+        },
+        {
+          "text": "Rangé à l'étage supérieur, il reste au-dessus de 6000 m (comme le cirrus)",
+          "correct": false
+        },
+        {
+          "text": "Rangé à l'étage inférieur, il reste sous 2000 m (comme le stratus)",
+          "correct": false
+        }
+      ],
+      "page": 4,
+      "excerpt": {
+        "text": "Tableau des nuages : le Nimbo-stratus (Pluie, Neige ; Turbulence Givrage fort) apparaît dans le bloc « Moyen/Alto (2000 à 6000m) ».\nTexte de la même page : « Ou une grande extension verticale et sont caractéristiques des précipitations et du mauvais temps, préfixe ou terminaison « NIMBUS » : Nimbostratus, Cumulonimbus. »"
+      },
+      "fiabilite": {
+        "niveau": "a_recouper",
+        "note": "Sur ce point, le document n'est pas net : le tableau le place dans le bloc de l'étage moyen, le texte parmi les nuages à grande extension verticale. La réponse suit aussi l'Atlas international des nuages de l'OMM (« Le nimbostratus est presque invariablement observé à l'étage moyen, mais il déborde généralement dans les deux autres étages ») et Météo-France (nuage à « développement vertical important » qui occupe « plusieurs étages »). Vérifie avec ton cours."
+      }
+    }
+  ]
+}

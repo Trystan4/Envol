@@ -2,7 +2,7 @@
 
 ## Objectif
 
-Une élève PNC révise sur son iPhone, en ligne ou non. L'app doit :
+Réviser des fiches de QCM sur téléphone (iPhone, Android) ou ordinateur, en ligne ou non. L'app doit :
 
 1. choisir les questions selon les résultats passés, en révision comme en test blanc, et tirer au
    hasard quand il n'y a pas encore de résultat ;
@@ -69,6 +69,10 @@ statistique).
 1. **Nouvelles questions** : un quota par jour. Sans date d'examen : 10 par jour. Avec une date :
    assez pour que tout soit découvert 3 jours avant l'examen (au moins 3 par jour). Au plus 15 par
    séance. Les nouvelles déjà découvertes aujourd'hui sont décomptées.
+   Le plan du jour (`dailyPlan`) donne ce rythme et le nombre de séances qu'il demande : l'accueil
+   annonce toutes les questions du jour (« 42 questions à revoir aujourd'hui, en 3 séances ») et
+   Réglages le rythme conseillé. Par exemple, avec 300 questions et un examen dans 10 jours, il faut
+   environ 43 nouvelles par jour, donc 3 séances ; à 30 jours ou plus, une séance par jour suffit.
 2. **Questions connues** : tirage pondéré pour compléter à 20.
 3. Les premiers jours, s'il n'y a pas assez de questions connues, on complète avec des nouvelles.
 4. « On s'y met » (après un bilan) multiplie par 3 le poids des thèmes à renforcer.
@@ -84,8 +88,15 @@ pour que la note reste représentative.
 
 - **Mes erreurs** (`mistakePool`) : questions ratées dans les `MISTAKES_WINDOW_DAYS` derniers jours et
   encore sous le niveau de maîtrise, plus les questions marquées « à revoir ». Tirage pondéré, 20 au plus.
-- **Drapeau** posé par l'utilisatrice : « à revoir » multiplie le poids par 3 en révision et place la
-  question dans Mes erreurs ; « réponse douteuse » la liste dans Mes résultats pour correction des fiches.
+- **Drapeau** : « à revoir » multiplie le poids par 3 en révision et place la question dans Mes erreurs.
+- **Signalement** (« réponse douteuse », ou « Signaler une erreur » après la réponse, avec une raison
+  facultative) : la question est listée dans Mes résultats et **écartée de tous les tirages**
+  (`activeQuestions`) tant que la fiche donne la réponse vue au moment du signalement ; elle revient
+  seule si la fiche est corrigée, ou quand le signalement est retiré. « Envoyer mes signalements »
+  produit un fichier (version, empreinte des fiches, question, réponse vue, raison) que
+  `pnpm signalements <fichier>` met en regard des fiches actuelles.
+- **Fiabilité** : chaque question porte une pastille verte (vérifiée), orange (à recouper) ou rouge
+  (douteuse) ; hors du vert, la note s'affiche après la réponse.
 
 ### Test blanc chronométré
 
@@ -113,14 +124,14 @@ questions du programme.
 - Une sauvegarde illisible au démarrage est mise de côté (`envol-v2-corrupt`), l'app repart et le dit.
 - Une écriture refusée par le téléphone (stockage plein) est signalée sur l'accueil.
 
-## Évolutions en attente des vraies fiches
+## Évolutions possibles
 
-- **Choisir ses thèmes** depuis l'accueil (utile selon le nombre et la taille des thèmes réels).
-- **Images dans les questions** (schémas, panneaux) : champ image dans le JSON, fichiers dans `src/fiches/`.
+- **Choisir ses thèmes** depuis l'accueil.
+- **Images dans l'énoncé des questions** (aujourd'hui, les images ne s'affichent que dans l'extrait du cours).
 
 ## Fiches
 
-JSON, un fichier par thème, un `id` stable par question (voir le README). Les ids stables évitent
+JSON, un fichier par thème, un `id` stable par question (voir `docs/technique.md`). Les ids stables évitent
 qu'une correction de faute remette la progression à zéro, ce que faisait l'ancien format texte
 (l'identifiant y était calculé à partir du texte).
 
@@ -142,7 +153,7 @@ Un test vérifie que `ASSETS` correspond exactement aux fichiers publiés.
   (`pages: write`, `id-token: write`), identifiants git non conservés, déploiement seulement depuis `main`.
 - **Origine partagée** : tous les sites GitHub Pages d'un même compte partagent l'origine
   `<compte>.github.io`, donc le `localStorage` (≈ 5 Mo) et le cache hors ligne. Tant que les autres sites
-  Pages du compte sont les tiens, ce n'est pas un risque de sécurité ; en revanche un autre site du
+  Pages du compte sont sous contrôle du même propriétaire, ce n'est pas un risque de sécurité ; en revanche un autre site du
   compte qui viderait tous les caches ou remplirait le stockage toucherait Envol. Les clés d'Envol
   sont préfixées `envol-` et son service worker ne supprime que ses propres caches.
 - **Limite connue** : l'anti-clickjacking (`frame-ancestors`) ne peut pas être posé sans en-tête HTTP ;

@@ -1,0 +1,1571 @@
+{
+  "document": "Prérequis CCAT",
+  "fiabilite": "verifiee",
+  "questions": [
+    {
+      "id": "ccat-anatomie-001",
+      "question": "Lequel de ces éléments est légendé comme un lobe du cerveau ?",
+      "answers": [
+        {
+          "text": "Lobe temporal",
+          "correct": true
+        },
+        {
+          "text": "Cervelet",
+          "correct": false
+        },
+        {
+          "text": "Bulbe rachidien",
+          "correct": false
+        },
+        {
+          "text": "Moelle épinière",
+          "correct": false
+        }
+      ],
+      "page": 7,
+      "excerpt": {
+        "image": {
+          "src": "img/ccat-p07-cerveau.webp",
+          "alt": "Schéma du cerveau : lobe frontal, lobe pariétal, lobe occipital, lobe temporal, cervelet, bulbe rachidien."
+        }
+      }
+    },
+    {
+      "id": "ccat-anatomie-002",
+      "question": "Combien de lobes sont légendés sur le schéma du cerveau ?",
+      "answers": [
+        {
+          "text": "4",
+          "correct": true
+        },
+        {
+          "text": "2",
+          "correct": false
+        },
+        {
+          "text": "3",
+          "correct": false
+        },
+        {
+          "text": "6",
+          "correct": false
+        }
+      ],
+      "page": 7,
+      "excerpt": {
+        "image": {
+          "src": "img/ccat-p07-cerveau.webp",
+          "alt": "Schéma du cerveau : lobe frontal, lobe pariétal, lobe occipital, lobe temporal, cervelet, bulbe rachidien."
+        }
+      }
+    },
+    {
+      "id": "ccat-anatomie-003",
+      "question": "Quels sont les trois éléments légendés sur le schéma du système nerveux ?",
+      "answers": [
+        {
+          "text": "Cerveau, moelle épinière, nerfs",
+          "correct": true
+        },
+        {
+          "text": "Cervelet, moelle épinière, nerfs",
+          "correct": false
+        },
+        {
+          "text": "Cervelet, bulbe rachidien, nerfs",
+          "correct": false
+        },
+        {
+          "text": "Cerveau, bulbe rachidien, nerfs",
+          "correct": false
+        }
+      ],
+      "page": 7,
+      "excerpt": {
+        "image": {
+          "src": "img/ccat-p07-systeme-nerveux.webp",
+          "alt": "Schéma du système nerveux : cerveau, moelle épinière, nerfs."
+        }
+      }
+    },
+    {
+      "id": "ccat-anatomie-004",
+      "question": "Combien de cavités (oreillettes et ventricules) sont légendées sur le schéma du cœur ?",
+      "answers": [
+        {
+          "text": "4 : 2 oreillettes et 2 ventricules",
+          "correct": true
+        },
+        {
+          "text": "2 : 1 oreillette et 1 ventricule",
+          "correct": false
+        },
+        {
+          "text": "3 : 2 oreillettes et 1 ventricule",
+          "correct": false
+        },
+        {
+          "text": "6 : 3 oreillettes et 3 ventricules",
+          "correct": false
+        }
+      ],
+      "page": 8,
+      "excerpt": {
+        "image": {
+          "src": "img/ccat-p08-coeur.webp",
+          "alt": "Schéma du cœur : aorte, veines caves supérieure et inférieure, artère pulmonaire, veines pulmonaires, oreillettes et ventricules droits et gauches, valvule sigmoïde, valves aortique, tricuspide et mitrale."
+        }
+      }
+    },
+    {
+      "id": "ccat-anatomie-005",
+      "question": "D'après le schéma du cœur, quelle valve sépare l'oreillette gauche du ventricule gauche ?",
+      "answers": [
+        {
+          "text": "La valve mitrale",
+          "correct": true
+        },
+        {
+          "text": "La valve tricuspide",
+          "correct": false
+        },
+        {
+          "text": "La valve aortique",
+          "correct": false
+        },
+        {
+          "text": "La valvule sigmoïde",
+          "correct": false
+        }
+      ],
+      "page": 8,
+      "excerpt": {
+        "image": {
+          "src": "img/ccat-p08-coeur.webp",
+          "alt": "Schéma du cœur : aorte, veines caves supérieure et inférieure, artère pulmonaire, veines pulmonaires, oreillettes et ventricules droits et gauches, valvule sigmoïde, valves aortique, tricuspide et mitrale."
+        }
+      }
+    },
+    {
+      "id": "ccat-anatomie-006",
+      "question": "D'après le schéma du système cardiocirculatoire, quelle association est juste ?",
+      "answers": [
+        {
+          "text": "Petite circulation : poumons ; grande circulation : tissus et organes",
+          "correct": true
+        },
+        {
+          "text": "Petite circulation : tissus et organes ; grande circulation : poumons",
+          "correct": false
+        },
+        {
+          "text": "Petite circulation : cellules ; grande circulation : poumons",
+          "correct": false
+        },
+        {
+          "text": "Petite circulation : veines ; grande circulation : artères",
+          "correct": false
+        }
+      ],
+      "page": 8,
+      "excerpt": {
+        "image": {
+          "src": "img/ccat-p08-circulation.webp",
+          "alt": "Schéma du système cardiocirculatoire : petite circulation par les poumons (capillaires pulmonaires), grande circulation par les artères, les tissus et organes, les cellules et les veines."
+        }
+      }
+    },
+    {
+      "id": "ccat-anatomie-007",
+      "question": "Lequel de ces organes est légendé sur le schéma de l'appareil digestif ?",
+      "answers": [
+        {
+          "text": "La vésicule biliaire",
+          "correct": true
+        },
+        {
+          "text": "Le canal cholédoque",
+          "correct": false
+        },
+        {
+          "text": "Les glandes surrénales",
+          "correct": false
+        },
+        {
+          "text": "Le sphincter pylorique",
+          "correct": false
+        }
+      ],
+      "page": 9,
+      "excerpt": {
+        "image": {
+          "src": "img/ccat-p09-appareil-digestif.webp",
+          "alt": "Schéma de l'appareil digestif : glandes salivaires, langue, dents, oesophage, estomac, foie, vésicule biliaire, pancréas, gros intestin, intestin grêle, appendice, rectum."
+        }
+      }
+    },
+    {
+      "id": "ccat-anatomie-008",
+      "question": "Combien de régions anatomiques de l'abdomen le schéma présente-t-il ?",
+      "answers": [
+        {
+          "text": "9",
+          "correct": true
+        },
+        {
+          "text": "4",
+          "correct": false
+        },
+        {
+          "text": "6",
+          "correct": false
+        },
+        {
+          "text": "12",
+          "correct": false
+        }
+      ],
+      "page": 9,
+      "excerpt": {
+        "table": {
+          "caption": "Régions anatomiques de l'abdomen",
+          "head": [
+            "N°",
+            "Région",
+            "Organes"
+          ],
+          "rows": [
+            [
+              "1",
+              "Hypochondre droit",
+              "Foie, Vésicule biliaire, Duodénum"
+            ],
+            [
+              "2",
+              "Epigastre",
+              "Estomac"
+            ],
+            [
+              "3",
+              "Hypochondre gauche",
+              "Rate"
+            ],
+            [
+              "4",
+              "Flanc gauche",
+              "Colon descendant"
+            ],
+            [
+              "5",
+              "Fosse iliaque gauche",
+              "Sigmoïde, Ovaire gauche"
+            ],
+            [
+              "6",
+              "Hypogastre",
+              "Vessie, Utérus"
+            ],
+            [
+              "7",
+              "Fosse iliaque droite",
+              "Cæcum, Appendice, Ovaire droit"
+            ],
+            [
+              "8",
+              "Flanc droit",
+              "Colon ascendant"
+            ],
+            [
+              "9",
+              "Région périombilicale",
+              "Intestin grêle, Pancréas, Colon transverse"
+            ]
+          ]
+        },
+        "image": {
+          "src": "img/ccat-p09-regions-abdomen.webp",
+          "alt": "Schéma des 9 régions anatomiques de l'abdomen avec leurs organes."
+        }
+      }
+    },
+    {
+      "id": "ccat-anatomie-009",
+      "question": "Dans quelle région de l'abdomen se trouve l'estomac ?",
+      "answers": [
+        {
+          "text": "Epigastre",
+          "correct": true
+        },
+        {
+          "text": "Hypogastre",
+          "correct": false
+        },
+        {
+          "text": "Hypochondre gauche",
+          "correct": false
+        },
+        {
+          "text": "Région périombilicale",
+          "correct": false
+        }
+      ],
+      "page": 9,
+      "excerpt": {
+        "table": {
+          "caption": "Régions anatomiques de l'abdomen",
+          "head": [
+            "N°",
+            "Région",
+            "Organes"
+          ],
+          "rows": [
+            [
+              "1",
+              "Hypochondre droit",
+              "Foie, Vésicule biliaire, Duodénum"
+            ],
+            [
+              "2",
+              "Epigastre",
+              "Estomac"
+            ],
+            [
+              "3",
+              "Hypochondre gauche",
+              "Rate"
+            ],
+            [
+              "4",
+              "Flanc gauche",
+              "Colon descendant"
+            ],
+            [
+              "5",
+              "Fosse iliaque gauche",
+              "Sigmoïde, Ovaire gauche"
+            ],
+            [
+              "6",
+              "Hypogastre",
+              "Vessie, Utérus"
+            ],
+            [
+              "7",
+              "Fosse iliaque droite",
+              "Cæcum, Appendice, Ovaire droit"
+            ],
+            [
+              "8",
+              "Flanc droit",
+              "Colon ascendant"
+            ],
+            [
+              "9",
+              "Région périombilicale",
+              "Intestin grêle, Pancréas, Colon transverse"
+            ]
+          ]
+        },
+        "image": {
+          "src": "img/ccat-p09-regions-abdomen.webp",
+          "alt": "Schéma des 9 régions anatomiques de l'abdomen avec leurs organes."
+        }
+      }
+    },
+    {
+      "id": "ccat-anatomie-010",
+      "question": "Dans quelle région de l'abdomen se trouve la rate ?",
+      "answers": [
+        {
+          "text": "Hypochondre gauche",
+          "correct": true
+        },
+        {
+          "text": "Hypochondre droit",
+          "correct": false
+        },
+        {
+          "text": "Flanc gauche",
+          "correct": false
+        },
+        {
+          "text": "Flanc droit",
+          "correct": false
+        }
+      ],
+      "page": 9,
+      "excerpt": {
+        "table": {
+          "caption": "Régions anatomiques de l'abdomen",
+          "head": [
+            "N°",
+            "Région",
+            "Organes"
+          ],
+          "rows": [
+            [
+              "1",
+              "Hypochondre droit",
+              "Foie, Vésicule biliaire, Duodénum"
+            ],
+            [
+              "2",
+              "Epigastre",
+              "Estomac"
+            ],
+            [
+              "3",
+              "Hypochondre gauche",
+              "Rate"
+            ],
+            [
+              "4",
+              "Flanc gauche",
+              "Colon descendant"
+            ],
+            [
+              "5",
+              "Fosse iliaque gauche",
+              "Sigmoïde, Ovaire gauche"
+            ],
+            [
+              "6",
+              "Hypogastre",
+              "Vessie, Utérus"
+            ],
+            [
+              "7",
+              "Fosse iliaque droite",
+              "Cæcum, Appendice, Ovaire droit"
+            ],
+            [
+              "8",
+              "Flanc droit",
+              "Colon ascendant"
+            ],
+            [
+              "9",
+              "Région périombilicale",
+              "Intestin grêle, Pancréas, Colon transverse"
+            ]
+          ]
+        },
+        "image": {
+          "src": "img/ccat-p09-regions-abdomen.webp",
+          "alt": "Schéma des 9 régions anatomiques de l'abdomen avec leurs organes."
+        }
+      }
+    },
+    {
+      "id": "ccat-anatomie-011",
+      "question": "Dans quelle région de l'abdomen se trouvent le foie, la vésicule biliaire et le duodénum ?",
+      "answers": [
+        {
+          "text": "Hypochondre droit",
+          "correct": true
+        },
+        {
+          "text": "Hypochondre gauche",
+          "correct": false
+        },
+        {
+          "text": "Flanc gauche",
+          "correct": false
+        },
+        {
+          "text": "Flanc droit",
+          "correct": false
+        }
+      ],
+      "page": 9,
+      "excerpt": {
+        "table": {
+          "caption": "Régions anatomiques de l'abdomen",
+          "head": [
+            "N°",
+            "Région",
+            "Organes"
+          ],
+          "rows": [
+            [
+              "1",
+              "Hypochondre droit",
+              "Foie, Vésicule biliaire, Duodénum"
+            ],
+            [
+              "2",
+              "Epigastre",
+              "Estomac"
+            ],
+            [
+              "3",
+              "Hypochondre gauche",
+              "Rate"
+            ],
+            [
+              "4",
+              "Flanc gauche",
+              "Colon descendant"
+            ],
+            [
+              "5",
+              "Fosse iliaque gauche",
+              "Sigmoïde, Ovaire gauche"
+            ],
+            [
+              "6",
+              "Hypogastre",
+              "Vessie, Utérus"
+            ],
+            [
+              "7",
+              "Fosse iliaque droite",
+              "Cæcum, Appendice, Ovaire droit"
+            ],
+            [
+              "8",
+              "Flanc droit",
+              "Colon ascendant"
+            ],
+            [
+              "9",
+              "Région périombilicale",
+              "Intestin grêle, Pancréas, Colon transverse"
+            ]
+          ]
+        },
+        "image": {
+          "src": "img/ccat-p09-regions-abdomen.webp",
+          "alt": "Schéma des 9 régions anatomiques de l'abdomen avec leurs organes."
+        }
+      }
+    },
+    {
+      "id": "ccat-anatomie-012",
+      "question": "Dans quelle région de l'abdomen se trouve l'appendice ?",
+      "answers": [
+        {
+          "text": "Fosse iliaque droite",
+          "correct": true
+        },
+        {
+          "text": "Fosse iliaque gauche",
+          "correct": false
+        },
+        {
+          "text": "Flanc droit",
+          "correct": false
+        },
+        {
+          "text": "Flanc gauche",
+          "correct": false
+        }
+      ],
+      "page": 9,
+      "excerpt": {
+        "table": {
+          "caption": "Régions anatomiques de l'abdomen",
+          "head": [
+            "N°",
+            "Région",
+            "Organes"
+          ],
+          "rows": [
+            [
+              "1",
+              "Hypochondre droit",
+              "Foie, Vésicule biliaire, Duodénum"
+            ],
+            [
+              "2",
+              "Epigastre",
+              "Estomac"
+            ],
+            [
+              "3",
+              "Hypochondre gauche",
+              "Rate"
+            ],
+            [
+              "4",
+              "Flanc gauche",
+              "Colon descendant"
+            ],
+            [
+              "5",
+              "Fosse iliaque gauche",
+              "Sigmoïde, Ovaire gauche"
+            ],
+            [
+              "6",
+              "Hypogastre",
+              "Vessie, Utérus"
+            ],
+            [
+              "7",
+              "Fosse iliaque droite",
+              "Cæcum, Appendice, Ovaire droit"
+            ],
+            [
+              "8",
+              "Flanc droit",
+              "Colon ascendant"
+            ],
+            [
+              "9",
+              "Région périombilicale",
+              "Intestin grêle, Pancréas, Colon transverse"
+            ]
+          ]
+        },
+        "image": {
+          "src": "img/ccat-p09-regions-abdomen.webp",
+          "alt": "Schéma des 9 régions anatomiques de l'abdomen avec leurs organes."
+        }
+      }
+    },
+    {
+      "id": "ccat-anatomie-013",
+      "question": "Dans quelle région de l'abdomen se trouvent la vessie et l'utérus ?",
+      "answers": [
+        {
+          "text": "Hypogastre",
+          "correct": true
+        },
+        {
+          "text": "Epigastre",
+          "correct": false
+        },
+        {
+          "text": "Fosse iliaque gauche",
+          "correct": false
+        },
+        {
+          "text": "Région périombilicale",
+          "correct": false
+        }
+      ],
+      "page": 9,
+      "excerpt": {
+        "table": {
+          "caption": "Régions anatomiques de l'abdomen",
+          "head": [
+            "N°",
+            "Région",
+            "Organes"
+          ],
+          "rows": [
+            [
+              "1",
+              "Hypochondre droit",
+              "Foie, Vésicule biliaire, Duodénum"
+            ],
+            [
+              "2",
+              "Epigastre",
+              "Estomac"
+            ],
+            [
+              "3",
+              "Hypochondre gauche",
+              "Rate"
+            ],
+            [
+              "4",
+              "Flanc gauche",
+              "Colon descendant"
+            ],
+            [
+              "5",
+              "Fosse iliaque gauche",
+              "Sigmoïde, Ovaire gauche"
+            ],
+            [
+              "6",
+              "Hypogastre",
+              "Vessie, Utérus"
+            ],
+            [
+              "7",
+              "Fosse iliaque droite",
+              "Cæcum, Appendice, Ovaire droit"
+            ],
+            [
+              "8",
+              "Flanc droit",
+              "Colon ascendant"
+            ],
+            [
+              "9",
+              "Région périombilicale",
+              "Intestin grêle, Pancréas, Colon transverse"
+            ]
+          ]
+        },
+        "image": {
+          "src": "img/ccat-p09-regions-abdomen.webp",
+          "alt": "Schéma des 9 régions anatomiques de l'abdomen avec leurs organes."
+        }
+      }
+    },
+    {
+      "id": "ccat-anatomie-014",
+      "question": "Dans quelle région de l'abdomen se trouve le sigmoïde ?",
+      "answers": [
+        {
+          "text": "Fosse iliaque gauche",
+          "correct": true
+        },
+        {
+          "text": "Fosse iliaque droite",
+          "correct": false
+        },
+        {
+          "text": "Flanc gauche",
+          "correct": false
+        },
+        {
+          "text": "Flanc droit",
+          "correct": false
+        }
+      ],
+      "page": 9,
+      "excerpt": {
+        "table": {
+          "caption": "Régions anatomiques de l'abdomen",
+          "head": [
+            "N°",
+            "Région",
+            "Organes"
+          ],
+          "rows": [
+            [
+              "1",
+              "Hypochondre droit",
+              "Foie, Vésicule biliaire, Duodénum"
+            ],
+            [
+              "2",
+              "Epigastre",
+              "Estomac"
+            ],
+            [
+              "3",
+              "Hypochondre gauche",
+              "Rate"
+            ],
+            [
+              "4",
+              "Flanc gauche",
+              "Colon descendant"
+            ],
+            [
+              "5",
+              "Fosse iliaque gauche",
+              "Sigmoïde, Ovaire gauche"
+            ],
+            [
+              "6",
+              "Hypogastre",
+              "Vessie, Utérus"
+            ],
+            [
+              "7",
+              "Fosse iliaque droite",
+              "Cæcum, Appendice, Ovaire droit"
+            ],
+            [
+              "8",
+              "Flanc droit",
+              "Colon ascendant"
+            ],
+            [
+              "9",
+              "Région périombilicale",
+              "Intestin grêle, Pancréas, Colon transverse"
+            ]
+          ]
+        },
+        "image": {
+          "src": "img/ccat-p09-regions-abdomen.webp",
+          "alt": "Schéma des 9 régions anatomiques de l'abdomen avec leurs organes."
+        }
+      }
+    },
+    {
+      "id": "ccat-anatomie-015",
+      "question": "Dans quelle région de l'abdomen se trouve le côlon ascendant ?",
+      "answers": [
+        {
+          "text": "Flanc droit",
+          "correct": true
+        },
+        {
+          "text": "Flanc gauche",
+          "correct": false
+        },
+        {
+          "text": "Fosse iliaque droite",
+          "correct": false
+        },
+        {
+          "text": "Fosse iliaque gauche",
+          "correct": false
+        }
+      ],
+      "page": 9,
+      "excerpt": {
+        "table": {
+          "caption": "Régions anatomiques de l'abdomen",
+          "head": [
+            "N°",
+            "Région",
+            "Organes"
+          ],
+          "rows": [
+            [
+              "1",
+              "Hypochondre droit",
+              "Foie, Vésicule biliaire, Duodénum"
+            ],
+            [
+              "2",
+              "Epigastre",
+              "Estomac"
+            ],
+            [
+              "3",
+              "Hypochondre gauche",
+              "Rate"
+            ],
+            [
+              "4",
+              "Flanc gauche",
+              "Colon descendant"
+            ],
+            [
+              "5",
+              "Fosse iliaque gauche",
+              "Sigmoïde, Ovaire gauche"
+            ],
+            [
+              "6",
+              "Hypogastre",
+              "Vessie, Utérus"
+            ],
+            [
+              "7",
+              "Fosse iliaque droite",
+              "Cæcum, Appendice, Ovaire droit"
+            ],
+            [
+              "8",
+              "Flanc droit",
+              "Colon ascendant"
+            ],
+            [
+              "9",
+              "Région périombilicale",
+              "Intestin grêle, Pancréas, Colon transverse"
+            ]
+          ]
+        },
+        "image": {
+          "src": "img/ccat-p09-regions-abdomen.webp",
+          "alt": "Schéma des 9 régions anatomiques de l'abdomen avec leurs organes."
+        }
+      }
+    },
+    {
+      "id": "ccat-anatomie-016",
+      "question": "Dans quelle région de l'abdomen se trouve le côlon descendant ?",
+      "answers": [
+        {
+          "text": "Flanc gauche",
+          "correct": true
+        },
+        {
+          "text": "Flanc droit",
+          "correct": false
+        },
+        {
+          "text": "Fosse iliaque gauche",
+          "correct": false
+        },
+        {
+          "text": "Fosse iliaque droite",
+          "correct": false
+        }
+      ],
+      "page": 9,
+      "excerpt": {
+        "table": {
+          "caption": "Régions anatomiques de l'abdomen",
+          "head": [
+            "N°",
+            "Région",
+            "Organes"
+          ],
+          "rows": [
+            [
+              "1",
+              "Hypochondre droit",
+              "Foie, Vésicule biliaire, Duodénum"
+            ],
+            [
+              "2",
+              "Epigastre",
+              "Estomac"
+            ],
+            [
+              "3",
+              "Hypochondre gauche",
+              "Rate"
+            ],
+            [
+              "4",
+              "Flanc gauche",
+              "Colon descendant"
+            ],
+            [
+              "5",
+              "Fosse iliaque gauche",
+              "Sigmoïde, Ovaire gauche"
+            ],
+            [
+              "6",
+              "Hypogastre",
+              "Vessie, Utérus"
+            ],
+            [
+              "7",
+              "Fosse iliaque droite",
+              "Cæcum, Appendice, Ovaire droit"
+            ],
+            [
+              "8",
+              "Flanc droit",
+              "Colon ascendant"
+            ],
+            [
+              "9",
+              "Région périombilicale",
+              "Intestin grêle, Pancréas, Colon transverse"
+            ]
+          ]
+        },
+        "image": {
+          "src": "img/ccat-p09-regions-abdomen.webp",
+          "alt": "Schéma des 9 régions anatomiques de l'abdomen avec leurs organes."
+        }
+      }
+    },
+    {
+      "id": "ccat-anatomie-017",
+      "question": "D'après le schéma, dans quelle région de l'abdomen se trouvent l'intestin grêle, le pancréas et le côlon transverse ?",
+      "answers": [
+        {
+          "text": "Région périombilicale",
+          "correct": true
+        },
+        {
+          "text": "Epigastre",
+          "correct": false
+        },
+        {
+          "text": "Hypogastre",
+          "correct": false
+        },
+        {
+          "text": "Hypochondre droit",
+          "correct": false
+        }
+      ],
+      "page": 9,
+      "excerpt": {
+        "table": {
+          "caption": "Régions anatomiques de l'abdomen",
+          "head": [
+            "N°",
+            "Région",
+            "Organes"
+          ],
+          "rows": [
+            [
+              "1",
+              "Hypochondre droit",
+              "Foie, Vésicule biliaire, Duodénum"
+            ],
+            [
+              "2",
+              "Epigastre",
+              "Estomac"
+            ],
+            [
+              "3",
+              "Hypochondre gauche",
+              "Rate"
+            ],
+            [
+              "4",
+              "Flanc gauche",
+              "Colon descendant"
+            ],
+            [
+              "5",
+              "Fosse iliaque gauche",
+              "Sigmoïde, Ovaire gauche"
+            ],
+            [
+              "6",
+              "Hypogastre",
+              "Vessie, Utérus"
+            ],
+            [
+              "7",
+              "Fosse iliaque droite",
+              "Cæcum, Appendice, Ovaire droit"
+            ],
+            [
+              "8",
+              "Flanc droit",
+              "Colon ascendant"
+            ],
+            [
+              "9",
+              "Région périombilicale",
+              "Intestin grêle, Pancréas, Colon transverse"
+            ]
+          ]
+        },
+        "image": {
+          "src": "img/ccat-p09-regions-abdomen.webp",
+          "alt": "Schéma des 9 régions anatomiques de l'abdomen avec leurs organes."
+        }
+      }
+    },
+    {
+      "id": "ccat-anatomie-018",
+      "question": "Combien de lobes compte le poumon droit d'après le schéma ?",
+      "answers": [
+        {
+          "text": "3",
+          "correct": true
+        },
+        {
+          "text": "2",
+          "correct": false
+        },
+        {
+          "text": "4",
+          "correct": false
+        },
+        {
+          "text": "5",
+          "correct": false
+        }
+      ],
+      "page": 10,
+      "excerpt": {
+        "image": {
+          "src": "img/ccat-p10-appareil-respiratoire.webp",
+          "alt": "Schéma de l'appareil respiratoire : fosses nasales, pharynx, larynx, bronche, bronchioles, lobule pulmonaire, alvéoles pulmonaires, plèvre (2 feuillets), côtes, muscles intercostaux, poumon droit (3 lobes), cœur et gros vaisseaux, diaphragme."
+        }
+      }
+    },
+    {
+      "id": "ccat-anatomie-019",
+      "question": "Combien de feuillets compte la plèvre d'après le schéma ?",
+      "answers": [
+        {
+          "text": "2",
+          "correct": true
+        },
+        {
+          "text": "1",
+          "correct": false
+        },
+        {
+          "text": "3",
+          "correct": false
+        },
+        {
+          "text": "4",
+          "correct": false
+        }
+      ],
+      "page": 10,
+      "excerpt": {
+        "image": {
+          "src": "img/ccat-p10-appareil-respiratoire.webp",
+          "alt": "Schéma de l'appareil respiratoire : fosses nasales, pharynx, larynx, bronche, bronchioles, lobule pulmonaire, alvéoles pulmonaires, plèvre (2 feuillets), côtes, muscles intercostaux, poumon droit (3 lobes), cœur et gros vaisseaux, diaphragme."
+        }
+      }
+    },
+    {
+      "id": "ccat-anatomie-020",
+      "question": "Sur le schéma, par où passe l'air à l'inspiration, dans l'ordre ?",
+      "answers": [
+        {
+          "text": "Fosses nasales, pharynx, larynx",
+          "correct": true
+        },
+        {
+          "text": "Larynx, pharynx, fosses nasales",
+          "correct": false
+        },
+        {
+          "text": "Pharynx, fosses nasales, larynx",
+          "correct": false
+        },
+        {
+          "text": "Fosses nasales, larynx, pharynx",
+          "correct": false
+        }
+      ],
+      "page": 10,
+      "excerpt": {
+        "image": {
+          "src": "img/ccat-p10-appareil-respiratoire.webp",
+          "alt": "Schéma de l'appareil respiratoire : fosses nasales, pharynx, larynx, bronche, bronchioles, lobule pulmonaire, alvéoles pulmonaires, plèvre (2 feuillets), côtes, muscles intercostaux, poumon droit (3 lobes), cœur et gros vaisseaux, diaphragme."
+        }
+      }
+    },
+    {
+      "id": "ccat-anatomie-021",
+      "question": "Quelle structure est légendée sous les poumons sur le schéma de l'appareil respiratoire ?",
+      "answers": [
+        {
+          "text": "Le diaphragme",
+          "correct": true
+        },
+        {
+          "text": "Les muscles intercostaux",
+          "correct": false
+        },
+        {
+          "text": "Le sternum",
+          "correct": false
+        },
+        {
+          "text": "Le cœur",
+          "correct": false
+        }
+      ],
+      "page": 10,
+      "excerpt": {
+        "image": {
+          "src": "img/ccat-p10-appareil-respiratoire.webp",
+          "alt": "Schéma de l'appareil respiratoire : fosses nasales, pharynx, larynx, bronche, bronchioles, lobule pulmonaire, alvéoles pulmonaires, plèvre (2 feuillets), côtes, muscles intercostaux, poumon droit (3 lobes), cœur et gros vaisseaux, diaphragme."
+        }
+      }
+    },
+    {
+      "id": "ccat-anatomie-022",
+      "question": "Combien de paires de vraies côtes le schéma indique-t-il ?",
+      "answers": [
+        {
+          "text": "7",
+          "correct": true
+        },
+        {
+          "text": "3",
+          "correct": false
+        },
+        {
+          "text": "2",
+          "correct": false
+        },
+        {
+          "text": "12",
+          "correct": false
+        }
+      ],
+      "page": 11,
+      "excerpt": {
+        "image": {
+          "src": "img/ccat-p11-thorax.webp",
+          "alt": "Schéma du thorax : colonne vertébrale, manubrium, sternum, côte ; 7 paires de vraies côtes, 3 paires de fausses côtes, 2 paires de côtes flottantes."
+        }
+      }
+    },
+    {
+      "id": "ccat-anatomie-023",
+      "question": "Combien de paires de fausses côtes le schéma indique-t-il ?",
+      "answers": [
+        {
+          "text": "3",
+          "correct": true
+        },
+        {
+          "text": "7",
+          "correct": false
+        },
+        {
+          "text": "2",
+          "correct": false
+        },
+        {
+          "text": "5",
+          "correct": false
+        }
+      ],
+      "page": 11,
+      "excerpt": {
+        "image": {
+          "src": "img/ccat-p11-thorax.webp",
+          "alt": "Schéma du thorax : colonne vertébrale, manubrium, sternum, côte ; 7 paires de vraies côtes, 3 paires de fausses côtes, 2 paires de côtes flottantes."
+        }
+      }
+    },
+    {
+      "id": "ccat-anatomie-024",
+      "question": "Combien de paires de côtes flottantes le schéma indique-t-il ?",
+      "answers": [
+        {
+          "text": "2",
+          "correct": true
+        },
+        {
+          "text": "3",
+          "correct": false
+        },
+        {
+          "text": "7",
+          "correct": false
+        },
+        {
+          "text": "1",
+          "correct": false
+        }
+      ],
+      "page": 11,
+      "excerpt": {
+        "image": {
+          "src": "img/ccat-p11-thorax.webp",
+          "alt": "Schéma du thorax : colonne vertébrale, manubrium, sternum, côte ; 7 paires de vraies côtes, 3 paires de fausses côtes, 2 paires de côtes flottantes."
+        }
+      }
+    },
+    {
+      "id": "ccat-anatomie-025",
+      "question": "Sur le schéma du thorax, quelle structure est légendée au-dessus du sternum ?",
+      "answers": [
+        {
+          "text": "Le manubrium",
+          "correct": true
+        },
+        {
+          "text": "L'ilion",
+          "correct": false
+        },
+        {
+          "text": "Le sacrum",
+          "correct": false
+        },
+        {
+          "text": "L'ischion",
+          "correct": false
+        }
+      ],
+      "page": 11,
+      "excerpt": {
+        "image": {
+          "src": "img/ccat-p11-thorax.webp",
+          "alt": "Schéma du thorax : colonne vertébrale, manubrium, sternum, côte ; 7 paires de vraies côtes, 3 paires de fausses côtes, 2 paires de côtes flottantes."
+        }
+      }
+    },
+    {
+      "id": "ccat-anatomie-026",
+      "question": "Lequel de ces os est légendé sur le schéma du bassin ?",
+      "answers": [
+        {
+          "text": "Le sacrum",
+          "correct": true
+        },
+        {
+          "text": "Le tarse",
+          "correct": false
+        },
+        {
+          "text": "Le manubrium",
+          "correct": false
+        },
+        {
+          "text": "Le carpe",
+          "correct": false
+        }
+      ],
+      "page": 11,
+      "excerpt": {
+        "image": {
+          "src": "img/ccat-p11-bassin.webp",
+          "alt": "Schéma du bassin : ilion, ischion, pubis, colonne vertébrale, os iliaque, sacrum, coccyx, fémur."
+        }
+      }
+    },
+    {
+      "id": "ccat-anatomie-027",
+      "question": "Quel autre nom le schéma donne-t-il à l'omoplate ?",
+      "answers": [
+        {
+          "text": "Scapula",
+          "correct": true
+        },
+        {
+          "text": "Patella",
+          "correct": false
+        },
+        {
+          "text": "Ulna",
+          "correct": false
+        },
+        {
+          "text": "Fibula",
+          "correct": false
+        }
+      ],
+      "page": 11,
+      "excerpt": {
+        "image": {
+          "src": "img/ccat-p11-membre-superieur.webp",
+          "alt": "Schéma du membre supérieur : clavicule, omoplate (scapula), humérus, radius, cubitus (ulna), carpe, métacarpe, phalanges ; bras, avant-bras, main."
+        }
+      }
+    },
+    {
+      "id": "ccat-anatomie-028",
+      "question": "Quel autre nom le schéma donne-t-il au cubitus ?",
+      "answers": [
+        {
+          "text": "Ulna",
+          "correct": true
+        },
+        {
+          "text": "Fibula",
+          "correct": false
+        },
+        {
+          "text": "Patella",
+          "correct": false
+        },
+        {
+          "text": "Scapula",
+          "correct": false
+        }
+      ],
+      "page": 11,
+      "excerpt": {
+        "image": {
+          "src": "img/ccat-p11-membre-superieur.webp",
+          "alt": "Schéma du membre supérieur : clavicule, omoplate (scapula), humérus, radius, cubitus (ulna), carpe, métacarpe, phalanges ; bras, avant-bras, main."
+        }
+      }
+    },
+    {
+      "id": "ccat-anatomie-029",
+      "question": "Quel autre nom le schéma donne-t-il au péroné ?",
+      "answers": [
+        {
+          "text": "Fibula",
+          "correct": true
+        },
+        {
+          "text": "Ulna",
+          "correct": false
+        },
+        {
+          "text": "Patella",
+          "correct": false
+        },
+        {
+          "text": "Scapula",
+          "correct": false
+        }
+      ],
+      "page": 11,
+      "excerpt": {
+        "image": {
+          "src": "img/ccat-p11-membre-inferieur.webp",
+          "alt": "Schéma du membre inférieur : hanche bassin ; cuisse : fémur, rotule (patella) ; jambe : tibia, péroné (fibula) ; pied : tarse, métatarse, phalanges."
+        }
+      }
+    },
+    {
+      "id": "ccat-anatomie-030",
+      "question": "Quel autre nom le schéma donne-t-il à la rotule ?",
+      "answers": [
+        {
+          "text": "Patella",
+          "correct": true
+        },
+        {
+          "text": "Scapula",
+          "correct": false
+        },
+        {
+          "text": "Ulna",
+          "correct": false
+        },
+        {
+          "text": "Fibula",
+          "correct": false
+        }
+      ],
+      "page": 11,
+      "excerpt": {
+        "image": {
+          "src": "img/ccat-p11-membre-inferieur.webp",
+          "alt": "Schéma du membre inférieur : hanche bassin ; cuisse : fémur, rotule (patella) ; jambe : tibia, péroné (fibula) ; pied : tarse, métatarse, phalanges."
+        }
+      }
+    },
+    {
+      "id": "ccat-anatomie-031",
+      "question": "Quels os sont légendés dans l'avant-bras ?",
+      "answers": [
+        {
+          "text": "Radius et cubitus (ulna)",
+          "correct": true
+        },
+        {
+          "text": "Tibia et péroné (fibula)",
+          "correct": false
+        },
+        {
+          "text": "Humérus et omoplate (scapula)",
+          "correct": false
+        },
+        {
+          "text": "Fémur et rotule (patella)",
+          "correct": false
+        }
+      ],
+      "page": 11,
+      "excerpt": {
+        "image": {
+          "src": "img/ccat-p11-membre-superieur.webp",
+          "alt": "Schéma du membre supérieur : clavicule, omoplate (scapula), humérus, radius, cubitus (ulna), carpe, métacarpe, phalanges ; bras, avant-bras, main."
+        }
+      }
+    },
+    {
+      "id": "ccat-anatomie-032",
+      "question": "Quels os sont légendés dans la jambe ?",
+      "answers": [
+        {
+          "text": "Tibia et péroné (fibula)",
+          "correct": true
+        },
+        {
+          "text": "Radius et cubitus (ulna)",
+          "correct": false
+        },
+        {
+          "text": "Fémur et rotule (patella)",
+          "correct": false
+        },
+        {
+          "text": "Humérus et omoplate (scapula)",
+          "correct": false
+        }
+      ],
+      "page": 11,
+      "excerpt": {
+        "image": {
+          "src": "img/ccat-p11-membre-inferieur.webp",
+          "alt": "Schéma du membre inférieur : hanche bassin ; cuisse : fémur, rotule (patella) ; jambe : tibia, péroné (fibula) ; pied : tarse, métatarse, phalanges."
+        }
+      }
+    },
+    {
+      "id": "ccat-anatomie-033",
+      "question": "Quel os est légendé dans la cuisse ?",
+      "answers": [
+        {
+          "text": "Le fémur",
+          "correct": true
+        },
+        {
+          "text": "Le tibia",
+          "correct": false
+        },
+        {
+          "text": "L'humérus",
+          "correct": false
+        },
+        {
+          "text": "Le péroné",
+          "correct": false
+        }
+      ],
+      "page": 11,
+      "excerpt": {
+        "image": {
+          "src": "img/ccat-p11-membre-inferieur.webp",
+          "alt": "Schéma du membre inférieur : hanche bassin ; cuisse : fémur, rotule (patella) ; jambe : tibia, péroné (fibula) ; pied : tarse, métatarse, phalanges."
+        }
+      }
+    },
+    {
+      "id": "ccat-anatomie-034",
+      "question": "Quels os composent la main sur le schéma ?",
+      "answers": [
+        {
+          "text": "Carpe, métacarpe, phalanges",
+          "correct": true
+        },
+        {
+          "text": "Tarse, métatarse, phalanges",
+          "correct": false
+        },
+        {
+          "text": "Tarse, métacarpe, phalanges",
+          "correct": false
+        },
+        {
+          "text": "Carpe, métatarse, phalanges",
+          "correct": false
+        }
+      ],
+      "page": 11,
+      "excerpt": {
+        "image": {
+          "src": "img/ccat-p11-membre-superieur.webp",
+          "alt": "Schéma du membre supérieur : clavicule, omoplate (scapula), humérus, radius, cubitus (ulna), carpe, métacarpe, phalanges ; bras, avant-bras, main."
+        }
+      }
+    },
+    {
+      "id": "ccat-anatomie-035",
+      "question": "Quels os composent le pied sur le schéma ?",
+      "answers": [
+        {
+          "text": "Tarse, métatarse, phalanges",
+          "correct": true
+        },
+        {
+          "text": "Carpe, métacarpe, phalanges",
+          "correct": false
+        },
+        {
+          "text": "Carpe, métatarse, phalanges",
+          "correct": false
+        },
+        {
+          "text": "Tarse, métacarpe, phalanges",
+          "correct": false
+        }
+      ],
+      "page": 11,
+      "excerpt": {
+        "image": {
+          "src": "img/ccat-p11-membre-inferieur.webp",
+          "alt": "Schéma du membre inférieur : hanche bassin ; cuisse : fémur, rotule (patella) ; jambe : tibia, péroné (fibula) ; pied : tarse, métatarse, phalanges."
+        }
+      }
+    }
+  ]
+}

@@ -67,6 +67,48 @@
   line-height: 21px;
   font-weight: 600;
 }
+/* "Nouvelle version" bar: stays above every screen until the user reloads. */
+.update-bar {
+  position: fixed;
+  left: 12px;
+  right: 12px;
+  bottom: calc(12px + env(safe-area-inset-bottom));
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 10px 10px 10px 16px;
+  border-radius: var(--radius-choice);
+  background: var(--cabine);
+  color: var(--on-cabine);
+  font-size: 15px;
+  box-shadow: var(--shadow-card);
+}
+.update-bar[hidden] { display: none; }
+/* Room under the last button, so the bar never hides it. */
+body:has(.update-bar:not([hidden])) { padding-bottom: 96px; }
+.update-later {
+  min-width: 44px;
+  min-height: 44px;
+  border: 0;
+  background: none;
+  color: var(--on-cabine);
+  font-size: 18px;
+}
+.update-bar span { flex: 1; }
+.update-btn {
+  min-height: 44px;
+  padding: 0 16px;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: var(--on-cabine);
+  color: var(--cabine);
+  font: inherit;
+  font-weight: 700;
+}
+
 .success { margin: 14px 0 0; font-weight: 700; color: var(--acquis); }
 .warning { margin: 14px 0 0; font-weight: 700; color: var(--aurore); }
 
@@ -79,6 +121,31 @@
   background: var(--surface-raised);
   font-size: 18px;
 }
+.field textarea {
+  padding: 12px 16px;
+  border: 2px solid var(--line);
+  border-radius: var(--radius-choice);
+  background: var(--surface-raised);
+  color: var(--ink);
+  font: inherit;
+  font-size: 16px; /* 16 px or more: iOS does not zoom on focus */
+  resize: vertical;
+}
+
+/* Reliability of a question: dot next to the theme (the button keeps a 44 px touch target). */
+.meta .theme { display: flex; align-items: center; gap: 2px; }
+.dot-btn { flex: none; display: inline-grid; place-items: center; width: 44px; height: 44px; margin: -14px -6px -14px -14px; border: 0; background: none; }
+.dot { width: 12px; height: 12px; border-radius: 50%; }
+.dot.verifiee { background: var(--acquis); }
+.dot.a_recouper { background: var(--soleil); }
+.dot.douteuse { background: var(--aurore); box-shadow: 0 0 0 2px var(--aurore-soft); }
+.reliability { margin: 10px 0 0; font-size: 15px; font-style: italic; color: var(--ink-muted); }
+.reliability.a_recouper, .reliability.douteuse { color: var(--aurore); }
+
+/* Reporting a doubtful question, under the answer. */
+.report-link { align-self: flex-start; margin-top: 12px; padding: 0; }
+.report { margin-top: 16px; padding: 16px; }
+.report .field { margin-top: 8px; }
 
 /* Horizontal gauge row: label, bar, value. */
 .gauge { display: flex; align-items: center; gap: 12px; }

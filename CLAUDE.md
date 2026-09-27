@@ -1,12 +1,12 @@
 # CLAUDE.md — Envol
 
-Application de révision par QCM pour iPhone (PWA hors ligne), publiée sur GitHub Pages depuis un
-dépôt public. Lire `README.md` et `docs/conception.md` avant toute modification du moteur.
+Application de révision par QCM installable sur n'importe quel appareil (PWA hors ligne), publiée sur GitHub Pages depuis un
+dépôt public. Lire `README.md`, `docs/technique.md` et `docs/conception.md` avant toute modification du moteur.
 
 ## Règles
 
 - **Aucun co-auteur dans les commits.** Pas de ligne `Co-Authored-By`, pas de mention d'outil.
-  Ne pas committer ni pousser sans demande : Trystan pousse lui-même sur `main`.
+  Ne pas committer ni pousser sans demande : le propriétaire du dépôt pousse lui-même sur `main`.
 - **Zéro dépendance de production, aucune étape de build.** `src/` est publié tel quel. Playwright est
   la seule dépendance de développement ; toute autre s'ajoute sur demande explicite.
 - **Langue** : interface et documentation en français, code en anglais (identifiants, fichiers, commentaires).

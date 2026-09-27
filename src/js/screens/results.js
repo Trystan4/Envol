@@ -1,5 +1,5 @@
 import { esc, grade20, formatGrade, plural } from "../util.js";
-import { brand, rightAnswer } from "./common.js";
+import { brand, rightAnswer, excerptHtml } from "./common.js";
 
 // End of a session. s: the finished session; strong / weak: theme names (summary.strengths).
 export function renderResults({ s, strong, weak }) {
@@ -11,7 +11,7 @@ export function renderResults({ s, strong, weak }) {
     : `<p class="muted">${plural(s.correct, "bonne réponse", "bonnes réponses")} du premier coup sur ${s.total}.</p>`;
   const mistakes = test && s.mistakes.length
     ? `<div class="block"><h3>Les réponses à retenir</h3></div><div class="mistakes">${s.mistakes.map(q =>
-      `<div class="mistake card"><b>${esc(q.question)}</b><span>✓ ${rightAnswer(q)}</span></div>`).join("")}</div>`
+      `<div class="mistake card"><b>${esc(q.question)}</b><span>✓ ${rightAnswer(q)}</span>${q.excerpt ? `<details><summary>Voir l'extrait de la fiche</summary>${excerptHtml(q)}</details>` : ""}</div>`).join("")}</div>`
     : "";
   return `<main class="screen">
     ${brand()}

@@ -1,7 +1,7 @@
 // Figures shown on the home, results and summary screens. Pure.
 
-import { MASTERED_LEVEL, DAY, CALENDAR_DAYS, BACKUP_REMINDER_DAYS } from "./config.js";
-import { isSeen, newQuota } from "./engine.js";
+import { MASTERED_LEVEL, DAY, CALENDAR_DAYS, BACKUP_REMINDER_DAYS, NEW_PER_SESSION_MAX } from "./config.js";
+import { isSeen, dailyPlan, rightAnswerText } from "./engine.js";
 import { grade20, isoDate } from "./util.js";
 
 export function overview(questions, save, now) {
@@ -14,9 +14,12 @@ export function overview(questions, save, now) {
     if (c.due <= now) due++;
   }
   const total = questions.length;
+  const fresh = dailyPlan(questions, save, now).left;
   return {
     total, seen, mastered, due,
-    toDoToday: due + newQuota(questions, save, now),
+    toDoToday: due + fresh, // every new question of the day, even beyond one session
+    sessionsToday: Math.ceil(fresh / NEW_PER_SESSION_MAX), // sessions needed for today's new questions
+
     pct: total ? Math.round(mastered / total * 100) : 0,
   };
 }
@@ -82,6 +85,17 @@ export function calendar(activity, now) {
 
 // Questions whose answer the user doubts, to send to whoever writes the fiches.
 export const disputed = (questions, save) => questions.filter(q => save.flags[q.id] && save.flags[q.id].dispute);
+
+// The file the user sends back: app version and fiches fingerprint say exactly what was on screen,
+// the fiche's answer and the user's reason say what is doubted. Read by tools/signalements.mjs.
+export const reportFile = (questions, save, { version, fingerprint, now }) => ({
+  app: "envol", type: "signalements", version, fiches: fingerprint, date: isoDate(now),
+  items: disputed(questions, save).map(q => ({
+    id: q.id, theme: q.theme, page: q.page, question: q.question,
+    reponse: rightAnswerText(q),
+    note: save.flags[q.id].note || "",
+  })),
+});
 
 // True when there is progress worth keeping and no copy was made for BACKUP_REMINDER_DAYS days
 // (counted from the first answer when no copy was ever made).
