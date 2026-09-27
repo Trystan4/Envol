@@ -22,8 +22,9 @@
   color-scheme: light dark;
 }
 
+/* Dark theme: follows the phone unless Réglages › Apparence forces light or dark (data-theme on <html>). */
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
     --surface: #0F1B2D;
     --surface-raised: #17263B;
     --line: #2A3A52;
@@ -39,3 +40,20 @@
     --shadow-card: 0 8px 24px -8px #000000B3;
   }
 }
+:root[data-theme="dark"] {
+  --surface: #0F1B2D;
+  --surface-raised: #17263B;
+  --line: #2A3A52;
+  --ink: #F2EEE6;
+  --ink-muted: #A9B3C2;
+  --cabine: #8FB4DB;
+  --on-cabine: #0F1B2D;
+  --soleil: #F28A5E;
+  --aurore: #F28A5E;
+  --aurore-soft: #3A2218;
+  --acquis: #7FC8A2;
+  --acquis-soft: #16301F;
+  --shadow-card: 0 8px 24px -8px #000000B3;
+}
+:root[data-theme="light"] { color-scheme: light; }
+:root[data-theme="dark"] { color-scheme: dark; }

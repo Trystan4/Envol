@@ -8,8 +8,11 @@ const trendText = delta => delta === null ? ""
   : delta < 0 ? ` En baisse de ${formatGrade(-delta)} point${-delta > 1 ? "s" : ""} depuis le précédent.`
   : " Stable depuis le précédent.";
 
-// "Mes résultats": overall progress, regularity, mastery by theme, mock tests, flagged questions.
-export function renderSummary({ ov, themes, trend, tests, reviewsThisWeek, streak, days, disputed, message }) {
+const longDate = t => new Date(t).toLocaleDateString("fr-FR", { weekday: "long", day: "numeric", month: "long" });
+
+// "Mes résultats": overall progress, discovery forecast, regularity, mastery by theme (each can be
+// revised alone), most missed questions, mock tests, reported questions.
+export function renderSummary({ ov, themes, trend, tests, reviewsThisWeek, streak, days, disputed, missed, forecast, message }) {
   const lastTests = tests.slice(-10).reverse();
   return `<main class="screen">
     ${closeBar()}
@@ -19,6 +22,8 @@ export function renderSummary({ ov, themes, trend, tests, reviewsThisWeek, strea
       <div class="figure card"><b>${ov.seen}/${ov.total}</b><span>questions vues</span></div>
       <div class="figure card"><b>${reviewsThisWeek}</b><span>${reviewsThisWeek > 1 ? "séances" : "séance"} en 7 j</span></div>
     </div>
+    <p class="muted forecast">${forecast.date === null ? "Toutes les questions ont été découvertes."
+      : `${forecast.seen} / ${forecast.total} questions découvertes : à ce rythme, tout sera vu le ${longDate(forecast.date)}.`}</p>
 
     <h2 class="section">Régularité</h2>
     <div class="card">
@@ -30,7 +35,11 @@ export function renderSummary({ ov, themes, trend, tests, reviewsThisWeek, strea
     </div>
 
     <h2 class="section">Maîtrise par thème</h2>
-    <div class="gauges card">${themes.map(t => stackedGauge(esc(t.theme), t.pct, `${t.pct} %`)).join("")}</div>
+    <div class="gauges card">${themes.map(t => `<div class="theme-row">${stackedGauge(esc(t.theme), t.pct, `${t.pct} %`)}<button class="small-link" data-act="themeReview" data-theme="${esc(t.theme)}">Réviser ce thème</button></div>`).join("")}</div>
+
+    ${missed.length ? `<h2 class="section">Les plus ratées</h2>
+      <div class="mistakes">${missed.map(q => `<div class="mistake card"><b>${esc(q.question)}</b><span>✓ ${rightAnswer(q)}</span><small class="muted">Ratée ${q.errors} fois · ${esc(q.theme)}</small></div>`).join("")}</div>
+      <button class="link" data-act="missedReview" style="align-self:center;margin-top:8px">Réviser ces questions</button>` : ""}
 
     <h2 class="section">Tests blancs</h2>
     ${trend.count

@@ -77,6 +77,22 @@ statistique).
 3. Les premiers jours, s'il n'y a pas assez de questions connues, on complète avec des nouvelles.
 4. « On s'y met » (après un bilan) multiplie par 3 le poids des thèmes à renforcer.
 
+### Séances ciblées
+
+- **Réviser ce thème** (Mes résultats) : même tirage qu'une séance de révision, limité au thème.
+- **Les plus ratées** : les 10 questions au plus grand nombre d'erreurs (puis au plus fort taux
+  d'erreur), jamais une question sans erreur ; « Réviser ces questions » les pose dans le désordre.
+- **Reprendre une séance** : la séance en cours est gardée sur l'appareil (`session.js`, clé
+  `envol-v2-session`) à chaque question ; l'accueil propose de la reprendre pendant 12 h. Une question
+  déjà répondue n'est pas reposée. Terminer ou quitter la séance l'efface.
+
+### Suivi du plan
+
+- **Progression du jour** (accueil) : réponses données aujourd'hui (séances terminées et tests blancs)
+  sur l'objectif du jour, c'est-à-dire ces réponses plus ce qui reste à faire aujourd'hui.
+- **Date de découverte** (Mes résultats) : au rythme du plan du jour, le jour où la dernière question
+  nouvelle sera vue.
+
 ### Test blanc (20 questions)
 
 Les 20 places sont réparties entre les thèmes **en proportion de leur nombre de questions** (méthode

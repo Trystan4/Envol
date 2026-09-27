@@ -34,7 +34,8 @@ src/                  ce qui est publié, tel quel (aucune étape de build)
   js/engine.js        poids des questions, tirage pondéré, plan du jour
   js/storage.js       sauvegarde, validation, import/export
   js/deck.js          lecture et validation des fiches, empreinte des fiches
-  js/summary.js       chiffres des écrans de résultats, fichier de signalements
+  js/summary.js       chiffres des écrans de résultats, plus ratées, prévisions, signalements
+  js/session.js       séance en cours gardée pour être reprise
   js/app.js           démarrage, actions, mises à jour
   js/screens/         un fichier par écran
   fiches/             les questions

@@ -9,7 +9,8 @@ n'importe quelles fiches : voir [Créer ses propres fiches](#créer-ses-propres-
 - **Réviser** : des séances de 20 questions. Les questions ratées reviennent plus souvent (et un peu
   plus loin dans la même séance), celles qu'on maîtrise s'espacent.
 - **Plan de révision** : avec une date d'examen (dans Réglages), l'app dose les nouvelles questions
-  pour que tout soit vu trois jours avant, et dit combien de séances faire par jour.
+  pour que tout soit vu trois jours avant, dit combien de séances faire par jour et montre la
+  progression du jour.
 - **Test blanc** : 20 questions sur tous les thèmes, notées sur 20, chronométrées (désactivable).
 - **Revoir mes erreurs** : une séance faite des questions ratées récemment.
 - **Après une erreur**, l'extrait du cours s'affiche avec sa page (texte, tableau ou schéma).
@@ -17,7 +18,11 @@ n'importe quelles fiches : voir [Créer ses propres fiches](#créer-ses-propres-
   n'est pas corrigée, et Mes résultats permet d'envoyer la liste des signalements.
 - **Pastille de fiabilité** sur chaque question : verte (vérifiée dans le document), orange (à
   recouper avec ses sources) ou rouge (douteuse).
-- **Mes résultats** : maîtrise par thème, jours de révision, notes des tests blancs.
+- **Mes résultats** : maîtrise par thème (et « Réviser ce thème »), questions les plus ratées, date où
+  tout sera découvert, jours de révision, notes des tests blancs.
+- **Reprendre une séance** interrompue (app fermée en pleine séance).
+- **Affichage** : texte agrandi, thème clair ou sombre au choix.
+- **Comment marche Envol** : un guide des fonctionnalités, dans Réglages.
 - **Sauvegarde** : une copie de la progression à garder de côté, pour changer de téléphone.
 - **Mises à jour** : un bandeau propose la nouvelle version quand elle arrive.
 

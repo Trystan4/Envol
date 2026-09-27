@@ -157,7 +157,7 @@ test("réglages : la date d'examen règle le compte à rebours", async ({ page }
   const perDay = Math.ceil(PLAYABLE.length / 7), sessions = Math.ceil(perDay / 15);
   await expect(page.locator(".plan")).toHaveText(`Rythme conseillé : environ ${perDay} nouvelles questions par jour, soit ${sessions} séances de révision par jour.`);
   await page.getByRole("button", { name: "Retour" }).click();
-  await expect(page.getByText("maîtrisé, J-10")).toBeVisible();
+  await expect(page.getByRole("img", { name: /maîtrisé, J-10$/ })).toBeVisible();
 
   await page.getByRole("button", { name: "Réglages" }).click();
   await page.getByRole("button", { name: "Retirer la date" }).click();
@@ -297,6 +297,124 @@ test("signalement : après la réponse, on signale avec une raison, puis on envo
   await expect(page.getByText("Fichier prêt")).toBeVisible();
 });
 
+test("ordre des réponses : la bonne réponse change de place d'un affichage à l'autre", async ({ page }) => {
+  test.setTimeout(90_000); // four whole sessions
+  await page.goto("/");
+  const positions = [0, 0, 0, 0];
+  while (positions.reduce((a, b) => a + b) < 60) {
+    await page.getByRole("button", { name: "Réviser" }).click();
+    while (await onQuestion(page)) {
+      const good = RIGHT.get(clean(await page.locator("h2.question").innerText()));
+      const texts = (await page.locator(".choice .text").allInnerTexts()).map(clean);
+      positions[texts.findIndex(t => good.has(t))]++;
+      await answer(page, true);
+    }
+    await page.goto("/");
+  }
+  // A fixed place would leave three positions empty; at random each gets about 15 of the 60.
+  for (const n of positions) expect(n, `positions de la bonne réponse : ${positions.join(" / ")}`).toBeGreaterThan(3);
+});
+
+/* ---------- Version 2.3.0 ---------- */
+
+// Progress with mistakes, an exam date and no backup copy for 8 days: every note of the home screen shows.
+async function seedHistory(page) {
+  await page.evaluate(async () => {
+    const { applyAnswer } = await import("/js/engine.js");
+    const { loadDeck } = await import("/js/deck.js");
+    const { isoDate } = await import("/js/util.js");
+    const { questions } = await loadDeck(async p => (await fetch("/" + p)).json());
+    const now = Date.now(), DAY = 864e5, cards = {};
+    questions.slice(0, 30).forEach((q, i) => {
+      let c;
+      for (let d = 8; d >= 0; d -= 2) c = applyAnswer(c, { correct: (i + d) % 3 !== 0, mode: "review", now: now - d * DAY });
+      cards[q.id] = c;
+    });
+    localStorage.setItem("envol-v2", JSON.stringify({ version: 2, examDate: isoDate(now + 20 * DAY), cards, tests: [], reviews: [] }));
+  });
+  await page.reload();
+}
+
+test("accueil : tout tient sans défiler sur les petits téléphones, même avec toutes les notes", async ({ page }) => {
+  await page.goto("/");
+  await seedHistory(page);
+  await page.getByRole("button", { name: "Réviser" }).click();
+  await answer(page, true);
+  await answer(page, false);
+  await page.goto("/"); // session left unfinished: "Reprendre" shows
+  await expect(page.getByRole("button", { name: "Reprendre" })).toBeVisible();
+  await expect(page.getByRole("button", { name: "Faire une copie" })).toBeVisible();
+  await expect(page.getByRole("button", { name: /Revoir mes erreurs/ })).toBeVisible();
+  await expect(page.locator(".day-bar")).toBeVisible();
+  for (const [width, height] of [[360, 640], [375, 667], [360, 700], [390, 844]]) {
+    await page.setViewportSize({ width, height });
+    await page.reload();
+    await expect(page.getByRole("button", { name: "Réviser" })).toBeVisible();
+    const scroll = await page.evaluate(() => document.documentElement.scrollHeight - innerHeight);
+    expect(scroll, `accueil en ${width}×${height} : défilement vertical`).toBeLessThanOrEqual(0);
+  }
+});
+
+test("reprendre une séance : l'app fermée en pleine séance, on reprend à la question suivante", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: "Réviser" }).click();
+  await answer(page, true);
+  await answer(page, true);
+  await expect(page.locator(".meta .label").first()).toHaveText("Question 3 sur 15");
+  await page.goto("/");
+  await expect(page.getByText("Séance en cours : 3/15")).toBeVisible();
+  await page.getByRole("button", { name: "Reprendre" }).click();
+  await expect(page.locator(".meta .label").first()).toHaveText("Question 3 sur 15");
+  // Finished or left properly: nothing to resume.
+  await page.getByRole("button", { name: "Quitter" }).click();
+  await page.goto("/");
+  await expect(page.getByRole("button", { name: "Reprendre" })).toHaveCount(0);
+});
+
+test("Mes résultats : réviser un thème, les plus ratées, date de découverte", async ({ page }) => {
+  await page.goto("/");
+  await seedHistory(page);
+  await page.getByRole("button", { name: "Mes résultats" }).click();
+  await expect(page.locator(".forecast")).toContainText(/30 \/ \d+ questions découvertes : à ce rythme, tout sera vu le \w+ \d+ \w+\./);
+  await expect(page.getByRole("heading", { name: "Les plus ratées" })).toBeVisible();
+  const listed = (await page.locator(".mistakes").first().locator(".mistake b").allInnerTexts()).map(clean);
+  expect(listed.length).toBeGreaterThan(0);
+  await page.getByRole("button", { name: "Réviser ces questions" }).click();
+  const seen = new Set();
+  while (await onQuestion(page)) { seen.add(clean(await page.locator("h2.question").innerText())); await answer(page, true); }
+  for (const q of seen) expect(listed, "question hors des plus ratées").toContain(q);
+
+  await page.goto("/");
+  await page.getByRole("button", { name: "Mes résultats" }).click();
+  const row = page.locator(".theme-row").nth(2);
+  const theme = clean(await row.locator(".name").innerText());
+  await row.getByRole("button", { name: "Réviser ce thème" }).click();
+  for (let i = 0; i < 5 && await onQuestion(page); i++) {
+    await expect(page.locator(".meta .theme")).toHaveText(theme);
+    await answer(page, true);
+  }
+});
+
+test("affichage : texte agrandi et thème sombre, gardés après fermeture ; guide des fonctionnalités", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: "Réglages" }).click();
+  await page.getByRole("switch", { name: "Texte agrandi" }).click();
+  await page.getByRole("button", { name: "Sombre" }).click();
+  await expect(page.getByRole("button", { name: "Sombre" })).toHaveAttribute("aria-pressed", "true");
+  await page.reload();
+  expect(await page.evaluate(() => [document.documentElement.dataset.text, document.documentElement.dataset.theme])).toEqual(["large", "dark"]);
+  expect(await page.evaluate(() => getComputedStyle(document.body).backgroundColor)).toBe("rgb(15, 27, 45)");
+  await page.getByRole("button", { name: "Réglages" }).click();
+  await page.getByRole("button", { name: "Clair" }).click();
+  expect(await page.evaluate(() => getComputedStyle(document.body).backgroundColor)).toBe("rgb(247, 243, 236)");
+
+  await page.getByRole("button", { name: "Comment marche Envol" }).click();
+  await expect(page.getByRole("heading", { name: "Comment marche Envol" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "La pastille" })).toBeVisible();
+  await page.getByRole("button", { name: "Retour" }).click();
+  await expect(page.getByRole("heading", { name: "Réglages" })).toBeVisible();
+});
+
 test("fiabilité : la pastille de chaque question explique son état", async ({ page }) => {
   await page.goto("/");
   await page.getByRole("button", { name: "Réviser" }).click();
@@ -405,7 +523,7 @@ test("régularité et rappel de sauvegarde", async ({ page }) => {
     }));
   }, PLAYABLE[0].id);
   await page.reload();
-  await expect(page.getByText("Aucune copie de sauvegarde pour l'instant.")).toBeVisible();
+  await expect(page.getByText("Pas encore de copie")).toBeVisible();
   await page.getByRole("button", { name: "Faire une copie" }).click();
   const download = page.waitForEvent("download");
   await page.getByRole("button", { name: "Enregistrer une copie" }).click();

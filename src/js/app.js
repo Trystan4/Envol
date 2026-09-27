@@ -3,9 +3,10 @@
 
 import { DAY, RETRY_LIMIT, RETRY_GAP, REVIEWS_KEPT, ACTIVITY_DAYS_KEPT, TEST_DURATION_MIN, TIMER_WARNING_SEC, APP_VERSION, REPORT_NOTE_MAX } from "./config.js";
 import { loadDeck, deckFingerprint } from "./deck.js";
-import { createStore, validateSave, isValidExamDate, MAX_IMPORT_BYTES } from "./storage.js";
+import { createStore, validateSave, isValidExamDate, MAX_IMPORT_BYTES, KEY } from "./storage.js";
+import { serializeSession, restoreSession } from "./session.js";
 import { buildReviewSession, buildMockTest, buildMistakesSession, mistakePool, applyAnswer, activeQuestions, rightAnswerText, dailyPlan } from "./engine.js";
-import { overview, themeBreakdown, testTrend, strengths, reviewCount, streak, calendar, disputed, backupDue, reportFile } from "./summary.js";
+import { overview, themeBreakdown, testTrend, strengths, reviewCount, streak, calendar, disputed, backupDue, reportFile, mostMissed, discoveryForecast, dayProgress } from "./summary.js";
 import { shuffle, daysUntil, isoDate } from "./util.js";
 import { renderHome } from "./screens/home.js";
 import { renderQuestion, formatClock } from "./screens/question.js";
@@ -14,6 +15,7 @@ import { renderSummary } from "./screens/summary.js";
 import { renderBackup } from "./screens/backup.js";
 import { renderSettings } from "./screens/settings.js";
 import { renderGuide, renderDeckError, detectPlatform } from "./screens/guide.js";
+import { renderHelp } from "./screens/help.js";
 
 const $app = document.getElementById("app");
 
@@ -23,7 +25,24 @@ function phoneStorage() {
     return { getItem: () => null, setItem: () => { throw new Error("stockage indisponible"); }, removeItem: () => {} };
   }
 }
-const store = createStore(phoneStorage());
+const device = phoneStorage();
+const store = createStore(device);
+
+// The running session, kept on the phone so it can be resumed after the app was closed (see session.js).
+const SESSION_KEY = `${KEY}-session`;
+const keepSession = () => { try { device.setItem(SESSION_KEY, JSON.stringify(serializeSession(state.session, Date.now()))); } catch { /* not kept: nothing else to do */ } };
+const dropSession = () => { try { device.removeItem(SESSION_KEY); } catch { /* already gone */ } };
+function savedSession() {
+  try { return restoreSession(JSON.parse(device.getItem(SESSION_KEY)), state.questions, Date.now()); } catch { return null; }
+}
+
+// Display settings (larger text, forced light or dark theme), applied to the whole page.
+function applyDisplay() {
+  const { largeText, theme } = state.save.display;
+  const root = document.documentElement;
+  if (largeText) root.dataset.text = "large"; else delete root.dataset.text;
+  if (theme === "auto") delete root.dataset.theme; else root.dataset.theme = theme;
+}
 
 const state = {
   questions: [],
@@ -74,8 +93,11 @@ function showHome() {
   const now = Date.now();
   const firsts = Object.values(state.save.cards).map(c => c.firstSeen);
   const since = state.save.lastExport ?? (firsts.length ? Math.min(...firsts) : now);
+  const resume = savedSession();
   render(renderHome({
     ov: overview(pool(), state.save, now),
+    progress: dayProgress(pool(), state.save, now),
+    resume: resume && { position: resume.queue.slice(0, resume.index + 1).filter(x => !x.retry).length, size: resume.size, label: resume.label },
     days: daysUntil(state.save.examDate, now),
     firstTime: !Object.keys(state.save.cards).length,
     notices,
@@ -95,28 +117,36 @@ function showSummary(message = "") {
     message,
     ov: overview(pool(), state.save, now),
     themes: themeBreakdown(pool(), state.save),
+    missed: mostMissed(pool(), state.save, MISSED_SHOWN),
+    forecast: discoveryForecast(pool(), state.save, now),
     trend: testTrend(state.save.tests),
     tests: state.save.tests,
     reviewsThisWeek: reviewCount(state.save, now - 7 * DAY),
   }));
 }
 
+const MISSED_SHOWN = 10; // questions listed under "Les plus ratées"
+
+const showHelp = () => render(renderHelp());
 const showBackup = (feedback = {}) => render(renderBackup({ ...feedback, canUndo: store.canUndoImport() }));
 const showSettings = (feedback = {}) => render(renderSettings({
   ...feedback, examDate: state.save.examDate, today: isoDate(Date.now()), timed: state.save.timedTests, minutes: TEST_DURATION_MIN,
   installed: isInstalled(), version: APP_VERSION, fingerprint: state.fingerprint, count: state.questions.length,
-  plan: dailyPlan(pool(), state.save, Date.now()),
+  plan: dailyPlan(pool(), state.save, Date.now()), display: state.save.display,
 }));
 
 /* ---------- Session ---------- */
 
 // mode: "review" or "test"; "mistakes" is a review session drawn from recent mistakes only.
-function startSession(mode, focusThemes = null) {
+// only: { theme } (review that theme alone) or { missed: true } (the most missed questions).
+function startSession(mode, focusThemes = null, only = null) {
   if (!state.questions.length) return render(renderDeckError());
   const now = Date.now();
   const questions = pool();
   const queue = mode === "test" ? buildMockTest(questions, state.save, { now })
     : mode === "mistakes" ? buildMistakesSession(questions, state.save, { now })
+    : only && only.theme ? buildReviewSession(questions.filter(q => q.theme === only.theme), state.save, { now })
+    : only && only.missed ? shuffle(mostMissed(questions, state.save, MISSED_SHOWN).map(q => questions.find(x => x.id === q.id)))
     : buildReviewSession(questions, state.save, { now, focusThemes });
   if (!queue.length) return showHome();
   const timed = mode === "test" && state.save.timedTests;
@@ -125,8 +155,17 @@ function startSession(mode, focusThemes = null) {
     lastCorrect: false, requeued: false, revealed: false, flagOpen: false, reliabilityOpen: false, unanswered: 0,
     deadline: timed ? now + TEST_DURATION_MIN * 60e3 : null, warnMs: TIMER_WARNING_SEC * 1000,
     byTheme: {}, mistakes: [], retries: {}, missed: new Set(), correct: 0, total: 0, finished: false, weak: [],
+    label: only && only.theme ? only.theme : only && only.missed ? "Les plus ratées" : null,
   };
   if (timed) startTimer();
+  showQuestion();
+}
+
+function resumeSession() {
+  const s = savedSession();
+  if (!s) return showHome();
+  state.session = s;
+  if (s.deadline) startTimer();
   showQuestion();
 }
 
@@ -137,6 +176,7 @@ function showQuestion() {
   if (s.index >= s.queue.length) return finishSession();
   const q = s.queue[s.index];
   if (!s.order && q.kind === "mcq") s.order = shuffle(q.answers.map((_, k) => k));
+  keepSession();
   render(renderQuestion(s, flagOf(q.id), Date.now()));
 }
 
@@ -261,6 +301,7 @@ function choose(k) {
 function finishSession() {
   const s = state.session;
   stopTimer();
+  dropSession();
   if (!s.finished) {
     s.finished = true;
     const result = { at: Date.now(), correct: s.correct, total: s.total };
@@ -275,9 +316,9 @@ function finishSession() {
 
 function quit() {
   const s = state.session;
-  if (s && s.mode === "test") { if (confirm("Arrêter le test ? Il ne sera pas noté.")) { stopTimer(); showHome(); } }
+  if (s && s.mode === "test") { if (confirm("Arrêter le test ? Il ne sera pas noté.")) { stopTimer(); dropSession(); showHome(); } }
   else if (s && s.total) finishSession();
-  else showHome();
+  else { dropSession(); showHome(); }
 }
 
 /* ---------- Backup ---------- */
@@ -338,6 +379,7 @@ function importBackup(file) {
     if (!r.ok) return showBackup({ error: `Import impossible : ${r.error}. Rien n'a été modifié.` });
     state.save = r.data;
     state.recovered = false;
+    applyDisplay();
     showBackup({ message: "C'est fait, les progrès de la copie sont de retour." });
   };
   reader.readAsText(file);
@@ -347,6 +389,7 @@ function undoImport() {
   const data = store.undoImport();
   if (!data) return showBackup({ error: "Il n'y a plus d'import à annuler." });
   state.save = data;
+  applyDisplay();
   showBackup({ message: "Import annulé : les progrès d'avant sont de retour." });
 }
 
@@ -414,6 +457,12 @@ document.getElementById("update").addEventListener("click", e => {
 
 const actions = {
   review: () => startSession("review"),
+  resume: resumeSession,
+  themeReview: button => startSession("review", null, { theme: button.dataset.theme }),
+  missedReview: () => startSession("review", null, { missed: true }),
+  help: showHelp,
+  largeText: () => { state.save.display = { ...state.save.display, largeText: !state.save.display.largeText }; persist(); applyDisplay(); showSettings(); },
+  theme: button => { state.save.display = { ...state.save.display, theme: button.dataset.theme }; persist(); applyDisplay(); showSettings(); },
   mistakes: () => startSession("mistakes"),
   flagMenu: () => { state.session.flagOpen = !state.session.flagOpen; showQuestion(); },
   flagReview: () => toggleFlag("review"),
@@ -496,6 +545,7 @@ async function install() {
   const { data, recovered } = store.load();
   state.save = data;
   state.recovered = recovered;
+  applyDisplay();
   if (navigator.storage && navigator.storage.persist) navigator.storage.persist().catch(() => {});
   watchForUpdates();
   await loadQuestions();

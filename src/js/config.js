@@ -2,7 +2,7 @@
 
 // Shown in Réglages to check that the phone runs the latest published version.
 // Keep equal to "version" in package.json and VERSION in sw.js (a test checks it).
-export const APP_VERSION = "2.2.0";
+export const APP_VERSION = "2.3.0";
 
 export const DAY = 864e5;
 

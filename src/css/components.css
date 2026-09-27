@@ -161,10 +161,46 @@ body:has(.update-bar:not([hidden])) { padding-bottom: 96px; }
   .btn:active { transform: none; }
 }
 
-/* Backup reminder on the home screen. */
-.reminder { margin-top: 14px; padding: 12px 14px; display: flex; flex-direction: column; align-items: flex-start; gap: 2px; }
-.reminder p { margin: 0; font-size: 15px; line-height: 21px; color: var(--ink-muted); }
-.reminder .link { padding-left: 0; }
+/* One-line notes on the home screen (session to resume, backup reminder): text, then its link. */
+.reminder { margin-top: 10px; padding: 4px 6px 4px 14px; display: flex; flex-wrap: wrap; align-items: center; column-gap: 8px; }
+.reminder p { margin: 0; flex: 1 1 auto; font-size: 15px; line-height: 20px; color: var(--ink-muted); }
+.reminder .link { padding: 10px 8px; }
+
+/* Progress of the day under the home subtitle. */
+.day-bar { display: flex; align-items: center; gap: 10px; margin-top: 10px; }
+.day-bar .g { flex: 1; height: 8px; border-radius: var(--radius-pill); background: var(--line); overflow: hidden; }
+.day-bar .g i { display: block; height: 100%; background: var(--acquis); }
+.day-bar .n { font-size: 14px; font-weight: 600; color: var(--ink-muted); white-space: nowrap; }
+
+/* Mes résultats: a theme and its "Réviser ce thème" link. */
+.theme-row { display: flex; flex-direction: column; align-items: flex-end; }
+.theme-row .gauge { align-self: stretch; }
+.theme-row .small-link { margin-top: -4px; }
+.forecast { margin: 12px 0 0; }
+
+/* Réglages: light / dark choice. */
+.display-theme { margin-top: 12px; display: flex; flex-direction: column; gap: 10px; }
+.segments { display: flex; gap: 6px; }
+.segment {
+  flex: 1;
+  min-height: 44px;
+  border: 2px solid var(--line);
+  border-radius: var(--radius-choice);
+  background: var(--surface-raised);
+  color: var(--ink);
+  font: inherit;
+  font-size: 15px;
+  font-weight: 600;
+}
+.segment[aria-pressed="true"] { border-color: var(--cabine); background: var(--cabine); color: var(--on-cabine); }
+
+/* Comment marche Envol. */
+.help { display: flex; flex-direction: column; gap: 10px; margin-top: 8px; }
+.help h2 { margin: 0 0 4px; font-size: 16px; }
+.help p { margin: 0; font-size: 15px; line-height: 21px; color: var(--ink-muted); }
+
+/* Larger text (Réglages): the whole screen scales, and still fills the height exactly. */
+:root[data-text="large"] .screen { zoom: 1.15; min-height: calc(100dvh / 1.15); }
 
 /* On/off switch. */
 .setting { display: flex; align-items: center; gap: 14px; margin-top: 22px; }

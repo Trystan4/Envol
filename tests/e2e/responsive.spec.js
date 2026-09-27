@@ -79,6 +79,8 @@ for (const [label, viewport] of Object.entries(SIZES)) {
     await page.getByRole("button", { name: "Retour" }).click();
     await page.getByRole("button", { name: "Réglages" }).click();
     await checkScreen(page, "réglages");
+    await page.getByRole("button", { name: "Comment marche Envol" }).click();
+    await checkScreen(page, "comment marche Envol");
 
     expect(cspErrors, "violations de la politique de sécurité").toEqual([]);
   });

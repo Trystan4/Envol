@@ -3,6 +3,26 @@
 /* Home */
 .ring { display: flex; justify-content: center; margin: 28px 0 8px; }
 .ring svg { width: 190px; height: 190px; }
+/* Short screens (small phones, browser bars): the home screen still fits without scrolling. */
+@media (max-height: 760px) {
+  .display { font-size: 30px; line-height: 36px; margin-top: 12px; }
+  .reminder { margin-top: 6px; }
+  .day-bar { margin-top: 6px; }
+  .ring { margin: 14px 0 4px; }
+  .ring svg { width: min(190px, 18vh); height: min(190px, 18vh); }
+  .actions { padding-top: 12px; }
+  .btn { min-height: 54px; }
+  .foot { margin-top: 4px; }
+}
+.ring-side { display: none; }
+@media (max-height: 680px) {
+  .display { font-size: 27px; line-height: 32px; }
+  .ring { margin: 8px 0 0; align-items: center; gap: 12px; }
+  .ring svg { width: 15vh; height: 15vh; }
+  /* The ring is too small for its caption: it moves beside it, at a readable size. */
+  .ring .in-ring { display: none; }
+  .ring-side { display: block; font-size: 15px; font-weight: 600; color: var(--ink-muted); }
+}
 
 /* Question */
 .meta { display: flex; justify-content: space-between; gap: 12px; margin: 20px 0 6px; }
@@ -103,6 +123,7 @@
 .mistake { font-size: 15px; line-height: 21px; }
 .mistake b { display: block; font-weight: 600; color: var(--ink); }
 .mistake span { color: var(--acquis); }
+.mistake small { display: block; margin-top: 2px; }
 
 /* Summary */
 .figures { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 16px; }

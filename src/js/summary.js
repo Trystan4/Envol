@@ -2,7 +2,7 @@
 
 import { MASTERED_LEVEL, DAY, CALENDAR_DAYS, BACKUP_REMINDER_DAYS, NEW_PER_SESSION_MAX } from "./config.js";
 import { isSeen, dailyPlan, rightAnswerText } from "./engine.js";
-import { grade20, isoDate } from "./util.js";
+import { grade20, isoDate, startOfDay } from "./util.js";
 
 export function overview(questions, save, now) {
   let seen = 0, mastered = 0, due = 0;
@@ -81,6 +81,36 @@ export function calendar(activity, now) {
     d.setDate(d.getDate() + 1);
   }
   return out;
+}
+
+// The questions missed most often (at least once): most errors first, then the highest error rate.
+export const mostMissed = (questions, save, n) => questions
+  .map(q => { const c = save.cards[q.id]; return isSeen(c) ? { q, errors: c.seen - c.correct, rate: (c.seen - c.correct) / c.seen } : null; })
+  .filter(x => x && x.errors > 0)
+  .sort((a, b) => b.errors - a.errors || b.rate - a.rate)
+  .slice(0, n)
+  .map(x => ({ ...x.q, errors: x.errors }));
+
+// How many questions were discovered, and the day the last one will be at the current pace
+// (the day's plan: 10 a day without an exam date). date is null once everything was seen.
+export function discoveryForecast(questions, save, now) {
+  const total = questions.length;
+  const seen = questions.filter(q => isSeen(save.cards[q.id])).length;
+  if (seen === total) return { seen, total, date: null };
+  const { perDay, left } = dailyPlan(questions, save, now);
+  const unseen = total - seen;
+  const days = left > 0 ? Math.ceil((unseen - left) / perDay) : Math.ceil(unseen / perDay);
+  const d = new Date(startOfDay(now));
+  d.setDate(d.getDate() + days); // calendar days, right across daylight saving changes
+  return { seen, total, date: +d };
+}
+
+// Answers given today (finished sessions and mock tests) and today's goal: those plus what is still
+// to do today (due questions and the day's new ones).
+export function dayProgress(questions, save, now) {
+  const today = startOfDay(now);
+  const done = [...save.reviews, ...save.tests].filter(r => r.at >= today).reduce((sum, r) => sum + r.total, 0);
+  return { done, goal: done + overview(questions, save, now).toDoToday };
 }
 
 // Questions whose answer the user doubts, to send to whoever writes the fiches.
