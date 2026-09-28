@@ -87,8 +87,11 @@ Toute image ajoutée va dans `src/img/` (WebP, 80 Ko au plus, un test le vérifi
 
 La version est écrite à trois endroits, qui doivent rester égaux (un test le vérifie) : `version` de
 `package.json`, `APP_VERSION` de `src/js/config.js`, `VERSION` de `src/sw.js`. **L'augmenter à chaque
-déploiement** : c'est ce qui fait installer la nouvelle version aux téléphones et afficher le bandeau
-« Nouvelle version d'Envol installée ».
+déploiement** qui touche au code (JS, CSS, HTML, images de l'app) : c'est ce qui fait installer la
+nouvelle version aux téléphones et afficher le bandeau « Nouvelle version d'Envol installée ». Le code
+est servi depuis la copie du téléphone : **sans nouveau numéro, une correction du code n'arrive jamais**.
+Les fiches (`src/fiches/`) et leurs images sont rafraîchies en arrière-plan : une fiche corrigée arrive
+à l'ouverture suivante, même sans nouvelle version.
 
 Réglages affiche « Version x.y.z · fiches abc123 · N questions ». L'empreinte `fiches` change dès
 qu'une question ou une réponse change : elle identifie exactement les fiches d'un téléphone, et elle
@@ -99,6 +102,9 @@ est écrite dans les fichiers de signalements.
 1. Dans l'app, on signale une question (après la réponse, ou par le drapeau ⚑), avec une raison facultative.
    La question n'est plus posée tant que la fiche donne la même réponse.
 2. Mes résultats → **Envoyer mes signalements** : un fichier `envol-signalements-AAAA-MM-JJ.json`.
+   Si `REPORT_EMAIL` est rempli dans `src/js/config.js`, un bouton **Envoyer par e-mail** ouvre en plus un
+   e-mail prérempli (texte coupé au-delà de 1 800 caractères). L'adresse est visible dans le dépôt
+   public : prendre une adresse créée pour ça.
 3. `pnpm signalements envol-signalements-….json` : chaque question signalée, sa raison, et la fiche
    actuelle (choix, extrait), avec une alerte si elle a changé depuis.
 4. Corriger la fiche puis déployer : la question revient d'elle-même dans les séances.

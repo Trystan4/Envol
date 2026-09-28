@@ -7,23 +7,27 @@ n'importe quelles fiches : voir [Créer ses propres fiches](#créer-ses-propres-
 ## Ce que fait l'app
 
 - **Cours** : les passages du cours, thème par thème, avec une recherche dans tous les thèmes.
-- **Réviser** : des séances de 20 questions (ou une séance express de 5). Les questions ratées
-  reviennent plus souvent (et un peu plus loin dans la même séance), celles qu'on maîtrise s'espacent.
+- **Réviser** : des séances de 20 questions (ou une séance express de 5). Une question ratée ne
+  revient pas dans la même séance, mais plus souvent aux séances suivantes ; celles qu'on maîtrise
+  s'espacent.
 - **Plan de révision** : avec une date d'examen (dans Réglages), l'app dose les nouvelles questions
   pour que tout soit vu trois jours avant, dit combien de séances faire par jour et montre la
   progression du jour.
 - **Test blanc** : 20 questions sur tous les thèmes, notées sur 20, chronométrées (désactivable).
+  Une erreur en test blanc pèse plus qu'en révision : la question repart de zéro.
 - **Revoir mes erreurs** : une séance faite des questions ratées récemment.
 - **Après une erreur**, l'extrait du cours s'affiche avec sa page (texte, tableau ou schéma).
 - **Signaler une erreur** dans une question, avec une raison : elle n'est plus posée tant qu'elle
   n'est pas corrigée, et Mes résultats permet d'envoyer la liste des signalements.
 - **Pastille de fiabilité** sur chaque question : verte (vérifiée dans le document), orange (à
   recouper avec ses sources) ou rouge (douteuse).
-- **Mes résultats** : maîtrise par thème (et « Réviser ce thème »), questions les plus ratées, date où
+- **Mes résultats** : progression par thème en trois étapes, vues, en cours et maîtrisées (et
+  « Réviser ce thème »), questions les plus ratées, date où
   tout sera découvert, jours de révision, notes des tests blancs.
 - **Reprendre une séance** interrompue (app fermée en pleine séance).
 - **Affichage** : texte agrandi, thème clair ou sombre au choix.
 - **Comment marche Envol** : un guide des fonctionnalités, dans Réglages.
+- **Bouton retour** du téléphone : il revient à l'écran précédent de l'app au lieu de la quitter.
 - **Sauvegarde** : une copie de la progression à garder de côté, pour changer de téléphone.
 - **Mises à jour** : un bandeau propose la nouvelle version quand elle arrive ; l'accueil annonce les
   questions nouvelles ou corrigées, et les questions signalées qui ont été corrigées.
@@ -87,3 +91,14 @@ Pour publier sa propre version en ligne, gratuitement, voir [docs/technique.md](
 
 - [docs/technique.md](docs/technique.md) : développement, tests, déploiement, sauvegardes et dépannage.
 - [docs/conception.md](docs/conception.md) : fonctionnement du moteur de révision et choix techniques.
+
+## Licence
+
+Copyright (C) 2026 Trystan4 ([github.com/Trystan4](https://github.com/Trystan4)).
+
+Le code et la documentation d'Envol sont publiés sous licence
+[GNU Affero General Public License v3.0](LICENSE) ou toute version ultérieure (AGPL-3.0-or-later).
+Toute version modifiée, y compris proposée en ligne, doit publier son code source sous la même licence.
+
+Le contenu des fiches (`src/fiches/`) et les images qu'elles citent (`src/img/`) **ne sont pas couverts**
+par cette licence : ils reprennent des documents de cours qui restent la propriété de leurs auteurs.

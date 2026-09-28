@@ -21,7 +21,8 @@ export function renderHome({ ov, progress, resume, corrected, deckNews, days, fi
   const sub = firstTime ? `${plural(ov.total, "question")} à découvrir. On commence en douceur.`
     : ov.toDoToday ? `${plural(ov.toDoToday, "question")} à revoir aujourd'hui${ov.sessionsToday > 1 ? `, en ${ov.sessionsToday} séances` : ""}.`
     : "Tout est à jour. Un petit tour pour garder le rythme ?";
-  const C = 2 * Math.PI * 76, arc = C * ov.pct / 100;
+  // Mastered questions in full colour, then those in progress (level 1 or 2) in a lighter arc after them.
+  const C = 2 * Math.PI * 76, arc = C * ov.pct / 100, learningArc = C * ov.learningPct / 100;
   const cd = countdown(days);
   const caption = cd ? `maîtrisé, ${cd}` : "maîtrisé";
   return `<main class="screen home">
@@ -34,8 +35,9 @@ export function renderHome({ ov, progress, resume, corrected, deckNews, days, fi
     <h1 class="display">On décolle ?</h1>
     <p class="muted">${esc(sub)}</p>
     ${firstTime ? "" : dayBar(progress)}
-    <div class="ring" role="img" aria-label="${ov.pct} % du programme maîtrisé${cd ? `, ${cd}` : ""}">
+    <div class="ring" role="img" aria-label="${ov.pct} % du programme maîtrisé${ov.learningPct ? `, ${ov.learningPct} % en cours` : ""}${cd ? `, ${cd}` : ""}">
       <svg viewBox="0 0 180 180"><circle cx="90" cy="90" r="76" fill="none" stroke="var(--line)" stroke-width="14"/>
+      ${ov.learningPct ? `<circle cx="90" cy="90" r="76" fill="none" stroke="var(--cabine-soft)" stroke-width="14" stroke-linecap="round" stroke-dasharray="${learningArc} ${C}" transform="rotate(${-90 + 3.6 * ov.pct} 90 90)"/>` : ""}
       <circle cx="90" cy="90" r="76" fill="none" stroke="var(--cabine)" stroke-width="14" stroke-linecap="round" stroke-dasharray="${arc} ${C}" transform="rotate(-90 90 90)" ${ov.pct ? "" : 'opacity="0"'}/>
       <text x="90" y="95" text-anchor="middle" fill="var(--ink)" style="font:700 40px var(--font)">${ov.pct} %</text>
       <text class="in-ring" x="90" y="121" text-anchor="middle" fill="var(--ink-muted)" style="font:600 14px var(--font)">${caption}</text></svg>

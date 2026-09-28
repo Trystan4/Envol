@@ -3,7 +3,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { mistakePool, buildMistakesSession, buildReviewSession, activeQuestions, rightAnswerText } from "../../src/js/engine.js";
-import { streak, calendar, disputed, backupDue, reportFile } from "../../src/js/summary.js";
+import { streak, calendar, disputed, backupDue, reportFile, reportMail, MAIL_BODY_MAX } from "../../src/js/summary.js";
 import { validateSave, createStore } from "../../src/js/storage.js";
 import { validateDeck } from "../../src/js/deck.js";
 import { CALENDAR_DAYS, SESSION_SIZE } from "../../src/js/config.js";
@@ -98,6 +98,23 @@ test("signalements : fichier à envoyer avec version, empreinte des fiches, rép
     items: [{ id: "t0-q1", theme: q[1].theme, page: 3, question: q[1].question,
       reponse: q[1].answers.filter(a => a.correct).map(a => a.text).join(", "), note: "Page 3 : c'est l'inverse." }],
   });
+});
+
+test("signalements par e-mail : lien prérempli, coupé s'il est trop long", () => {
+  const q = makeQuestions(1, 3).map((x, i) => ({ ...x, page: i + 2 }));
+  const save = saveWith({}, { flags: { "t0-q1": { review: false, dispute: true, note: "C'est l'inverse & autre chose ?" } } });
+  const link = reportMail(reportFile(q, save, { version: "2.5.0", fingerprint: "abc123", now: NOW }), "fiches@example.org");
+  assert.match(link, /^mailto:fiches@example\.org\?subject=[^&]+&body=/);
+  const params = new URLSearchParams(link.split("?")[1]);
+  assert.equal(params.get("subject"), "Envol : 1 question signalée");
+  assert.match(params.get("body"), /^Version 2\.5\.0, fiches abc123\n\n/);
+  assert.match(params.get("body"), /Pourquoi : C'est l'inverse & autre chose \?/);
+
+  const q6 = makeQuestions(1, 6);
+  const many = saveWith({}, { flags: Object.fromEntries(q6.map(x => [x.id, { review: false, dispute: true, note: "x".repeat(500) }])) });
+  const long = new URLSearchParams(reportMail(reportFile(q6, many, { version: "2.5.0", fingerprint: "abc123", now: NOW }), "a@b.c").split("?")[1]);
+  assert.ok(long.get("body").length < MAIL_BODY_MAX + 100);
+  assert.match(long.get("body"), /envoie aussi le fichier des signalements/);
 });
 
 test("sauvegarde : les nouveaux champs sont validés, et facultatifs pour les anciennes copies", () => {

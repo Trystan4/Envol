@@ -35,13 +35,22 @@ chaque règle testable avec `node --test`.
 
 ```
 { level: 0-5, due: date de révision, seen: réponses, correct: bonnes réponses,
-  firstSeen: date de découverte, lastWrong: date de la dernière erreur | null }
+  firstSeen: date de découverte, lastWrong: date de la dernière erreur | null,
+  boostUntil?: fin de la poussée après une erreur en test blanc }
 ```
 
 Le niveau suit une répétition espacée classique (`INTERVALS` : 0, 1, 2, 4, 7, 15 jours) :
-bonne réponse du premier coup en révision = niveau +1 ; erreur = niveau −2 et à revoir tout de suite.
-En test blanc, une bonne réponse ne fait pas monter un niveau déjà acquis (un test blanc sert à mesurer,
-pas à s'entraîner), mais une erreur compte.
+bonne réponse en révision = niveau +1 ; erreur = niveau −2 et à revoir tout de suite.
+
+Une question ratée **ne revient pas dans la même séance** : elle revient aux séances suivantes, avec
+un poids doublé (voir « erreur récente »). L'espacement se fait dans le temps, pas dans la séance.
+
+En test blanc :
+- une **bonne réponse** compte comme en révision si la question était nouvelle ou à revoir ; sinon,
+  rien ne change (un test fait juste après une révision ne gonfle pas les niveaux) ;
+- une **erreur** pèse plus qu'en révision, car elle a eu lieu en conditions d'examen : la question
+  retombe au niveau 0 et son poids est doublé pendant 3 jours (`MISTAKE_BOOST_DAYS.test`, noté
+  `boostUntil`), au lieu de 24 h.
 
 ### Poids
 
@@ -53,7 +62,8 @@ poids = byLevel[niveau] × (1 + 3 × taux d'erreur lissé) × échéance × erre
   n'est pas traitée comme 100 % d'échec.
 - **échéance** : ×0,3 si la question n'est pas encore à revoir (possible, mais moins probable),
   de ×1 à ×2 si elle est en retard (plafond à 7 jours de retard).
-- **erreur récente** : ×2 si ratée dans les dernières 24 h (y compris en test blanc).
+- **erreur récente** : ×2 si ratée dans les dernières 24 h en révision, ou dans les 3 derniers jours en
+  test blanc (`boostUntil`). Une erreur en révision ne raccourcit pas la poussée d'un test blanc.
 - plancher à 0,05 : aucune question ne devient impossible.
 - une question jamais vue vaut 1.
 
@@ -128,7 +138,8 @@ pour que la note reste représentative.
   (`activeQuestions`) tant que la fiche donne la réponse vue au moment du signalement ; elle revient
   seule si la fiche est corrigée, ou quand le signalement est retiré. « Envoyer mes signalements »
   produit un fichier (version, empreinte des fiches, question, réponse vue, raison) que
-  `pnpm signalements <fichier>` met en regard des fiches actuelles.
+  `pnpm signalements <fichier>` met en regard des fiches actuelles. Si une adresse est réglée
+  (`REPORT_EMAIL`, vide par défaut), « Envoyer par e-mail » ouvre en plus un e-mail prérempli.
 - **Fiabilité** : chaque question porte une pastille verte (vérifiée), orange (à recouper) ou rouge
   (douteuse) ; hors du vert, la note s'affiche après la réponse.
 
@@ -147,6 +158,12 @@ passe par les mêmes règles de niveau que les QCM.
 
 Une question est maîtrisée à partir du niveau 3. Le pourcentage affiché est calculé sur toutes les
 questions du programme.
+
+Comme il faut au moins trois bonnes réponses sur trois jours pour y arriver, la progression par thème
+(Mes résultats) montre trois étapes dans la même barre : **maîtrisées** (niveau 3 et plus), **en cours**
+(niveau 1 ou 2, déjà réussies) et **vues** (répondues, pas encore réussies), sur le total du thème.
+L'anneau de l'accueil ajoute les questions en cours dans un arc plus clair. La barre avance donc dès les
+premières bonnes réponses, tests blancs compris.
 
 ## Sauvegarde
 
@@ -172,8 +189,26 @@ qu'une correction de faute remette la progression à zéro, ce que faisait l'anc
 ## Hors ligne
 
 `sw.js` met en cache, à l'installation, tous les fichiers de l'app (liste `ASSETS`) et toutes les
-fiches listées dans `index.json`. Stratégie réseau d'abord avec délai de 4 s, puis copie locale.
-Un test vérifie que `ASSETS` correspond exactement aux fichiers publiés.
+fiches listées dans `index.json`, directement depuis le serveur (sans le cache HTTP du navigateur).
+
+Tout est servi **depuis la copie du téléphone d'abord** : l'app s'ouvre tout de suite, sans réseau
+comme avec un réseau très lent (métro, Wi-Fi d'hôtel), où une stratégie « réseau d'abord » attendait
+chaque fichier l'un après l'autre.
+- **Code** : uniquement la copie. Une nouvelle version arrive par un nouveau `sw.js` (numéro de version),
+  qui retélécharge tout ; le bandeau « Nouvelle version » propose de recharger. Deux versions ne se
+  mélangent jamais, mais toute modification du code demande un nouveau numéro.
+- **Fiches et images** : la copie, puis une mise à jour en arrière-plan pour l'ouverture suivante.
+
+Un test vérifie que `ASSETS` correspond exactement aux fichiers publiés, et un autre que le code est
+servi sans attendre un réseau qui ne répond pas.
+
+## Navigation
+
+- **Bouton retour** (Android, navigateur) : chaque écran autre que l'accueil garde une entrée
+  d'historique. Retour ferme la fenêtre ouverte, quitte la séance (en test blanc, après confirmation)
+  ou fait comme le bouton ✕ de l'écran. Depuis l'accueil, retour quitte l'app.
+- **Confirmations** : dans une fenêtre de l'app (`<dialog>`), jamais `confirm()` du navigateur. Un
+  test navigateur échoue si une fenêtre du navigateur s'ouvre.
 
 ## Sécurité
 

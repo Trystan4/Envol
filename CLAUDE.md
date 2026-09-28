@@ -14,6 +14,8 @@ dépôt public. Lire `README.md`, `docs/technique.md` et `docs/conception.md` av
 - **Rien d'indexable** : garder `<meta name="robots" content="noindex, …">` dans `src/index.html`.
 - **CSP stricte** : aucun script inline ni ressource externe (CDN, police, analytics). Les tests
   `tests/e2e/responsive.spec.js` échouent sur toute violation.
+- Toute modification publiée du code demande un **nouveau numéro de version** (`package.json`,
+  `config.js`, `sw.js`) : le code est servi depuis la copie du téléphone, sinon il n'arrive jamais.
 - Ne jamais changer l'`id` d'une question publiée, ni la clé `envol-v2` sans migration : la
   progression y est attachée.
 

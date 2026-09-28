@@ -49,22 +49,35 @@ test("progression du jour : réponses données aujourd'hui et objectif du jour",
 test("séance interrompue : gardée, puis reprise avec les mêmes questions", () => {
   const q = makeQuestions(1, 5);
   const s = {
-    mode: "review", queue: [q[2], q[0], { ...q[2], retry: true }], size: 2, index: 1, correct: 1, total: 1,
-    byTheme: { "Thème 0": { correct: 1, total: 1 } }, missed: new Set(["t0-q2"]), retries: { "t0-q2": 1 }, mistakes: [q[2]],
+    mode: "review", queue: [q[2], q[0], q[3]], size: 3, index: 1, correct: 0, total: 1,
+    byTheme: { "Thème 0": { correct: 0, total: 1 } }, mistakes: [q[2]],
     unanswered: 0, deadline: null, warnMs: 120000, label: "Thème 0",
   };
   const saved = serializeSession(s, NOW);
   const json = JSON.parse(JSON.stringify(saved));
   const back = restoreSession(json, q, NOW + 3600e3);
-  assert.deepEqual(back.queue.map(x => [x.id, !!x.retry]), [["t0-q2", false], ["t0-q0", false], ["t0-q2", true]]);
+  assert.deepEqual(back.queue.map(x => x.id), ["t0-q2", "t0-q0", "t0-q3"]);
   assert.equal(back.index, 1);
-  assert.deepEqual([...back.missed], ["t0-q2"]);
   assert.deepEqual(back.mistakes.map(x => x.id), ["t0-q2"]);
   assert.equal(back.label, "Thème 0");
   // Trop vieille, abîmée, ou dont les questions ont disparu : ignorée.
   assert.equal(restoreSession(json, q, NOW + SESSION_MAX_AGE + 1), null);
   assert.equal(restoreSession({ nope: 1 }, q, NOW), null);
   assert.equal(restoreSession(json, [], NOW), null);
+});
+
+test("séance gardée par une version qui reposait les questions ratées : reprise sans ces nouveaux essais", () => {
+  const q = makeQuestions(1, 5);
+  const old = {
+    v: 1, at: NOW, mode: "review", label: null, queue: [["t0-q2", 0], ["t0-q0", 0], ["t0-q2", 1], ["t0-q3", 0]],
+    index: 3, size: 3, correct: 1, total: 2, unanswered: 0, byTheme: {}, missed: ["t0-q2"], retries: { "t0-q2": 1 },
+    mistakes: ["t0-q2"], deadline: null, warnMs: 120000,
+  };
+  const back = restoreSession(old, q, NOW + 60e3);
+  assert.deepEqual(back.queue.map(x => x.id), ["t0-q2", "t0-q0", "t0-q3"]);
+  assert.equal(back.index, 2); // still on t0-q3
+  // Only a second try was left: the session is over, nothing to resume.
+  assert.equal(restoreSession({ ...old, queue: old.queue.slice(0, 3), index: 2 }, q, NOW + 60e3), null);
 });
 
 test("affichage : texte agrandi et thème clair / sombre gardés, valeurs contrôlées", () => {

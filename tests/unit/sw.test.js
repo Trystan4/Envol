@@ -51,3 +51,54 @@ test("le numéro de version est le même dans l'app, le service worker et packag
   assert.equal(config, pkg);
   assert.equal(sw, pkg);
 });
+
+// Runs sw.js with a fake cache and network, and returns what its fetch handler answers.
+async function swAnswer(path, { cached = {}, network = () => new Promise(() => {}) } = {}) {
+  const { runInNewContext } = await import("node:vm");
+  const store = new Map(Object.entries(cached));
+  const put = [];
+  const listeners = {};
+  const later = [];
+  const cache = {
+    match: async req => store.get(new URL(typeof req === "string" ? req : req.url, "https://x.test/Envol/").pathname.replace("/Envol/", "")),
+    put: async (req, res) => { put.push(new URL(req.url).pathname); store.set(new URL(req.url).pathname.replace("/Envol/", ""), res); },
+  };
+  runInNewContext(readFileSync(src + "sw.js", "utf8"), {
+    self: { addEventListener: (type, fn) => { listeners[type] = fn; } },
+    caches: { open: async () => cache },
+    fetch: network, location: new URL("https://x.test/Envol/sw.js"), URL, Request, setTimeout,
+  });
+  let answer;
+  listeners.fetch({
+    request: { method: "GET", url: `https://x.test/Envol/${path}`, mode: "cors" },
+    respondWith: p => { answer = p; },
+    waitUntil: p => later.push(p),
+  });
+  const res = await answer;
+  await Promise.all(later);
+  return { res, put };
+}
+
+test("hors ligne : le code vient de la copie du téléphone, sans attendre un réseau qui ne répond pas", async () => {
+  const start = Date.now();
+  const { res, put } = await swAnswer("js/app.js", { cached: { "js/app.js": "copie" } });
+  assert.equal(res, "copie");
+  assert.ok(Date.now() - start < 1000, "réponse immédiate");
+  assert.deepEqual(put, []);
+});
+
+test("hors ligne : les fiches viennent de la copie, puis sont rafraîchies en arrière-plan", async () => {
+  const fresh = { ok: true, clone: () => "nouvelle" };
+  const { res, put } = await swAnswer("fiches/ccat-nuages.json", { cached: { "fiches/ccat-nuages.json": "ancienne" }, network: async () => fresh });
+  assert.equal(res, "ancienne");
+  assert.deepEqual(put, ["/Envol/fiches/ccat-nuages.json"]);
+  // Offline: the copy is still served, nothing breaks.
+  const off = await swAnswer("fiches/ccat-nuages.json", { cached: { "fiches/ccat-nuages.json": "ancienne" }, network: async () => { throw new TypeError("offline"); } });
+  assert.equal(off.res, "ancienne");
+});
+
+test("hors ligne : un fichier absent de la copie est demandé au réseau", async () => {
+  const fresh = { ok: true, clone: () => "réseau" };
+  const { res } = await swAnswer("fiches/nouveau-theme.json", { network: async () => fresh });
+  assert.equal(res, fresh);
+});

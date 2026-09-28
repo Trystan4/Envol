@@ -167,15 +167,37 @@ test("réponse : une erreur fait perdre 2 niveaux et rend la question à revoir 
   assert.equal(c.lastWrong, NOW);
 });
 
-test("réponse : réussie après une erreur dans la séance, revue demain sans gagner de niveau", () => {
-  const c = applyAnswer(card({ level: 0 }), { correct: true, mode: "review", retry: true, now: NOW });
-  assert.equal(c.level, 0);
-  assert.equal(c.due, NOW + DAY);
+test("réponse : en test blanc, une bonne réponse compte comme en révision si la question est à revoir", () => {
+  const c = applyAnswer(card({ level: 2, due: NOW - DAY }), { correct: true, mode: "test", now: NOW });
+  assert.equal(c.level, 3);
+  assert.equal(c.due, NOW + 4 * DAY);
+  assert.equal(applyAnswer(undefined, { correct: true, mode: "test", now: NOW }).level, 1);
 });
 
-test("réponse : en test blanc, une bonne réponse ne fait pas grimper un niveau déjà acquis", () => {
-  assert.equal(applyAnswer(card({ level: 3 }), { correct: true, mode: "test", now: NOW }).level, 3);
-  assert.equal(applyAnswer(undefined, { correct: true, mode: "test", now: NOW }).level, 1);
+test("réponse : en test blanc, une question pas encore à revoir ne gagne pas de niveau", () => {
+  const c = applyAnswer(card({ level: 3, due: NOW + 2 * DAY }), { correct: true, mode: "test", now: NOW });
+  assert.equal(c.level, 3);
+  assert.equal(c.due, NOW + 2 * DAY);
+  assert.equal(c.correct, 2);
+});
+
+test("réponse : une erreur en test blanc remet la question au niveau 0 et la pousse pendant 3 jours", () => {
+  const c = applyAnswer(card({ level: 4 }), { correct: false, mode: "test", now: NOW });
+  assert.equal(c.level, 0);
+  assert.equal(c.due, NOW);
+  assert.equal(c.boostUntil, NOW + 3 * DAY);
+  const base = { ...c, boostUntil: undefined };
+  assert.ok(cardWeight(c, NOW + 2 * DAY) > cardWeight({ ...base, lastWrong: NOW - 9 * DAY }, NOW + 2 * DAY));
+  assert.equal(cardWeight(c, NOW + 4 * DAY), cardWeight({ ...base, lastWrong: NOW - 9 * DAY }, NOW + 4 * DAY));
+});
+
+test("réponse : une erreur en révision pousse la question 24 h, sans raccourcir une poussée de test blanc", () => {
+  const r = applyAnswer(card({ level: 3 }), { correct: false, mode: "review", now: NOW });
+  assert.equal(r.boostUntil, undefined);
+  assert.ok(cardWeight(r, NOW + DAY / 2) > cardWeight(r, NOW + 2 * DAY) * 1.5);
+  const t = applyAnswer(card({ level: 3 }), { correct: false, mode: "test", now: NOW });
+  const again = applyAnswer(t, { correct: false, mode: "review", now: NOW + DAY });
+  assert.equal(again.boostUntil, NOW + 3 * DAY);
 });
 
 test("réponse : l'état d'origine n'est jamais modifié", () => {

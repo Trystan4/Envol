@@ -37,6 +37,7 @@ export function renderSettings({ examDate, today, timed, minutes, installed, ver
       ${installed ? "" : `<button class="small-link" data-act="guide">Installer Envol sur cet appareil</button>`}
     </div>
     <p class="version muted">Version ${esc(version)} · fiches ${esc(fingerprint)} · ${plural(count, "question")}</p>
+    <p class="license muted">© 2026 Trystan4 · code sous licence AGPL-3.0. Le contenu des fiches reste la propriété de ses auteurs.</p>
     <button class="small-link" data-act="checkUpdate" style="align-self:center">Rechercher une mise à jour</button>
   </main>`;
 }

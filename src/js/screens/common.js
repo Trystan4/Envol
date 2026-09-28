@@ -28,10 +28,11 @@ export const brand = () => `<div class="brand">${LOGO}Envol</div>`;
 export const closeBar = (action = "home", label = "Retour") =>
   `<div class="top"><button class="close" data-act="${action}" aria-label="${label}">✕</button></div>`;
 
-// One gauge row: label, bar filled to `pct` %, value.
-// Stacked variant for long labels: label and value on one line, full-width bar below.
-export const stackedGauge = (name, pct, value) =>
-  `<div class="gauge stacked"><span class="name">${name}</span><span class="n">${value}</span><span class="g" aria-hidden="true"><i style="width:${Math.max(0, Math.min(100, pct))}%"></i></span></div>`;
+// Label and value on one line, then a full-width bar made of steps side by side (steps: [[class, pct], …]),
+// then a legend.
+export const stepGauge = (name, steps, value, legend) =>
+  `<div class="gauge stacked"><span class="name">${name}</span><span class="n">${value}</span><span class="g split" aria-hidden="true">${steps.map(([cls, pct]) => `<i class="${cls}" style="width:${Math.max(0, Math.min(100, pct))}%"></i>`).join("")}</span><span class="steps-legend">${legend}</span></div>`;
 
+// One gauge row: label, bar filled to `pct` %, value.
 export const gauge = (name, pct, value) =>
   `<div class="gauge"><span class="name">${name}</span><span class="g" aria-hidden="true"><i style="width:${Math.max(0, Math.min(100, pct))}%"></i></span><span class="n">${value}</span></div>`;

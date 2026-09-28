@@ -66,7 +66,6 @@ for (const [label, viewport] of Object.entries(SIZES)) {
       if (await page.locator('[data-act="validate"]').count()) await page.locator('[data-act="validate"]').click();
     }
     await checkScreen(page, "question corrigée");
-    page.once("dialog", d => d.accept());
     await page.getByRole("button", { name: "Quitter" }).click();
     await checkScreen(page, "bilan");
 

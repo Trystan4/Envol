@@ -27,6 +27,8 @@ let jsErrors;
 test.beforeEach(async ({ page }) => {
   jsErrors = [];
   page.on("pageerror", e => jsErrors.push(e.message));
+  // The app asks in its own window, never with the browser's alert / confirm.
+  page.on("dialog", d => { jsErrors.push(`fenêtre du navigateur : ${d.message()}`); d.dismiss(); });
   // Install guide already seen, and a deterministic export path (no share sheet).
   await page.addInitScript(() => {
     localStorage.setItem("envol-v2-guide-seen", "1");
@@ -90,28 +92,28 @@ test("premier lancement : guide d'installation, puis accueil, sans texte genré"
   expect(await page.locator("body").innerText()).not.toMatch(/prête|prêt·e|prêt\(e\)/i);
 });
 
-test("révision : une séance complète, les erreurs reviennent, tout est gardé", async ({ page }) => {
+test("révision : une séance complète, une question ratée ne revient pas dans la séance, tout est gardé", async ({ page }) => {
   test.setTimeout(60_000); // a whole session, answered one question at a time
   await page.goto("/");
   await page.getByRole("button", { name: "Réviser" }).click();
   await expect(page.getByText(/Question 1 sur 15/)).toBeVisible();
-  let first = 0;
   const seen = new Set();
   while (await onQuestion(page)) {
     const q = clean(await page.locator("h2.question").innerText());
-    const isFirst = !seen.has(q);
+    expect(seen.has(q), `reposée dans la séance : ${q}`).toBe(false);
     seen.add(q);
-    if (isFirst) first++;
-    await answer(page, !(isFirst && first <= 3)); // the 3 first questions: wrong the first time
+    await answer(page, seen.size > 3); // the 3 first questions: wrong
   }
+  expect(seen.size).toBe(15);
   await expect(page.getByText("12 bonnes réponses du premier coup sur 15.")).toBeVisible();
   const s = await saved(page);
   expect(Object.keys(s.cards)).toHaveLength(15);
   expect(s.reviews).toHaveLength(1);
-  expect(Object.values(s.cards).filter(c => c.seen === 2)).toHaveLength(3); // missed, then right later
+  expect(Object.values(s.cards).filter(c => c.lastWrong !== null)).toHaveLength(3); // missed: back in the next sessions
 
   await page.reload();
   await expect(page.getByText(/à revoir aujourd'hui|Tout est à jour/)).toBeVisible();
+  await expect(page.getByRole("button", { name: "Revoir mes erreurs (3)" })).toBeVisible();
   expect(await saved(page)).toEqual(s);
 });
 
@@ -133,16 +135,58 @@ test("test blanc : 20 questions sur tous les thèmes, noté sur 20, visible dans
   await page.getByRole("button", { name: "Mes résultats" }).click();
   await expect(page.getByText(/1 test\. Meilleure note : 15 \/ 20/)).toBeVisible();
   await expect(page.locator(".gauges").first().locator(".gauge")).toHaveCount(THEMES);
+  // The 15 right answers of the test show as questions in progress, even with nothing mastered yet.
+  const inProgress = (await page.locator(".steps-legend").allInnerTexts()).reduce((n, t) => n + Number(t.match(/(\d+) en cours/)[1]), 0);
+  expect(inProgress).toBe(15);
 });
 
-test("quitter un test blanc : il n'est pas noté", async ({ page }) => {
+test("quitter un test blanc : l'app demande dans sa propre fenêtre, et le test n'est pas noté", async ({ page }) => {
   await page.goto("/");
   await page.getByRole("button", { name: "Faire un test blanc" }).click();
   await answer(page, true);
-  page.once("dialog", d => d.accept());
+  const ask = page.getByRole("dialog", { name: "Arrêter le test ?" });
   await page.getByRole("button", { name: "Quitter" }).click();
+  await expect(ask).toBeVisible();
+  await ask.getByRole("button", { name: "Continuer le test" }).click();
+  await expect(ask).toBeHidden();
+  await expect(page.getByText("Test blanc, question 2 sur 20")).toBeVisible();
+  await page.getByRole("button", { name: "Quitter" }).click();
+  await ask.getByRole("button", { name: "Arrêter", exact: true }).click();
   await expect(page.getByRole("heading", { name: "On décolle ?" })).toBeVisible();
   expect((await saved(page)).tests).toHaveLength(0);
+});
+
+test("bouton retour du téléphone : il revient en arrière dans l'app au lieu de la quitter", async ({ page }) => {
+  await page.goto("/");
+  const home = page.getByRole("heading", { name: "On décolle ?" });
+  await expect(home).toBeVisible();
+  await page.getByRole("button", { name: "Réglages" }).click();
+  await page.getByRole("button", { name: "Comment marche Envol" }).click();
+  await page.goBack();
+  await expect(page.getByRole("heading", { name: "Réglages" })).toBeVisible();
+  await page.goBack();
+  await expect(home).toBeVisible();
+
+  // During a mock test, back asks first; back again closes the question and the test goes on.
+  await page.getByRole("button", { name: "Faire un test blanc" }).click();
+  const ask = page.getByRole("dialog", { name: "Arrêter le test ?" });
+  await page.goBack();
+  await expect(ask).toBeVisible();
+  await page.goBack();
+  await expect(ask).toBeHidden();
+  await expect(page.getByText("Test blanc, question 1 sur 20")).toBeVisible();
+  await page.goBack();
+  await ask.getByRole("button", { name: "Arrêter", exact: true }).click();
+  await expect(home).toBeVisible();
+
+  // During a review, back ends the session on its results, then goes home.
+  await page.getByRole("button", { name: "Réviser" }).click();
+  await answer(page, true);
+  await page.goBack();
+  await expect(page.getByRole("button", { name: "Retour à l'accueil" }).first()).toBeVisible();
+  expect((await saved(page)).reviews).toHaveLength(1);
+  await page.goBack();
+  await expect(home).toBeVisible();
 });
 
 test("réglages : la date d'examen règle le compte à rebours", async ({ page }) => {
@@ -186,8 +230,8 @@ test("sauvegarde : export, import sur un téléphone vide, refus des fichiers ab
   await page.evaluate(k => localStorage.removeItem(k), KEY);
   await page.reload();
   await page.getByRole("button", { name: "Sauvegarde" }).click();
-  page.once("dialog", d => d.accept());
   await page.locator("#file").setInputFiles(copy);
+  await page.getByRole("dialog", { name: "Remplacer les progrès ?" }).getByRole("button", { name: "Remplacer" }).click();
   await expect(page.getByText("C'est fait, les progrès de la copie sont de retour.")).toBeVisible();
   expect(await saved(page)).toEqual(mine);
 

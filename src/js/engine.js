@@ -7,7 +7,7 @@
 
 import {
   DAY, INTERVALS, SESSION_SIZE, TEST_SIZE, NEW_PER_SESSION_MAX, NEW_PER_DAY_DEFAULT,
-  NEW_PER_DAY_MIN, EXAM_MARGIN_DAYS, WEIGHTS, MASTERED_LEVEL, MISTAKES_WINDOW_DAYS,
+  NEW_PER_DAY_MIN, EXAM_MARGIN_DAYS, WEIGHTS, MASTERED_LEVEL, MISTAKES_WINDOW_DAYS, MISTAKE_BOOST_DAYS,
 } from "./config.js";
 import { shuffle, startOfDay, daysUntil } from "./util.js";
 
@@ -18,7 +18,9 @@ export function cardWeight(card, now) {
   const errorRate = (card.seen - card.correct + 1) / (card.seen + 2); // smoothed: 1 miss out of 1 is not 100 %
   const overdueDays = (now - card.due) / DAY;
   const due = overdueDays >= 0 ? 1 + Math.min(overdueDays, WEIGHTS.overdueCapDays) / WEIGHTS.overdueCapDays : WEIGHTS.notDue;
-  const recent = card.lastWrong !== null && now - card.lastWrong < DAY ? WEIGHTS.recentMistake : 1;
+  // A review mistake is pushed for a day; a mock test mistake sets a longer boostUntil.
+  const boostEnd = Math.max(card.boostUntil ?? 0, card.lastWrong === null ? 0 : card.lastWrong + MISTAKE_BOOST_DAYS.review * DAY);
+  const recent = now < boostEnd ? WEIGHTS.recentMistake : 1;
   const w = WEIGHTS.byLevel[card.level] * (1 + WEIGHTS.errorBoost * errorRate) * due * recent;
   return Math.max(WEIGHTS.min, w);
 }
@@ -125,26 +127,26 @@ export function buildMockTest(questions, save, { now, rng = Math.random }) {
   return shuffle(picked, rng);
 }
 
-// New state of a question after an answer. `retry`: already missed earlier in this review session.
-export function applyAnswer(card, { correct, mode, retry = false, now }) {
+// New state of a question after an answer. mode: "review" or "test".
+// A mock test mistake happened in exam conditions: the question starts again from level 0 and is
+// pushed for longer. A right answer in a mock test counts like a review only when the question was
+// new or due, so a test taken right after a review does not inflate levels.
+export function applyAnswer(card, { correct, mode, now }) {
   const c = isSeen(card)
     ? { ...card }
     : { level: 0, due: now, seen: 0, correct: 0, firstSeen: now, lastWrong: null };
+  const wasDue = !isSeen(card) || card.due <= now;
   c.seen++;
   if (!correct) {
-    c.level = Math.max(0, c.level - 2);
+    c.level = mode === "test" ? 0 : Math.max(0, c.level - 2);
     c.due = now;
     c.lastWrong = now;
+    if (mode === "test") c.boostUntil = Math.max(c.boostUntil ?? 0, now + MISTAKE_BOOST_DAYS.test * DAY);
     return c;
   }
   c.correct++;
-  if (mode === "test") {
-    if (c.level === 0) { c.level = 1; c.due = now + DAY; }
-  } else if (retry) {
-    c.due = now + DAY; // right on the second try: back tomorrow, no level gained
-  } else {
-    c.level = Math.min(INTERVALS.length - 1, c.level + 1);
-    c.due = now + INTERVALS[c.level] * DAY;
-  }
+  if (mode === "test" && !wasDue) return c;
+  c.level = Math.min(INTERVALS.length - 1, c.level + 1);
+  c.due = now + INTERVALS[c.level] * DAY;
   return c;
 }

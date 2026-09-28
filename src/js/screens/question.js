@@ -60,9 +60,7 @@ export function renderQuestion(s, flag, now) {
   const test = s.mode === "test";
   const card = q.kind === "card";
   const done = s.answered;
-  // Position among the session's own questions; second tries of missed questions are not counted.
-  const position = s.queue.slice(0, s.index + 1).filter(x => !x.retry).length;
-  const counter = q.retry ? "Nouvel essai" : `${test ? "Test blanc, question" : "Question"} ${position} sur ${s.size}`;
+  const counter = `${test ? "Test blanc, question" : "Question"} ${s.index + 1} sur ${s.size}`;
   const flagged = flag.review || flag.dispute;
   const timer = s.deadline
     ? `<span class="timer${s.deadline - now <= s.warnMs ? " low" : ""}" id="timer" role="timer" aria-label="Temps restant">${formatClock(s.deadline - now)}</span>`
@@ -78,8 +76,7 @@ export function renderQuestion(s, flag, now) {
 
   let feedback = "";
   if (done) {
-    const again = s.requeued ? "cette question reviendra un peu plus loin." : "elle reviendra lors d'une prochaine séance.";
-    feedback = s.lastCorrect ? `<p class="success" role="status">Bien joué.</p>` : `<p class="warning" role="status">Pas encore : ${again}</p>`;
+    feedback = s.lastCorrect ? `<p class="success" role="status">Bien joué.</p>` : `<p class="warning" role="status">Pas encore : elle reviendra lors d'une prochaine séance.</p>`;
     if (q.explanation) feedback += `<p class="explanation">${esc(q.explanation)}</p>`;
     // A wrong answer shows the passage of the course; a right one just says where to find it.
     if (!s.lastCorrect) feedback += excerptHtml(q);

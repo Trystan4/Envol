@@ -1,12 +1,12 @@
 // Entry point: loads the deck and the save, keeps the running session, dispatches button actions.
 // Every action updates `state`, then renders one screen. Screens only build HTML.
 
-import { EXPRESS_SIZE, DAY, RETRY_LIMIT, RETRY_GAP, REVIEWS_KEPT, ACTIVITY_DAYS_KEPT, TEST_DURATION_MIN, TIMER_WARNING_SEC, APP_VERSION, REPORT_NOTE_MAX } from "./config.js";
+import { EXPRESS_SIZE, DAY, REVIEWS_KEPT, ACTIVITY_DAYS_KEPT, TEST_DURATION_MIN, TIMER_WARNING_SEC, APP_VERSION, REPORT_NOTE_MAX, REPORT_EMAIL } from "./config.js";
 import { loadDeck, deckFingerprint, questionHashes, deckChanges } from "./deck.js";
 import { createStore, validateSave, isValidExamDate, MAX_IMPORT_BYTES, KEY } from "./storage.js";
 import { serializeSession, restoreSession } from "./session.js";
 import { buildReviewSession, buildMockTest, buildMistakesSession, mistakePool, applyAnswer, activeQuestions, rightAnswerText, dailyPlan } from "./engine.js";
-import { overview, themeBreakdown, testTrend, strengths, reviewCount, streak, calendar, disputed, backupDue, reportFile, mostMissed, discoveryForecast, dayProgress, correctedReports } from "./summary.js";
+import { overview, themeBreakdown, testTrend, strengths, reviewCount, streak, calendar, disputed, backupDue, reportFile, mostMissed, discoveryForecast, dayProgress, correctedReports, reportMail } from "./summary.js";
 import { shuffle, daysUntil, isoDate } from "./util.js";
 import { renderHome } from "./screens/home.js";
 import { renderQuestion, formatClock } from "./screens/question.js";
@@ -67,9 +67,12 @@ const state = {
   recovered: false, // an unreadable save was set aside at startup
 };
 
-function render(html) {
+// root: a screen the phone's back button leaves the app from (home, first-launch guide, deck error).
+// Every other screen sits on one extra history entry, so the back button comes back into the app.
+function render(html, root = false) {
   guideOnScreen = false;
   $app.innerHTML = html;
+  syncHistory(root);
   window.scrollTo(0, 0);
   // VoiceOver starts reading each new screen from its title.
   const title = $app.querySelector("h1, h2");
@@ -102,7 +105,7 @@ async function loadQuestions() {
 
 function showHome() {
   state.session = null;
-  if (!state.questions.length) return render(renderDeckError());
+  if (!state.questions.length) return render(renderDeckError(), true);
   const notices = [];
   if (state.storageFull) notices.push("Le stockage de cet appareil refuse d'enregistrer : les derniers progrès ne sont pas gardés. Fais une copie depuis Sauvegarde.");
   if (state.recovered) notices.push("La sauvegarde de cet appareil était abîmée : l'app repart de zéro. Si tu as une copie, reprends-la depuis Sauvegarde.");
@@ -115,13 +118,13 @@ function showHome() {
     progress: dayProgress(pool(), state.save, now),
     corrected: correctedReports(state.questions, state.save).length,
     deckNews: state.deckNews,
-    resume: resume && { position: resume.queue.slice(0, resume.index + 1).filter(x => !x.retry).length, size: resume.size, label: resume.label },
+    resume: resume && { position: resume.index + 1, size: resume.size, label: resume.label },
     days: daysUntil(state.save.examDate, now),
     firstTime: !Object.keys(state.save.cards).length,
     notices,
     mistakes: mistakePool(pool(), state.save, now).length,
     backupDays: backupDue(state.save, now) ? (state.save.lastExport === null ? Infinity : Math.floor((now - since) / DAY)) : null,
-  }));
+  }), true);
 }
 
 function showSummary(message = "") {
@@ -140,6 +143,7 @@ function showSummary(message = "") {
     trend: testTrend(state.save.tests),
     tests: state.save.tests,
     reviewsThisWeek: reviewCount(state.save, now - 7 * DAY),
+    mail: REPORT_EMAIL ? reportMail(currentReport(now), REPORT_EMAIL) : null,
   }));
 }
 
@@ -160,7 +164,7 @@ const showSettings = (feedback = {}) => render(renderSettings({
 // mode: "review" or "test"; "mistakes" is a review session drawn from recent mistakes only.
 // only: { theme } (review that theme alone) or { missed: true } (the most missed questions).
 function startSession(mode, focusThemes = null, only = null) {
-  if (!state.questions.length) return render(renderDeckError());
+  if (!state.questions.length) return render(renderDeckError(), true);
   const now = Date.now();
   const questions = pool();
   const queue = mode === "test" ? buildMockTest(questions, state.save, { now })
@@ -173,9 +177,9 @@ function startSession(mode, focusThemes = null, only = null) {
   const timed = mode === "test" && state.save.timedTests;
   state.session = {
     mode: mode === "test" ? "test" : "review", queue, size: queue.length, index: 0, selected: new Set(), answered: false, order: null,
-    lastCorrect: false, requeued: false, revealed: false, flagOpen: false, reliabilityOpen: false, unanswered: 0,
+    lastCorrect: false, revealed: false, flagOpen: false, reliabilityOpen: false, unanswered: 0,
     deadline: timed ? now + TEST_DURATION_MIN * 60e3 : null, warnMs: TIMER_WARNING_SEC * 1000,
-    byTheme: {}, mistakes: [], retries: {}, missed: new Set(), correct: 0, total: 0, finished: false, weak: [],
+    byTheme: {}, mistakes: [], correct: 0, total: 0, finished: false, weak: [],
     label: only && only.theme ? only.theme : only && only.missed ? "Les plus ratées" : only && only.express ? "Séance express" : null,
   };
   if (timed) startTimer();
@@ -226,7 +230,6 @@ function withdraw(button) {
 function report() {
   const s = state.session, q = s.queue[s.index];
   setFlag(q.id, { ...flagOf(q.id), dispute: true, answer: rightAnswerText(q) });
-  s.queue = s.queue.filter((x, k) => k <= s.index || x.id !== q.id); // no second try of it in this session
   showQuestion();
   const note = document.getElementById("reportNote");
   if (note) note.focus();
@@ -263,29 +266,17 @@ function timeUp() {
 // Back from another app: the deadline kept running, catch up at once.
 document.addEventListener("visibilitychange", () => { if (!document.hidden && timer) tick(); });
 
+// A missed question is not asked again in the same session: the engine brings it back in the next ones.
 function record(q, correct) {
   const s = state.session;
-  const retry = s.missed.has(q.id);
-  state.save.cards[q.id] = applyAnswer(state.save.cards[q.id], { correct, mode: s.mode, retry, now: Date.now() });
+  state.save.cards[q.id] = applyAnswer(state.save.cards[q.id], { correct, mode: s.mode, now: Date.now() });
   const today = isoDate(Date.now());
   if (state.save.activity[state.save.activity.length - 1] !== today) {
     state.save.activity = state.save.activity.concat(today).slice(-ACTIVITY_DAYS_KEPT);
   }
-  if (!retry) { // the score counts first attempts only
-    const t = s.byTheme[q.theme] || (s.byTheme[q.theme] = { correct: 0, total: 0 });
-    s.total++; t.total++;
-    if (correct) { s.correct++; t.correct++; } else s.mistakes.push(q);
-  }
-  s.requeued = false;
-  if (!correct && s.mode === "review") {
-    s.missed.add(q.id);
-    s.retries[q.id] = (s.retries[q.id] || 0) + 1;
-    if (s.retries[q.id] <= RETRY_LIMIT) {
-      // A marked copy: the counter shows "Nouvel essai" instead of growing the total.
-      s.queue.splice(Math.min(s.index + RETRY_GAP, s.queue.length), 0, { ...q, retry: true });
-      s.requeued = true;
-    }
-  }
+  const t = s.byTheme[q.theme] || (s.byTheme[q.theme] = { correct: 0, total: 0 });
+  s.total++; t.total++;
+  if (correct) { s.correct++; t.correct++; } else s.mistakes.push(q);
   persist();
 }
 
@@ -335,12 +326,63 @@ function finishSession() {
   render(renderResults({ s, strong, weak }));
 }
 
-function quit() {
+async function quit() {
   const s = state.session;
-  if (s && s.mode === "test") { if (confirm("Arrêter le test ? Il ne sera pas noté.")) { stopTimer(); dropSession(); showHome(); } }
-  else if (s && s.total) finishSession();
+  if (s && s.mode === "test" && !s.finished) {
+    if (await ask("Arrêter le test ?", "Il ne sera pas noté.", "Arrêter", "Continuer le test", { safe: true }) && state.session === s && !s.finished) {
+      stopTimer(); dropSession(); showHome();
+    }
+  } else if (s && s.total && !s.finished) finishSession();
   else { dropSession(); showHome(); }
 }
+
+/* ---------- In-app confirmation ---------- */
+
+// A question asked in the app's own window, never the browser's: resolves to true on `yes`.
+// Closing it any other way (Échap, back button) means no. safe: the big button is `no` (the choice
+// that loses nothing), otherwise it is `yes`.
+const $ask = document.getElementById("ask");
+function ask(title, text, yes, no, { safe = false } = {}) {
+  $ask.querySelector("h2").textContent = title;
+  $ask.querySelector("p").textContent = text;
+  const [primary, secondary] = $ask.querySelectorAll("[data-ask]");
+  primary.textContent = safe ? no : yes;
+  primary.value = safe ? "no" : "yes";
+  secondary.textContent = safe ? yes : no;
+  secondary.value = safe ? "yes" : "no";
+  $ask.returnValue = "";
+  $ask.showModal();
+  return new Promise(resolve => $ask.addEventListener("close", () => resolve($ask.returnValue === "yes"), { once: true }));
+}
+$ask.addEventListener("click", e => {
+  const button = e.target.closest("[data-ask]");
+  if (button) $ask.close(button.value);
+});
+
+/* ---------- Back button ---------- */
+
+// The phone's back button (and the browser's) goes back inside the app instead of leaving it: every
+// screen but the root ones keeps one history entry above the root, and going back runs the screen's
+// own way out (its ✕ button, or leaving the session). From a root screen, back leaves the app.
+let pushed = false; // the extra history entry exists
+let dropping = false; // a history.back() of ours is under way: its popstate is not the user's
+let onRoot = true;
+function syncHistory(root) {
+  onRoot = root;
+  if (!root && !pushed) { history.pushState({ envol: 1 }, ""); pushed = true; }
+  else if (root && pushed) { pushed = false; dropping = true; history.back(); }
+}
+window.addEventListener("popstate", () => {
+  if (dropping) { dropping = false; return; }
+  pushed = false;
+  if ($ask.open) $ask.close("no");
+  else if (state.session && !state.session.finished) quit();
+  else if (!onRoot) {
+    const close = $app.querySelector(".top .close[data-act]");
+    if (close) actions[close.dataset.act](close); else showHome();
+  }
+  syncHistory(onRoot); // still inside the app (the test goes on, a dialog is open): back stays in the app
+});
 
 /* ---------- Backup ---------- */
 
@@ -378,8 +420,9 @@ function markExported() {
 }
 
 // The reported questions as a file, to send to whoever checks the fiches (read by tools/signalements.mjs).
+const currentReport = now => reportFile(state.questions, state.save, { version: APP_VERSION, fingerprint: state.fingerprint, now });
 async function exportReports() {
-  const file = reportFile(state.questions, state.save, { version: APP_VERSION, fingerprint: state.fingerprint, now: Date.now() });
+  const file = currentReport(Date.now());
   if (await saveFile(`envol-signalements-${file.date}.json`, JSON.stringify(file, null, 2), "Signalements Envol")) {
     showSummary("Fichier prêt : envoie-le à la personne qui vérifie les fiches.");
   }
@@ -390,12 +433,12 @@ function importBackup(file) {
   if (file.size > MAX_IMPORT_BYTES) return showBackup({ error: "Import impossible : ce fichier est bien trop gros pour être une sauvegarde Envol. Rien n'a été modifié." });
   const reader = new FileReader();
   reader.onerror = () => showBackup({ error: "Import impossible : le fichier n'a pas pu être lu." });
-  reader.onload = () => {
+  reader.onload = async () => {
     const text = String(reader.result);
     let error;
     try { error = validateSave(JSON.parse(text)); } catch { error = "ce fichier n'est pas une sauvegarde Envol"; }
     if (error) return showBackup({ error: `Import impossible : ${error}. Rien n'a été modifié.` });
-    if (!confirm("Remplacer les progrès de cet appareil par ceux de la copie ?")) return;
+    if (!await ask("Remplacer les progrès ?", "Les progrès de cet appareil seront remplacés par ceux de la copie.", "Remplacer", "Annuler")) return;
     const r = store.importText(text, state.save);
     if (!r.ok) return showBackup({ error: `Import impossible : ${r.error}. Rien n'a été modifié.` });
     state.save = r.data;
@@ -511,7 +554,7 @@ const actions = {
   clearExam,
   checkUpdate,
   guideDone: () => { store.markGuideSeen(); showHome(); },
-  guide: showGuide,
+  guide: () => showGuide(false),
   install,
   reload: async () => { await loadQuestions(); showHome(); },
   choose: button => choose(Number(button.dataset.k)),
@@ -552,9 +595,12 @@ window.addEventListener("beforeinstallprompt", e => {
   if (guideOnScreen) showGuide();
 });
 
-function showGuide() {
+// root: the guide shown at first launch, in place of the home screen (back leaves the app from it).
+let guideIsRoot = false;
+function showGuide(root = guideIsRoot) {
+  guideIsRoot = root;
+  render(renderGuide({ platform: detectPlatform(navigator.userAgent, navigator.maxTouchPoints), canPrompt: !!installPrompt }), root);
   guideOnScreen = true;
-  render(renderGuide({ platform: detectPlatform(navigator.userAgent, navigator.maxTouchPoints), canPrompt: !!installPrompt }));
 }
 
 async function install() {
@@ -575,6 +621,6 @@ async function install() {
   if (navigator.storage && navigator.storage.persist) navigator.storage.persist().catch(() => {});
   watchForUpdates();
   await loadQuestions();
-  if (!isInstalled() && !store.guideSeen()) showGuide();
+  if (!isInstalled() && !store.guideSeen()) showGuide(true);
   else showHome();
 })();

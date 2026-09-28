@@ -1,7 +1,9 @@
 {
   "name": "envol",
-  "version": "2.4.0",
+  "version": "2.5.0",
   "private": true,
+  "license": "AGPL-3.0-or-later",
+  "author": "Trystan4 (https://github.com/Trystan4)",
   "description": "Application de révision par QCM installable (PWA) sur téléphone ou ordinateur, hors ligne, hébergée sur GitHub Pages.",
   "type": "module",
   "packageManager": "pnpm@11.22.0",

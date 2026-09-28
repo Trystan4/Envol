@@ -45,6 +45,7 @@ function cardError(c) {
   if (!isCount(c.seen) || !isCount(c.correct) || c.correct > c.seen) return "compteurs invalides";
   if (!isTime(c.firstSeen)) return "date de découverte invalide";
   if (c.lastWrong !== null && !isTime(c.lastWrong)) return "date d'erreur invalide";
+  if (c.boostUntil !== undefined && !isTime(c.boostUntil)) return "date de fin de rappel invalide";
   return null;
 }
 

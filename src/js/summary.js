@@ -5,34 +5,42 @@ import { isSeen, dailyPlan, rightAnswerText } from "./engine.js";
 import { grade20, isoDate, startOfDay } from "./util.js";
 
 export function overview(questions, save, now) {
-  let seen = 0, mastered = 0, due = 0;
+  let seen = 0, mastered = 0, learning = 0, due = 0;
   for (const q of questions) {
     const c = save.cards[q.id];
     if (!isSeen(c)) continue;
     seen++;
     if (c.level >= MASTERED_LEVEL) mastered++;
+    else if (c.level > 0) learning++;
     if (c.due <= now) due++;
   }
   const total = questions.length;
   const fresh = dailyPlan(questions, save, now).left;
   return {
-    total, seen, mastered, due,
+    total, seen, mastered, learning, due,
     toDoToday: due + fresh, // every new question of the day, even beyond one session
     sessionsToday: Math.ceil(fresh / NEW_PER_SESSION_MAX), // sessions needed for today's new questions
 
     pct: total ? Math.round(mastered / total * 100) : 0,
+    learningPct: total ? Math.round(learning / total * 100) : 0,
   };
 }
 
+// By theme, three steps: mastered (level MASTERED_LEVEL and up), learning (level 1 to below it),
+// seen (answered, back at level 0). pct stays the share of mastered questions.
 export function themeBreakdown(questions, save) {
   const rows = new Map();
   for (const q of questions) {
-    const r = rows.get(q.theme) || rows.set(q.theme, { theme: q.theme, total: 0, seen: 0, mastered: 0 }).get(q.theme);
+    const r = rows.get(q.theme) || rows.set(q.theme, { theme: q.theme, total: 0, seen: 0, mastered: 0, learning: 0 }).get(q.theme);
     const c = save.cards[q.id];
     r.total++;
-    if (isSeen(c)) { r.seen++; if (c.level >= MASTERED_LEVEL) r.mastered++; }
+    if (!isSeen(c)) continue;
+    r.seen++;
+    if (c.level >= MASTERED_LEVEL) r.mastered++;
+    else if (c.level > 0) r.learning++;
   }
-  return [...rows.values()].map(r => ({ ...r, pct: Math.round(r.mastered / r.total * 100) }));
+  const share = (n, r) => Math.round(n / r.total * 100);
+  return [...rows.values()].map(r => ({ ...r, pct: share(r.mastered, r), learningPct: share(r.learning, r), seenPct: share(r.seen, r) }));
 }
 
 export function testTrend(tests) {
@@ -132,6 +140,21 @@ export const reportFile = (questions, save, { version, fingerprint, now }) => ({
     note: save.flags[q.id].note || "",
   })),
 });
+
+// The same report as an e-mail link (see REPORT_EMAIL): one paragraph per question. Mail apps refuse
+// very long links, so the body stops at MAIL_BODY_MAX characters and says the file holds the rest.
+export const MAIL_BODY_MAX = 1800;
+export function reportMail(file, address) {
+  const items = file.items.map(x => [
+    `${x.question} (${x.id}${x.page ? `, page ${x.page}` : ""})`,
+    `Réponse de la fiche : ${x.reponse}`,
+    x.note ? `Pourquoi : ${x.note}` : "",
+  ].filter(Boolean).join("\n"));
+  let body = `Version ${file.version}, fiches ${file.fiches}\n\n${items.join("\n\n")}`;
+  if (body.length > MAIL_BODY_MAX) body = `${body.slice(0, MAIL_BODY_MAX)}…\n\n(Suite coupée : envoie aussi le fichier des signalements.)`;
+  const subject = `Envol : ${file.items.length} question${file.items.length > 1 ? "s" : ""} signalée${file.items.length > 1 ? "s" : ""}`;
+  return `mailto:${address}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+}
 
 // True when there is progress worth keeping and no copy was made for BACKUP_REMINDER_DAYS days
 // (counted from the first answer when no copy was ever made).

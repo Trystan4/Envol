@@ -2,11 +2,11 @@ import { closeBar } from "./common.js";
 
 // "Comment marche Envol": every feature in a few words, reached from Réglages.
 const SECTIONS = [
-  ["Réviser", "Des séances de 20 questions. Une question ratée revient un peu plus loin dans la séance, puis plus souvent les jours suivants ; celles que tu maîtrises s'espacent."],
+  ["Réviser", "Des séances de 20 questions. Une question ratée ne revient pas dans la même séance, mais plus souvent aux séances suivantes ; celles que tu maîtrises s'espacent."],
   ["Le plan du jour", "Avec une date d'examen (dans Réglages), Envol dose les nouvelles questions pour que tout soit vu trois jours avant. L'accueil dit combien de questions faire aujourd'hui et en combien de séances ; la barre montre où tu en es."],
-  ["Test blanc", "20 questions sur tous les thèmes, notées sur 20, en 20 minutes (le chrono se désactive dans Réglages). Une erreur y compte comme en révision : la question reviendra plus souvent."],
+  ["Test blanc", "20 questions sur tous les thèmes, notées sur 20, en 20 minutes (le chrono se désactive dans Réglages). Une erreur y pèse plus qu'en révision : la question repart de zéro et revient souvent pendant trois jours. Une bonne réponse compte comme en révision."],
   ["Revoir mes erreurs", "Une séance faite des questions ratées ces derniers jours et de celles marquées « à revoir » avec le drapeau ⚑."],
-  ["Mes résultats", "La maîtrise par thème (avec « Réviser ce thème »), les questions les plus ratées, tes jours de révision, tes notes de test blanc et la date où tout sera découvert."],
+  ["Mes résultats", "La progression par thème en trois étapes : vues, en cours (déjà réussies) et maîtrisées (réussies plusieurs fois, sur plusieurs jours), avec « Réviser ce thème » ; les questions les plus ratées, tes jours de révision, tes notes de test blanc et la date où tout sera découvert."],
   ["Cours", "En haut de l'accueil : les passages du cours, thème par thème, et une recherche dans tous les thèmes. Pour apprendre avant de te tester."],
   ["Après une erreur", "L'extrait du cours s'affiche avec sa page : le texte, le tableau ou le schéma qui donne la bonne réponse."],
   ["La pastille", "À côté du thème, une pastille dit si la réponse est sûre. Verte : vérifiée dans le cours. Orange : à recouper avec tes sources. Rouge : douteuse. Touche-la pour en savoir plus."],

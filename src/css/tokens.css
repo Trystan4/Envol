@@ -6,6 +6,9 @@
   --ink: #13233A;
   --ink-muted: #5B6678;
   --cabine: #1E3A5F;
+  --cabine-soft: #93A9C4; /* questions en cours (niveau 1 ou 2) in progress bars */
+  --line-strong: #CBBFAA; /* questions seen but not yet right, in progress bars */
+  --backdrop: #13233A80; /* behind the in-app confirmation window */
   --on-cabine: #FFFFFF;
   --soleil: #E4704A;
   --aurore: #A94226;
@@ -31,6 +34,9 @@
     --ink: #F2EEE6;
     --ink-muted: #A9B3C2;
     --cabine: #8FB4DB;
+    --cabine-soft: #4D6D93;
+    --line-strong: #40526D;
+    --backdrop: #000000A6;
     --on-cabine: #0F1B2D;
     --soleil: #F28A5E;
     --aurore: #F28A5E;
@@ -47,6 +53,9 @@
   --ink: #F2EEE6;
   --ink-muted: #A9B3C2;
   --cabine: #8FB4DB;
+  --cabine-soft: #4D6D93;
+  --line-strong: #40526D;
+  --backdrop: #000000A6;
   --on-cabine: #0F1B2D;
   --soleil: #F28A5E;
   --aurore: #F28A5E;

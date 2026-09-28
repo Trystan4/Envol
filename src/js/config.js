@@ -2,11 +2,14 @@
 
 // Shown in Réglages to check that the phone runs the latest published version.
 // Keep equal to "version" in package.json and VERSION in sw.js (a test checks it).
-export const APP_VERSION = "2.4.0";
+export const APP_VERSION = "2.5.0";
 
 export const DAY = 864e5;
 
 export const REPORT_NOTE_MAX = 500; // characters in the reason given with a reported question
+
+// Address that receives reported questions by e-mail. Empty: no e-mail button, the file alone is offered.
+export const REPORT_EMAIL = "";
 
 // Spaced repetition: days before a question comes back, by level (0 to 5).
 export const INTERVALS = [0, 1, 2, 4, 7, 15];
@@ -22,9 +25,9 @@ export const NEW_PER_DAY_DEFAULT = 10; // without an exam date
 export const NEW_PER_DAY_MIN = 3; // with an exam date
 export const EXAM_MARGIN_DAYS = 3; // everything should be discovered this many days before the exam
 
-// A missed question comes back later in the same session, at most RETRY_LIMIT times.
-export const RETRY_LIMIT = 2;
-export const RETRY_GAP = 4;
+// A missed question does not come back in the same session: it comes back in the next ones, drawn
+// more often for a while (recentMistake), longer after a mistake in a mock test (exam conditions).
+export const MISTAKE_BOOST_DAYS = { review: 1, test: 3 };
 
 // Draw weights: the higher the weight, the more likely a question is drawn.
 export const WEIGHTS = {
@@ -33,7 +36,7 @@ export const WEIGHTS = {
   errorBoost: 3, // weight × (1 + errorBoost × error rate)
   notDue: 0.3, // not due yet: still possible, just less likely
   overdueCapDays: 7, // overdue boost grows up to ×2 over this many days
-  recentMistake: 2, // missed in the last 24 h
+  recentMistake: 2, // missed recently (see MISTAKE_BOOST_DAYS)
   focusTheme: 3, // themes targeted by "On s'y met"
   min: 0.05, // nothing is ever impossible
   testExponent: 0.5, // mock tests lean towards weak points, but more gently than reviews

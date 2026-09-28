@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import { createStore, validateSave, emptySave, isValidExamDate, KEY, BACKUP_KEY, CORRUPT_KEY, MAX_IMPORT_BYTES } from "../../src/js/storage.js";
 import { NOW, card, saveWith, memoryStorage } from "./helpers.js";
 
-const full = () => saveWith({ "t0-q0": card() }, {
+const full = () => saveWith({ "t0-q0": card(), "t0-q1": card({ level: 0, lastWrong: NOW, boostUntil: NOW + 3 * 864e5 }) }, {
   examDate: "2026-11-15",
   tests: [{ at: NOW, correct: 15, total: 20, byTheme: { "Thème 0": { correct: 3, total: 4 } } }],
   reviews: [{ at: NOW, correct: 12, total: 15 }],
@@ -28,6 +28,7 @@ test("import : les fichiers mal formés sont tous refusés", () => {
     "compteurs négatifs": saveWith({ x: card({ seen: -1 }) }),
     "plus de bonnes que de réponses": saveWith({ x: card({ seen: 1, correct: 2 }) }),
     "date de révision en texte": saveWith({ x: card({ due: "demain" }) }),
+    "fin de rappel en texte": saveWith({ x: card({ boostUntil: "bientôt" }) }),
     "date d'examen impossible": { ...full(), examDate: "2026-02-30" },
     "révisions absentes": { ...full(), reviews: undefined },
     "identifiant de question piégé": saveWith({ "<img src=x onerror=alert(1)>": card() }),
