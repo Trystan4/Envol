@@ -7,15 +7,19 @@ export const formatClock = ms => {
   return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`;
 };
 
+// Before the answer, each choice shows its key (1, 2, 3…) for a computer keyboard (hidden on touch screens).
 function choicesHtml(q, s) {
-  return s.order.map(k => {
+  return s.order.map((k, i) => {
     const a = q.answers[k], picked = s.selected.has(k);
     let cls = "choice", mark = "", state = "";
     if (s.answered) {
       if (a.correct) { cls += " right"; mark = "✓"; state = picked ? "Bonne réponse" : "La bonne réponse"; }
       else if (picked) { cls += " wrong"; mark = "✗"; state = "Pas encore"; }
       else cls += " dim";
-    } else if (picked) cls += " selected";
+    } else {
+      if (picked) cls += " selected";
+      if (i < 9) mark = `<span class="key" aria-hidden="true">${i + 1}</span>`;
+    }
     return `<button class="${cls}" data-act="choose" data-k="${k}" ${s.answered ? "disabled" : ""} aria-pressed="${picked}"><span class="mark">${mark}</span><span class="text">${esc(a.text)}</span>${state ? `<span class="state">${state}</span>` : ""}</button>`;
   }).join("");
 }
@@ -76,7 +80,8 @@ export function renderQuestion(s, flag, now) {
 
   let feedback = "";
   if (done) {
-    feedback = s.lastCorrect ? `<p class="success" role="status">Bien joué.</p>` : `<p class="warning" role="status">Pas encore : elle reviendra lors d'une prochaine séance.</p>`;
+    // Focused after the answer (data-focus), so VoiceOver reads the verdict rather than the question again.
+    feedback = s.lastCorrect ? `<p class="success" data-focus>Bien joué.</p>` : `<p class="warning" data-focus>Pas encore : elle reviendra lors d'une prochaine séance.</p>`;
     if (q.explanation) feedback += `<p class="explanation">${esc(q.explanation)}</p>`;
     // A wrong answer shows the passage of the course; a right one just says where to find it.
     if (!s.lastCorrect) feedback += excerptHtml(q);
@@ -95,17 +100,23 @@ export function renderQuestion(s, flag, now) {
     main = `<button class="btn" data-act="validate" ${s.selected.size ? "" : "disabled"}>${label}</button>`;
   }
 
-  return `<main class="screen">
+  // Two blocks: the question, then its answers, feedback and button. Side by side on a wide screen in
+  // landscape (tablet, phone turned), one under the other otherwise.
+  return `<main class="screen quiz">
     <div class="top"><button class="close" data-act="quit" aria-label="Quitter">✕</button>
       <div class="bar" aria-hidden="true"><i style="width:${Math.round(s.index / s.queue.length * 100)}%"></i></div>
       ${timer}
       <button class="close flag${flagged ? " on" : ""}" data-act="flagMenu" aria-label="Marquer cette question" aria-expanded="${s.flagOpen}">⚑</button></div>
     ${s.flagOpen ? flagPanel(flag) : ""}
-    <div class="meta"><p class="label">${counter}</p><p class="label theme">${reliabilityDot(q.reliability, s.reliabilityOpen)}${esc(q.theme)}</p></div>
-    ${s.reliabilityOpen && q.reliability ? reliabilityInfo(q.reliability) : ""}
-    <h2 class="question">${esc(q.question)}</h2>
-    ${body}
-    ${feedback}
-    <div class="actions">${main}</div>
+    <div class="q-ask">
+      <div class="meta"><p class="label">${counter}</p><p class="label theme">${reliabilityDot(q.reliability, s.reliabilityOpen)}${esc(q.theme)}</p></div>
+      ${s.reliabilityOpen && q.reliability ? reliabilityInfo(q.reliability) : ""}
+      <h2 class="question">${esc(q.question)}</h2>
+    </div>
+    <div class="q-side">
+      ${body}
+      ${feedback}
+      <div class="actions">${main}</div>
+    </div>
   </main>`;
 }

@@ -7,6 +7,7 @@ const full = () => saveWith({ "t0-q0": card(), "t0-q1": card({ level: 0, lastWro
   examDate: "2026-11-15",
   tests: [{ at: NOW, correct: 15, total: 20, byTheme: { "Thème 0": { correct: 3, total: 4 } } }],
   reviews: [{ at: NOW, correct: 12, total: 15 }],
+  history: [{ day: "2026-09-30", mastered: 1, learning: 1, total: 2 }],
 });
 
 test("une sauvegarde complète est valide", () => {
@@ -32,6 +33,9 @@ test("import : les fichiers mal formés sont tous refusés", () => {
     "date d'examen impossible": { ...full(), examDate: "2026-02-30" },
     "révisions absentes": { ...full(), reviews: undefined },
     "identifiant de question piégé": saveWith({ "<img src=x onerror=alert(1)>": card() }),
+    "historique en objet": { ...full(), history: {} },
+    "historique au jour impossible": { ...full(), history: [{ day: "2026-02-30", mastered: 1, learning: 0, total: 2 }] },
+    "historique incohérent": { ...full(), history: [{ day: "2026-09-30", mastered: 2, learning: 1, total: 2 }] },
     "identifiant __proto__": JSON.parse(`{"version":2,"examDate":null,"cards":{"__proto__":${JSON.stringify(card())}},"tests":[],"reviews":[]}`),
   };
   for (const [name, x] of Object.entries(bad)) assert.notEqual(validateSave(x), null, name);

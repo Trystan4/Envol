@@ -1,6 +1,6 @@
 // Figures shown on the home, results and summary screens. Pure.
 
-import { MASTERED_LEVEL, DAY, CALENDAR_DAYS, BACKUP_REMINDER_DAYS, NEW_PER_SESSION_MAX } from "./config.js";
+import { MASTERED_LEVEL, DAY, CALENDAR_DAYS, BACKUP_REMINDER_DAYS, NEW_PER_SESSION_MAX, ACTIVITY_DAYS_KEPT, CURVE_DAYS } from "./config.js";
 import { isSeen, dailyPlan, rightAnswerText } from "./engine.js";
 import { grade20, isoDate, startOfDay } from "./util.js";
 
@@ -41,6 +41,42 @@ export function themeBreakdown(questions, save) {
   }
   const share = (n, r) => Math.round(n / r.total * 100);
   return [...rows.values()].map(r => ({ ...r, pct: share(r.mastered, r), learningPct: share(r.learning, r), seenPct: share(r.seen, r) }));
+}
+
+// Mes résultats: themes from the most fragile to the most solid. A mastered question counts fully, one in
+// progress by half; at equal strength, a theme already practised (seen, not yet right) comes before one not
+// started, then the order of the fiches.
+export const byFragility = rows => rows
+  .map((r, i) => ({ r, i, strength: (r.mastered + r.learning / 2) / r.total }))
+  .sort((a, b) => a.strength - b.strength || b.r.seen - a.r.seen || a.i - b.i)
+  .map(x => x.r);
+
+// Mastery of one day, for the progress curve: the last answer of the day replaces the day's entry.
+// Kept in date order, even when the phone's clock was moved back. counts: summary.overview().
+export function noteProgress(history, day, { mastered, learning, total }) {
+  return history.filter(h => h.day !== day).concat({ day, mastered, learning, total })
+    .sort((a, b) => a.day < b.day ? -1 : 1).slice(-ACTIVITY_DAYS_KEPT);
+}
+
+// Mastery day by day (% of the programme), over the last `days` days, from the first day kept. Levels only
+// change with answers, so a day without answers keeps the value of the day before; today is the live value
+// (current: summary.overview()). Days before the first entry are left out.
+export function masteryCurve(history, current, now, days = CURVE_DAYS) {
+  const pct = h => h.total ? Math.round(h.mastered / h.total * 100) : 0;
+  const byDay = new Map(history.map(h => [h.day, h]));
+  const today = isoDate(now);
+  const d = new Date(startOfDay(now));
+  d.setDate(d.getDate() - (days - 1));
+  const start = isoDate(+d);
+  let last = null; // the value carried into the window: the latest day before it
+  for (const h of history) if (h.day < start && (!last || h.day > last.day)) last = h;
+  const out = [];
+  for (let i = 0; i < days; i++, d.setDate(d.getDate() + 1)) {
+    const day = isoDate(+d);
+    last = day === today ? current : byDay.get(day) || last;
+    if (last) out.push({ day, pct: pct(last) });
+  }
+  return out;
 }
 
 export function testTrend(tests) {

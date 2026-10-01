@@ -1,12 +1,12 @@
 // Entry point: loads the deck and the save, keeps the running session, dispatches button actions.
 // Every action updates `state`, then renders one screen. Screens only build HTML.
 
-import { EXPRESS_SIZE, DAY, REVIEWS_KEPT, ACTIVITY_DAYS_KEPT, TEST_DURATION_MIN, TIMER_WARNING_SEC, APP_VERSION, REPORT_NOTE_MAX, REPORT_EMAIL } from "./config.js";
+import { EXPRESS_SIZE, DAY, REVIEWS_KEPT, ACTIVITY_DAYS_KEPT, TEST_DURATION_MIN, TIMER_WARNING_SEC, APP_VERSION, REPORT_NOTE_MAX, REPORT_EMAIL, CURVE_TESTS } from "./config.js";
 import { loadDeck, deckFingerprint, questionHashes, deckChanges } from "./deck.js";
 import { createStore, validateSave, isValidExamDate, MAX_IMPORT_BYTES, KEY } from "./storage.js";
 import { serializeSession, restoreSession } from "./session.js";
 import { buildReviewSession, buildMockTest, buildMistakesSession, mistakePool, applyAnswer, activeQuestions, rightAnswerText, dailyPlan } from "./engine.js";
-import { overview, themeBreakdown, testTrend, strengths, reviewCount, streak, calendar, disputed, backupDue, reportFile, mostMissed, discoveryForecast, dayProgress, correctedReports, reportMail } from "./summary.js";
+import { overview, themeBreakdown, testTrend, strengths, reviewCount, streak, calendar, disputed, backupDue, reportFile, mostMissed, discoveryForecast, dayProgress, correctedReports, reportMail, byFragility, noteProgress, masteryCurve } from "./summary.js";
 import { shuffle, daysUntil, isoDate } from "./util.js";
 import { renderHome } from "./screens/home.js";
 import { renderQuestion, formatClock } from "./screens/question.js";
@@ -69,14 +69,45 @@ const state = {
 
 // root: a screen the phone's back button leaves the app from (home, first-launch guide, deck error).
 // Every other screen sits on one extra history entry, so the back button comes back into the app.
+//
+// A new screen starts at the top, read from its title (or from its [data-focus] element, such as the
+// verdict after an answer). The same screen drawn again (a switch, a flag, an answer) keeps its scroll
+// position, and the control used from the keyboard keeps the focus. [data-announce] messages are read
+// aloud through the #live region, wherever the focus is.
 function render(html, root = false) {
   guideOnScreen = false;
+  const heading = () => { const h = $app.querySelector("h1, h2"); return h ? h.textContent : null; };
+  const before = heading(), scroll = window.scrollY;
+  const kept = keyboardControl();
   $app.innerHTML = html;
   syncHistory(root);
-  window.scrollTo(0, 0);
-  // VoiceOver starts reading each new screen from its title.
-  const title = $app.querySelector("h1, h2");
-  if (title) { title.tabIndex = -1; title.focus({ preventScroll: true }); }
+  const same = before !== null && before === heading();
+  window.scrollTo(0, same ? scroll : 0);
+  const again = same && kept && $app.querySelector(kept);
+  if (again && !again.disabled) again.focus({ preventScroll: true });
+  else {
+    const target = $app.querySelector("[data-focus]") || $app.querySelector("h1, h2");
+    if (target) { target.tabIndex = -1; target.focus({ preventScroll: true }); }
+  }
+  announce($app.querySelector("[data-announce]"));
+}
+
+// The control focused from the keyboard, as a selector to find it again once the screen is redrawn.
+function keyboardControl() {
+  const el = document.activeElement;
+  if (!el || !$app.contains(el) || !el.dataset.act) return null;
+  try { if (!el.matches(":focus-visible")) return null; } catch { return null; } // unknown before iOS 15.4
+  return ["act", "k", "v", "theme", "id"].filter(k => el.dataset[k] !== undefined)
+    .map(k => `[data-${k}="${CSS.escape(el.dataset[k])}"]`).join("");
+}
+
+// Live regions only speak when their text changes after they were on the page: #live stays, its text changes.
+const $live = document.getElementById("live");
+let announcing = null;
+function announce(el) {
+  clearTimeout(announcing); // a screen drawn just before never speaks over this one
+  $live.textContent = "";
+  if (el) announcing = setTimeout(() => { $live.textContent = el.textContent; }, 100);
 }
 function persist() { state.storageFull = !store.save(state.save); }
 // The questions that can be drawn now (reported ones are set aside, see activeQuestions).
@@ -129,6 +160,7 @@ function showHome() {
 
 function showSummary(message = "") {
   const now = Date.now();
+  const ov = overview(pool(), state.save, now);
   render(renderSummary({
     streak: streak(state.save.activity, now),
     days: calendar(state.save.activity, now),
@@ -136,12 +168,14 @@ function showSummary(message = "") {
       ...q, note: state.save.flags[q.id].note || "", setAside: !pool().includes(q),
     })),
     message,
-    ov: overview(pool(), state.save, now),
-    themes: themeBreakdown(pool(), state.save),
+    ov,
+    curve: masteryCurve(state.save.history, ov, now),
+    themes: byFragility(themeBreakdown(pool(), state.save)),
     missed: mostMissed(pool(), state.save, MISSED_SHOWN),
     forecast: discoveryForecast(pool(), state.save, now),
     trend: testTrend(state.save.tests),
     tests: state.save.tests,
+    recentTests: state.save.tests.slice(-CURVE_TESTS),
     reviewsThisWeek: reviewCount(state.save, now - 7 * DAY),
     mail: REPORT_EMAIL ? reportMail(currentReport(now), REPORT_EMAIL) : null,
   }));
@@ -274,6 +308,7 @@ function record(q, correct) {
   if (state.save.activity[state.save.activity.length - 1] !== today) {
     state.save.activity = state.save.activity.concat(today).slice(-ACTIVITY_DAYS_KEPT);
   }
+  state.save.history = noteProgress(state.save.history, today, overview(pool(), state.save, Date.now())); // progress curve
   const t = s.byTheme[q.theme] || (s.byTheme[q.theme] = { correct: 0, total: 0 });
   s.total++; t.total++;
   if (correct) { s.correct++; t.correct++; } else s.mistakes.push(q);
@@ -568,6 +603,27 @@ $app.addEventListener("click", e => {
   if (!button || button.disabled) return;
   const action = actions[button.dataset.act];
   if (action) action(button);
+});
+
+// Computer keyboard, during a session: 1 to 9 pick the answers in the order shown (on a flashcard turned
+// over, 1 "Je savais" and 2 "Pas encore"), Entrée presses the main button (Valider, Continuer…).
+// Left alone while typing, with a key modifier or a window open, and when a focused control takes Entrée.
+document.addEventListener("keydown", e => {
+  const s = state.session;
+  if (!s || s.finished || $ask.open || e.repeat || e.ctrlKey || e.metaKey || e.altKey) return;
+  if (e.target.closest("input, textarea, select")) return;
+  let button = null;
+  if (/^[1-9]$/.test(e.key)) {
+    button = s.revealed && !s.answered
+      ? $app.querySelector(`[data-act="selfGrade"][data-v="${e.key === "1" ? 1 : 0}"]`)
+      : $app.querySelectorAll(".choice")[Number(e.key) - 1];
+    if (e.key > "2" && s.revealed) button = null;
+  } else if (e.key === "Enter" && !e.target.closest("button, a, summary")) {
+    button = $app.querySelector(".actions .btn");
+  }
+  if (!button || button.disabled) return;
+  e.preventDefault();
+  button.click();
 });
 
 $app.addEventListener("input", e => {

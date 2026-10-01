@@ -26,8 +26,9 @@
 </head>
 <body>
 <div id="app"><main class="screen"><p class="muted">Chargement…</p></main></div>
-<dialog id="ask" class="ask" aria-labelledby="ask-title"><h2 id="ask-title"></h2><p></p><div class="ask-actions"><button class="btn" data-ask="primary"></button><button class="link" data-ask="secondary"></button></div></dialog>
+<dialog id="ask" class="ask" aria-labelledby="ask-title" aria-describedby="ask-text"><h2 id="ask-title"></h2><p id="ask-text"></p><div class="ask-actions"><button class="btn" data-ask="primary"></button><button class="link" data-ask="secondary"></button></div></dialog>
 <div id="update" class="update-bar" role="status" hidden><span>Nouvelle version d'Envol installée.</span><button class="update-btn" data-update="reload">Mettre à jour</button><button class="update-later" data-update="later" aria-label="Plus tard">✕</button></div>
+<div id="live" class="sr-only" aria-live="polite"></div>
 <noscript><p style="padding:20px">Envol a besoin de JavaScript pour fonctionner.</p></noscript>
 </body>
 </html>

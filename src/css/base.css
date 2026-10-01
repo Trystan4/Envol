@@ -15,7 +15,10 @@ html, body {
 button, input { font: inherit; color: inherit; }
 /* No double-tap zoom delay, no accidental text selection when pressing a button. */
 button { cursor: pointer; touch-action: manipulation; -webkit-user-select: none; user-select: none; }
-button:focus-visible, input:focus-visible { outline: none; box-shadow: var(--focus); }
+button:focus-visible, input:focus-visible, textarea:focus-visible, summary:focus-visible, a:focus-visible { outline: none; box-shadow: var(--focus); }
+
+/* Read by VoiceOver / TalkBack, not shown. */
+.sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 
 .screen {
   min-height: 100vh;
@@ -30,6 +33,11 @@ button:focus-visible, input:focus-visible { outline: none; box-shadow: var(--foc
     max(20px, calc(env(safe-area-inset-right, 0px) + 12px))
     calc(env(safe-area-inset-bottom, 0px) + 20px)
     max(20px, calc(env(safe-area-inset-left, 0px) + 12px));
+}
+
+/* Tablet and computer: reading screens (results, course, guide) use more of the width. */
+@media (min-width: 700px) {
+  .screen.wide { max-width: 760px; }
 }
 
 /* Programmatic focus on each new screen's title (for VoiceOver) must not draw a ring. */

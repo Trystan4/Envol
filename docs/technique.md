@@ -18,7 +18,7 @@ pnpm verify                                # fiches + tests unitaires + parcours
 | --- | --- |
 | `pnpm check:deck` | Chaque fiche : ids uniques, au moins une bonne et une mauvaise réponse, extraits, fiabilité |
 | `pnpm test` | Moteur, plan du jour, stockage, import/export, fiches, liste hors ligne, poids de l'app (Node, sans dépendance) |
-| `pnpm test:e2e` | Parcours complets dans Chromium et WebKit (moteur de Safari) : révision, test blanc, signalement, sauvegarde, réglages, hors ligne ; chaque écran sur 6 tailles (iPhone SE à iPad, paysage) sans défilement horizontal, boutons ≥ 44 px, aucune violation de sécurité (CSP) |
+| `pnpm test:e2e` | Parcours complets dans Chromium et WebKit (moteur de Safari) : révision, test blanc, signalement, sauvegarde, réglages, hors ligne ; chaque écran sur 9 tailles (iPhone SE à iPad, Android, paysage, ordinateur) sans défilement horizontal, boutons ≥ 44 px, aucune violation de sécurité (CSP) |
 | `pnpm signalements <fichier>` | Affiche un fichier de signalements envoyé depuis l'app à côté des fiches actuelles |
 
 Avant de publier, lancer aussi `pnpm exec playwright test --repeat-each=3` : certains parcours
@@ -38,7 +38,7 @@ src/                  ce qui est publié, tel quel (aucune étape de build)
   js/session.js       séance en cours gardée pour être reprise
   js/course.js        cours : passages par thème et recherche
   js/app.js           démarrage, actions, mises à jour
-  js/screens/         un fichier par écran
+  js/screens/         un fichier par écran (chart.js : courbes de Mes résultats)
   fiches/             les questions
   img/                schémas du cours (WebP)
   sw.js               fonctionnement hors ligne

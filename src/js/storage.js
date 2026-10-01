@@ -17,7 +17,7 @@ const CARD_ID = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 export const emptySave = () => ({
   version: 2, examDate: null, cards: {}, tests: [], reviews: [],
   flags: {}, activity: [], lastExport: null, timedTests: true,
-  display: { largeText: false, theme: "auto" },
+  display: { largeText: false, theme: "auto" }, history: [],
 });
 const THEMES = ["auto", "light", "dark"];
 
@@ -84,6 +84,13 @@ export function validateSave(x) {
   if (x.activity !== undefined && (!Array.isArray(x.activity) || !x.activity.every(isDay))) return "jours d'activité invalides";
   if (x.lastExport !== undefined && x.lastExport !== null && !isTime(x.lastExport)) return "date de dernière copie invalide";
   if (x.timedTests !== undefined && typeof x.timedTests !== "boolean") return "réglage du chronomètre invalide";
+  if (x.history !== undefined) {
+    if (!Array.isArray(x.history)) return "historique de la maîtrise invalide";
+    for (const h of x.history) {
+      if (!isObject(h) || !isDay(h.day) || !isCount(h.mastered) || !isCount(h.learning) || !isCount(h.total)
+        || h.mastered + h.learning > h.total) return "historique de la maîtrise invalide";
+    }
+  }
   if (x.display !== undefined && (!isObject(x.display) || typeof x.display.largeText !== "boolean" || !THEMES.includes(x.display.theme))) {
     return "réglages d'affichage invalides";
   }
@@ -96,6 +103,7 @@ const clean = x => ({
   flags: x.flags || {}, activity: (x.activity || []).slice(-ACTIVITY_DAYS_KEPT),
   lastExport: x.lastExport ?? null, timedTests: x.timedTests ?? true,
   display: x.display ? { largeText: x.display.largeText, theme: x.display.theme } : { largeText: false, theme: "auto" },
+  history: (x.history || []).slice(-ACTIVITY_DAYS_KEPT).map(h => ({ day: h.day, mastered: h.mastered, learning: h.learning, total: h.total })),
 });
 
 export function createStore(storage) {

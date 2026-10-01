@@ -16,8 +16,8 @@ export function renderSettings({ examDate, today, timed, minutes, installed, ver
       <input type="date" id="exam" value="${esc(examDate || "")}" min="${today}">
     </label>
     ${examDate && plan ? `<p class="muted plan">Rythme conseillé : environ ${plural(plan.perDay, "nouvelle question", "nouvelles questions")} par jour${plan.sessions > 1 ? `, soit ${plan.sessions} séances de révision par jour` : ""}.</p>` : ""}
-    ${message ? `<p class="success" role="status">${esc(message)}</p>` : ""}
-    ${error ? `<p class="notice" role="alert">${esc(error)}</p>` : ""}
+    ${message ? `<p class="success" data-announce>${esc(message)}</p>` : ""}
+    ${error ? `<p class="notice" data-announce>${esc(error)}</p>` : ""}
     <div class="setting card">
       <div><b>Test blanc chronométré</b><p class="muted">${minutes} minutes pour 20 questions, comme en examen. Les questions sans réponse comptent fausses.</p></div>
       <button class="switch" role="switch" aria-checked="${timed}" data-act="toggleTimed" aria-label="Test blanc chronométré"><span></span></button>

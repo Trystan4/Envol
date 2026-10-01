@@ -18,7 +18,7 @@ export function renderCourseList(course, query) {
 
 // "Cours": read the course passages theme by theme, or search them, without leaving the app.
 export function renderCourse(course, query = "") {
-  return `<main class="screen">
+  return `<main class="screen wide">
     ${closeBar()}
     <h1 class="title">Cours</h1>
     <p class="muted">Les passages du cours, thème par thème. Tape un mot pour chercher dans tous les thèmes.</p>

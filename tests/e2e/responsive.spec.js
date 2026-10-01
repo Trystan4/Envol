@@ -9,7 +9,10 @@ const SIZES = {
   "iPhone 13–16": { width: 390, height: 844 },
   "iPhone Pro Max": { width: 430, height: 932 },
   "paysage": { width: 844, height: 390 },
+  "Android": { width: 412, height: 915 },
   "iPad": { width: 768, height: 1024 },
+  "iPad paysage": { width: 1024, height: 768 },
+  "ordinateur": { width: 1440, height: 900 },
 };
 
 // Progress with some history, built with the app's own engine so it is always valid.

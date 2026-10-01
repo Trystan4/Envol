@@ -78,6 +78,8 @@ async function answerWithoutMoving(page) {
   await expect(page.locator('[data-act="next"]')).toBeVisible();
 }
 
+// A message of the app, on screen: its copy in the #live region (read aloud, never shown) is left out.
+const onScreen = (page, text) => page.locator("#app").getByText(text);
 const onQuestion = page => page.locator("h2.question").count().then(n => n > 0);
 const saved = page => page.evaluate(k => JSON.parse(localStorage.getItem(k)), KEY);
 
@@ -110,6 +112,9 @@ test("révision : une séance complète, une question ratée ne revient pas dans
   expect(Object.keys(s.cards)).toHaveLength(15);
   expect(s.reviews).toHaveLength(1);
   expect(Object.values(s.cards).filter(c => c.lastWrong !== null)).toHaveLength(3); // missed: back in the next sessions
+  // One point of the progress curve for today: 12 questions right once, in progress.
+  expect(s.history).toHaveLength(1);
+  expect(s.history[0]).toMatchObject({ mastered: 0, learning: 12, total: PLAYABLE.length });
 
   await page.reload();
   await expect(page.getByText(/à revoir aujourd'hui|Tout est à jour/)).toBeVisible();
@@ -196,7 +201,8 @@ test("réglages : la date d'examen règle le compte à rebours", async ({ page }
   await page.getByRole("button", { name: "Réglages" }).click();
   await page.locator("#exam").fill(iso);
   await page.getByRole("button", { name: "Enregistrer la date" }).click();
-  await expect(page.getByText("Date enregistrée")).toBeVisible();
+  await expect(onScreen(page, "Date enregistrée")).toBeVisible();
+  await expect(page.locator("#live")).toHaveText("Date enregistrée, le rythme est ajusté."); // read aloud
   expect((await saved(page)).examDate).toBe(iso);
   // Everything discovered 3 days before the exam: the pace and the number of sessions it takes.
   const perDay = Math.ceil(PLAYABLE.length / 7), sessions = Math.ceil(perDay / 15);
@@ -232,14 +238,14 @@ test("sauvegarde : export, import sur un téléphone vide, refus des fichiers ab
   await page.getByRole("button", { name: "Sauvegarde" }).click();
   await page.locator("#file").setInputFiles(copy);
   await page.getByRole("dialog", { name: "Remplacer les progrès ?" }).getByRole("button", { name: "Remplacer" }).click();
-  await expect(page.getByText("C'est fait, les progrès de la copie sont de retour.")).toBeVisible();
+  await expect(onScreen(page, "C'est fait, les progrès de la copie sont de retour.")).toBeVisible();
   expect(await saved(page)).toEqual(mine);
 
   // A malformed file (it used to break the history screen) is refused, nothing changes.
   await page.locator("#file").setInputFiles({ name: "abime.json", mimeType: "application/json", buffer: Buffer.from('{"version":2,"examDate":null,"cards":{},"tests":[null],"reviews":[]}') });
-  await expect(page.getByText(/Import impossible\s:\stest blanc n°\s1 invalide/)).toBeVisible();
+  await expect(onScreen(page, /Import impossible\s:\stest blanc n°\s1 invalide/)).toBeVisible();
   await page.locator("#file").setInputFiles({ name: "texte.json", mimeType: "application/json", buffer: Buffer.from("pas du json") });
-  await expect(page.getByText(/Import impossible\s:\sce fichier n.est pas une sauvegarde Envol/)).toBeVisible();
+  await expect(onScreen(page, /Import impossible\s:\sce fichier n.est pas une sauvegarde Envol/)).toBeVisible();
   expect(await saved(page)).toEqual(mine);
   await page.getByRole("button", { name: "Retour" }).click();
   await page.getByRole("button", { name: "Mes résultats" }).click();
@@ -249,7 +255,7 @@ test("sauvegarde : export, import sur un téléphone vide, refus des fichiers ab
   await page.getByRole("button", { name: "Retour" }).click();
   await page.getByRole("button", { name: "Sauvegarde" }).click();
   await page.getByRole("button", { name: "Annuler le dernier import" }).click();
-  await expect(page.getByText("Import annulé")).toBeVisible();
+  await expect(onScreen(page, "Import annulé")).toBeVisible();
   expect(Object.keys((await saved(page)).cards)).toHaveLength(0);
 });
 
@@ -309,7 +315,7 @@ test("drapeau : « à revoir » la fait revenir ; signalée, elle est écartée 
   const item = page.locator(".mistake").filter({ hasText: question.replace(/ \?$/, "") });
   await expect(item).toContainText("Écartée des séances");
   await item.getByRole("button", { name: "Retirer le signalement" }).click();
-  await expect(page.getByText("Signalement retiré")).toBeVisible();
+  await expect(onScreen(page, "Signalement retiré")).toBeVisible();
   await page.getByRole("button", { name: "Retour" }).first().click();
   await expect(page.getByRole("button", { name: "Revoir mes erreurs (1)" })).toBeVisible();
 });
@@ -339,7 +345,7 @@ test("signalement : après la réponse, on signale avec une raison, puis on envo
   expect(report.items).toHaveLength(1);
   expect(clean(report.items[0].question)).toBe(question);
   expect(report.items[0].note).toBe("La page dit autre chose.");
-  await expect(page.getByText("Fichier prêt")).toBeVisible();
+  await expect(onScreen(page, "Fichier prêt")).toBeVisible();
 });
 
 test("ordre des réponses : la bonne réponse change de place d'un affichage à l'autre", async ({ page }) => {
@@ -556,7 +562,7 @@ test("réglages : version, empreinte des fiches et recherche de mise à jour", a
   await expect(page.locator(".version")).toHaveText(new RegExp(`^Version \\d+\\.\\d+\\.\\d+ · fiches [0-9a-f]{6} · ${PLAYABLE.length} questions$`));
   await page.waitForFunction(() => navigator.serviceWorker && navigator.serviceWorker.ready);
   await page.getByRole("button", { name: "Rechercher une mise à jour" }).click();
-  await expect(page.getByText(/Envol est à jour \(version \d+\.\d+\.\d+\)/)).toBeVisible();
+  await expect(onScreen(page, /Envol est à jour \(version \d+\.\d+\.\d+\)/)).toBeVisible();
 });
 
 test("Mes erreurs : une séance faite uniquement des questions ratées", async ({ page }) => {
@@ -652,7 +658,7 @@ test("régularité et rappel de sauvegarde", async ({ page }) => {
   const download = page.waitForEvent("download");
   await page.getByRole("button", { name: "Enregistrer une copie" }).click();
   await download;
-  await expect(page.getByText("Copie enregistrée.")).toBeVisible();
+  await expect(onScreen(page, "Copie enregistrée.")).toBeVisible();
   await page.getByRole("button", { name: "Retour" }).click();
   await expect(page.locator(".reminder")).toHaveCount(0);
 
@@ -708,3 +714,72 @@ for (const [device, ua, expected] of [
     });
   });
 }
+
+test("Mes résultats : thèmes du plus fragile au plus solide, courbes de maîtrise et des notes", async ({ page }) => {
+  await page.goto("/");
+  await seedHistory(page);
+  await page.getByRole("button", { name: "Mes résultats" }).click();
+  // Strength of each theme from its legend: a mastered question counts fully, one in progress by half.
+  const strengths = (await page.locator(".theme-map .steps-legend").allInnerTexts()).map(t => {
+    const [mastered, learning, , total] = t.match(/\d+/g).map(Number);
+    return (mastered + learning / 2) / total;
+  });
+  expect(strengths).toHaveLength(THEMES);
+  expect(strengths).toEqual([...strengths].sort((a, b) => a - b));
+  // No history yet: the curve says it will come.
+  await expect(page.getByText("La courbe se dessine au fil des jours")).toBeVisible();
+
+  await page.evaluate(() => {
+    const s = JSON.parse(localStorage.getItem("envol-v2"));
+    const day = n => { const d = new Date(Date.now() - n * 864e5); return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`; };
+    s.history = [{ day: day(5), mastered: 0, learning: 4, total: 100 }, { day: day(2), mastered: 3, learning: 6, total: 100 }];
+    s.tests = [12, 15].map((c, i) => ({ at: Date.now() - (2 - i) * 864e5, correct: c, total: 20, byTheme: {} }));
+    localStorage.setItem("envol-v2", JSON.stringify(s));
+  });
+  await page.reload();
+  await page.getByRole("button", { name: "Mes résultats" }).click();
+  await expect(page.getByRole("img", { name: /^Maîtrise du programme : 0 % le .+, \d+ % aujourd'hui\.$/ })).toBeVisible();
+  await expect(page.getByRole("img", { name: "Notes des 2 derniers tests blancs, du plus ancien au plus récent : 12, 15 sur 20." })).toBeVisible();
+});
+
+test("clavier : 1 à 9 choisissent une réponse, Entrée passe à la suite ; le verdict reçoit le focus", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: "Réviser" }).click();
+  for (let i = 0; i < 3; i++) {
+    await expect(page.getByText(`Question ${i + 1} sur 15`)).toBeVisible();
+    if (await page.locator('[data-act="reveal"]').count()) { // flashcard: Entrée turns it, 1 = "Je savais"
+      await page.keyboard.press("Enter");
+      await page.keyboard.press("1");
+    } else {
+      const multi = await page.locator(".hint", { hasText: "Plusieurs bonnes réponses" }).count();
+      await page.keyboard.press("2");
+      if (multi) {
+        await expect(page.locator(".choice").nth(1)).toHaveAttribute("aria-pressed", "true");
+        await page.keyboard.press("Enter");
+      }
+    }
+    // The verdict is focused, so a screen reader reads it rather than the question again.
+    await expect(page.locator(".success, .warning").first()).toBeFocused();
+    await page.keyboard.press("Enter");
+  }
+  await expect(page.getByText("Question 4 sur 15")).toBeVisible();
+  expect(Object.keys((await saved(page)).cards)).toHaveLength(3);
+});
+
+test("tablette ou téléphone en paysage : la question à gauche, les réponses à droite", async ({ page }) => {
+  for (const viewport of [{ width: 844, height: 390 }, { width: 1024, height: 768 }]) {
+    await page.setViewportSize(viewport);
+    await page.goto("/");
+    await page.getByRole("button", { name: "Réviser" }).click();
+    const question = await page.locator("h2.question").boundingBox();
+    const side = await page.locator(".q-side").boundingBox();
+    expect(side.x, `${viewport.width}×${viewport.height}`).toBeGreaterThanOrEqual(question.x + question.width);
+    expect(side.y).toBeLessThan(question.y + question.height); // side by side, not below
+  }
+  // Portrait phone: one under the other, as before.
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/");
+  await page.getByRole("button", { name: "Réviser" }).click();
+  const question = await page.locator("h2.question").boundingBox();
+  expect((await page.locator(".q-side").boundingBox()).y).toBeGreaterThanOrEqual(question.y + question.height);
+});

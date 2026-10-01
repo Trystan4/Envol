@@ -1,5 +1,6 @@
 import { esc, grade20, formatGrade, shortDate, plural } from "../util.js";
 import { closeBar, gauge, stepGauge, rightAnswer, sourceLine } from "./common.js";
+import { lineChart } from "./chart.js";
 
 const weekday = day => { const [y, m, d] = day.split("-").map(Number); return new Date(y, m - 1, d).toLocaleDateString("fr-FR", { weekday: "long", day: "numeric", month: "long" }); };
 
@@ -8,21 +9,44 @@ const trendText = delta => delta === null ? ""
   : delta < 0 ? ` En baisse de ${formatGrade(-delta)} point${-delta > 1 ? "s" : ""} depuis le précédent.`
   : " Stable depuis le précédent.";
 
-// One theme: mastered, in progress and seen questions, then the way to revise it alone.
+// One theme of the map: mastered, in progress and seen questions, then the way to revise it alone.
 const themeRow = t => {
   const legend = `${plural(t.mastered, "maîtrisée", "maîtrisées")} · ${t.learning} en cours · ${plural(t.seen, "vue", "vues")} sur ${t.total}`;
   const steps = [["", t.pct], ["learning", t.learningPct], ["seen", t.seenPct - t.pct - t.learningPct]];
   return `<div class="theme-row">${stepGauge(esc(t.theme), steps, `${t.pct} %`, legend)}<button class="small-link" data-act="themeReview" data-theme="${esc(t.theme)}">Réviser ce thème</button></div>`;
 };
 
+const dayTime = day => { const [y, m, d] = day.split("-").map(Number); return +new Date(y, m - 1, d); };
+
+// Mastery day by day (summary.masteryCurve), drawn from the second day kept.
+const masteryChart = curve => curve.length < 2
+  ? `<p class="muted">La courbe se dessine au fil des jours : chaque jour de révision y ajoute un point.</p>`
+  : `<div class="card">${lineChart({
+    points: curve.map(p => ({ y: p.pct })), max: 100, ticks: [0, 50, 100], format: v => `${v} %`, area: true,
+    first: shortDate(dayTime(curve[0].day)), last: "aujourd'hui",
+    label: `Maîtrise du programme : ${curve[0].pct} % le ${shortDate(dayTime(curve[0].day))}, ${curve[curve.length - 1].pct} % aujourd'hui.`,
+  })}</div>`;
+
+// The grades of the last mock tests, oldest first.
+const gradesChart = tests => {
+  const grades = tests.map(t => grade20(t.correct, t.total));
+  return `<div class="card" style="margin-top:12px">${lineChart({
+    points: grades.map(g => ({ y: g })), max: 20, ticks: [0, 10, 20], format: formatGrade, dots: true,
+    first: shortDate(tests[0].at), last: shortDate(tests[tests.length - 1].at),
+    label: `Notes des ${tests.length} derniers tests blancs, du plus ancien au plus récent : ${grades.map(formatGrade).join(", ")} sur 20.`,
+  })}</div>`;
+};
+
 const longDate = t => new Date(t).toLocaleDateString("fr-FR", { weekday: "long", day: "numeric", month: "long" });
 
-// "Mes résultats": overall progress, discovery forecast, regularity, mastery by theme (each can be
-// revised alone), most missed questions, mock tests, reported questions.
+// "Mes résultats": overall progress and its curve, discovery forecast, regularity, the map of themes from
+// the most fragile to the most solid (each can be revised alone), most missed questions, mock tests and
+// their curve, reported questions.
+// themes: summary.byFragility(themeBreakdown()); curve: summary.masteryCurve(); recentTests: the tests drawn.
 // mail: a mailto: link carrying the reported questions, or null (no address set, see REPORT_EMAIL).
-export function renderSummary({ ov, themes, trend, tests, reviewsThisWeek, streak, days, disputed, missed, forecast, message, mail }) {
+export function renderSummary({ ov, themes, curve, trend, tests, recentTests, reviewsThisWeek, streak, days, disputed, missed, forecast, message, mail }) {
   const lastTests = tests.slice(-10).reverse();
-  return `<main class="screen">
+  return `<main class="screen wide">
     ${closeBar()}
     <h1 class="title">Mes résultats</h1>
     <div class="figures">
@@ -33,6 +57,9 @@ export function renderSummary({ ov, themes, trend, tests, reviewsThisWeek, strea
     <p class="muted forecast">${forecast.date === null ? "Toutes les questions ont été découvertes."
       : `${forecast.seen} / ${forecast.total} questions découvertes : à ce rythme, tout sera vu le ${longDate(forecast.date)}.`}</p>
 
+    <h2 class="section">Progression</h2>
+    ${masteryChart(curve)}
+
     <h2 class="section">Régularité</h2>
     <div class="card">
       <p class="streak">${streak ? `${plural(streak, "jour")} d'affilée` : "Pas encore de série en cours"}</p>
@@ -42,9 +69,9 @@ export function renderSummary({ ov, themes, trend, tests, reviewsThisWeek, strea
       <p class="label" style="margin-top:8px">Les ${days.length} derniers jours, aujourd'hui en dernier</p>
     </div>
 
-    <h2 class="section">Maîtrise par thème</h2>
+    <h2 class="section">Thèmes, du plus fragile au plus solide</h2>
     <p class="steps-key" aria-hidden="true"><span>Maîtrisées</span><span class="learning">En cours</span><span class="seen">Vues</span></p>
-    <div class="gauges card">${themes.map(themeRow).join("")}</div>
+    <div class="gauges theme-map card">${themes.map(themeRow).join("")}</div>
 
     ${missed.length ? `<h2 class="section">Les plus ratées</h2>
       <div class="mistakes">${missed.map(q => `<div class="mistake card"><b>${esc(q.question)}</b><span>✓ ${rightAnswer(q)}</span><small class="muted">Ratée ${q.errors} fois · ${esc(q.theme)}</small></div>`).join("")}</div>
@@ -53,6 +80,7 @@ export function renderSummary({ ov, themes, trend, tests, reviewsThisWeek, strea
     <h2 class="section">Tests blancs</h2>
     ${trend.count
       ? `<p class="muted">${plural(trend.count, "test")}. Meilleure note : ${formatGrade(trend.best)} / 20, moyenne des ${Math.min(3, trend.count)} derniers : ${formatGrade(trend.average)} / 20.${trendText(trend.delta)}</p>
+        ${recentTests.length > 1 ? gradesChart(recentTests) : ""}
         <div class="gauges card" style="margin-top:12px">${lastTests.map(t => {
           const g = grade20(t.correct, t.total);
           return gauge(shortDate(t.at), g * 5, formatGrade(g));
@@ -62,7 +90,7 @@ export function renderSummary({ ov, themes, trend, tests, reviewsThisWeek, strea
       <div class="mistakes">${disputed.map(q => `<div class="mistake card"><b>${esc(q.question)}</b><span>✓ ${rightAnswer(q)}</span>${q.note ? `<span class="muted">Pourquoi : ${esc(q.note)}</span>` : ""}${q.page ? `<small class="source">${sourceLine(q)}</small>` : ""}<small class="muted">${q.setAside ? "Écartée des séances jusqu'à correction de la fiche." : "La fiche a changé depuis ton signalement : la question revient dans les séances."}</small><button class="small-link" data-act="withdraw" data-id="${esc(q.id)}">Retirer le signalement</button></div>`).join("")}</div>
       <button class="link" data-act="exportReports" style="align-self:center;margin-top:8px">Envoyer mes signalements</button>
       ${mail ? `<a class="link" href="${esc(mail)}" style="align-self:center">Envoyer par e-mail</a>` : ""}` : ""}
-    ${message ? `<p class="success" role="status">${esc(message)}</p>` : ""}
+    ${message ? `<p class="success" data-announce>${esc(message)}</p>` : ""}
     <div class="actions"><button class="btn" data-act="test">Faire un test blanc</button></div>
   </main>`;
 }

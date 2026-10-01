@@ -106,6 +106,17 @@ pages : c'est le cours tel que les fiches le citent. La recherche ignore accents
 porte sur les textes, les tableaux et les descriptions d'images ; seule la liste est redessinée à
 chaque lettre, le champ garde le clavier.
 
+### Mes résultats
+
+- **Thèmes, du plus fragile au plus solide** (`byFragility`) : une question maîtrisée compte pour 1, une
+  question en cours pour ½, rapporté au nombre de questions du thème. À égalité, un thème déjà travaillé
+  (vu, pas encore réussi) passe avant un thème pas commencé, puis l'ordre des fiches.
+- **Courbe de maîtrise** : chaque réponse note la maîtrise du jour (`history` de la sauvegarde, une entrée
+  par jour : maîtrisées, en cours, total). Les niveaux ne changent qu'avec une réponse, donc un jour sans
+  réponse garde la valeur de la veille ; aujourd'hui est la valeur en direct. La courbe montre les
+  56 derniers jours (`CURVE_DAYS`) à partir du premier jour noté.
+- **Courbe des notes** : les 10 derniers tests blancs (`CURVE_TESTS`), la liste des notes reste en dessous.
+
 ### Fiches mises à jour, signalements corrigés
 
 - Une empreinte par question (texte et réponses) est gardée sur l'appareil (clé `envol-v2-deck`, hors
@@ -167,7 +178,8 @@ premières bonnes réponses, tests blancs compris.
 
 ## Sauvegarde
 
-- Clé `envol-v2` dans le `localStorage` de l'app installée.
+- Clé `envol-v2` dans le `localStorage` de l'app installée. Depuis la 2.6, elle garde aussi l'historique
+  de la maîtrise (`history`, facultatif : une sauvegarde plus ancienne reste valide).
 - Tout ce qui est lu (au démarrage ou à l'import) passe par `validateSave` : types, bornes, cohérence
   (`correct ≤ seen`, `correct ≤ total`, date d'examen réelle…). Un fichier est accepté en entier ou
   refusé en entier, et seuls les champs connus sont recopiés.
@@ -177,6 +189,7 @@ premières bonnes réponses, tests blancs compris.
 
 ## Évolutions possibles
 
+- **Copie de sauvegarde par QR code**, pour changer d'appareil sans fichier.
 - **Choisir ses thèmes** depuis l'accueil.
 - **Images dans l'énoncé des questions** (aujourd'hui, les images ne s'affichent que dans l'extrait du cours).
 
@@ -201,6 +214,23 @@ chaque fichier l'un après l'autre.
 
 Un test vérifie que `ASSETS` correspond exactement aux fichiers publiés, et un autre que le code est
 servi sans attendre un réseau qui ne répond pas.
+
+## Affichage et accessibilité
+
+- **Tailles** : une colonne de 520 px au plus sur téléphone. À partir de 700 px de large, les écrans de
+  lecture (Mes résultats, Cours, Comment marche Envol) s'élargissent, et les thèmes passent sur deux
+  colonnes. En paysage à partir de 700 px (tablette, téléphone tourné), la question reste à gauche et les
+  réponses, l'extrait et le bouton défilent à droite.
+- **Clavier** (pendant une séance) : 1 à 9 choisissent les réponses dans l'ordre affiché (sur une carte
+  retournée : 1 « Je savais », 2 « Pas encore »), Entrée appuie sur le bouton principal. Les chiffres
+  s'affichent seulement avec une souris (`hover: hover`). Rien ne se passe pendant la saisie ou avec une
+  fenêtre ouverte.
+- **Lecteurs d'écran** : chaque nouvel écran est lu depuis son titre ; après une réponse, depuis le
+  verdict (`data-focus`). Un écran redessiné sur place (interrupteur, drapeau, réponse) garde sa position
+  et, au clavier, le focus sur le bouton utilisé. Les messages (`data-announce`) passent par une zone
+  `aria-live` qui reste sur la page (`#live`) : une zone ajoutée en même temps que son texte n'est pas lue.
+- **Contrastes** : textes ≥ 4,5:1 dans les deux thèmes ; bords des champs et interrupteur éteint ≥ 3:1
+  (`--field-line`). La pastille de fiabilité a aussi une forme : pleine, vide, cerclée.
 
 ## Navigation
 

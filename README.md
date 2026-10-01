@@ -21,11 +21,15 @@ n'importe quelles fiches : voir [Créer ses propres fiches](#créer-ses-propres-
   n'est pas corrigée, et Mes résultats permet d'envoyer la liste des signalements.
 - **Pastille de fiabilité** sur chaque question : verte (vérifiée dans le document), orange (à
   recouper avec ses sources) ou rouge (douteuse).
-- **Mes résultats** : progression par thème en trois étapes, vues, en cours et maîtrisées (et
-  « Réviser ce thème »), questions les plus ratées, date où
-  tout sera découvert, jours de révision, notes des tests blancs.
+- **Mes résultats** : courbe de la maîtrise jour après jour, thèmes du plus fragile au plus solide en
+  trois étapes, vues, en cours et maîtrisées (et « Réviser ce thème »), questions les plus ratées, date
+  où tout sera découvert, jours de révision, courbe et liste des notes des tests blancs.
 - **Reprendre une séance** interrompue (app fermée en pleine séance).
-- **Affichage** : texte agrandi, thème clair ou sombre au choix.
+- **Affichage** : texte agrandi, thème clair ou sombre au choix. Sur tablette ou téléphone en paysage,
+  la question à gauche et les réponses à droite ; sur ordinateur, les touches 1 à 9 choisissent une
+  réponse et Entrée passe à la suite.
+- **Accessibilité** : VoiceOver et TalkBack lisent le verdict après chaque réponse et les messages de
+  l'app ; champs et interrupteurs bien contrastés ; la pastille de fiabilité change aussi de forme.
 - **Comment marche Envol** : un guide des fonctionnalités, dans Réglages.
 - **Bouton retour** du téléphone : il revient à l'écran précédent de l'app au lieu de la quitter.
 - **Sauvegarde** : une copie de la progression à garder de côté, pour changer de téléphone.

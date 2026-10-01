@@ -2,7 +2,7 @@
 
 // Shown in Réglages to check that the phone runs the latest published version.
 // Keep equal to "version" in package.json and VERSION in sw.js (a test checks it).
-export const APP_VERSION = "2.5.0";
+export const APP_VERSION = "2.6.0";
 
 export const DAY = 864e5;
 
@@ -46,6 +46,8 @@ export const WEIGHTS = {
 export const REVIEWS_KEPT = 365; // review sessions kept for the summary
 export const ACTIVITY_DAYS_KEPT = 400; // days with activity kept for the streak and calendar
 export const CALENDAR_DAYS = 28; // days shown in the activity calendar
+export const CURVE_DAYS = 56; // days shown in the mastery curve (Mes résultats)
+export const CURVE_TESTS = 10; // mock tests shown in the grades curve (Mes résultats)
 
 // "Mes erreurs": questions missed within this many days and not mastered since, plus flagged ones.
 export const MISTAKES_WINDOW_DAYS = 14;
