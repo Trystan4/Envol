@@ -1,12 +1,13 @@
 // QR codes written by hand (no library), for the copy that goes from one phone to another (transfer.js).
 // This file draws them, and holds what the reader (qrscan.js) shares with it: the module layout and the
-// Reed-Solomon arithmetic. Only what Envol needs: alphanumeric mode (the 45 characters below), error
-// correction level M (about 15 % of the code can be damaged), versions 1 to 40. Pure.
+// Reed-Solomon arithmetic. Only what Envol needs: alphanumeric mode (the 45 characters below), versions 1
+// to 40, error correction level Q (about 25 % of the code can be damaged: the logo in the middle hides part
+// of it) and level M (the codes of Envol 2.7, still read). Pure.
 
 export const ALPHANUMERIC = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ $%*+-./:";
 
-// Level M, by version (1 to 40): error correction codewords per block, then for each group of blocks
-// [number of blocks, data codewords per block]. From ISO/IEC 18004, table 9.
+// By level, then by version (1 to 40): error correction codewords per block, then for each group of
+// blocks [number of blocks, data codewords per block]. From ISO/IEC 18004, table 9.
 const BLOCKS_M = [
   [10, 1, 16], [16, 1, 28], [26, 1, 44], [18, 2, 32], [24, 2, 43], [16, 4, 27], [18, 4, 31], [22, 2, 38, 2, 39],
   [22, 3, 36, 2, 37], [26, 4, 43, 1, 44], [30, 1, 50, 4, 51], [22, 6, 36, 2, 37], [22, 8, 37, 1, 38],
@@ -17,18 +18,29 @@ const BLOCKS_M = [
   [28, 12, 47, 26, 48], [28, 6, 47, 34, 48], [28, 29, 46, 14, 47], [28, 13, 46, 32, 47], [28, 40, 47, 7, 48],
   [28, 18, 47, 31, 48],
 ];
-export const LEVEL_M = 0; // the two bits of level M in the format information
+const BLOCKS_Q = [
+  [13, 1, 13], [22, 1, 22], [18, 2, 17], [26, 2, 24], [18, 2, 15, 2, 16], [24, 4, 19], [18, 2, 14, 4, 15],
+  [22, 4, 18, 2, 19], [20, 4, 16, 4, 17], [24, 6, 19, 2, 20], [28, 4, 22, 4, 23], [26, 4, 20, 6, 21],
+  [24, 8, 20, 4, 21], [20, 11, 16, 5, 17], [30, 5, 24, 7, 25], [24, 15, 19, 2, 20], [28, 1, 22, 15, 23],
+  [28, 17, 22, 1, 23], [26, 17, 21, 4, 22], [30, 15, 24, 5, 25], [28, 17, 22, 6, 23], [30, 7, 24, 16, 25],
+  [30, 11, 24, 14, 25], [30, 11, 24, 16, 25], [30, 7, 24, 22, 25], [28, 28, 22, 6, 23], [30, 8, 23, 26, 24],
+  [30, 4, 24, 31, 25], [30, 1, 23, 37, 24], [30, 15, 24, 25, 25], [30, 42, 24, 1, 25], [30, 10, 24, 35, 25],
+  [30, 29, 24, 19, 25], [30, 44, 24, 7, 25], [30, 39, 24, 14, 25], [30, 46, 24, 10, 25], [30, 49, 24, 10, 25],
+  [30, 48, 24, 14, 25], [30, 43, 24, 22, 25], [30, 34, 24, 34, 25],
+];
+const BLOCKS = { M: BLOCKS_M, Q: BLOCKS_Q };
+export const LEVEL_BITS = { M: 0, Q: 3 }; // the two bits of each level in the format information
 
 export const sizeOf = version => 17 + 4 * version;
 
 // { ec: error correction codewords per block, blocks: data codewords of each block }.
-export function blocksOf(version) {
-  const [ec, ...groups] = BLOCKS_M[version - 1];
+export function blocksOf(version, level = "Q") {
+  const [ec, ...groups] = BLOCKS[level][version - 1];
   const blocks = [];
   for (let i = 0; i < groups.length; i += 2) for (let k = 0; k < groups[i]; k++) blocks.push(groups[i + 1]);
   return { ec, blocks };
 }
-const dataCodewords = version => blocksOf(version).blocks.reduce((a, b) => a + b, 0);
+const dataCodewords = (version, level) => blocksOf(version, level).blocks.reduce((a, b) => a + b, 0);
 
 // Bits of the character count, alphanumeric mode.
 export const countBits = version => version < 10 ? 9 : version < 27 ? 11 : 13;
@@ -157,7 +169,7 @@ export const MASKS = [
 /* ---------- Encoding ---------- */
 
 // Data codewords and error correction, interleaved block by block as the symbol stores them.
-function codewords(text, version) {
+function codewords(text, version, level) {
   const bits = [];
   const put = (value, n) => { for (let i = n - 1; i >= 0; i--) bits.push(value >> i & 1); };
   put(0b0010, 4);
@@ -166,14 +178,14 @@ function codewords(text, version) {
     const a = ALPHANUMERIC.indexOf(text[i]);
     if (i + 1 < text.length) put(a * 45 + ALPHANUMERIC.indexOf(text[i + 1]), 11); else put(a, 6);
   }
-  const capacity = dataCodewords(version) * 8;
+  const capacity = dataCodewords(version, level) * 8;
   put(0, Math.min(4, capacity - bits.length)); // terminator
   while (bits.length % 8) bits.push(0);
   const data = [];
   for (let i = 0; i < bits.length; i += 8) data.push(bits.slice(i, i + 8).reduce((a, b) => a << 1 | b, 0));
   for (let pad = 0xec; data.length < capacity / 8; pad ^= 0xec ^ 0x11) data.push(pad);
 
-  const { ec, blocks } = blocksOf(version);
+  const { ec, blocks } = blocksOf(version, level);
   const split = [];
   let at = 0;
   for (const n of blocks) { split.push(data.slice(at, at + n)); at += n; }
@@ -187,14 +199,14 @@ function codewords(text, version) {
 const bitsNeeded = (text, version) => 4 + countBits(version) + Math.floor(text.length / 2) * 11 + text.length % 2 * 6;
 
 // The smallest version (from minVersion) that holds `text`, or null when even version 40 is too small.
-export function versionFor(text, minVersion = 1) {
-  for (let v = minVersion; v <= 40; v++) if (bitsNeeded(text, v) <= dataCodewords(v) * 8) return v;
+export function versionFor(text, level = "Q", minVersion = 1) {
+  for (let v = minVersion; v <= 40; v++) if (bitsNeeded(text, v) <= dataCodewords(v, level) * 8) return v;
   return null;
 }
 
 // How many characters a version holds.
-export const capacityOf = version => {
-  const free = dataCodewords(version) * 8 - 4 - countBits(version);
+export const capacityOf = (version, level = "Q") => {
+  const free = dataCodewords(version, level) * 8 - 4 - countBits(version);
   return Math.floor(free / 11) * 2 + (free % 11 >= 6 ? 1 : 0);
 };
 
@@ -225,23 +237,54 @@ function penalty(m, size) {
   return score + Math.floor(Math.abs(darkCount * 20 - size * size * 10) / (size * size)) * 10;
 }
 
-// A QR code holding `text` (alphanumeric characters only), level M. mask: 0 to 7, or chosen.
-// Returns { version, size, mask, modules: 1 for dark, size × size row by row }.
-export function encodeQR(text, { minVersion = 1, mask = null } = {}) {
+/* ---------- The logo ---------- */
+
+// Side of the logo, at most, as a share of the code's: beyond, it covers the code more than it decorates it.
+const LOGO_SIDE = 0.27;
+
+// The square in the middle of a code that the logo may hide: the largest whose codewords, in every block,
+// stay within half of what the block can correct (the other half is left for the camera: blur, glare).
+// Returns { from, side } in modules: the square from `from` to `from + side` across and down, or null.
+export function logoArea(version, level = "Q") {
+  const size = sizeOf(version), cells = dataCells(version, functionPatterns(version).fn);
+  const { ec, blocks } = blocksOf(version, level);
+  // The block of each codeword, in the order the symbol stores them (see codewords()).
+  const owner = [];
+  for (let i = 0; i < Math.max(...blocks); i++) blocks.forEach((n, b) => { if (i < n) owner.push(b); });
+  for (let i = 0; i < ec; i++) blocks.forEach((_, b) => owner.push(b));
+  const budget = Math.floor(ec / 4);
+  for (let side = Math.floor(size * LOGO_SIDE) - 1 | 1; side >= 5; side -= 2) {
+    const from = (size - side) / 2, hidden = new Set();
+    cells.forEach((cell, i) => {
+      const x = cell % size, y = (cell - x) / size;
+      if (i >> 3 < owner.length && x >= from && x < from + side && y >= from && y < from + side) hidden.add(i >> 3);
+    });
+    const perBlock = blocks.map(() => 0);
+    for (const word of hidden) perBlock[owner[word]]++;
+    if (perBlock.every(n => n <= budget)) return { from, side };
+  }
+  return null;
+}
+
+/* ---------- The symbol ---------- */
+
+// A QR code holding `text` (alphanumeric characters only), level Q (or M). mask: 0 to 7, or chosen.
+// Returns { version, size, mask, modules: 1 for dark, size × size row by row, logo: see logoArea }.
+export function encodeQR(text, { level = "Q", minVersion = 1, mask = null } = {}) {
   if ([...text].some(c => !ALPHANUMERIC.includes(c))) throw new Error("caractère hors de l'alphabet du QR code");
-  const version = versionFor(text, minVersion);
+  const version = versionFor(text, level, minVersion);
   if (!version) throw new Error("texte trop long pour un QR code");
   const size = sizeOf(version);
   const { fn, dark } = functionPatterns(version);
   const cells = dataCells(version, fn);
-  const words = codewords(text, version);
+  const words = codewords(text, version, level);
   const build = k => {
     const m = dark.slice();
     cells.forEach((cell, i) => {
       const bit = i < words.length * 8 ? words[i >> 3] >> 7 - (i & 7) & 1 : 0;
       m[cell] = bit ^ (MASKS[k](cell % size, Math.floor(cell / size)) ? 1 : 0);
     });
-    const f = formatBits(LEVEL_M, k);
+    const f = formatBits(LEVEL_BITS[level], k);
     for (const copy of formatCells(size)) copy.forEach(([x, y], i) => { m[y * size + x] = f >> i & 1; });
     return m;
   };
@@ -251,5 +294,6 @@ export function encodeQR(text, { minVersion = 1, mask = null } = {}) {
     if (!best || score < best.score) best = { version, size, mask: k, modules, score };
   }
   delete best.score;
+  best.logo = level === "Q" ? logoArea(version, level) : null;
   return best;
 }

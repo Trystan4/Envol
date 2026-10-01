@@ -17,7 +17,7 @@ export function renderBackup({ message, error, canUndo, qr }) {
     </div>
     ${qr ? `<div class="card transfer">
       <b>Passer sur un autre appareil</b>
-      <p class="muted">Sans fichier ni internet : un appareil montre des QR codes, l'autre les filme.</p>
+      <p class="muted">Sans fichier ni internet : un appareil montre un QR code, l'autre le filme.</p>
       <div class="segments"><button class="segment" data-act="sendQR">Envoyer par QR code</button><button class="segment" data-act="receiveQR">Recevoir par QR code</button></div>
     </div>` : ""}
     <input type="file" id="file" accept=".json,application/json" hidden>

@@ -1,16 +1,18 @@
 // Reading a QR code in a camera picture, written by hand: iPhone browsers have no QR reader of their own
-// (BarcodeDetector), and Envol takes no library. Reads what qr.js draws: level M, any version, and the
-// numeric, alphanumeric and byte modes. Pure: a grey picture in, the text out (or null).
+// (BarcodeDetector), and Envol takes no library. Reads what qr.js draws: levels Q and M, any version, and
+// the numeric, alphanumeric and byte modes; the error correction puts right what the logo hides. Pure: a
+// grey picture in, the text out (or null).
 //
 // 1. Black and white: each pixel against the mean of its neighbourhood (light and shade vary across a photo).
 // 2. The three finder squares: runs dark-light-dark-light-dark in the ratio 1:1:3:1:1, across, down and
 //    on the diagonal; the corners of the code are the three seen most often, at a right angle.
-// 3. The version, counted on the timing lines between the finders. The fourth corner from the perspective
-//    the finders' sizes show, then the alignment square near it, so a picture taken at an angle lines up.
+// 3. The version, read in its 18 bits beside two finders (7 and up), or counted on the timing lines. The
+//    fourth corner from the perspective the finders' sizes show, then the alignment square near it, so a
+//    picture taken at an angle lines up.
 // 4. One sample per module, then the format, the Reed-Solomon correction and the text.
 // Checked on camera-like pictures in tests/unit/qr.test.js (turned, at an angle, blurred, glare, noise).
 
-import { sizeOf, blocksOf, countBits, functionPatterns, dataCells, formatCells, formatBits, MASKS, LEVEL_M, EXP, LOG, mul, ALPHANUMERIC } from "./qr.js";
+import { sizeOf, blocksOf, countBits, functionPatterns, dataCells, formatCells, formatBits, versionBits, MASKS, LEVEL_BITS, EXP, LOG, mul, ALPHANUMERIC } from "./qr.js";
 
 /* ---------- 1. Black and white ---------- */
 
@@ -300,10 +302,11 @@ export function readGrid(grid, version) {
       if (dist < bestDist) { bestDist = dist; format = { level, mask }; }
     }
   }
-  if (!format || format.level !== LEVEL_M) return null;
+  const level = format && Object.keys(LEVEL_BITS).find(k => LEVEL_BITS[k] === format.level);
+  if (!level) return null;
   const { fn } = functionPatterns(version);
   const cells = dataCells(version, fn);
-  const { ec, blocks } = blocksOf(version);
+  const { ec, blocks } = blocksOf(version, level);
   const total = blocks.reduce((a, b) => a + b, 0) + ec * blocks.length;
   const words = new Uint8Array(total);
   for (let i = 0; i < total * 8; i++) {
@@ -378,6 +381,32 @@ function timingVersion(bin, w, h, from, to, side) {
   return Number.isInteger(version) && version >= 1 && version <= 40 ? version : null;
 }
 
+// The versions (7 and up) whose 18 version bits, beside the top-right or bottom-left finder, read back as
+// that same version (at most 3 bits off), placed by the finders alone. These modules fall in place only
+// for a version close to the true one, so each is tried: a wrong one reads as noise, not as itself.
+// Sturdier than the timing lines on large codes, where blur makes the finders look larger than they are.
+function versionsWritten(bin, w, h, { tl, tr, bl }) {
+  const out = [];
+  for (let v = 7; v <= 40; v++) {
+    const size = sizeOf(v);
+    const map = homography([[3.5, 3.5], [size - 3.5, 3.5], [3.5, size - 3.5], [size - 3.5, size - 3.5]],
+      [[tl.x, tl.y], [tr.x, tr.y], [bl.x, bl.y], fourthCorner(tl, tr, bl, size)]);
+    if (!map) continue;
+    const at = (x, y) => {
+      const [px, py] = map(x + 0.5, y + 0.5), ix = Math.round(px), iy = Math.round(py);
+      return ix < 0 || iy < 0 || ix >= w || iy >= h ? 0 : bin[iy * w + ix];
+    };
+    let right = 0, left = 0;
+    for (let i = 0; i < 18; i++) {
+      const a = size - 11 + i % 3, b = Math.floor(i / 3);
+      right |= at(a, b) << i;
+      left |= at(b, a) << i;
+    }
+    if (ones(right ^ versionBits(v)) <= 3 || ones(left ^ versionBits(v)) <= 3) out.push(v);
+  }
+  return out;
+}
+
 // The text of the QR code in a grey picture (one byte per pixel, row by row), or null.
 export function decodeImage(gray, w, h) {
   const bin = binarize(gray, w, h);
@@ -391,7 +420,7 @@ export function decodeImage(gray, w, h) {
     // around it are tried too, error correction rejects the wrong ones.
     const estimate = Math.round((t.modules + 7 - 17) / 4);
     const timed = [timingVersion(bin, w, h, t.tl, t.tr, t.bl), timingVersion(bin, w, h, t.tl, t.bl, t.tr)];
-    for (const v of new Set([...timed.filter(Boolean), ...[0, -1, 1, -2, 2, -3, 3].map(d => estimate + d)])) {
+    for (const v of new Set([...versionsWritten(bin, w, h, t), ...timed.filter(Boolean), ...[0, -1, 1, -2, 2, -3, 3].map(d => estimate + d)])) {
       if (v < 1 || v > 40) continue;
       const grid = sample(bin, w, h, t, v);
       const text = grid && readGrid(grid, v);

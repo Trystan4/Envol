@@ -1,12 +1,12 @@
 // Copy of the progress from one device to another by QR codes, with no file and no server.
 // The save is packed (compact JSON, times to the minute), compressed (deflate), written in Base45 (the
 // alphabet of the QR alphanumeric mode, 3 characters for 2 bytes), checked by a CRC-32, then cut into
-// numbered codes that the screen shows in turn. The other device films them, keeps each one once, and
-// rebuilds the save only when every code arrived and the check matches. Pure (no DOM); compression uses
-// CompressionStream, present in browsers and in Node.
+// numbered codes that the screen shows in turn (a single one when it fits). The other device films them,
+// keeps each one once, and rebuilds the save only when every code arrived and the check matches. Pure (no
+// DOM); compression uses CompressionStream, present in browsers and in Node.
 
-import { capacityOf } from "./qr.js";
-import { QR_MAX_VERSION } from "./config.js";
+import { capacityOf, versionFor } from "./qr.js";
+import { QR_MAX_VERSION, QR_SINGLE_MAX_VERSION } from "./config.js";
 
 export const FRAME_TAG = "EV1"; // Envol transfer, format 1
 const FRAME = /^EV1:([0-9A-Z]{4}):(\d{1,3}):(\d{1,3}):(.*)$/s;
@@ -109,8 +109,8 @@ export const canTransfer = () => typeof CompressionStream === "function" && type
 // Characters of data per code: what the largest version holds, less the header "EV1:ABCD:12:34:".
 export const FRAME_DATA = capacityOf(QR_MAX_VERSION) - 16;
 
-// The texts of the codes for `save`. id: 4 characters naming this copy, so codes of two different
-// copies are never mixed.
+// The texts of the codes for `save`: a single one when it fits in QR_SINGLE_MAX_VERSION. id: 4 characters
+// naming this copy, so codes of two different copies are never mixed.
 export async function encodeFrames(save, id) {
   const packed = await pipe(new TextEncoder().encode(JSON.stringify(packSave(save))), new CompressionStream("deflate-raw"));
   const crc = crc32(packed);
@@ -118,6 +118,8 @@ export async function encodeFrames(save, id) {
   bytes.set(packed);
   bytes.set([crc >>> 24, crc >>> 16 & 255, crc >>> 8 & 255, crc & 255], packed.length);
   const text = toBase45(bytes);
+  const whole = `${FRAME_TAG}:${id}:1:1:${text}`, version = versionFor(whole);
+  if (version && version <= QR_SINGLE_MAX_VERSION) return [whole];
   const count = Math.ceil(text.length / FRAME_DATA);
   return Array.from({ length: count }, (_, i) => `${FRAME_TAG}:${id}:${i + 1}:${count}:${text.slice(i * FRAME_DATA, (i + 1) * FRAME_DATA)}`);
 }

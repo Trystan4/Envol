@@ -369,20 +369,20 @@ test("ordre des réponses : la bonne réponse change de place d'un affichage à 
 /* ---------- Version 2.3.0 ---------- */
 
 // Progress with mistakes, an exam date and no backup copy for 8 days: every note of the home screen shows.
-async function seedHistory(page) {
-  await page.evaluate(async () => {
+async function seedHistory(page, count = 30) {
+  await page.evaluate(async count => {
     const { applyAnswer } = await import("/js/engine.js");
     const { loadDeck } = await import("/js/deck.js");
     const { isoDate } = await import("/js/util.js");
     const { questions } = await loadDeck(async p => (await fetch("/" + p)).json());
     const now = Date.now(), DAY = 864e5, cards = {};
-    questions.slice(0, 30).forEach((q, i) => {
+    questions.slice(0, count).forEach((q, i) => {
       let c;
       for (let d = 8; d >= 0; d -= 2) c = applyAnswer(c, { correct: (i + d) % 3 !== 0, mode: "review", now: now - d * DAY });
       cards[q.id] = c;
     });
     localStorage.setItem("envol-v2", JSON.stringify({ version: 2, examDate: isoDate(now + 20 * DAY), cards, tests: [], reviews: [] }));
-  });
+  }, count);
   await page.reload();
 }
 
@@ -784,8 +784,8 @@ test("tablette ou téléphone en paysage : la question à gauche, les réponses 
   expect((await page.locator(".q-side").boundingBox()).y).toBeGreaterThanOrEqual(question.y + question.height);
 });
 
-// A camera that films the QR codes given in window.__codes (SVG path and size), one after the other, like
-// a phone held over the other device's screen.
+// A camera that films the QR codes given in window.__codes (the shapes of each SVG, see qrShapes), one
+// after the other, like a phone held over the other device's screen.
 const fakeCamera = () => {
   window.__codes = [];
   const getUserMedia = async () => {
@@ -801,8 +801,14 @@ const fakeCamera = () => {
       ctx.save();
       ctx.translate(130, 50);
       ctx.scale(380 / code.n, 380 / code.n);
-      ctx.fillStyle = "#fff"; ctx.fillRect(0, 0, code.n, code.n);
-      ctx.fillStyle = "#000"; ctx.fill(new Path2D(code.d));
+      for (const s of code.shapes) {
+        ctx.save();
+        ctx.transform(...s.m);
+        const p = new Path2D(s.d);
+        if (s.fill !== "none") { ctx.fillStyle = s.fill; ctx.fill(p); }
+        if (s.stroke !== "none") { ctx.strokeStyle = s.stroke; ctx.lineWidth = s.width; ctx.lineCap = s.cap; ctx.stroke(p); }
+        ctx.restore();
+      }
       ctx.restore();
     };
     draw();
@@ -812,7 +818,23 @@ const fakeCamera = () => {
   Object.defineProperty(navigator, "mediaDevices", { value: { getUserMedia }, configurable: true });
 };
 
-test("copie par QR codes : un appareil montre ses codes, l'autre les filme et reprend sa progression", async ({ page, browser, browserName }, info) => {
+// The code on screen as the camera sees it: each shape of the SVG as a path, with its colours (from the
+// style sheet) and its place in the code (the logo is scaled into the middle), and which code it is.
+const qrShapes = () => {
+  const svg = document.querySelector("#qr svg"), caption = document.getElementById("qrCount");
+  const [, k, n] = caption ? caption.textContent.match(/Code (\d+) sur (\d+)/) : [, "1", "1"];
+  const toCode = svg.getScreenCTM().inverse();
+  const shapes = [...svg.querySelectorAll("rect, path, circle")].map(el => {
+    const m = toCode.multiply(el.getScreenCTM()), css = getComputedStyle(el), a = name => Number(el.getAttribute(name) || 0);
+    const d = el.tagName === "path" ? el.getAttribute("d")
+      : el.tagName === "rect" ? `M0 0h${a("width")}v${a("height")}h-${a("width")}z`
+      : `M${a("cx") - a("r")} ${a("cy")}a${a("r")} ${a("r")} 0 1 0 ${2 * a("r")} 0a${a("r")} ${a("r")} 0 1 0 ${-2 * a("r")} 0`;
+    return { d, m: [m.a, m.b, m.c, m.d, m.e, m.f], fill: css.fill, stroke: css.stroke, width: parseFloat(css.strokeWidth), cap: css.strokeLinecap };
+  });
+  return { k: Number(k), count: Number(n), n: Number(svg.getAttribute("viewBox").split(" ")[2]), shapes };
+};
+
+for (const [name, questions] of [["un seul code au logo", 30], ["plusieurs codes qui défilent", 400]]) test(`copie par QR codes (${name}) : un appareil montre sa progression, l'autre la filme et la reprend`, async ({ page, browser, browserName }, info) => {
   // The fake camera is a canvas stream (captureStream), which the WebKit build of Playwright lacks. The
   // reader itself is the same code everywhere (tests/unit/qr.test.js reads camera-like pictures).
   test.skip(browserName === "webkit", "pas de captureStream dans WebKit pour simuler la caméra");
@@ -822,24 +844,21 @@ test("copie par QR codes : un appareil montre ses codes, l'autre les filme et re
   const a = await other.newPage();
   await a.addInitScript(() => localStorage.setItem("envol-v2-guide-seen", "1"));
   await a.goto("/");
-  await seedHistory(a);
+  await seedHistory(a, questions);
   const sent = await a.evaluate(k => JSON.parse(localStorage.getItem(k)), KEY);
   await a.getByRole("button", { name: "Sauvegarde" }).click();
   await a.getByRole("button", { name: "Envoyer par QR code" }).click();
   await expect(a.locator("#qr svg")).toBeVisible();
   const codes = new Map();
   let count = 1;
-  for (let tries = 0; tries < 200 && codes.size < count; tries++) {
-    const { k, n, d, size } = await a.evaluate(() => {
-      const [, k, n] = document.getElementById("qrCount").textContent.match(/Code (\d+) sur (\d+)/);
-      const svg = document.querySelector("#qr svg");
-      return { k: Number(k), n: Number(n), d: svg.querySelector("path").getAttribute("d"), size: Number(svg.getAttribute("viewBox").split(" ")[2]) };
-    });
-    count = n;
-    codes.set(k, { d, n: size });
+  for (let tries = 0; tries < 300 && codes.size < count; tries++) {
+    const code = await a.evaluate(qrShapes);
+    count = code.count;
+    codes.set(code.k, code);
     await a.waitForTimeout(100);
   }
   expect(codes.size).toBe(count);
+  if (questions === 30) expect(count).toBe(1); else expect(count).toBeGreaterThan(2);
   await other.close();
 
   // Device B films them (the camera breaks no rule of the security policy).

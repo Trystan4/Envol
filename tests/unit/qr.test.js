@@ -1,6 +1,7 @@
 // QR codes written and read by hand (qr.js, qrscan.js), and the copy to another device (transfer.js).
-// The encoder was checked module for module against an independent one (segno) for versions 1 to 40;
-// these tests keep it that way through the round trip, on pictures as a phone camera takes them.
+// The encoder was checked module for module against an independent one (segno) for versions 1 to 40, at
+// levels M and Q; these tests keep it that way through the round trip, on pictures as a phone camera takes
+// them, with the logo in the middle.
 
 import { test } from "node:test";
 import assert from "node:assert/strict";
@@ -8,7 +9,7 @@ import { encodeQR, versionFor, capacityOf, rsEncode, sizeOf, alignmentPositions,
 import { decodeImage, readGrid, rsCorrect } from "../../src/js/qrscan.js";
 import { packSave, unpackSave, toBase45, fromBase45, crc32, encodeFrames, collect, complete, received, assemble, FRAME_DATA, transferId } from "../../src/js/transfer.js";
 import { validateSave } from "../../src/js/storage.js";
-import { QR_MAX_VERSION } from "../../src/js/config.js";
+import { QR_MAX_VERSION, QR_SINGLE_MAX_VERSION } from "../../src/js/config.js";
 import { createRng } from "../../src/js/util.js";
 import { NOW, DAY, card, saveWith } from "./helpers.js";
 
@@ -21,10 +22,15 @@ test("QR : tailles et tables de la norme", () => {
   assert.deepEqual(alignmentPositions(7), [6, 22, 38]);
   assert.deepEqual(alignmentPositions(32), [6, 34, 60, 86, 112, 138]); // the irregular one
   assert.equal(formatBits(0, 0), 0b101010000010010); // level M, mask 0 (ISO/IEC 18004, annex C)
-  assert.equal(capacityOf(1), 20); // version 1-M: 20 alphanumeric characters
-  assert.equal(capacityOf(15), 600);
-  assert.equal(versionFor("A".repeat(20)), 1);
-  assert.equal(versionFor("A".repeat(21)), 2);
+  assert.equal(formatBits(3, 0), 0b011010101011111); // level Q, mask 0
+  assert.equal(capacityOf(1, "M"), 20); // version 1-M: 20 alphanumeric characters
+  assert.equal(capacityOf(15, "M"), 600);
+  assert.equal(capacityOf(1), 16); // version 1-Q, what Envol writes
+  assert.equal(capacityOf(15), 426);
+  assert.equal(capacityOf(40), 2420);
+  assert.equal(versionFor("A".repeat(16)), 1);
+  assert.equal(versionFor("A".repeat(17)), 2);
+  assert.equal(versionFor("A".repeat(20), "M"), 1);
   assert.throws(() => encodeQR("minuscules"), /alphabet/);
 });
 
@@ -38,16 +44,42 @@ test("QR : Reed-Solomon corrige jusqu'à la moitié des codes de contrôle, et r
   }
 });
 
-test("QR : écrit puis relu, de la version 1 à 40", () => {
-  for (const n of [1, 20, 100, 600, 1500, 3000, 3391]) {
-    const t = text(n), q = encodeQR(t);
-    assert.equal(readGrid(q.modules, q.version), t, `${n} caractères, version ${q.version}`);
+test("QR : écrit puis relu, de la version 1 à 40, aux niveaux Q et M (les codes d'Envol 2.7)", () => {
+  for (const level of ["Q", "M"]) for (const n of [1, 20, 100, 600, 1500, capacityOf(40, level)]) {
+    const t = text(n), q = encodeQR(t, { level });
+    assert.equal(readGrid(q.modules, q.version), t, `${n} caractères, niveau ${level}, version ${q.version}`);
   }
 });
 
-// A camera picture of `q`: quiet zone, `px` pixels per module, turned by `angle`, seen at an angle (`tilt`,
+// Every module under the logo turned to its opposite: the worst a logo can do.
+const underLogo = q => {
+  const m = q.modules.slice(), { from, side } = q.logo;
+  for (let y = from; y < from + side; y++) for (let x = from; x < from + side; x++) m[y * q.size + x] ^= 1;
+  return { ...q, modules: m };
+};
+
+test("QR : le logo couvre un quart du côté, et le code se relit même si tout ce qu'il cache est faux", () => {
+  for (let v = 3; v <= QR_SINGLE_MAX_VERSION; v++) {
+    const t = text(capacityOf(v)), q = encodeQR(t);
+    assert.equal(q.version, v);
+    if (v >= 5) assert.ok(q.logo.side / q.size >= 0.2 && q.logo.side / q.size <= 0.27, `version ${v} : ${q.logo.side} modules sur ${q.size}`);
+    assert.equal(readGrid(underLogo(q).modules, v), t, `version ${v}`);
+  }
+  assert.equal(encodeQR("A").logo, null); // too small a code for a logo
+  assert.equal(encodeQR("A", { level: "M" }).logo, null);
+});
+
+// A camera picture of `q` as the screen shows it (the logo: a light margin, then dark with light lines):
+// quiet zone, `px` pixels per module, turned by `angle`, seen at an angle (`tilt`,
 // a true perspective), blurred, with noise and uneven light. Grey, one byte per pixel.
 function photo(q, { px = 5, angle = 0, tilt = 0, contrast = 1, noise = 8 }) {
+  if (q.logo) {
+    const m = q.modules.slice(), { from, side } = q.logo, last = side - 1;
+    for (let y = 0; y < side; y++) for (let x = 0; x < side; x++) {
+      m[(from + y) * q.size + from + x] = x === 0 || y === 0 || x === last || y === last || x === last - y || y === last - 2 ? 0 : 1;
+    }
+    q = { ...q, modules: m };
+  }
   const n = q.size + 8, side = n * px, W = Math.ceil(side * 1.6), H = W;
   const ca = Math.cos(angle), sa = Math.sin(angle), g = new Float32Array(W * H);
   for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
@@ -65,7 +97,7 @@ function photo(q, { px = 5, angle = 0, tilt = 0, contrast = 1, noise = 8 }) {
   return { img, W, H };
 }
 
-test("QR : lu sur une photo tournée, prise de biais, floue, avec reflet et bruit", () => {
+test("QR : lu sur une photo tournée, prise de biais, floue, avec reflet et bruit, logo compris", () => {
   const cases = [
     { px: 5 }, { px: 4, angle: 0.2 }, { px: 5, angle: -0.6, tilt: 0.1 }, { px: 5, angle: 1.5, tilt: 0.12 },
     { px: 5, angle: 3, tilt: 0.15 }, { px: 5, angle: 0.4, contrast: 0.35 }, { px: 5, angle: -1, noise: 20, contrast: 0.7 },
@@ -74,6 +106,12 @@ test("QR : lu sur une photo tournée, prise de biais, floue, avec reflet et brui
     const t = text(capacityOf(QR_MAX_VERSION)), q = encodeQR(t);
     const { img, W, H } = photo(q, c);
     assert.equal(decodeImage(img, W, H), t, JSON.stringify(c));
+  }
+  // The single code, larger: its version is read in its version bits (blur makes its finders look larger).
+  for (const c of [{ px: 4, angle: 0.2 }, { px: 5, angle: -0.6, tilt: 0.1 }, { px: 3.5, angle: -0.5, tilt: 0.15 }, { px: 5, angle: -1, noise: 20, contrast: 0.7 }, { px: 3, angle: 0.8, tilt: 0.1, contrast: 0.6 }]) {
+    const t = text(capacityOf(QR_SINGLE_MAX_VERSION)), q = encodeQR(t);
+    const { img, W, H } = photo(q, c);
+    assert.equal(decodeImage(img, W, H), t, `code unique ${JSON.stringify(c)}`);
   }
 });
 
@@ -116,6 +154,17 @@ test("copie par QR : Base45 et CRC-32 suivent leurs normes", () => {
   assert.equal(crc32(new TextEncoder().encode("123456789")), 0xcbf43926);
 });
 
+test("copie par QR : une petite progression tient dans un seul code, au logo", async () => {
+  const save = fullSave();
+  const frames = await encodeFrames(save, "AB12");
+  assert.equal(frames.length, 1);
+  const q = encodeQR(frames[0]);
+  assert.ok(q.version <= QR_SINGLE_MAX_VERSION && q.logo, `version ${q.version}`);
+  const state = collect(null, readGrid(underLogo(q).modules, q.version));
+  assert.ok(complete(state));
+  assert.deepEqual(await assemble(state), toMinute(save));
+});
+
 test("copie par QR : les codes arrivent dans le désordre, en double, mêlés à d'autres : la copie est entière", async () => {
   const save = fullSave();
   for (let i = 0; i < 300; i++) save.cards[`theme-${i}`] = card({ level: i % 6, due: NOW + i * 1e6, seen: 5, correct: i % 5 });
@@ -127,6 +176,7 @@ test("copie par QR : les codes arrivent dans le désordre, en double, mêlés à
   const order = [0, 0, ...[...frames.keys()].slice(1).reverse()]; // the first one twice, then the others backwards
   for (const k of order) {
     assert.equal(complete(state), false);
+    if (state && state.id !== "ZZZZ") await assert.rejects(assemble(state), /abîmée/); // a code missing: nothing is rebuilt
     state = collect(state, frames[k]);
   }
   state = collect(state, frames[1]); // seen again once complete: nothing changes

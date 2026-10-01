@@ -11,7 +11,7 @@
 // from fiches/index.json at install time. tests/unit/sw.test.js checks the list.
 
 // Equal to APP_VERSION in js/config.js: bumping it changes this file, so phones install the new version.
-const VERSION = "2.7.0";
+const VERSION = "2.8.0";
 const CACHE = "envol-v2";
 const ASSETS = [
   "./",

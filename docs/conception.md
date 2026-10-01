@@ -216,28 +216,36 @@ servi sans attendre un réseau qui ne répond pas.
 
 ## Copie vers un autre appareil par QR codes
 
-Pour changer d'appareil sans fichier, sans serveur et sans réseau : l'ancien appareil montre des QR codes
-qui défilent, le nouveau les filme.
+Pour changer d'appareil sans fichier, sans serveur et sans réseau : l'ancien appareil montre un QR code
+au logo d'Envol (ou plusieurs qui défilent, pour une grosse progression), le nouveau le filme.
 
 - **Emballage** (`transfer.js`) : la sauvegarde en JSON compact (cartes et scores en tableaux, dates à la
   minute près), compressée (`CompressionStream`, deflate), suivie d'un CRC-32, écrite en Base45 (RFC 9285 :
   l'alphabet du mode alphanumérique des QR codes, 3 caractères pour 2 octets, lisible par n'importe quel
   lecteur). Une progression complète (300 questions vues, des semaines de tests et de séances) tient en
-  une quinzaine de codes, soit moins de 5 secondes par tour.
+  une vingtaine de codes, soit environ 6 secondes par tour.
 - **Codes** : chacun commence par `EV1:<copie>:<n°>:<total>:`. Le nom de la copie (4 caractères au hasard)
-  évite de mêler deux envois. Version 15 au plus (`QR_MAX_VERSION`, 77 × 77 modules), niveau de correction
-  M ; un code toutes les 300 ms (`QR_FRAME_MS`), l'écran reste allumé (Wake Lock).
+  évite de mêler deux envois. Un seul code fixe tant que la copie tient en version 25
+  (`QR_SINGLE_MAX_VERSION`, 117 × 117 modules, environ 1 000 caractères) : il ne bouge pas, la caméra a
+  le temps. Au-delà, des codes de version 15 au plus (`QR_MAX_VERSION`, 77 × 77 modules), un toutes les
+  300 ms (`QR_FRAME_MS`). L'écran reste allumé (Wake Lock).
+- **Logo** : niveau de correction Q (un quart des données peut manquer). Le logo cache le carré du milieu
+  le plus grand dont les mots de code restent, dans chaque bloc, sous la moitié de ce que le bloc sait
+  corriger (`logoArea`, environ un quart du côté) : l'autre moitié reste pour la caméra. Bleu de l'app
+  sur sa crème dans les deux thèmes (`--qr-ink`, `--qr-paper`).
 - **Réception** : la caméra arrière, le carré du milieu de l'image analysé plusieurs fois par seconde.
   Chaque code est gardé une fois, dans n'importe quel ordre. Quand tous sont là, le CRC doit correspondre,
   puis la copie passe par `validateSave` comme un fichier : refusée en entier ou acceptée en entier, après
   confirmation, avec « Annuler le dernier import ».
 - **Lecture des codes** (`qrscan.js`) : les navigateurs d'iPhone n'ont pas de lecteur de QR code
   (`BarcodeDetector`), Envol a donc le sien : noir et blanc local, carrés de repérage (rapport 1:1:3:1:1
-  en long, en large et en diagonale), version comptée sur les lignes de synchronisation, perspective tirée
-  de la taille apparente des carrés et du carré d'alignement, puis Reed-Solomon. Sur Android, le lecteur du
+  en long, en large et en diagonale), version lue dans ses 18 bits à côté de deux carrés (version 7 et
+  plus ; le flou grossit les carrés et fausse l'estimation sur les grands codes) ou comptée sur les lignes
+  de synchronisation, perspective tirée de la taille apparente des carrés et du carré d'alignement, puis
+  Reed-Solomon. Niveaux Q et M (les codes d'Envol 2.7). Sur Android, le lecteur du
   navigateur est utilisé quand il existe. Les tests le vérifient sur des images comme en prend une caméra
   (tournées, de biais, floues, avec reflet et bruit), et le dessin des codes a été comparé module par module
-  à un encodeur indépendant pour les versions 1 à 40.
+  à un encodeur indépendant (segno) pour les versions 1 à 40, aux niveaux M et Q.
 
 ## Affichage et accessibilité
 

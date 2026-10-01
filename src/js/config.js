@@ -2,7 +2,7 @@
 
 // Shown in Réglages to check that the phone runs the latest published version.
 // Keep equal to "version" in package.json and VERSION in sw.js (a test checks it).
-export const APP_VERSION = "2.7.0";
+export const APP_VERSION = "2.8.0";
 
 export const DAY = 864e5;
 
@@ -57,7 +57,10 @@ export const TIMER_WARNING_SEC = 120; // the timer turns orange below this
 
 export const BACKUP_REMINDER_DAYS = 7; // suggest a backup copy after this many days without one
 
-// Copy to another device by QR codes (transfer.js): the codes shown in turn stay at or under this
-// version (77 × 77 modules, 600 characters), small enough to be read by a phone camera held at an angle.
+// Copy to another device by QR codes (transfer.js): a progress that fits in one code of
+// QR_SINGLE_MAX_VERSION (117 × 117 modules, about 1,000 characters) is shown in that single code, which stays
+// on screen (the camera has all the time it needs). A larger one goes in codes shown in turn, at or under
+// QR_MAX_VERSION (77 × 77 modules, about 400 characters), small enough to be read in passing, at an angle.
+export const QR_SINGLE_MAX_VERSION = 25;
 export const QR_MAX_VERSION = 15;
 export const QR_FRAME_MS = 300; // each code stays this long on screen

@@ -501,16 +501,16 @@ function replaceProgress(text, message) {
 let leaving = null;
 let drawn = 0; // screens drawn so far: tells whether the screen is still the same after waiting
 
-// The codes of the progress, shown in turn; the screen stays awake while they go by.
+// The code of the progress, or its codes shown in turn; the screen stays awake meanwhile.
 async function sendQR() {
   const frames = await encodeFrames(state.save, transferId());
   const codes = frames.map(f => qrSvg(encodeQR(f)));
   render(renderSend({ count: codes.length }));
   const $qr = document.getElementById("qr"), $count = document.getElementById("qrCount");
   let i = 0, lock = null, gone = false;
-  const show = () => { $qr.innerHTML = codes[i]; $count.textContent = `Code ${i + 1} sur ${codes.length}`; i = (i + 1) % codes.length; };
+  const show = () => { $qr.innerHTML = codes[i]; if ($count) $count.textContent = `Code ${i + 1} sur ${codes.length}`; i = (i + 1) % codes.length; };
   show();
-  const timer = setInterval(show, QR_FRAME_MS);
+  const timer = codes.length > 1 ? setInterval(show, QR_FRAME_MS) : null;
   // The phone drops the lock when the app goes to the background: asked again on coming back.
   const awake = async () => {
     if (document.hidden || gone) return;
@@ -540,7 +540,7 @@ async function receiveQR() {
   video.srcObject = stream;
   video.play().catch(() => {});
   const $status = document.getElementById("scanStatus"), $dots = document.getElementById("scanDots");
-  $status.textContent = "Vise les codes de l'autre appareil.";
+  $status.textContent = "Vise l'écran de l'autre appareil.";
   // Android's own reader when there is one (faster); otherwise Envol's (qrscan.js).
   let detector = null;
   try { if ((await BarcodeDetector.getSupportedFormats()).includes("qr_code")) detector = new BarcodeDetector({ formats: ["qr_code"] }); } catch { /* none */ }

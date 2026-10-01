@@ -13,7 +13,7 @@ const SECTIONS = [
   ["Signaler une erreur", "Après ta réponse, « Signaler une erreur dans cette question », avec la raison si tu veux. Elle ne te sera plus posée tant qu'elle n'est pas corrigée. Envoie tes signalements depuis Mes résultats."],
   ["Reprendre une séance", "Si l'app se ferme en pleine séance, l'accueil propose de la reprendre à la question suivante."],
   ["Sauvegarde", "Ta progression reste sur cet appareil. Fais une copie de temps en temps (Sauvegarde) : elle permet de tout retrouver sur un autre téléphone."],
-  ["Changer d'appareil", "Dans Sauvegarde, sans fichier ni internet : « Envoyer par QR code » sur l'ancien appareil, « Recevoir par QR code » sur le nouveau, puis vise les codes qui défilent. Rien n'est remplacé sans ton accord, et « Annuler le dernier import » remet l'état d'avant."],
+  ["Changer d'appareil", "Dans Sauvegarde, sans fichier ni internet : « Envoyer par QR code » sur l'ancien appareil, « Recevoir par QR code » sur le nouveau, puis vise le code (ou les codes qui défilent, pour une grosse progression). Rien n'est remplacé sans ton accord, et « Annuler le dernier import » remet l'état d'avant."],
   ["Tablette et ordinateur", "Tourne la tablette ou le téléphone : la question se place à gauche, les réponses à droite. Au clavier, les touches 1 à 9 choisissent une réponse et Entrée valide ou passe à la suite."],
   ["Hors ligne et mises à jour", "Une fois installée, l'app marche sans internet. Quand une nouvelle version arrive, un bandeau propose de mettre à jour."],
 ];
