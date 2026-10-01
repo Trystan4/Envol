@@ -11,7 +11,7 @@
 // from fiches/index.json at install time. tests/unit/sw.test.js checks the list.
 
 // Equal to APP_VERSION in js/config.js: bumping it changes this file, so phones install the new version.
-const VERSION = "2.6.0";
+const VERSION = "2.7.0";
 const CACHE = "envol-v2";
 const ASSETS = [
   "./",
@@ -27,9 +27,12 @@ const ASSETS = [
   "js/course.js",
   "js/deck.js",
   "js/engine.js",
+  "js/qr.js",
+  "js/qrscan.js",
   "js/session.js",
   "js/storage.js",
   "js/summary.js",
+  "js/transfer.js",
   "js/util.js",
   "js/screens/backup.js",
   "js/screens/chart.js",
@@ -41,6 +44,7 @@ const ASSETS = [
   "js/screens/question.js",
   "js/screens/results.js",
   "js/screens/settings.js",
+  "js/screens/transfer.js",
   "js/screens/summary.js",
   "fiches/index.json",
   "img/ccat-p07-cerveau.webp",

@@ -1,0 +1,12 @@
+#!/bin/sh
+# Before every push: the whole non-regression suite (fiches, unit tests, browser journeys).
+# A push only leaves when everything passes. Enabled by `pnpm install` (script "prepare"), or by hand:
+#   git config core.hooksPath tools/hooks
+# To push anyway in an emergency: git push --no-verify (the CI still refuses to publish a failing version).
+
+echo "pre-push : vérification complète avant l'envoi (pnpm verify)…"
+if ! pnpm verify; then
+  echo ""
+  echo "pre-push : des tests échouent, rien n'est envoyé. Corrige-les, puis relance git push."
+  exit 1
+fi

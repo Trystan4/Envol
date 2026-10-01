@@ -24,6 +24,10 @@ pnpm verify                                # fiches + tests unitaires + parcours
 Avant de publier, lancer aussi `pnpm exec playwright test --repeat-each=3` : certains parcours
 tirent des questions au hasard.
 
+**Tests de non-régression obligatoires avant chaque push** : le hook `tools/hooks/pre-push` lance
+`pnpm verify` et bloque l'envoi si un test échoue. `pnpm install` l'active (script `prepare`) ; sinon,
+une fois : `git config core.hooksPath tools/hooks`.
+
 ### Arborescence
 
 ```
@@ -37,6 +41,9 @@ src/                  ce qui est publié, tel quel (aucune étape de build)
   js/summary.js       chiffres des écrans de résultats, plus ratées, prévisions, signalements
   js/session.js       séance en cours gardée pour être reprise
   js/course.js        cours : passages par thème et recherche
+  js/qr.js            QR codes écrits à la main : dessin, disposition, Reed-Solomon
+  js/qrscan.js        lecture d'un QR code dans une image de la caméra
+  js/transfer.js      copie vers un autre appareil par QR codes
   js/app.js           démarrage, actions, mises à jour
   js/screens/         un fichier par écran (chart.js : courbes de Mes résultats)
   fiches/             les questions
@@ -44,7 +51,8 @@ src/                  ce qui est publié, tel quel (aucune étape de build)
   sw.js               fonctionnement hors ligne
 tests/unit/           tests Node (node --test)
 tests/e2e/            tests navigateur (Playwright)
-tools/                serveur local, vérification et conversion des fiches, signalements
+tools/                serveur local, vérification et conversion des fiches, signalements,
+                      hook pre-push (tests obligatoires avant l'envoi)
 ```
 
 ## Format des fiches
@@ -139,7 +147,8 @@ en pratique on n'y arrive que par le lien. Un `robots.txt` ne servirait à rien 
 
 - La progression vit dans l'app installée sur l'appareil, pas sur GitHub. Faire **Sauvegarde →
   Enregistrer une copie** de temps en temps ; l'accueil le rappelle après 7 jours sans copie.
-- Changement de téléphone : installer l'app, puis **Reprendre depuis une copie**. **Annuler le dernier
+- Changement de téléphone : installer l'app, puis **Reprendre depuis une copie**, ou **Recevoir par QR
+  code** pendant que l'ancien téléphone fait **Envoyer par QR code** (Sauvegarde, sans fichier). **Annuler le dernier
   import** remet l'état d'avant si la copie n'était pas la bonne.
 - Un fichier qui n'est pas une sauvegarde Envol valide est refusé en entier, rien n'est modifié.
 - Si la sauvegarde du téléphone est abîmée, l'app repart de zéro et le signale ; l'ancienne version

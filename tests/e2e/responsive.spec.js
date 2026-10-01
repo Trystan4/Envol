@@ -78,6 +78,14 @@ for (const [label, viewport] of Object.entries(SIZES)) {
     await page.getByRole("button", { name: "Retour" }).click();
     await page.getByRole("button", { name: "Sauvegarde" }).click();
     await checkScreen(page, "sauvegarde");
+    await page.getByRole("button", { name: "Envoyer par QR code" }).click();
+    await expect(page.locator("#qr svg")).toBeVisible();
+    await checkScreen(page, "envoi par QR code");
+    await page.getByRole("button", { name: "Retour" }).click();
+    await page.getByRole("button", { name: "Recevoir par QR code" }).click();
+    await expect(page.getByRole("heading", { name: "Recevoir d'un autre appareil" })).toBeVisible();
+    await checkScreen(page, "réception par QR code");
+    await page.getByRole("button", { name: "Retour" }).click();
     await page.getByRole("button", { name: "Retour" }).click();
     await page.getByRole("button", { name: "Réglages" }).click();
     await checkScreen(page, "réglages");

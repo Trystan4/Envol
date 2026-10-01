@@ -33,6 +33,8 @@ n'importe quelles fiches : voir [Créer ses propres fiches](#créer-ses-propres-
 - **Comment marche Envol** : un guide des fonctionnalités, dans Réglages.
 - **Bouton retour** du téléphone : il revient à l'écran précédent de l'app au lieu de la quitter.
 - **Sauvegarde** : une copie de la progression à garder de côté, pour changer de téléphone.
+- **Passer sur un autre appareil par QR code** : l'ancien appareil montre une suite de QR codes, le
+  nouveau les filme avec sa caméra et reprend la progression, sans fichier ni internet.
 - **Mises à jour** : un bandeau propose la nouvelle version quand elle arrive ; l'accueil annonce les
   questions nouvelles ou corrigées, et les questions signalées qui ont été corrigées.
 

@@ -42,4 +42,8 @@ Tout nouveau fichier dans `src/` doit être ajouté à `ASSETS` dans `src/sw.js`
 pnpm check:deck && pnpm test && pnpm test:e2e   # ou : pnpm verify
 ```
 
+**Obligatoire avant tout push** : `pnpm verify` doit passer. Le hook `tools/hooks/pre-push` le lance à
+chaque `git push` et bloque l'envoi en cas d'échec (activé par `pnpm install`, ou
+`git config core.hooksPath tools/hooks`). Ne jamais le contourner (`--no-verify`).
+
 La CI (`.github/workflows/pages.yml`) lance les mêmes commandes et ne déploie `src/` que si tout passe.

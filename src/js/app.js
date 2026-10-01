@@ -1,7 +1,7 @@
 // Entry point: loads the deck and the save, keeps the running session, dispatches button actions.
 // Every action updates `state`, then renders one screen. Screens only build HTML.
 
-import { EXPRESS_SIZE, DAY, REVIEWS_KEPT, ACTIVITY_DAYS_KEPT, TEST_DURATION_MIN, TIMER_WARNING_SEC, APP_VERSION, REPORT_NOTE_MAX, REPORT_EMAIL, CURVE_TESTS } from "./config.js";
+import { EXPRESS_SIZE, DAY, REVIEWS_KEPT, ACTIVITY_DAYS_KEPT, TEST_DURATION_MIN, TIMER_WARNING_SEC, APP_VERSION, REPORT_NOTE_MAX, REPORT_EMAIL, CURVE_TESTS, QR_FRAME_MS } from "./config.js";
 import { loadDeck, deckFingerprint, questionHashes, deckChanges } from "./deck.js";
 import { createStore, validateSave, isValidExamDate, MAX_IMPORT_BYTES, KEY } from "./storage.js";
 import { serializeSession, restoreSession } from "./session.js";
@@ -17,6 +17,10 @@ import { renderSettings } from "./screens/settings.js";
 import { renderGuide, renderDeckError, detectPlatform } from "./screens/guide.js";
 import { renderHelp } from "./screens/help.js";
 import { renderCourse, renderCourseList } from "./screens/course.js";
+import { renderSend, renderReceive, qrSvg, scanDots } from "./screens/transfer.js";
+import { encodeQR } from "./qr.js";
+import { decodeImage } from "./qrscan.js";
+import { canTransfer, encodeFrames, transferId, collect, received, complete, assemble } from "./transfer.js";
 import { buildCourse } from "./course.js";
 
 const $app = document.getElementById("app");
@@ -76,6 +80,8 @@ const state = {
 // aloud through the #live region, wherever the focus is.
 function render(html, root = false) {
   guideOnScreen = false;
+  if (leaving) { const stop = leaving; leaving = null; stop(); } // codes going by, camera: stopped with their screen
+  drawn++;
   const heading = () => { const h = $app.querySelector("h1, h2"); return h ? h.textContent : null; };
   const before = heading(), scroll = window.scrollY;
   const kept = keyboardControl();
@@ -186,7 +192,7 @@ const MISSED_SHOWN = 10; // questions listed under "Les plus ratées"
 const showHelp = () => render(renderHelp());
 let course = null; // built once, on first opening
 const showCourse = () => render(renderCourse(course || (course = buildCourse(state.questions))));
-const showBackup = (feedback = {}) => render(renderBackup({ ...feedback, canUndo: store.canUndoImport() }));
+const showBackup = (feedback = {}) => render(renderBackup({ ...feedback, canUndo: store.canUndoImport(), qr: canTransfer() }));
 const showSettings = (feedback = {}) => render(renderSettings({
   ...feedback, examDate: state.save.examDate, today: isoDate(Date.now()), timed: state.save.timedTests, minutes: TEST_DURATION_MIN,
   installed: isInstalled(), version: APP_VERSION, fingerprint: state.fingerprint, count: state.questions.length,
@@ -474,14 +480,115 @@ function importBackup(file) {
     try { error = validateSave(JSON.parse(text)); } catch { error = "ce fichier n'est pas une sauvegarde Envol"; }
     if (error) return showBackup({ error: `Import impossible : ${error}. Rien n'a été modifié.` });
     if (!await ask("Remplacer les progrès ?", "Les progrès de cet appareil seront remplacés par ceux de la copie.", "Remplacer", "Annuler")) return;
-    const r = store.importText(text, state.save);
-    if (!r.ok) return showBackup({ error: `Import impossible : ${r.error}. Rien n'a été modifié.` });
-    state.save = r.data;
-    state.recovered = false;
-    applyDisplay();
-    showBackup({ message: "C'est fait, les progrès de la copie sont de retour." });
+    replaceProgress(text, "C'est fait, les progrès de la copie sont de retour.");
   };
   reader.readAsText(file);
+}
+
+// Keeps the state before the import (for "Annuler le dernier import"), then puts the copy in place.
+function replaceProgress(text, message) {
+  const r = store.importText(text, state.save);
+  if (!r.ok) return showBackup({ error: `Import impossible : ${r.error}. Rien n'a été modifié.` });
+  state.save = r.data;
+  state.recovered = false;
+  applyDisplay();
+  showBackup({ message });
+}
+
+/* ---------- Copy to another device (QR codes) ---------- */
+
+// What the current screen runs in the background (codes going by, camera), stopped by the next render().
+let leaving = null;
+let drawn = 0; // screens drawn so far: tells whether the screen is still the same after waiting
+
+// The codes of the progress, shown in turn; the screen stays awake while they go by.
+async function sendQR() {
+  const frames = await encodeFrames(state.save, transferId());
+  const codes = frames.map(f => qrSvg(encodeQR(f)));
+  render(renderSend({ count: codes.length }));
+  const $qr = document.getElementById("qr"), $count = document.getElementById("qrCount");
+  let i = 0, lock = null, gone = false;
+  const show = () => { $qr.innerHTML = codes[i]; $count.textContent = `Code ${i + 1} sur ${codes.length}`; i = (i + 1) % codes.length; };
+  show();
+  const timer = setInterval(show, QR_FRAME_MS);
+  // The phone drops the lock when the app goes to the background: asked again on coming back.
+  const awake = async () => {
+    if (document.hidden || gone) return;
+    try { lock = await navigator.wakeLock.request("screen"); if (gone) lock.release().catch(() => {}); } catch { /* not offered: the screen may dim */ }
+  };
+  document.addEventListener("visibilitychange", awake);
+  leaving = () => { gone = true; clearInterval(timer); document.removeEventListener("visibilitychange", awake); if (lock) lock.release().catch(() => {}); };
+  awake();
+}
+
+// Films the codes of the other device until every one is received, then offers to replace the progress.
+async function receiveQR() {
+  render(renderReceive());
+  const screen = drawn;
+  let stream;
+  try {
+    stream = await navigator.mediaDevices.getUserMedia({ audio: false, video: { facingMode: "environment", width: { ideal: 1280 }, height: { ideal: 720 } } });
+  } catch (e) {
+    return render(renderReceive({ error: e && e.name === "NotAllowedError"
+      ? "L'accès à la caméra est refusé. Autorise-le dans les réglages de l'appareil, ou passe par une copie en fichier."
+      : "Pas de caméra disponible sur cet appareil : passe par une copie en fichier." }));
+  }
+  if (drawn !== screen) { stream.getTracks().forEach(t => t.stop()); return; } // left while the camera opened
+  let copy = null, timer = null, stopped = false;
+  leaving = () => { stopped = true; clearTimeout(timer); stream.getTracks().forEach(t => t.stop()); };
+  const video = document.getElementById("scanVideo");
+  video.srcObject = stream;
+  video.play().catch(() => {});
+  const $status = document.getElementById("scanStatus"), $dots = document.getElementById("scanDots");
+  $status.textContent = "Vise les codes de l'autre appareil.";
+  // Android's own reader when there is one (faster); otherwise Envol's (qrscan.js).
+  let detector = null;
+  try { if ((await BarcodeDetector.getSupportedFormats()).includes("qr_code")) detector = new BarcodeDetector({ formats: ["qr_code"] }); } catch { /* none */ }
+  const canvas = document.createElement("canvas"), ctx = canvas.getContext("2d", { willReadFrequently: true });
+  // The phone may stop the camera (app sent to the background): say so rather than wait for nothing.
+  stream.getVideoTracks().forEach(t => t.addEventListener("ended", () => {
+    if (!stopped) render(renderReceive({ error: "La caméra s'est arrêtée. Relance la réception : les codes déjà lus sont à reprendre." }));
+  }));
+  const read = async () => {
+    if (stopped) return;
+    try { await readPicture(); } catch { /* an unreadable picture: the next one */ }
+    if (stopped) return;
+    if (complete(copy)) { leaving(); leaving = null; return finishReceive(copy); }
+    timer = setTimeout(read, 60);
+  };
+  const readPicture = async () => {
+    if (video.readyState >= 2 && video.videoWidth) {
+      let texts = [];
+      if (detector) { try { texts = (await detector.detect(video)).map(c => c.rawValue); } catch { /* next picture */ } }
+      if (!texts.length) {
+        // The square in the middle of the picture (what the frame on screen shows), at most 800 px.
+        const side = Math.min(video.videoWidth, video.videoHeight), size = Math.min(side, 800);
+        canvas.width = canvas.height = size;
+        ctx.drawImage(video, (video.videoWidth - side) / 2, (video.videoHeight - side) / 2, side, side, 0, 0, size, size);
+        const rgba = ctx.getImageData(0, 0, size, size).data, gray = new Uint8ClampedArray(size * size);
+        for (let i = 0; i < gray.length; i++) gray[i] = rgba[i * 4] * 77 + rgba[i * 4 + 1] * 150 + rgba[i * 4 + 2] * 29 >> 8;
+        const text = decodeImage(gray, size, size);
+        if (text) texts = [text];
+      }
+      for (const text of texts) {
+        const before = received(copy), next = collect(copy, text);
+        if (next === copy || (received(next) === before && next.id === copy.id)) continue;
+        copy = next;
+        $status.textContent = `Codes reçus : ${received(copy)} sur ${copy.count}`;
+        $dots.innerHTML = scanDots(copy.count, copy.parts);
+      }
+    }
+  };
+  read();
+}
+
+async function finishReceive(copy) {
+  let save;
+  try { save = await assemble(copy); } catch { return render(renderReceive({ error: "Les codes reçus sont abîmés. Recommence : rien n'a été modifié." })); }
+  const error = validateSave(save);
+  if (error) return showBackup({ error: `Import impossible : ${error}. Rien n'a été modifié.` });
+  if (!await ask("Remplacer les progrès ?", "Les progrès de cet appareil seront remplacés par ceux de l'autre appareil.", "Remplacer", "Annuler")) return showBackup();
+  replaceProgress(JSON.stringify(save), "C'est fait, les progrès de l'autre appareil sont là.");
 }
 
 function undoImport() {
@@ -583,6 +690,8 @@ const actions = {
   backup: () => showBackup(),
   settings: () => showSettings(),
   export: exportBackup,
+  sendQR,
+  receiveQR,
   import: () => document.getElementById("file").click(),
   undoImport,
   saveExam,

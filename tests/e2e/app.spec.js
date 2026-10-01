@@ -783,3 +783,97 @@ test("tablette ou téléphone en paysage : la question à gauche, les réponses 
   const question = await page.locator("h2.question").boundingBox();
   expect((await page.locator(".q-side").boundingBox()).y).toBeGreaterThanOrEqual(question.y + question.height);
 });
+
+// A camera that films the QR codes given in window.__codes (SVG path and size), one after the other, like
+// a phone held over the other device's screen.
+const fakeCamera = () => {
+  window.__codes = [];
+  const getUserMedia = async () => {
+    const c = document.createElement("canvas");
+    c.width = 640; c.height = 480;
+    const ctx = c.getContext("2d");
+    let i = 0;
+    const draw = () => {
+      ctx.fillStyle = "#c8c8c8";
+      ctx.fillRect(0, 0, 640, 480);
+      const code = window.__codes[i++ % Math.max(1, window.__codes.length)];
+      if (!code) return;
+      ctx.save();
+      ctx.translate(130, 50);
+      ctx.scale(380 / code.n, 380 / code.n);
+      ctx.fillStyle = "#fff"; ctx.fillRect(0, 0, code.n, code.n);
+      ctx.fillStyle = "#000"; ctx.fill(new Path2D(code.d));
+      ctx.restore();
+    };
+    draw();
+    setInterval(draw, 250);
+    return c.captureStream(12);
+  };
+  Object.defineProperty(navigator, "mediaDevices", { value: { getUserMedia }, configurable: true });
+};
+
+test("copie par QR codes : un appareil montre ses codes, l'autre les filme et reprend sa progression", async ({ page, browser, browserName }, info) => {
+  // The fake camera is a canvas stream (captureStream), which the WebKit build of Playwright lacks. The
+  // reader itself is the same code everywhere (tests/unit/qr.test.js reads camera-like pictures).
+  test.skip(browserName === "webkit", "pas de captureStream dans WebKit pour simuler la caméra");
+  test.setTimeout(90_000);
+  // Device A, with some progress, shows its codes.
+  const other = await browser.newContext({ baseURL: info.project.use.baseURL, viewport: { width: 390, height: 844 } });
+  const a = await other.newPage();
+  await a.addInitScript(() => localStorage.setItem("envol-v2-guide-seen", "1"));
+  await a.goto("/");
+  await seedHistory(a);
+  const sent = await a.evaluate(k => JSON.parse(localStorage.getItem(k)), KEY);
+  await a.getByRole("button", { name: "Sauvegarde" }).click();
+  await a.getByRole("button", { name: "Envoyer par QR code" }).click();
+  await expect(a.locator("#qr svg")).toBeVisible();
+  const codes = new Map();
+  let count = 1;
+  for (let tries = 0; tries < 200 && codes.size < count; tries++) {
+    const { k, n, d, size } = await a.evaluate(() => {
+      const [, k, n] = document.getElementById("qrCount").textContent.match(/Code (\d+) sur (\d+)/);
+      const svg = document.querySelector("#qr svg");
+      return { k: Number(k), n: Number(n), d: svg.querySelector("path").getAttribute("d"), size: Number(svg.getAttribute("viewBox").split(" ")[2]) };
+    });
+    count = n;
+    codes.set(k, { d, n: size });
+    await a.waitForTimeout(100);
+  }
+  expect(codes.size).toBe(count);
+  await other.close();
+
+  // Device B films them (the camera breaks no rule of the security policy).
+  const cspErrors = [];
+  page.on("console", m => { if (/Content.Security.Policy|Refused to/i.test(m.text())) cspErrors.push(m.text()); });
+  await page.addInitScript(fakeCamera);
+  await page.goto("/");
+  await page.evaluate(list => { window.__codes = list; }, [...codes.values()]);
+  await page.getByRole("button", { name: "Sauvegarde" }).click();
+  await page.getByRole("button", { name: "Recevoir par QR code" }).click();
+  const ask = page.getByRole("dialog", { name: "Remplacer les progrès ?" });
+  await expect(ask).toBeVisible({ timeout: 60_000 });
+  await ask.getByRole("button", { name: "Remplacer" }).click();
+  await expect(onScreen(page, "les progrès de l'autre appareil sont là")).toBeVisible();
+  const got = await saved(page);
+  expect(Object.keys(got.cards).sort()).toEqual(Object.keys(sent.cards).sort());
+  for (const [id, c] of Object.entries(sent.cards)) {
+    expect(got.cards[id]).toMatchObject({ level: c.level, seen: c.seen, correct: c.correct });
+    expect(Math.abs(got.cards[id].due - c.due)).toBeLessThanOrEqual(30e3); // kept to the minute
+  }
+  expect(got.examDate).toBe(sent.examDate);
+  await expect(page.getByRole("button", { name: "Annuler le dernier import" })).toBeVisible();
+  expect(cspErrors).toEqual([]);
+});
+
+test("copie par QR codes : caméra refusée, l'app le dit et propose la copie en fichier", async ({ page }) => {
+  await page.addInitScript(() => {
+    const getUserMedia = async () => { throw new DOMException("refus", "NotAllowedError"); };
+    Object.defineProperty(navigator, "mediaDevices", { value: { getUserMedia }, configurable: true });
+  });
+  await page.goto("/");
+  await page.getByRole("button", { name: "Sauvegarde" }).click();
+  await page.getByRole("button", { name: "Recevoir par QR code" }).click();
+  await expect(onScreen(page, /accès à la caméra est refusé/)).toBeVisible();
+  await page.getByRole("button", { name: "Annuler" }).click();
+  await expect(page.getByRole("heading", { name: "Sauvegarde" })).toBeVisible();
+});

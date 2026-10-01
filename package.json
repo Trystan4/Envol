@@ -1,6 +1,6 @@
 {
   "name": "envol",
-  "version": "2.6.0",
+  "version": "2.7.0",
   "private": true,
   "license": "AGPL-3.0-or-later",
   "author": "Trystan4 (https://github.com/Trystan4)",
@@ -16,7 +16,8 @@
     "test": "node --test \"tests/unit/*.test.js\"",
     "test:e2e": "playwright test",
     "signalements": "node tools/signalements.mjs",
-    "verify": "pnpm check:deck && pnpm test && pnpm test:e2e"
+    "verify": "pnpm check:deck && pnpm test && pnpm test:e2e",
+    "prepare": "git config core.hooksPath tools/hooks || true"
   },
   "devDependencies": {
     "@playwright/test": "^1.63.0"

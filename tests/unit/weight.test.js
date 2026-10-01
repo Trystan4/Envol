@@ -8,7 +8,7 @@ import { join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const SRC = fileURLToPath(new URL("../../src/", import.meta.url));
-const MAX_TOTAL = 1_000_000; // bytes, every published file (about 840 KB in version 2.4.0)
+const MAX_TOTAL = 1_000_000; // bytes, every published file (about 910 KB in version 2.7.0)
 const MAX_IMAGE = 80_000; // bytes per image
 
 const files = dir => readdirSync(dir, { withFileTypes: true })

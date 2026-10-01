@@ -189,7 +189,6 @@ premières bonnes réponses, tests blancs compris.
 
 ## Évolutions possibles
 
-- **Copie de sauvegarde par QR code**, pour changer d'appareil sans fichier.
 - **Choisir ses thèmes** depuis l'accueil.
 - **Images dans l'énoncé des questions** (aujourd'hui, les images ne s'affichent que dans l'extrait du cours).
 
@@ -214,6 +213,31 @@ chaque fichier l'un après l'autre.
 
 Un test vérifie que `ASSETS` correspond exactement aux fichiers publiés, et un autre que le code est
 servi sans attendre un réseau qui ne répond pas.
+
+## Copie vers un autre appareil par QR codes
+
+Pour changer d'appareil sans fichier, sans serveur et sans réseau : l'ancien appareil montre des QR codes
+qui défilent, le nouveau les filme.
+
+- **Emballage** (`transfer.js`) : la sauvegarde en JSON compact (cartes et scores en tableaux, dates à la
+  minute près), compressée (`CompressionStream`, deflate), suivie d'un CRC-32, écrite en Base45 (RFC 9285 :
+  l'alphabet du mode alphanumérique des QR codes, 3 caractères pour 2 octets, lisible par n'importe quel
+  lecteur). Une progression complète (300 questions vues, des semaines de tests et de séances) tient en
+  une quinzaine de codes, soit moins de 5 secondes par tour.
+- **Codes** : chacun commence par `EV1:<copie>:<n°>:<total>:`. Le nom de la copie (4 caractères au hasard)
+  évite de mêler deux envois. Version 15 au plus (`QR_MAX_VERSION`, 77 × 77 modules), niveau de correction
+  M ; un code toutes les 300 ms (`QR_FRAME_MS`), l'écran reste allumé (Wake Lock).
+- **Réception** : la caméra arrière, le carré du milieu de l'image analysé plusieurs fois par seconde.
+  Chaque code est gardé une fois, dans n'importe quel ordre. Quand tous sont là, le CRC doit correspondre,
+  puis la copie passe par `validateSave` comme un fichier : refusée en entier ou acceptée en entier, après
+  confirmation, avec « Annuler le dernier import ».
+- **Lecture des codes** (`qrscan.js`) : les navigateurs d'iPhone n'ont pas de lecteur de QR code
+  (`BarcodeDetector`), Envol a donc le sien : noir et blanc local, carrés de repérage (rapport 1:1:3:1:1
+  en long, en large et en diagonale), version comptée sur les lignes de synchronisation, perspective tirée
+  de la taille apparente des carrés et du carré d'alignement, puis Reed-Solomon. Sur Android, le lecteur du
+  navigateur est utilisé quand il existe. Les tests le vérifient sur des images comme en prend une caméra
+  (tournées, de biais, floues, avec reflet et bruit), et le dessin des codes a été comparé module par module
+  à un encodeur indépendant pour les versions 1 à 40.
 
 ## Affichage et accessibilité
 
@@ -242,7 +266,9 @@ servi sans attendre un réseau qui ne répond pas.
 
 ## Sécurité
 
-- **Aucune donnée ne sort du téléphone** : pas de serveur, pas d'analytics, pas de ressource externe.
+- **Aucune donnée ne sort du téléphone** : pas de serveur, pas d'analytics, pas de ressource externe. La
+  copie par QR codes passe d'un écran à une caméra, sans réseau ; la caméra n'est ouverte que sur l'écran
+  « Recevoir » et s'éteint en le quittant.
   La CSP (`<meta http-equiv="Content-Security-Policy">`, GitHub Pages ne permettant pas les en-têtes)
   n'autorise que les fichiers du site ; `referrer: no-referrer`. Pas de script inline : tout est dans `js/`.
 - **Texte affiché** : tout ce qui vient des fiches ou d'une sauvegarde passe par `esc()`.

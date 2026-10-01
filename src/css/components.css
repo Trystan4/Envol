@@ -276,6 +276,19 @@ body:has(.update-bar:not([hidden])) { padding-bottom: 96px; }
 .chart .tick { font: 600 11px var(--font); fill: var(--ink-muted); }
 .chart .value { font: 700 13px var(--font); fill: var(--ink); }
 
+/* Copy to another device by QR codes (Sauvegarde). The code stays black on white in both themes. */
+.transfer { margin-top: 18px; display: flex; flex-direction: column; gap: 8px; }
+.transfer .muted { font-size: 15px; line-height: 21px; }
+.qr-show { margin: 18px 0 0; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.qr { width: min(100%, 420px); aspect-ratio: 1; border-radius: 12px; overflow: hidden; background: #fff; }
+.qr svg { display: block; width: 100%; height: 100%; }
+.scan { margin-top: 16px; width: min(100%, 420px); align-self: center; aspect-ratio: 1; border-radius: var(--radius-card); overflow: hidden; background: #000; }
+.scan video { display: block; width: 100%; height: 100%; object-fit: cover; }
+.scan-status { margin-top: 12px; text-align: center; font-weight: 600; }
+.scan-dots { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin-top: 8px; }
+.scan-dots span { width: 10px; height: 10px; border-radius: 50%; background: var(--line-strong); }
+.scan-dots span.on { background: var(--acquis); }
+
 /* The app's own confirmation window (never the browser's). */
 .ask {
   width: calc(100% - 32px);
